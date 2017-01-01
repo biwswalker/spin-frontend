@@ -13,14 +13,12 @@ export class TaskTagComponent implements OnInit {
   tagList: any[] = [];
   autoCompleteTagList: any[] = [];
   constructor(
-    private taskModal: TaskModalComponent,
+    public taskModal: TaskModalComponent,
     private tagService: TagService
   ) { }
 
   ngOnInit() {
-    this.autoCompleteTagList = ['pizza', 'pig', 'hamburger', 'ham'];
     this.findUsedTag();
-    // this.usedTagList = ['pizza', 'pig', 'hamburger', 'ham'];
   }
 
   findUsedTag(){
@@ -37,7 +35,7 @@ export class TaskTagComponent implements OnInit {
   }
 
   addTag(event) {
-    this.taskModal.taskForm.taskTag = [];
-    this.taskModal.taskForm.taskTag['tagId'] = this.tagList;
+    this.taskModal.taskForm.task.taskTagList = [];
+    console.log(Object.values(this.taskModal.taskForm.taskTag))
   }
 }

@@ -1,6 +1,7 @@
 import { PartnerService } from './../../../../../providers/partner.service';
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
+import { TaskPartner } from '../../../../../models/task-partner';
 
 @Component({
   selector: 'app-task-member',
@@ -13,24 +14,17 @@ export class TaskMemberComponent implements OnInit {
   name: string = "";
   owner: string = "";
   memberList: any[] = [];
-  partnerList: any[] = [];
+  public partnerList: any[] = [];
   partner: any = "";
-  autocompletePartnerList: any[] = [];
+  public autocompletePartnerList: any[] = [];
   constructor(
-    private taskModal: TaskModalComponent,
+    public taskModal: TaskModalComponent,
     private partnerService: PartnerService
   ) { }
 
   ngOnInit() {
     this.owner = "ทิวากร จันทร์ปัญญา"
-    this.memberList.push({ name: 'member1', status: true });
-    this.memberList.push({ name: 'member2', status: false});
-    this.memberList.push({ name: 'member3', status: true });
-    this.autocompletePartnerList.push('phai');
-    this.autocompletePartnerList.push('pond');
-    this.autocompletePartnerList.push('aig');
-    this.autocompletePartnerList.push('biw');
-    this.findByProjectId();
+
   }
 
   initialDefaultData(){
@@ -38,25 +32,30 @@ export class TaskMemberComponent implements OnInit {
   }
 
   addPartner(){
-    console.log(this.name);
-    let name = "";
-    if(this.name != ""){
-      name = this.name;
-      this.partnerList.push({name: name});
-      this.taskModal.taskForm.taskPartner['userId'].push(name);
-      this.name = "";
+    let partner = null;
+
+    if(this.partner != null){
+      partner = this.partner;
+      console.log(partner)
+      this.partnerList.push(partner);
+      this.taskModal.taskForm.task.taskPartnerList.push(partner.userId)
+      this.partner = null;
     }
   }
 
   deletePartner(obj){
+    console.log(obj)
+    console.log(obj.userId)
+    console.log(this.taskModal.taskForm.task.taskPartnerList.indexOf(obj.userId))
     this.partnerList.splice(this.partnerList.indexOf(obj), 1)
+    this.taskModal.taskForm.task.taskPartnerList.splice(this.taskModal.taskForm.task.taskPartnerList.indexOf(obj), 1)
   }
 
-  findByProjectId(){
-    this.partnerService.findByProjrctId(this.taskModal.taskForm.taskProject.projectId).subscribe(
-      data=>{
-        console.log(data)
-      }
-    )
-  }
+  // findByProjectId(){
+  //   this.partnerService.findByProjrctId(this.taskModal.taskForm.taskProject.projectId).subscribe(
+  //     data=>{
+  //       console.log(data)
+  //     }
+  //   )
+  // }
 }

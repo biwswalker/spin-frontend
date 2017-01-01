@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-    <tag-input class="form-control" [(ngModel)]='tagList' theme='pink-theme'
+    <tag-input class="form-control" [(ngModel)]='taskModal.taskForm.taskTag' theme='pink-theme'
     [removable]='true'
     [maxItems]='10'
     (inputTextChange)="addTag($event)"

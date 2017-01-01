@@ -74,6 +74,7 @@
                    list-formatter="projectName"
                    value-property-name="projectId"
                    display-property-name="projectName"
+                   (valueChanged)="findProjectMember($event)"
                    [(ngModel)]="taskModal.taskForm.taskProject"
                    class="form-control">
         </div>

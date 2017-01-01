@@ -7,14 +7,14 @@ export class TaskForm{
   public task: Task;
   public taskProject: Project;
   public taskPartner: TaskPartner[];
-  public taskTag: TaskTag[];
-  public taskProject2: any
+  public taskTag: any[];
+  public autocompletePartnerList: any[];
 
   constructor(){
     this.task = new Task();
     this.taskPartner = [];
     this.taskTag = [];
     this.taskProject = new Project();
-    this.taskProject2 = [];
+    this.autocompletePartnerList = [];
   }
 }

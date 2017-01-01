@@ -1,33 +1,32 @@
 <div class="header">
-    <div class="form-row">
-        <div class="form-group col-12">
+    <div class="row">
+        <div class="col-12">
             <p>{{owner}}</p>
         </div>
     </div>
 </div>
-<div class="form-row">
-    <div class="form-group col-12">
+<div class="row">
+    <div class="col-12">
         <label>สมาชิกโครงการ</label>
     </div>
-    <div class="form-group col-12 rounded bg-white text-dark scroll-auto">
+    <div class="col-12 rounded bg-white text-dark scroll-auto">
         <div id="member-list"
-          *ngFor="let obj of memberList">
+          *ngFor="let obj of taskModal.taskForm.taskPartner">
             <input type="checkbox"
               name="member-status"
-              id="member-status"
-              [(ngModel)]="obj.status">
-                {{obj.name}}
+              id="member-status">
+                {{obj}}
         </div>
     </div>
 </div>
 <label>ผู้ร่วมงาน</label>
-<div class="form-row">
-    <div class="form-group  col-12 scroll-auto bg-white rounded text-dark">
+<div class="row">
+    <div class=" col-12 scroll-auto bg-white rounded text-dark">
       <div *ngIf="partnerList">
         <div id="partner-list"
           name="partner-list"
           *ngFor="let obj of partnerList" >
-            {{obj.name}}
+            {{obj.email}}
             <a (click)="deletePartner(obj)"
               class="fas fa-times-circle">
             </a>
@@ -35,15 +34,18 @@
       </div>
     </div>
 </div>
-<div class="form-row">
-    <div class="form-group col">
+<div class="row">
+    <div class="col">
         <input auto-complete
           class="form-control"
-          [(ngModel)]="name"
+          list-formatter="email"
+          [(ngModel)]="partner"
           min-chars="1"
-          [source]="autocompletePartnerList" />
+          [source]="taskModal.taskForm.autocompletePartnerList" />
     </div>
-    <div class="form-group col-1 position-r">
+</div>
+<div class="row">
+    <div class="col">
         <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
     </div>
 </div>
