@@ -1,3 +1,27 @@
+@include media-breakpoint-up(xs) {
+  #hide-sidebar {
+    visibility: hidden;
+  }
+
+}
+@include media-breakpoint-down(xs) {
+  #hide-sidebar {
+    visibility: visible;
+  }
+
+}
+
+#show-sidebar{
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
 .account-box{
   .user-image-thumbnail{
     border-radius: 50%;
@@ -56,6 +80,32 @@ a[aria-expanded="true"]::before {
       }
     }
 
+
+    #hide-sidebar {
+      padding: 0.25rem 0.75rem;
+      font-size: 1.25rem;
+      line-height: 1;
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: 0.25rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      float: right;
+      margin-top: 1rem;
+      margin-right: 0.5rem;
+      .navbar-toggler-icon {
+        display: inline-block;
+        width: 1.5em;
+        height: 1.5em;
+        vertical-align: middle;
+        content: "";
+        background: no-repeat center center;
+        background-size: 100% 100%;
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    }
+
+
   }
 
   ul.components {
@@ -85,36 +135,3 @@ a[aria-expanded="true"]::before {
 
 
 
-#show-sidebar{
-  padding: 0.25rem 0.75rem;
-  font-size: 1.25rem;
-  line-height: 1;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-#hide-sidebar {
-  padding: 0.25rem 0.75rem;
-  font-size: 1.25rem;
-  line-height: 1;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  transition: all 0.3s;
-  cursor: pointer;
-  float: right;
-  margin-top: 1rem;
-  margin-right: 0.5rem;
-  .navbar-toggler-icon {
-    display: inline-block;
-    width: 1.5em;
-    height: 1.5em;
-    vertical-align: middle;
-    content: "";
-    background: no-repeat center center;
-    background-size: 100% 100%;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-}
