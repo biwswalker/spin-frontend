@@ -1,0 +1,120 @@
+.account-box{
+  .user-image-thumbnail{
+    border-radius: 50%;
+  }
+  .user-name{
+    clear: both;
+    display: inline-block;
+  }
+
+}
+
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+  content: '\e259';
+  display: block;
+  position: absolute;
+  right: 20px;
+  font-size: 0.6em;
+}
+
+a[aria-expanded="true"]::before {
+  content: '\e260';
+}
+
+#sidebar {
+  /* don't forget to add all the previously mentioned styles here too */
+  background: #bf0013;
+  color: #fff;
+  transition: all 0.3s;
+  position: absolute;
+  z-index: 1000;
+
+  .sidebar-header {
+    #sidebar-brand{
+      padding-top: 50px;
+      text-align: center;
+      a.sidebar-brand{
+        display: inline-block;
+        font-size: 2rem;
+        font-weight: 700;
+        color:#fff !important;
+      }
+    }
+
+  }
+
+  ul.components {
+    padding: 20px 0;
+  }
+
+  ul {
+    p {
+      color: #fff;
+      padding: 10px;
+    }
+    li{
+      a {
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+        color: #fff;
+      }
+    }
+
+    li.active > a, a[aria-expanded="true"] {
+      color: #fff;
+    }
+
+  }
+}
+
+
+
+#show-sidebar{
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+#hide-sidebar {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.3s;
+  cursor: pointer;
+  float: right;
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  .navbar-toggler-icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    content: "";
+    background: no-repeat center center;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+}

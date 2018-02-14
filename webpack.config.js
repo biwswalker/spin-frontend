@@ -3,8 +3,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    'bootstrap': './node_modules/bootstrap/scss/bootstrap.scss',
-    'styles': './src/assets/scss/styles.scss',
+    'app': './src/assets/scss/app.scss',
   },
   output: {
     path: path.join(__dirname, 'src/assets/themes'),
