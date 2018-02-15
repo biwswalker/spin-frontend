@@ -1,2 +1,102 @@
 
-<app-example></app-example>
+
+<div class="wrapper">
+    <!-- Sidebar -->
+     <nav id="sidebar">
+         <!-- Sidebar Header -->
+
+         <div class="sidebar-header">
+             <div class="toggle-sidebar">
+                 <button type="button" id="hide-sidebar">
+                    <i class="fas fa-times"></i>
+                     <!-- <span class="navbar-toggler-icon"></span> -->
+                   </button>
+             </div>
+             <div id="sidebar-brand">
+                 <a class="sidebar-brand" href="#">
+                     <img src="/assets/img/brand/logo_L_white.png" width="150" class="d-inline-block align-top" alt="">
+                 </a>
+             </div>
+
+
+
+         </div>
+
+         <!-- Sidebar Links -->
+         <ul class="list-unstyled components">
+               <li class="nav-item active">
+                   <a class="nav-link" href="#"><i class="fas fa-pen-square"></i><span class="menu-title">เวลาทำงาน</span><span class="sr-only">(current)</span></a>
+                 </li>
+               <li class="nav-item active">
+                 <a class="nav-link" href="#"><i class="fas fa-folder-open"></i><span class="menu-title">โครงการ</span></a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link" href="#"><i class="fas fa-suitcase"></i><span class="menu-title">ระบบลา</span></a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="#"><i class="fas fa-history"></i><span class="menu-title">เข้า-ออก</span></a>
+                 </li>
+               <li class="nav-item">
+                 <a class="nav-link" href="#"><i class="fas fa-calendar-alt"></i><span class="menu-title">ปฏิทิน</span></a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link" href="#"><i class="fas fa-newspaper"></i><span class="menu-title">ข่าวสาร</span></a>
+               </li>
+         </ul>
+     </nav>
+
+     <!-- Page Content -->
+         <div class="container-fluid">
+
+             <nav class="navbar navbar-expand-xs navbar-light" style=" background: #90000e;">
+                <ul class="nav left-section">
+                    <li class="nav-item">
+                        <button type="button" id="show-sidebar">
+                            <i class="fas fa-bars"></i>
+                          </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#">
+                            <img src="/assets/img/brand/logo_L_white.png" width="100"  class="d-inline-block align-top" alt=""></a>
+                    </li>
+                  </ul>
+
+
+
+                     <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                            <img class="user-image-thumbnail rounded-circle" src="assets/img/profile/profile.jpg" width="50" height="50">
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="account-box">
+                                    <span class="user-name">Pariwat Viriyaphan</span>
+                                    <span class="user-id">pariwat.vi@summitthai.com</span>
+                                </div>
+                            </a>
+                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <a class="dropdown-item" href="#">Manage Account</a>
+                                  <a class="dropdown-item" href="#">Setting</a>
+                                  <a class="dropdown-item" href="#">Help</a>
+                                  <div class="dropdown-divider"></div>
+                                  <a class="dropdown-item" href="#">Log Out</a>
+                                </div>
+                        </li>
+                      </ul>
+
+
+               </nav>
+
+               <div class="row">
+                 <div class="col-md-4 col-lg-3 col-xl-2 menu-shadow-col" style="background:rgba(151, 245, 255, 0.25)">Menu area</div>
+                 <div class="col-sm-12 col-md-8 col-lg-9 col-xl-10 example-col" style="background:rgba(255, 151, 228, 0.25)">
+                     <div class="row">
+                         <div class="col-12 col-lg-6 example-col" style="background:rgba(255, 151, 228, 0.25)">Coding Left Contents Here</div>
+                         <div class="col-12 col-lg-6 example-col" style="background:rgba(151, 255, 188, 0.25)">Coding Left Contents Here</div>
+                       </div>
+                 </div>
+               </div>
+         </div>
+
+       </div>
+       <app-example></app-example>
