@@ -45,36 +45,39 @@
      <!-- Page Content -->
          <div class="container-fluid">
 
-             <nav class="navbar navbar-expand-xs navbar-light" style=" background: #bf0013;">
-                <ul class="nav">
+             <nav class="navbar navbar-expand-xs navbar-light" style=" background: #90000e;">
+                <ul class="nav left-section">
                     <li class="nav-item">
-                      <a class="nav-link active" href="#">Active</a>
+                        <button type="button" id="show-sidebar">
+                            <span class="navbar-toggler-icon"></span>
+                          </button>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#">Disabled</a>
+                        <a class="navbar-brand" href="#">
+                            <img src="/assets/img/brand/logo_L_white.png" width="100"  class="d-inline-block align-top" alt=""></a>
                     </li>
                   </ul>
-                 <button type="button" id="show-sidebar">
-                   <span class="navbar-toggler-icon"></span>
-                 </button>
-                 <a class="navbar-brand" href="#">
-                  <img src="/assets/img/brand/logo_L_white.png" width="100"  class="d-inline-block align-top" alt=""></a>
+
+
 
                      <ul class="nav justify-content-end">
                         <li class="nav-item">
                             <img class="user-image-thumbnail rounded-circle" src="assets/img/profile/profile.jpg" width="50" height="50">
                         </li>
-                        <li class="nav-item ">
-                          <div class="account-box">
-                              <span class="user-name">Pariwat Viriyaphan</span>
-                              <span class="user-id">pariwat.vi</span>
-                          </div>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="account-box">
+                                    <span class="user-name">Pariwat Viriyaphan</span>
+                                    <span class="user-id">pariwat.vi@summitthai.com</span>
+                                </div>
+                            </a>
+                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <a class="dropdown-item" href="#">Manage Account</a>
+                                  <a class="dropdown-item" href="#">Setting</a>
+                                  <a class="dropdown-item" href="#">Help</a>
+                                  <div class="dropdown-divider"></div>
+                                  <a class="dropdown-item" href="#">Log Out</a>
+                                </div>
                         </li>
                       </ul>
 
