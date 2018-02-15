@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-project-modal-member',
-  templateUrl: './project-modal-member.component.html',
-  styleUrls: ['./project-modal-member.component.scss']
+  selector: 'project-modal-member',
+  styleUrls: ['./project-modal-member.component.scss'],
+  template: `<p>member</p>`
 })
 export class ProjectModalMemberComponent implements OnInit {
 

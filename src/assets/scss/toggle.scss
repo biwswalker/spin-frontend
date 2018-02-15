@@ -1,0 +1,79 @@
+$black: #212529;
+$white: #FFFFFF;
+$blue: rgb(65, 116, 190);
+$green: rgb(40, 207, 48);
+
+// Toggle
+.toggleWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    padding: 0 200px;
+    transform: translate3d(-50%, -50%, 0);
+    input {
+        position: absolute;
+        left: -99em;
+    }
+}
+
+.toggle {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background-color: $blue;
+    border-radius: 50px - 6;
+    transition: background-color 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    &:before {
+        content: 'OFF';
+        position: absolute;
+        left: -40px;
+        top: 0px;
+        font-size: 18px;
+        color: $blue;
+    }
+    &:after {
+        content: 'ON';
+        position: absolute;
+        right: -30px;
+        top: 0px;
+        font-size: 18px;
+        color: $black;
+    }
+}
+
+.toggle__handler {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    top: 3px;
+    left: 3px;
+    width: 26px - 6;
+    height: 26px - 6;
+    background-color: $white;
+    border-radius: 50px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
+    transition: all 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: rotate(-45deg);
+}
+
+input:checked {
+    +.toggle {
+        background-color: $green;
+        &:before {
+            color: $black;
+        }
+        &:after {
+            color: $green;
+        }
+        .toggle__handler {
+            background-color: $white;
+            transform: translate3d(24px, 0, 0) rotate(0);
+            .crater {
+                opacity: 1;
+            }
+        }
+    }
+}

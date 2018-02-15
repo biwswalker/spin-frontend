@@ -1,0 +1,17 @@
+    @import '~assets/scss/toggle.scss';
+    $red: rgb(234, 130, 139);
+    $black: #212529;
+    a {
+        color: $black;
+    }
+
+    .nav-link.active {
+        border-radius: 0;
+        background-color: $red;
+    }
+
+    textarea.form-control {
+        border-radius: 0;
+        border-bottom-left-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+    }
