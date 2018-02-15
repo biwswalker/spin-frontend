@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Project } from '../../../models/project';
 import { ProjectService } from '../../../providers/project.service';
-import { MessageService } from '../../../providers/message.service';
 import { ProjectModalDetailComponent } from './detail/project-modal-detail.component';
+import { EventService } from '../../../providers/event.service';
 
 @Component({
   selector: 'project-modal',
@@ -14,7 +14,7 @@ export class ProjectModalComponent implements OnInit {
   public project: Project = new Project();
   @ViewChild(ProjectModalDetailComponent) projectDetailChild;
 
-  constructor(private projectService: ProjectService, private messageService: MessageService) { }
+  constructor(private projectService: ProjectService, private eventService: EventService) { }
 
   ngOnInit() {
     this.projectDetailChild.project = this.project;
@@ -30,7 +30,8 @@ export class ProjectModalComponent implements OnInit {
 
       // Call Provider
       this.projectService.createProject(projectObj).subscribe(event => {
-        console.log(this.messageService.getEventMessage(event))
+        console.log(this.eventService.getEventMessage(event))
+        console.log(this.eventService.getProgressPercent(event))
       })
       this.project = new Project();
     }

@@ -22,8 +22,8 @@ import { ProjectModalMemberComponent } from './components/project/project-modal/
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
-import { MessageService } from './providers/message.service';
 import { ProjectService } from './providers/project.service';
+import { EventService } from './providers/event.service';
 
 
 
@@ -54,7 +54,7 @@ import { ProjectService } from './providers/project.service';
       multi: true
     },
     HttpRequestService,
-    MessageService,
+    EventService,
     ProjectService
   ],
   bootstrap: [AppComponent]

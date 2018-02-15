@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Injectable()
-export class MessageService {
+export class EventService {
 
   constructor() { }
 
@@ -18,5 +18,13 @@ export class MessageService {
       default:
         return `Request surprising event: ${event.type}.`;
     }
+  }
+
+  getProgressPercent(event: HttpEvent<any>): number {
+    if (event.type == HttpEventType.UploadProgress) {
+      const percentDone = Math.round(100 * event.loaded / event.total);
+      return percentDone;
+    }
+    return;
   }
 }
