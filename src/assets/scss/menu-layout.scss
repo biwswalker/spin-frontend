@@ -1,18 +1,58 @@
-@include media-breakpoint-up(xs) {
+.navbar{
+  .navbar-brand{
+    display: none;
+  }
+  .account-box{
+    color:#fff;
+    padding-left: 1rem;
+    .user-name{
+      font-weight: 500;
+    }
+    .user-id{
+      font-weight: 200;
+      line-height: 15px;
+      opacity: 0.7;
+      filter: alpha(opacity=70);
+    }
+  }
+}
+
+
+@include media-breakpoint-up(sm) {
   #hide-sidebar {
     visibility: hidden;
   }
+  .navbar{
+    .navbar-brand{
+      display: none;
+    }
+  .account-box{
+    .user-name, .user-id{
+      display: block;
+    }
+  }
+}
 
 }
-@include media-breakpoint-down(xs) {
+@include media-breakpoint-down(sm) {
   #hide-sidebar {
     visibility: visible;
   }
+  .navbar{
+    .navbar-brand{
+      display: inline-block;
+    }
+  .account-box{
+    .user-name, .user-id{
+      display: none !important;
+    }
+  }
+}
 
 }
 
 #show-sidebar{
-  padding: 0.25rem 0.75rem;
+  // padding: 0.25rem 0.75rem;
   font-size: 1.25rem;
   line-height: 1;
   background-color: transparent;
@@ -21,56 +61,84 @@
   transition: all 0.3s;
   cursor: pointer;
 }
+.navbar{
+  .navbar-brand{
 
-.account-box{
-  .user-image-thumbnail{
-    border-radius: 50%;
   }
-  .user-name{
-    clear: both;
-    display: inline-block;
-  }
+  .account-box{
+    .user-image-thumbnail{
+      border-radius: 50%;
+    }
+    .user-name{
+      clear: both;
+      display: inline-block;
+    }
 
+  }
 }
 
 
-#sidebar {
-  min-width: 250px;
-  max-width: 250px;
-  min-height: 100vh;
-}
+
+
 
 #sidebar.active {
   margin-left: -250px;
 }
 
-a[data-toggle="collapse"] {
-  position: relative;
-}
-
-a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-  content: '\e259';
-  display: block;
-  position: absolute;
-  right: 20px;
-  font-size: 0.6em;
-}
-
-a[aria-expanded="true"]::before {
-  content: '\e260';
-}
 
 #sidebar {
   /* don't forget to add all the previously mentioned styles here too */
+  min-width: 250px;
+  max-width: 250px;
   background: #bf0013;
   color: #fff;
   transition: all 0.3s;
-  position: absolute;
+  position: -webkit-fixed;
+  position: fixed;
   z-index: 1000;
+  top:0rem;
+  height: calc(100vh) !important;
+  .components{
+    padding: 20px 0;
+    p {
+      color: #fff;
+      padding: 10px;
+    }
+
+    li.active > a, a[aria-expanded="true"] {
+      color: #fff;
+    }
+    li {
+      padding-left: 1rem;
+      a {
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+        color: #fff;
+        i.fas{
+          font-size: 2.5rem;
+          width: 2.5rem;
+        }
+        span.menu-title{
+          padding-left: 15px;
+          vertical-align: middle;
+          font-size: 1.3rem;
+          font-weight: 200;
+          display: inline-block;
+          margin-top: -1.5rem;
+        }
+      }
+    }
+    li:hover{
+      background: rgba(0, 0, 0, 0.3);
+      transition: all 0.3s;
+    }
+  }
+
 
   .sidebar-header {
     #sidebar-brand{
-      padding-top: 50px;
+      padding-top: 20px;
       text-align: center;
       a.sidebar-brand{
         display: inline-block;
@@ -104,34 +172,19 @@ a[aria-expanded="true"]::before {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
     }
-
-
-  }
-
-  ul.components {
-    padding: 20px 0;
-  }
-
-  ul {
-    p {
-      color: #fff;
-      padding: 10px;
-    }
-    li{
-      a {
-        padding: 10px;
-        font-size: 1.1em;
-        display: block;
-        color: #fff;
-      }
-    }
-
-    li.active > a, a[aria-expanded="true"] {
-      color: #fff;
-    }
-
   }
 }
 
 
 
+
+
+// @mixin modal-header-color($class,$color){
+//   .modal-header-#{$class}{
+//     background:$color;
+//   }
+// }
+
+
+// @include modal-header-color('project','#fff');
+// @include modal-header-color('task','#000');

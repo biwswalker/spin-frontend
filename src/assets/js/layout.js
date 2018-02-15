@@ -10,6 +10,9 @@ $(document).ready(function () {
   function menuDisplay($width){
     if($width > 576){
       $('#sidebar').removeClass('active');
+    }else{
+      $('#sidebar').removeClass('active');
+      $('#sidebar').addClass('active');
     }
 
   }

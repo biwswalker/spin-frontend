@@ -29,7 +29,7 @@ import { ProjectModalMemberComponent } from './components/project/project-modal/
     ProjectModalComponent,
     ProjectModalDetailComponent,
     ProjectModalPhaseComponent,
-    ProjectModalMemberComponent
+    ProjectModalMemberComponent,
   ],
   imports: [
     BrowserModule,
