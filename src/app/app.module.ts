@@ -28,7 +28,7 @@ import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/event.service';
 import { ExampleComponent } from './components/index/example/example.component';
-
+import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
 
 
 @NgModule({
@@ -45,7 +45,8 @@ import { ExampleComponent } from './components/index/example/example.component';
     TaskComponent,
     TaskModalComponent,
     IndexComponent,
-    ExampleComponent
+    ExampleComponent,
+    ComponentExampleComponent,
   ],
   imports: [
     BrowserModule,

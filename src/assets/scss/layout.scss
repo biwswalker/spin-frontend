@@ -11,15 +11,12 @@
   margin-right: 0px !important;
   margin-left: 0px !important;
 }
-.example-col{
-  height: 3em;
-}
 
 @include media-breakpoint-down(sm){
   .menu-shadow-col{
     display: none;
   }
 }
-.collapse{
-  display: block !important;
-}
+// .collapse{
+//   display: block !important;
+// }
