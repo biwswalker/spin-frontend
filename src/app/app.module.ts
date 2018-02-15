@@ -19,11 +19,15 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
 import { ProjectModalDetailComponent } from './components/project/project-modal/detail/project-modal-detail.component';
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
+import { TaskComponent } from './components/task/task.component';
+import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
+
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/event.service';
+import { ExampleComponent } from './components/index/example/example.component';
 
 
 
@@ -37,7 +41,11 @@ import { EventService } from './providers/event.service';
     ProjectModalComponent,
     ProjectModalDetailComponent,
     ProjectModalPhaseComponent,
-    ProjectModalMemberComponent
+    ProjectModalMemberComponent,
+    TaskComponent,
+    TaskModalComponent,
+    IndexComponent,
+    ExampleComponent
   ],
   imports: [
     BrowserModule,
