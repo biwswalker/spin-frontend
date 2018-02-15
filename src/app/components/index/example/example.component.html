@@ -3,7 +3,7 @@
     <div class="col-2"></div>
     <div class="col-10">
         <div class="row">
-            <h1>Button</h1>
+            <h1>Alert</h1>
             <div class="col-12">
                 <div class="alert alert-primary" role="alert">
                     This is a primary alert—check it out!
@@ -166,15 +166,15 @@
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
                     <label class="form-check-label" for="inlineCheckbox1">1</label>
-                  </div>
-                  <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
                     <label class="form-check-label" for="inlineCheckbox2">2</label>
-                  </div>
-                  <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
                     <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
-                  </div>
+                </div>
             </div>
             <h6>Radio Button</h6>
             <div class="col-12">
@@ -183,33 +183,33 @@
                     <label class="form-check-label" for="exampleRadios1">
                       Default radio
                     </label>
-                  </div>
-                  <div class="form-check">
+                </div>
+                <div class="form-check">
                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
                     <label class="form-check-label" for="exampleRadios2">
                       Second default radio
                     </label>
-                  </div>
-                  <div class="form-check disabled">
+                </div>
+                <div class="form-check disabled">
                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
                     <label class="form-check-label" for="exampleRadios3">
                       Disabled radio
                     </label>
-                  </div>
+                </div>
             </div>
             <div class="col-12">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                     <label class="form-check-label" for="inlineRadio1">1</label>
-                  </div>
-                  <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                     <label class="form-check-label" for="inlineRadio2">2</label>
-                  </div>
-                  <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
                     <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
-                  </div>
+                </div>
             </div>
             <div class="col-12">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -493,60 +493,195 @@
             <div class="col-12"></div>
             <h1>Tool Tips</h1>
             <div class="col-12">
-                <form class="needs-validation" validate>
+                <form class="needs-validation" novalidate>
                     <div class="form-row">
-                      <div class="col-md-4 mb-3">
-                        <label for="validationTooltip01">First name</label>
-                        <input type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark" required>
-                        <div class="valid-tooltip">
-                          Looks good!
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom01">First name</label>
+                            <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-md-4 mb-3">
-                        <label for="validationTooltip02">Last name</label>
-                        <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required>
-                        <div class="valid-tooltip">
-                          Looks good!
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom02">Last name</label>
+                            <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-md-4 mb-3">
-                        <label for="validationTooltipUsername">Username</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
-                          </div>
-                          <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsernamePrepend" required>
-                          <div class="invalid-tooltip">
-                            Please choose a unique and valid username.
-                          </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustomUsername">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                </div>
+                                <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+                                <div class="invalid-feedback">
+                                    Please choose a username.
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="form-row">
-                      <div class="col-md-6 mb-3">
-                        <label for="validationTooltip03">City</label>
-                        <input type="text" class="form-control" id="validationTooltip03" placeholder="City" required>
-                        <div class="invalid-tooltip">
-                          Please provide a valid city.
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom03">City</label>
+                            <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid city.
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-md-3 mb-3">
-                        <label for="validationTooltip04">State</label>
-                        <input type="text" class="form-control" id="validationTooltip04" placeholder="State" required>
-                        <div class="invalid-tooltip">
-                          Please provide a valid state.
+                        <div class="col-md-3 mb-3">
+                            <label for="validationCustom04">State</label>
+                            <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid state.
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-md-3 mb-3">
-                        <label for="validationTooltip05">Zip</label>
-                        <input type="text" class="form-control" id="validationTooltip05" placeholder="Zip" required>
-                        <div class="invalid-tooltip">
-                          Please provide a valid zip.
+                        <div class="col-md-3 mb-3">
+                            <label for="validationCustom05">Zip</label>
+                            <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid zip.
+                            </div>
                         </div>
-                      </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                            <label class="form-check-label" for="invalidCheck">
+                          Agree to terms and conditions
+                        </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Submit form</button>
-                  </form>
+                </form>
+            </div>
+            <h1>Input Group</h1>
+            <div class="col-12">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" aria-label="Checkbox for following text input">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with checkbox">
+                </div>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="radio" aria-label="Radio button for following text input">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with radio button">
+                </div>
+            </div>
+            <h1>List Group</h1>
+            <div class="col-12">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary">This is a primary list group item</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">This is a secondary list group item</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-success">This is a success list group item</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-danger">This is a danger list group item</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-warning">This is a warning list group item</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-info">This is a info list group item</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light">This is a light list group item</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-dark">This is a dark list group item</a>
+                </div>
+            </div>
+            <h1>Custom Content</h1>
+            <div class="col-12">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small>3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small>Donec id elit non mi porta.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                </div>
+            </div>
+            <h1>Modal</h1>
+            <div class="col-12">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Launch demo modal
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1>Nav Bar</h1>
+            <div class="col-12">
+                <ul class="nav">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">Active</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                  </ul>
+            </div>
+            <h1>Tabs</h1>
+            <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">Active</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                  </ul>
             </div>
         </div>
     </div>
