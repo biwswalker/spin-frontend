@@ -32,6 +32,7 @@ export class ProjectModalComponent implements OnInit {
       this.projectService.createProject(projectObj).subscribe(event => {
         console.log(this.messageService.getEventMessage(event))
       })
+      this.project = new Project();
     }
   }
 

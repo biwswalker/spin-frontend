@@ -76,7 +76,7 @@ import { Project } from '../../../../models/project';
 
       <!-- Tab menu -->
       <ul class="nav nav-pills nav-justified"
-          id="tap-info"
+          id="tap-sub-info"
           role="tablist">
         <li class="nav-item">
           <a class="nav-link active"

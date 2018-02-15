@@ -24,23 +24,34 @@
 
       <!-- Tab -->
       <div>
-        <ul class="nav nav-pills nav-fill">
+        <ul class="nav nav-pills nav-fill"
+            id="tap-info"
+            role="tablist">
           <li class="nav-item">
             <a class="nav-link active"
-               href="#">
+               href="#tab-infomation"
+               role="tab"
+               id="infomation-a"
+               data-toggle="tab">
               <i class="fas fa-info-circle fa-lg"></i>
               <br>รายละเอียด
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link"
-               href="#">
+               href="#tab-phase"
+               role="tab"
+               id="phase-a"
+               data-toggle="tab">
               <i class="far fa-clock fa-lg"></i>
               <br>ระยะโครงการ</a>
           </li>
           <li class="nav-item">
             <a class="nav-link"
-               href="#">
+               href="#tab-member"
+               role="tab"
+               id="member-a"
+               data-toggle="tab">
               <i class="fas fa-users fa-lg"></i>
               <br>สมาชิก</a>
           </li>
@@ -49,7 +60,28 @@
 
       <!-- Body -->
       <div class="modal-body">
-        <project-modal-detail></project-modal-detail>
+        <div class="tab-content">
+          <!-- Infomation -->
+          <div role="tabpanel"
+               class="tab-pane in active"
+               id="tab-infomation">
+            <project-modal-detail></project-modal-detail>
+          </div>
+
+          <!-- Phase -->
+          <div role="tabpanel"
+               class="tab-pane fade"
+               id="tab-phase">
+            <project-modal-phase></project-modal-phase>
+          </div>
+
+          <!-- Member -->
+          <div role="tabpanel"
+               class="tab-pane fade"
+               id="tab-member">
+            <project-modal-member></project-modal-member>
+          </div>
+        </div>
       </div>
 
     </div>
