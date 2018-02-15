@@ -1,33 +1,57 @@
 <!-- Modal -->
 <div class="modal fade"
-     id="project-modal"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+     id="project-modal">
   <div class="modal-dialog"
        role="document">
     <div class="modal-content">
+
+      <!-- Header -->
       <div class="modal-header">
-        <h5 class="modal-title"
-            id="exampleModalLabel">Modal title</h5>
-        <button type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <a href="#"
+           data-dismiss="modal">
+          <i class="fas fa-times fa-lg"></i>
+        </a>
+
+        <div class="text-center header-text">
+          New Project
+        </div>
+
+        <a href="#"
+           (click)="onSubmit()">
+          <i class="fas fa-check fa-lg"></i>
+        </a>
       </div>
+
+      <!-- Tab -->
+      <div>
+        <ul class="nav nav-pills nav-fill">
+          <li class="nav-item">
+            <a class="nav-link active"
+               href="#">
+              <i class="fas fa-info-circle fa-lg"></i>
+              <br>รายละเอียด
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="#">
+              <i class="far fa-clock fa-lg"></i>
+              <br>ระยะโครงการ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="#">
+              <i class="fas fa-users fa-lg"></i>
+              <br>สมาชิก</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Body -->
       <div class="modal-body">
-        ...
+        <project-modal-detail></project-modal-detail>
       </div>
-      <div class="modal-footer">
-        <button type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal">Close</button>
-        <button type="button"
-                class="btn btn-primary">Save changes</button>
-      </div>
+
     </div>
   </div>
 </div>

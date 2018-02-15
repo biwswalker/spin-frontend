@@ -1,0 +1,36 @@
+$bghead: rgb(44, 111, 246);
+$bghov: rgb(35, 89, 197);
+
+$bgbody: rgb(217, 217, 217);
+$white: #FFFFFF;
+a {
+    color: $white;
+}
+
+// Header
+.modal-header {
+    background-color: $bghead;
+    border-bottom: none;
+    .header-text {
+        color: $white;
+        font-size: 20px;
+        font-weight: 100;
+    }
+}
+
+.nav-item {
+    background-color: $bghead;
+}
+
+.nav-link {
+    border-radius: 0;
+}
+
+.nav-link.active {
+    background-color: $bghov;
+}
+
+// Body
+.modal-body {
+    background-color: $bgbody;
+}
