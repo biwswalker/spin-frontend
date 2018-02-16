@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TagInputModule } from 'ngx-chips';
 
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -20,13 +21,17 @@ import { ProjectModalDetailComponent } from './components/project/project-modal/
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
 import { TimetableComponent } from './components/timestamp/timetable/timetable.component';
+import { TaskComponent } from './components/task/task.component';
+import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
+
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
-
+import { ExampleComponent } from './components/index/example/example.component';
+import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
 
 
 @NgModule({
@@ -40,7 +45,12 @@ import { AuthenticationService } from './providers/authentication.service';
     ProjectModalDetailComponent,
     ProjectModalPhaseComponent,
     ProjectModalMemberComponent,
-    TimetableComponent
+    TimetableComponent,
+    TaskComponent,
+    TaskModalComponent,
+    IndexComponent,
+    ExampleComponent,
+    ComponentExampleComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +58,8 @@ import { AuthenticationService } from './providers/authentication.service';
     RoutesModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TagInputModule, BrowserAnimationsModule
   ],
   providers: [
     {

@@ -3,6 +3,21 @@
   align-items: stretch;
 }
 .container-fluid{
-  padding-left:0;
-  padding-right: 0;
+  padding-left:0 !important;
+  padding-right: 0 !important;
+}
+
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+@include media-breakpoint-down(sm){
+  .menu-shadow-col{
+    display: none;
+  }
+}
+
+.row{
+  padding: 1rem 0rem;
 }

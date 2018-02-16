@@ -1,15 +1,19 @@
 $(document).ready(function () {
-
+  var winddowsW = $(window).width(); // New width
+  menuDisplay(winddowsW);
   $(window).resize(function() {
     // This will execute whenever the window is resized
     var winddowsH = $(window).height(); // New height
-    var winddowsW = $(window).width(); // New width
-    menuDisplay(winddowsW);
+    this.winddowsW = $(window).width(); // New width
+    menuDisplay(this.winddowsW);
   });
 
   function menuDisplay($width){
-    if($width > 576){
+    if($width > 767){
       $('#sidebar').removeClass('active');
+    }else{
+      $('#sidebar').removeClass('active');
+      $('#sidebar').addClass('active');
     }
 
   }
