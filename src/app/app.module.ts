@@ -19,11 +19,13 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
 import { ProjectModalDetailComponent } from './components/project/project-modal/detail/project-modal-detail.component';
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
+import { TimetableComponent } from './components/timestamp/timetable/timetable.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
-import { EventService } from './providers/event.service';
+import { EventService } from './providers/utils/event.service';
+import { AuthenticationService } from './providers/authentication.service';
 
 
 
@@ -37,7 +39,8 @@ import { EventService } from './providers/event.service';
     ProjectModalComponent,
     ProjectModalDetailComponent,
     ProjectModalPhaseComponent,
-    ProjectModalMemberComponent
+    ProjectModalMemberComponent,
+    TimetableComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { EventService } from './providers/event.service';
     },
     HttpRequestService,
     EventService,
-    ProjectService
+    ProjectService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

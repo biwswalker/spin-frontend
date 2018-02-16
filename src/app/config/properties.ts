@@ -1,4 +1,4 @@
-export const URL = 'http://10.1.87.224:9090/spin/'
+export const URL = 'http://10.1.87.224:8081/'
 export const Method = {
     GET: 'GET',
     POST: 'POST'

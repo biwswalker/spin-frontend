@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-12 time-header">
+    ศุกร์ 8 ธ.ค. 2561
+  </div>
+</div>
+
+<div class="row time-body">
+  <div class="col col-fixed-100">
+    <div *ngFor="let item of ['06:00','&nbsp;','07:00','&nbsp;','08:00','&nbsp;','09:00','&nbsp;','10:00','&nbsp;','11:00','&nbsp;','12:00','&nbsp;','13:00','&nbsp;','14:00','&nbsp;','15:00','&nbsp;','16:00','&nbsp;','17:00','&nbsp;','18:00','&nbsp;']"
+  
+         class="time">{{item}}</div>
+  </div>
+  <div class="col timestamp">
+    <div *ngFor="let item of ['0600','0630','0700','0730','0800','0830','0900','0930','1000','1030','1100','1130','1200','1230','1300','1330','1400','1430','1500','1530','1600','1630','1700','1730','1800','1830']"
+  
+         class="stamp"
+         [attr.data-value]="item">&nbsp;</div>
+  </div>
+</div>

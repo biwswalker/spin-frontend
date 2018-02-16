@@ -1,0 +1,49 @@
+$cheader: rgb(205, 0, 11);
+$cgraylight: #dfe6e9;
+$cgraymid:#b2bec3;
+$cllightgray:#f5f7fa;
+$chlightgray:#e6e9ed;
+$white: #ffffff;
+.time-header {
+    background-color: $cheader;
+    height: 40px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 5px solid $cgraymid;
+    text-align: center;
+    color: $white;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.time-body {
+    display: table;
+    .col-fixed-100 {
+        -ms-flex: 0 0 100px;
+        flex: 0 0 100px;
+        background-color: $cgraylight;
+        .time:nth-child(even) {
+            border-bottom: 1px solid $cgraymid;
+        }
+    }
+    .timestamp {
+        display: table-cell;
+        padding-right: 0px;
+        padding-left: 0px;
+        .stamp:nth-child(even) {
+            background-color: $chlightgray;
+        }
+        .stamp:nth-child(odd) {
+            background-color: $cllightgray;
+        }
+    }
+}
+
+.ui-selecting {
+    background: #FECA40 !important;
+}
+
+.ui-selected {
+    background: #F39814 !important;
+    color: white;
+}
