@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TagInputModule } from 'ngx-chips';
 
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -54,7 +55,8 @@ import { ComponentExampleComponent } from './components/index/component-example/
     RoutesModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TagInputModule, BrowserAnimationsModule
   ],
   providers: [
     {

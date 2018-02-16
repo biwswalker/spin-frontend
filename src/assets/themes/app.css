@@ -6042,6 +6042,9 @@ a.text-dark:hover, a.text-dark:focus {
   .menu-shadow-col {
     display: none; } }
 
+.row {
+  padding: 1rem 0rem; }
+
 #sidebar.active {
   margin-left: -250px; }
 
