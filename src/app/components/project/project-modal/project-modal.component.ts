@@ -19,7 +19,7 @@ export class ProjectModalComponent implements OnInit {
 
   ngOnInit() {
     this.projectDetailChild.project = this.project;
-    this.authService.authen()
+    // this.authService.authen()
   }
 
   onSubmit() {
