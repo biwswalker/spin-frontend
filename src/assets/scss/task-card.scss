@@ -1,0 +1,47 @@
+$task-footer-color: rgb(241, 126, 126);
+$badge-tag-color:#FF006F;
+.task-list{
+  li{
+    padding: 0.2rem;
+    .task-card{
+      .card-body{
+        padding: 0.5rem 1.25rem 0rem 1.25rem;
+        font-weight: 200;
+        .card-title {
+          margin-bottom: 0rem;
+        }
+        p{
+          margin-bottom: 0.5rem;
+        }
+        .task-owner{
+          font-weight: 600;
+        }
+        .task-collaborators i{
+          font-size: 2rem;
+        }
+      }
+      .card-footer{
+        background: $task-footer-color;
+        padding: 0.3rem 1rem;
+        .task-tags{
+          float:right;
+          .badge-tags{
+            color: #fff;
+            background-color: $badge-tag-color;
+          }
+        }
+        }
+      }
+    }
+  }
+
+  @include  media-breakpoint-down(sm){
+    .card-footer{
+
+      .task-tags{
+        float:left !important;
+      }
+    }
+  }
+
+
