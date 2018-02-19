@@ -20,6 +20,7 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
 import { ProjectModalDetailComponent } from './components/project/project-modal/detail/project-modal-detail.component';
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
+import { TimetableComponent } from './components/timestamp/timetable/timetable.component';
 import { TaskComponent } from './components/task/task.component';
 import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
 
@@ -27,7 +28,8 @@ import { TaskModalComponent } from './components/task/task-modal/task-modal.comp
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
-import { EventService } from './providers/event.service';
+import { EventService } from './providers/utils/event.service';
+import { AuthenticationService } from './providers/authentication.service';
 import { ExampleComponent } from './components/index/example/example.component';
 import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
 
@@ -43,6 +45,7 @@ import { ComponentExampleComponent } from './components/index/component-example/
     ProjectModalDetailComponent,
     ProjectModalPhaseComponent,
     ProjectModalMemberComponent,
+    TimetableComponent,
     TaskComponent,
     TaskModalComponent,
     IndexComponent,
@@ -66,7 +69,8 @@ import { ComponentExampleComponent } from './components/index/component-example/
     },
     HttpRequestService,
     EventService,
-    ProjectService
+    ProjectService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

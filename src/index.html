@@ -12,20 +12,103 @@
         type="image/x-icon"
         href="favicon.ico">
 
-  <link href="./assets/themes/app.css"   rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"    rel="stylesheet">
+  <link href="./assets/themes/app.css"
+        rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+        rel="stylesheet">
   <script src="./assets/js/jquery.min.js"></script>
   <script src="./assets/js/layout.js"></script>
   <script src="./assets/js/modal.js"></script>
-
 </head>
 
 <body>
   <app-root>
+    <style>
+      app-root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        animation: fadein 1s;
+        -moz-animation: fadein 1s;
+        /* Firefox */
+        -webkit-animation: fadein 1s;
+        /* Safari and Chrome */
+        -o-animation: fadein 1s;
+        /* Opera */
+      }
+
+      body {
+        background: linear-gradient(to left, rgb(114, 0, 0), rgb(218, 0, 0));
+        margin: 0;
+        padding: 0;
+      }
+
+      img {
+        width: 200px;
+        height: 200px;
+        animation: rotation 1s infinite linear;
+      }
+
+      @keyframes rotation {
+        from {
+          -webkit-transform: rotate(0deg);
+        }
+        to {
+          -webkit-transform: rotate(359deg);
+        }
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-moz-keyframes fadein {
+        /* Firefox */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadein {
+        /* Safari and Chrome */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @-o-keyframes fadein {
+        /* Opera */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <img src="./assets/img/brand/spin.png">
   </app-root>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+          integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
           crossorigin="anonymous"></script>
 </body>
 

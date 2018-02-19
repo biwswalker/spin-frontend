@@ -20,6 +20,12 @@ export class HttpRequestService {
     return this.http.post(URL + path, body, { responseType: 'json' });
   }
 
+  requestMethodPOSTWithHeader(path: string, param: any, options: any): Observable<any> {
+    console.log(`POST URL => ${URL + path}`);
+    console.log(param);
+    return this.http.post(URL + path, param, options);
+  }
+
   requestWithProgress(mothod: string, path: string, param: any) {
     const body = JSON.stringify(param);
     console.log(`POST URL => ${URL + path}`);

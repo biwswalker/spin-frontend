@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var SpinModal: any;
 
 @Component({
-  selector: 'app-project',
+  selector: 'project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })
@@ -12,7 +12,7 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit() {
     let modal = new SpinModal();
-    modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true })
+    modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
   }
 
 }
