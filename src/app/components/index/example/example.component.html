@@ -533,18 +533,38 @@
               </div>
               <button class="btn btn-primary" type="submit">Submit form</button>
             </form>
+  </div>
 </div>
 <div class="row">
   <div class="col-12">
-    <tag-input [(ngModel)]='items'
+    <tag-input [(ngModel)]='items' theme='pink-theme'
     [removable]='true'
     [maxItems]='10'
     [onlyFromAutocomplete]="false">
       <tag-input-dropdown
-        [showDropdownIfEmpty]="true"
+        [showDropdownIfEmpty]="false"
         [autocompleteItems]="['iTem1', 'item2', 'item3']">
       </tag-input-dropdown>
     </tag-input>
   </div>
 </div>
+<div class="row">
+  <div class="col-6 col-xl-6">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <div class="card">
+          <div class="card-body">
+              <span>30 มกราคม</span>
+              <button type="button" class="btn btn-outline-info float-right"><i class="fas fa-external-link-square-alt"></i> view</button>
+            <h5 class="card-title">Topic title write here</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Task detail write here</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
 
