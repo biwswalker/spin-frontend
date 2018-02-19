@@ -9,33 +9,35 @@ declare var $: any;
 })
 export class TimetableComponent implements OnInit, AfterViewInit {
 
-  
+
   constructor() { }
 
   ngOnInit() {
-    this.spinTimestamp('.timestamp');
+    this.spinTimestamp();
   }
 
   ngAfterViewInit(): void {
-    $($('.stamp')[2]).css("background", "red")
-    $($('.stamp')[3]).css("background", "red")
+    $(".working1").wrapAll("<div class='ggwp1' style='position:relative'></div>");
+    $(".working2").wrapAll("<div class='ggwp2' style='position:relative'></div>");
+    $(".ggwp1").append("<div style='position: absolute;background: rgba(232, 0, 11, 0.4);top: 0;bottom: 0;left: 0;right: 0;'><div>Loader...</div><div>Detail1</div><div>Detail2</div><div>Detail3</div><div>Detail4</div></div>");
+    $(".ggwp2").append("<div style='position: absolute;background: rgba(232, 0, 11, 0.4);top: 0;bottom: 0;left: 0;right: 0;'>Loading...</div>");
 
-    $( ".woking" ).wrapAll($(".overlap"));
-    $( ".overlay" ).appendTo($(".overlap"));
   }
 
   selectedTimetable() {
     let timeList = [];
+    let indexList = [];
     const selected = $('.ui-selected')
     for (let element of selected) {
-      timeList.push(element.dataset.value) 
+      timeList.push(element.dataset.value)
+      indexList.push(element.dataset.index)
     }
-    console.log(timeList)
   }
 
-  spinTimestamp(name) {
-    $(name).selectable({
-      stop: this.selectedTimetable
+  spinTimestamp() {
+    $(".timestamp").selectable({
+      stop: this.selectedTimetable,
+      filter: '.stamp:not(".unavailable")'
     });
   }
 
