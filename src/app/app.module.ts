@@ -19,6 +19,7 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
 import { ProjectModalDetailComponent } from './components/project/project-modal/detail/project-modal-detail.component';
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
+
 import { ExampleComponent } from './components/index/example/example.component';
 import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
@@ -31,7 +32,6 @@ import { TaskDayComponent } from './components/attendance/task/task-day/task-day
 import { TaskAllComponent } from './components/attendance/task/task-all/task-all.component';
 import { ProjectSearchComponent } from './components/project/project-search/project-search.component';
 import { TaskDetailComponent } from './components/attendance/task/task-modal/task-detail/task-detail.component';
-import { TaskProjectComponent } from './components/attendance/task/task-modal/task-project/task-project.component';
 import { TaskMemberComponent } from './components/attendance/task/task-modal/task-member/task-member.component';
 import { TaskTagComponent } from './components/attendance/task/task-modal/task-tag/task-tag.component';
 
@@ -65,7 +65,6 @@ import { TaskService } from './providers/task.service';
     TaskAllComponent,
     ProjectSearchComponent,
     TaskDetailComponent,
-    TaskProjectComponent,
     TaskMemberComponent,
     TaskTagComponent,
     TaskDirective

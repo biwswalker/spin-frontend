@@ -1,25 +1,25 @@
-<div class="row">
-    <div class="col">
-        <p>สีพื้นหลัง * </p>
-        <select id="colorselector">
-          <option value="106" data-color="#A0522D">sienna</option>
-          <option value="47" data-color="#CD5C5C" selected="selected">indianred</option>
-          <option value="87" data-color="#FF4500">orangered</option>
-          <option value="15" data-color="#DC143C">crimson</option>
-          <option value="24" data-color="#FF8C00">darkorange</option>
-          <option value="78" data-color="#C71585">mediumvioletred</option>
-      </select>
-
-      <script>
-
-      </script>
+<div class="form-row">
+    <div class="form-group col-12">
+      <div class="col-12">
+        <label>สีพื้นหลัง * </label>
+      </div>
+        <div class="col-12">
+        <a class="btn btn-primary color-picker" (click)="onColor('#007bff')"></a>
+        <a class="btn btn-success color-picker" (click)="onColor('#28a745')"></a>
+        <a class="btn btn-danger color-picker" (click)="onColor('#dc3545')"></a>
+        <a class="btn btn-warning color-picker" (click)="onColor('#ffc107')"></a>
+        <a class="btn btn-secondary color-picker" (click)="onColor('#6c757d')"></a>
+        <a class="btn btn-info color-picker" (click)="onColor('#17a2b8')"></a>
+        <a class="btn btn-dark color-picker" (click)="onColor('#343a40')"></a>
+        <a class="btn btn-light color-picker" (click)="onColor('#f8f9fa')"></a>
+      </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-8">
-        <p>กำหนดเป็นค่าเริ่มต้น</p>
+<div class="form-row row">
+    <div class="form-group col-8">
+        <label>กำหนดเป็นค่าเริ่มต้น</label>
     </div>
-    <div class="col-4">
+    <div class="form-group col-4">
         <div class="toggleWrapper">
             <input type="checkbox" id="visibility-flag" name="visibility-flag" />
             <label for="visibility-flag" class="toggle">
@@ -27,33 +27,54 @@
         </label>
         </div>
     </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-6">
+        <label>วันที่ *</label>
+        <input type="text" id="task-date" class="form-control" [(ngModel)]="taskDate" required>
+        <div class="invalid-tooltip">
+            กรุณากรอกวันที่
+        </div>
+    </div>
+    <div class="form-group col-3">
+        <label>เวลา *</label>
+        <input class="form-control" id="task-start-time" type="time" [(ngModel)]="startTime" required>
+        <div class="invalid-tooltip">
+            กรุณากรอกเวลาเริ่มต้น
+        </div>
+    </div>
+    <div class="form-group col-3">
+        <label class="invisible">เวลา *</label>
+        <input class="form-control" id="task-end-time" type="time" [(ngModel)]="endTime" required>
+        <div class="invalid-tooltip">
+            กรุณากรอกเวลาสิ้นสุด
+        </div>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-12">
+        <label>หัวข้อ *</label>
+        <input type="text" name="task-detail-topic" class="form-control" id="task-detail-topic" [(ngModel)]="topic" required>
+        <div class="invalid-tooltip">
+            กรุณากรอกหัวข้อ
+        </div>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-12">
+        <label>กิจกรรม *</label>
+        <textarea class="form-control" rows="5" class="form-control" id="task-activity" name="task-activity" [(ngModel)]="activity" required>
+            </textarea>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-12">
+        <label>ชื่อโครงการ</label>
+        <input type="text" class="form-control" id="task-project" placeholder="autocomplete" [(ngModel)]="taskProject" required>
+        <div class="invalid-tooltip">
+            กรุณากรอกกิจกรรม
+        </div>
+    </div>
+</div>
 
-</div>
-<div class="row">
-    <div class="col">
-        <p>วันที่ *</p>
-        <input type="text" id="datepicker-th" class="form-control">
-    </div>
-    <div class="col">
-        <p>Time Picker</p>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <p>หัวข้อ *</p>
-        <input type="text" name="task-detail-id" class="form-control" id="task-detail-id">
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <p>กิจกรรม</p>
-        <textarea class="form-control" rows="5" class="form-control" id="project-detail" name="project-detail">
-    </textarea>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <p>สถานที่</p>
-        <input type="text" class="form-control" placeholder="autocomplete">
-    </div>
-</div>
+<button class="btn btn-primary" (click)="onClick()">Test</button>
