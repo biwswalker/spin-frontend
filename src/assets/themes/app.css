@@ -6230,7 +6230,7 @@ a.text-dark:hover, a.text-dark:focus {
     .task-list li .task-card .card-body p {
       margin-bottom: 0.5rem; }
     .task-list li .task-card .card-body .task-owner {
-      font-weight: 600; }
+      font-weight: 400; }
     .task-list li .task-card .card-body .task-collaborators i {
       font-size: 2rem; }
   .task-list li .task-card .card-footer {

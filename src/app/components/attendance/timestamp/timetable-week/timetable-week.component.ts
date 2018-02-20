@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-timetable-week',
+  selector: 'timetable-week',
   templateUrl: './timetable-week.component.html',
   styleUrls: ['./timetable-week.component.scss']
 })
