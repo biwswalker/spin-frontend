@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var SpinModal: any;
 
 @Component({
-  selector: 'app-task',
+  selector: 'tasks',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })

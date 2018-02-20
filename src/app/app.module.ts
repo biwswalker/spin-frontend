@@ -15,27 +15,33 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { IndexComponent } from './components/index/index.component';
 import { ProjectComponent } from './components/project/project.component';
-import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { ProjectModalComponent } from './components/project/project-modal/project-modal.component';
 import { ProjectModalDetailComponent } from './components/project/project-modal/detail/project-modal-detail.component';
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
-import { TimetableComponent } from './components/timestamp/timetable/timetable.component';
-import { TaskComponent } from './components/task/task.component';
-import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
-import { TaskDetailComponent } from './components/task/task-modal/task-detail/task-detail.component';
-import { TaskMemberComponent } from './components/task/task-modal/task-member/task-member.component';
-import { TaskTagComponent } from './components/task/task-modal/task-tag/task-tag.component';
 
+import { ExampleComponent } from './components/index/example/example.component';
+import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
+import { AttendanceComponent } from './components/attendance/attendance.component';
+import { TimestampComponent } from './components/attendance/timestamp/timestamp.component';
+import { TimetableComponent } from './components/attendance/timestamp/timetable/timetable.component';
+import { TaskComponent } from './components/attendance/task/task.component';
+import { TaskModalComponent } from './components/attendance/task/task-modal/task-modal.component';
+import { TimetableDayComponent } from './components/attendance/timestamp/timetable-day/timetable-day.component';
+import { TimetableWeekComponent } from './components/attendance/timestamp/timetable-week/timetable-week.component';
+import { TaskDayComponent } from './components/attendance/task/task-day/task-day.component';
+import { TaskAllComponent } from './components/attendance/task/task-all/task-all.component';
+import { ProjectSearchComponent } from './components/project/project-search/project-search.component';
+import { TaskDetailComponent } from './components/attendance/task/task-modal/task-detail/task-detail.component';
+import { TaskProjectComponent } from './components/attendance/task/task-modal/task-project/task-project.component';
+import { TaskMemberComponent } from './components/attendance/task/task-modal/task-member/task-member.component';
+import { TaskTagComponent } from './components/attendance/task/task-modal/task-tag/task-tag.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
-import { ExampleComponent } from './components/index/example/example.component';
-import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
-
 
 
 @NgModule({
@@ -52,9 +58,14 @@ import { ComponentExampleComponent } from './components/index/component-example/
     TimetableComponent,
     TaskComponent,
     TaskModalComponent,
-    IndexComponent,
     ExampleComponent,
     ComponentExampleComponent,
+    AttendanceComponent,
+    TimetableDayComponent,
+    TimetableWeekComponent,
+    TaskDayComponent,
+    TaskAllComponent,
+    ProjectSearchComponent,
     TaskDetailComponent,
     TaskMemberComponent,
     TaskTagComponent,
