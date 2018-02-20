@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskMemberComponent implements OnInit {
 
+  status: boolean;
   name: string = "";
   owner: string = "";
   memberList: any[] = [];
@@ -15,16 +16,25 @@ export class TaskMemberComponent implements OnInit {
 
   ngOnInit() {
     this.owner = "ทิวากร จันทร์ปัญญา"
-    this.memberList.push({ name: 'member1' });
-    this.memberList.push({ name: 'member2' });
-    this.memberList.push({ name: 'member3' });
+    this.memberList.push({ name: 'member1', status: true });
+    this.memberList.push({ name: 'member2', status: false});
+    this.memberList.push({ name: 'member3', status: true });
   }
 
   addPartner(){
-    this.partnerList.push({name: this.name});
+    let name = "";
+    if(this.name != ""){
+      name = this.name;
+      this.partnerList.push({name: name});
+      this.name = "";
+    }
+
+    console.log(this.memberList)
   }
 
   deletePartner(obj){
     this.partnerList.splice(this.partnerList.indexOf(obj), 1)
   }
+
+
 }

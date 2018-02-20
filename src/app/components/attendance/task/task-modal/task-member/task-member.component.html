@@ -1,23 +1,24 @@
 <div class="header">
-    <div class="row">
-        <div class="col">
+    <div class="form-row">
+        <div class="form-group col-12">
             <p>{{owner}}</p>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-12">
-        <p>สมาชิกโครงการ</p>
+<div class="form-row">
+    <div class="form-group col-12">
+        <label>สมาชิกโครงการ</label>
     </div>
-    <div class="col-12">
+    <div class="form-group col-12">
         <div id="member-list" *ngFor="let obj of memberList">
-            <p>{{obj.name}}</p>
+          <input type="checkbox" name="" id="" [(ngModel)]="obj.status">
+          {{obj.name}}
         </div>
     </div>
 </div>
-<p>ผู้ร่วมงาน</p>
-<div class="row">
-    <div class="col">
+<label>ผู้ร่วมงาน</label>
+<div class="form-row">
+    <div class="form-group col">
         <div id="partner-list" *ngFor="let obj of partnerList" >
             {{obj.name}}
             <a (click)="deletePartner(obj)" class="fas fa-times-circle"></a>

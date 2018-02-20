@@ -33,7 +33,6 @@ import { TaskDayComponent } from './components/attendance/task/task-day/task-day
 import { TaskAllComponent } from './components/attendance/task/task-all/task-all.component';
 import { ProjectSearchComponent } from './components/project/project-search/project-search.component';
 import { TaskDetailComponent } from './components/attendance/task/task-modal/task-detail/task-detail.component';
-import { TaskProjectComponent } from './components/attendance/task/task-modal/task-project/task-project.component';
 import { TaskMemberComponent } from './components/attendance/task/task-modal/task-member/task-member.component';
 import { TaskTagComponent } from './components/attendance/task/task-modal/task-tag/task-tag.component';
 
