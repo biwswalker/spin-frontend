@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskTagComponent implements OnInit {
 
+  tagList:any[] = [];
+  autoCompleteTagList: any[] = [];
   constructor() { }
 
   ngOnInit() {
+    this.autoCompleteTagList = ['pizza', 'pig', 'hamburger', 'ham'];
   }
 
 }
