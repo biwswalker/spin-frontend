@@ -3,34 +3,40 @@ $bghov: rgb(35, 89, 197);
 
 $bgbody: rgb(217, 217, 217);
 $white: #FFFFFF;
-a {
-    color: $white;
-}
 
-// Header
+.modal{
+  a {
+    color: $white;
+  }
+  .row{
+    padding:0rem !important;
+  }
+  // Header
 .modal-header {
-    background-color: $bghead;
-    border-bottom: none;
-    .header-text {
-        color: $white;
-        font-size: 20px;
-        font-weight: 200;
-    }
+  background-color: $bghead;
+  border-bottom: none;
+  .header-text {
+      color: $white;
+      font-size: 20px;
+      font-weight: 200;
+  }
 }
 
 .nav-item {
-    background-color: $bghead;
+  background-color: $bghead;
 }
 
 .nav-link {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .nav-link.active {
-    background-color: $bghov;
+  background-color: $bghov;
 }
 
 // Body
 .modal-body {
-    background-color: $bgbody;
+  background-color: $bgbody;
 }
+}
+
