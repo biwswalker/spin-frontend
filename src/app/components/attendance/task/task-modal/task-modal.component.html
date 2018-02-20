@@ -1,90 +1,69 @@
-<div class="modal fade"
-     id="task-modal">
-  <div class="modal-dialog modal-lg"
-       role="document">
-    <div class="modal-content">
+<form class="needs-validation" validate>
+    <div class="modal fade" id="task-modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
 
-      <!-- Header -->
-      <div class="modal-header">
-        <a href="#"
-           data-dismiss="modal">
-           <i class="fas fa-times fa-lg"></i>
-        </a>
-        <div class="text-center header-text">
-          New Task
-        </div>
-        <a [routerLink]="" (click)="onSubmit()">
-            <i class="fas fa-check fa-lg"></i>
-          </a>
-      </div>
+                <!-- Header -->
+                <div class="modal-header">
+                    <a href="#" data-dismiss="modal">
+                        <i class="fas fa-times fa-lg"></i>
+                    </a>
+                    <div class="text-center header-text">
+                        New Task
+                    </div>
+                    <a [routerLink]="" (click)="onSubmit()">
+                        <i class="fas fa-check fa-lg"></i>
+                      </a>
+                </div>
 
 
-      <!-- Tab -->
-      <div>
-        <ul class="nav nav-pills nav-fill"
-          id="tap-info"
-          role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active"
-              href="#tab-detail"
-              role="tab"
-              id="task-detail"
-              data-toggle="tab">
-             <i class="fas fa-info-circle fa-lg"></i>
-             <br>รายละเอียด
-           </a>
-          </li>
+                <!-- Tab -->
+                <div>
+                    <ul class="nav nav-pills nav-fill" id="tap-info" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#tab-detail" role="tab" id="task-detail" data-toggle="tab">
+                                <i class="fas fa-info-circle fa-lg"></i>
+                                <br>รายละเอียด
+                            </a>
+                        </li>
 
-          <li class="nav-item">
-              <a class="nav-link"
-                href="#tab-member"
-                role="tab"
-                id="task-member"
-                data-toggle="tab">
-                <i class="fas fa-users fa-lg"></i>
-                <br>ผู้ร่วมงาน
-              </a>
-          </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab-member" role="tab" id="task-member" data-toggle="tab">
+                                <i class="fas fa-users fa-lg"></i>
+                                <br>ผู้ร่วมงาน
+                            </a>
+                        </li>
 
-          <li class="nav-item">
-              <a class="nav-link"
-                href="#tab-tag"
-                role="tab"
-                id="task-tag"
-                data-toggle="tab">
-                <i class="fas fa-tag fa-lg"></i>
-                <br>ป้ายกำกับ
-              </a>
-            </li>
-        </ul>
-      </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab-tag" role="tab" id="task-tag" data-toggle="tab">
+                                <i class="fas fa-tag fa-lg"></i>
+                                <br>ป้ายกำกับ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-      <!-- Body -->
-      <div class="modal-body">
-          <div class="tab-content">
+                <!-- Body -->
+                <div class="modal-body">
+                    <div class="tab-content">
 
-            <!-- Detail -->
-            <div role="tabpanel"
-                 class="tab-pane in active"
-                 id="tab-detail">
-              <app-task-detail></app-task-detail>
+                        <!-- Detail -->
+                        <div role="tabpanel" class="tab-pane in active" id="tab-detail">
+                            <app-task-detail></app-task-detail>
+                        </div>
+
+                        <!-- Member -->
+                        <div role="tabpanel" class="tab-pane fade" id="tab-member">
+                            <app-task-member></app-task-member>
+                        </div>
+
+                        <!-- Tag -->
+                        <div role="tabpanel" class="tab-pane fade" id="tab-tag">
+                            <app-task-tag></app-task-tag>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Member -->
-            <div role="tabpanel"
-                 class="tab-pane fade"
-                 id="tab-member">
-              <app-task-member></app-task-member>
-            </div>
-
-            <!-- Tag -->
-            <div role="tabpanel"
-                 class="tab-pane fade"
-                 id="tab-tag">
-              <app-task-tag></app-task-tag>
-            </div>
-          </div>
         </div>
     </div>
-  </div>
-</div>
+</form>
