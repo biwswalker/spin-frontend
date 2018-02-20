@@ -12,7 +12,7 @@ export class TaskComponent implements OnInit {
 
   ngOnInit() {
     let modal = new SpinModal();
-    modal.initial('#exampleModal', { show: true, backdrop: 'static', keyboard: true })
+    modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
   }
 
 }

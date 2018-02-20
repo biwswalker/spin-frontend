@@ -12,4 +12,8 @@ export class TaskModalComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  onSubmit(){
+
+  }
 }

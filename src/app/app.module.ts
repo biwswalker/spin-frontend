@@ -30,12 +30,19 @@ import { TimetableDayComponent } from './components/attendance/timestamp/timetab
 import { TimetableWeekComponent } from './components/attendance/timestamp/timetable-week/timetable-week.component';
 import { TaskDayComponent } from './components/attendance/task/task-day/task-day.component';
 import { TaskAllComponent } from './components/attendance/task/task-all/task-all.component';
+import { TaskDetailComponent } from './components/task/task-modal/task-detail/task-detail.component';
+import { TaskProjectComponent } from './components/task/task-modal/task-project/task-project.component';
+import { TaskMemberComponent } from './components/task/task-modal/task-member/task-member.component';
+import { TaskTagComponent } from './components/task/task-modal/task-tag/task-tag.component';
+import { ProjectSearchComponent } from './components/project/project-search/project-search.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
+
+
 
 @NgModule({
   declarations: [
@@ -51,7 +58,6 @@ import { AuthenticationService } from './providers/authentication.service';
     TimetableComponent,
     TaskComponent,
     TaskModalComponent,
-    IndexComponent,
     ExampleComponent,
     ComponentExampleComponent,
     AttendanceComponent,
@@ -59,6 +65,11 @@ import { AuthenticationService } from './providers/authentication.service';
     TimetableWeekComponent,
     TaskDayComponent,
     TaskAllComponent,
+    ProjectSearchComponent,
+    TaskDetailComponent,
+    TaskProjectComponent,
+    TaskMemberComponent,
+    TaskTagComponent,
   ],
   imports: [
     BrowserModule,
