@@ -1,3 +1,28 @@
-<p>
-  task-member works!
-</p>
+<div class="header">
+    <div class="row">
+        <div class="col">
+            <p>{{owner}}</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p>สมาชิกโครงการ</p>
+    </div>
+    <div class="col-12">
+        <div id="member-list" *ngFor="let obj of memberList">
+            <p>{{obj.name}}</p>
+        </div>
+    </div>
+</div>
+<p>ผู้ร่วมงาน</p>
+<div class="row">
+    <div class="col">
+        <div id="partner-list" *ngFor="let obj of partnerList" >
+            {{obj.name}}
+            <a (click)="deletePartner(obj)" class="fas fa-times-circle"></a>
+        </div>
+        <input class="form-control" type="text" [(ngModel)]="name">
+        <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
+    </div>
+</div>

@@ -1,7 +1,5 @@
-var today = new Date();
-$('#colorselector').colorselector();
 $(function() {
-    $("#datepicker-th").datepicker({
+    $("#task-date").datepicker({
         dateFormat: 'dd MM yy',
         dayNamesMin: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
         monthNames: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"],

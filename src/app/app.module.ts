@@ -24,7 +24,6 @@ import { TimetableComponent } from './components/timestamp/timetable/timetable.c
 import { TaskComponent } from './components/task/task.component';
 import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
 import { TaskDetailComponent } from './components/task/task-modal/task-detail/task-detail.component';
-import { TaskProjectComponent } from './components/task/task-modal/task-project/task-project.component';
 import { TaskMemberComponent } from './components/task/task-modal/task-member/task-member.component';
 import { TaskTagComponent } from './components/task/task-modal/task-tag/task-tag.component';
 
@@ -57,7 +56,6 @@ import { ComponentExampleComponent } from './components/index/component-example/
     ExampleComponent,
     ComponentExampleComponent,
     TaskDetailComponent,
-    TaskProjectComponent,
     TaskMemberComponent,
     TaskTagComponent,
   ],

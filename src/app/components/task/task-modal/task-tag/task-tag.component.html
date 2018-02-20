@@ -1,3 +1,17 @@
-<p>
-  task-tag works!
-</p>
+<div class="row">
+    <div class="col-12">
+    <tag-input [(ngModel)]='tagList' theme='pink-theme'
+    [removable]='true'
+    [maxItems]='10'
+    [onlyFromAutocomplete]="false">
+      <tag-input-dropdown
+        [showDropdownIfEmpty]="false"
+        [autocompleteItems]="autoCompleteTagList">
+      </tag-input-dropdown>
+    </tag-input>
+  </div>
+</div>
+<div class="footer">
+  <p>ป้ายกำกับที่เคยใช้</p>
+
+</div>
