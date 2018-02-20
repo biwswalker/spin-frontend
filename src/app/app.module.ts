@@ -23,6 +23,10 @@ import { ProjectModalMemberComponent } from './components/project/project-modal/
 import { TimetableComponent } from './components/timestamp/timetable/timetable.component';
 import { TaskComponent } from './components/task/task.component';
 import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
+import { TaskDetailComponent } from './components/task/task-modal/task-detail/task-detail.component';
+import { TaskProjectComponent } from './components/task/task-modal/task-project/task-project.component';
+import { TaskMemberComponent } from './components/task/task-modal/task-member/task-member.component';
+import { TaskTagComponent } from './components/task/task-modal/task-tag/task-tag.component';
 
 
 // service
@@ -32,6 +36,7 @@ import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
 import { ExampleComponent } from './components/index/example/example.component';
 import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
+
 
 
 @NgModule({
@@ -51,6 +56,10 @@ import { ComponentExampleComponent } from './components/index/component-example/
     IndexComponent,
     ExampleComponent,
     ComponentExampleComponent,
+    TaskDetailComponent,
+    TaskProjectComponent,
+    TaskMemberComponent,
+    TaskTagComponent,
   ],
   imports: [
     BrowserModule,
