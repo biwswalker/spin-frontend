@@ -1,0 +1,40 @@
+$font-color:#fff;
+$first-bg-color:rgb(0, 108, 224);
+$second-bg-color:rgba(0, 0, 0, 0.5);
+.project-highlight{
+  background:$first-bg-color;
+  color:$font-color;
+  .project-abbr{
+    margin:0 !important;
+  }
+  .customer-name{
+    opacity: 0.8;
+    filter: opacity(80);
+  }
+  .project-name{
+    clear:both;
+    background-color:$second-bg-color;
+    margin: 2.5rem 0rem 1rem;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .phase{
+    text-align: center;
+    margin: 0rem 1rem;
+    p{
+      font-size: 1.3rem;
+      margin:0 !important;
+    }
+    .phase-name{
+      padding: 0.5rem 1.5rem;
+      background-color: #ffc800;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+  }
+
+}
+
+
+

@@ -1,79 +1,204 @@
+//
+// Switches for Bootstrap 4.
+//
+// - Fully customizable with Sass variables
+// - No JavaScript required
+// - Fully accessible
+//
+
+//
+// IMPORTANT: These Sass variables are defined in Bootstrap's variables.scss. You should import that file first, then remove these.
+//
+$font-size-base: 1rem;
+$font-size-lg: ($font-size-base * 1.25);
+$font-size-sm: ($font-size-base * .875);
+$input-height: 2.375rem;
+$input-height-sm: 1.9375rem;
+$input-height-lg: 3rem;
+$input-btn-focus-width: .2rem;
+$custom-control-indicator-bg: #dee2e6;
+$custom-control-indicator-disabled-bg: #e9ecef;
+$custom-control-description-disabled-color: #868e96;
+$white: white;
 $black: #212529;
-$white: #FFFFFF;
-$blue: rgb(65, 116, 190);
-$green: rgb(40, 207, 48);
+$theme-colors: (
+  'primary': #08d
+);
 
-// Toggle
-.toggleWrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    overflow: hidden;
-    padding: 0 200px;
-    transform: translate3d(-50%, -50%, 0);
+//
+// These variables can be used to customize the switch component.
+//
+$switch-height: calc(#{$input-height} * .8) !default;
+$switch-height-sm: calc(#{$input-height-sm} * .8) !default;
+$switch-height-lg: calc(#{$input-height-lg} * .8) !default;
+$switch-border-radius: $switch-height !default;
+$switch-bg: $custom-control-indicator-bg !default;
+$switch-checked-bg: map-get($theme-colors, 'primary') !default;
+$switch-disabled-bg: $custom-control-indicator-disabled-bg !default;
+$switch-disabled-color: $custom-control-description-disabled-color !default;
+$switch-thumb-bg: $white !default;
+$switch-thumb-border-radius: 50% !default;
+$switch-thumb-padding: 2px !default;
+$switch-focus-box-shadow: 0 0 0 $input-btn-focus-width rgba(map-get($theme-colors, 'primary'), .25);
+$switch-transition: .2s all !default;
+
+@mixin custom-toggle($class,$off-status,$on-status){
+  .#{$class} {
+    font-size: $font-size-base;
+    position: relative;
+
     input {
+      position: absolute;
+      height: 1px;
+      width: 1px;
+      background: none;
+      border: 0;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      overflow: hidden;
+      padding: 0;
+
+      + label {
+
+        position: relative;
+        min-width: calc(#{$switch-height} * 2);
+        border-radius: $switch-border-radius;
+        height: $switch-height;
+        line-height: $switch-height;
+        display: inline-block;
+        cursor: pointer;
+        outline: none;
+        user-select: none;
+        vertical-align: middle;
+        text-indent: calc(calc(#{$switch-height} * 2) + .5rem);
+        span::before{
+          position: absolute;
+          margin-left: -2.5rem;
+          content: $off-status;
+        }
+
+      }
+
+
+      + label::before,
+      + label::after {
+        content: '';
         position: absolute;
-        left: -99em;
+        top: 0;
+        left: 0;
+        width: calc(#{$switch-height} * 2);
+        bottom: 0;
+        display: block;
+
+      }
+
+      + label::before {
+        right: 0;
+        background-color: $switch-bg;
+        border-radius: $switch-border-radius;
+        transition: $switch-transition;
+      }
+
+      + label::after {
+        top: $switch-thumb-padding;
+        left: $switch-thumb-padding;
+        width: calc(#{$switch-height} - calc(#{$switch-thumb-padding} * 2));
+        height: calc(#{$switch-height} - calc(#{$switch-thumb-padding} * 2));
+        border-radius: $switch-thumb-border-radius;
+        background-color: $switch-thumb-bg;
+        transition: $switch-transition;
+      }
+
+      &:checked + label::before {
+        background-color: $switch-checked-bg;
+      }
+
+      &:checked + label::after {
+        margin-left: $switch-height;
+      }
+      &:checked + label > span::before{
+        position: absolute;
+        margin-left: -3.8rem;
+          color:$white;
+          content: $on-status;
+        }
+
+      &:focus + label::before {
+        outline: none;
+        box-shadow: $switch-focus-box-shadow;
+      }
+
+      &:disabled + label {
+        color: $switch-disabled-color;
+        cursor: not-allowed;
+      }
+
+      &:disabled + label::before {
+        background-color: $switch-disabled-bg;
+      }
     }
 }
 
-.toggle {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    width: 50px;
-    height: 26px;
-    background-color: $blue;
-    border-radius: 50px - 6;
-    transition: background-color 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    &:before {
-        content: 'OFF';
-        position: absolute;
-        left: -40px;
-        top: 0px;
-        font-size: 18px;
-        color: $blue;
-    }
-    &:after {
-        content: 'ON';
-        position: absolute;
-        right: -30px;
-        top: 0px;
-        font-size: 18px;
-        color: $black;
-    }
+
+  // Small variation
+  // &.switch-sm {
+  //   font-size: $font-size-sm;
+
+  //   input {
+  //     + label {
+  //       min-width: calc(#{$switch-height-sm} * 2);
+  //       height: $switch-height-sm;
+  //       line-height: $switch-height-sm;
+  //       text-indent: calc(calc(#{$switch-height-sm} * 2) + .5rem);
+  //     }
+
+  //     + label::before {
+  //       width: calc(#{$switch-height-sm} * 2);
+  //     }
+
+  //     + label::after {
+  //       width: calc(#{$switch-height-sm} - calc(#{$switch-thumb-padding} * 2));
+  //       height: calc(#{$switch-height-sm} - calc(#{$switch-thumb-padding} * 2));
+  //     }
+
+  //     &:checked + label::after {
+  //       margin-left: $switch-height-sm;
+  //     }
+  //   }
+  // }
+
+  // Large variation
+  // &.switch-lg {
+  //   font-size: $font-size-lg;
+
+  //   input {
+  //     + label {
+  //       min-width: calc(#{$switch-height-lg} * 2);
+  //       height: $switch-height-lg;
+  //       line-height: $switch-height-lg;
+  //       text-indent: calc(calc(#{$switch-height-lg} * 2) + .5rem);
+  //     }
+
+  //     + label::before {
+  //       width: calc(#{$switch-height-lg} * 2);
+  //     }
+
+  //     + label::after {
+  //       width: calc(#{$switch-height-lg} - calc(#{$switch-thumb-padding} * 2));
+  //       height: calc(#{$switch-height-lg} - calc(#{$switch-thumb-padding} * 2));
+  //     }
+
+  //     &:checked + label::after {
+  //       margin-left: $switch-height-lg;
+  //     }
+  //   }
+  // }
+
+  + .#{$class} {
+    margin-left: 1rem;
+  }
 }
 
-.toggle__handler {
-    display: inline-block;
-    position: relative;
-    z-index: 1;
-    top: 3px;
-    left: 3px;
-    width: 26px - 6;
-    height: 26px - 6;
-    background-color: $white;
-    border-radius: 50px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
-    transition: all 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transform: rotate(-45deg);
-}
 
-input:checked {
-    +.toggle {
-        background-color: $green;
-        &:before {
-            color: $black;
-        }
-        &:after {
-            color: $green;
-        }
-        .toggle__handler {
-            background-color: $white;
-            transform: translate3d(24px, 0, 0) rotate(0);
-            .crater {
-                opacity: 1;
-            }
-        }
-    }
-}
+ @include custom-toggle('project-filter','OFF','ON');
+
