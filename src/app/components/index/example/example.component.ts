@@ -9,7 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class ExampleComponent implements OnInit {
 
   public exampleForm: FormGroup;
-
+  public items = ['Pizza', 'Pasta', 'Parmesan'];
   constructor() { }
 
   ngOnInit() {

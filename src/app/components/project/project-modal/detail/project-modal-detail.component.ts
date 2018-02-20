@@ -163,7 +163,7 @@ export class ProjectModalDetailComponent implements OnInit {
       projectDetail: new FormControl(this.project.detail),
       hardware: new FormControl(this.project.hardware),
       software: new FormControl(this.project.software),
-      visibilityFlag: new FormControl((this.project.visibilityFlag == 'Y' ? true : false))
+      visibilityFlag: new FormControl((this.project.visibilityFlag == 'A' ? true : false))
     })
   }
 

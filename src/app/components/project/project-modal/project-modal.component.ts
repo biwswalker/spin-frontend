@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Project } from '../../../models/project';
 import { ProjectService } from '../../../providers/project.service';
 import { ProjectModalDetailComponent } from './detail/project-modal-detail.component';
-import { EventService } from '../../../providers/event.service';
+import { EventService } from '../../../providers/utils/event.service';
+import { AuthenticationService } from '../../../providers/authentication.service';
 
 @Component({
   selector: 'project-modal',
@@ -14,10 +15,11 @@ export class ProjectModalComponent implements OnInit {
   public project: Project = new Project();
   @ViewChild(ProjectModalDetailComponent) projectDetailChild;
 
-  constructor(private projectService: ProjectService, private eventService: EventService) { }
+  constructor(private projectService: ProjectService, private eventService: EventService, private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.projectDetailChild.project = this.project;
+    // this.authService.authen()
   }
 
   onSubmit() {
@@ -26,7 +28,7 @@ export class ProjectModalComponent implements OnInit {
       const projectDetail = this.projectDetailChild.projectDetailGroup.value;
       let projectObj = new Project();
       projectObj = projectDetail;
-      projectObj.visibilityFlag = (projectDetail.visibilityFlag == true ? 'Y' : 'N');
+      projectObj.visibilityFlag = (projectDetail.visibilityFlag == true ? 'A' : 'I');
 
       // Call Provider
       this.projectService.createProject(projectObj).subscribe(event => {

@@ -6038,15 +6038,12 @@ a.text-dark:hover, a.text-dark:focus {
   margin-right: 0px !important;
   margin-left: 0px !important; }
 
-.example-col {
-  height: 3em; }
-
 @media (max-width: 767.98px) {
   .menu-shadow-col {
     display: none; } }
 
-.collapse {
-  display: block !important; }
+.row {
+  padding: 1rem 0rem; }
 
 #sidebar.active {
   margin-left: -250px; }

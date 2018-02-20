@@ -8,6 +8,8 @@ export class ProjectService {
   constructor(private request: HttpRequestService) { }
 
   createProject(project) {
-    return this.request.requestWithProgress(Method.POST, 'project', project);
+    // return this.request.requestWithProgress(Method.POST, 'projects', project);
+    return this.request.requestMethodPOST('projects', project)
   }
+
 }

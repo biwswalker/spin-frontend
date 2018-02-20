@@ -9,8 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-themes": "webpack --config webpack.config.js",
-    "dev": "npm run build-themes && npm run start"
+    "dev": "webpack --config webpack.config.js"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +25,7 @@
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "extract-text-webpack-plugin": "^3.0.2",
+    "ngx-chips": "^1.6.3-rc.3",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },

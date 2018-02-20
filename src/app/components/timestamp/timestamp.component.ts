@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-timestamp',
+  selector: 'timestamp',
   templateUrl: './timestamp.component.html',
   styleUrls: ['./timestamp.component.scss']
 })

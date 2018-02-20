@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TagInputModule } from 'ngx-chips';
 
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -19,6 +20,7 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
 import { ProjectModalDetailComponent } from './components/project/project-modal/detail/project-modal-detail.component';
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
+import { TimetableComponent } from './components/timestamp/timetable/timetable.component';
 import { TaskComponent } from './components/task/task.component';
 import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
 
@@ -26,9 +28,10 @@ import { TaskModalComponent } from './components/task/task-modal/task-modal.comp
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
-import { EventService } from './providers/event.service';
+import { EventService } from './providers/utils/event.service';
+import { AuthenticationService } from './providers/authentication.service';
 import { ExampleComponent } from './components/index/example/example.component';
-
+import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
 
 
 @NgModule({
@@ -42,10 +45,12 @@ import { ExampleComponent } from './components/index/example/example.component';
     ProjectModalDetailComponent,
     ProjectModalPhaseComponent,
     ProjectModalMemberComponent,
+    TimetableComponent,
     TaskComponent,
     TaskModalComponent,
     IndexComponent,
-    ExampleComponent
+    ExampleComponent,
+    ComponentExampleComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,8 @@ import { ExampleComponent } from './components/index/example/example.component';
     RoutesModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TagInputModule, BrowserAnimationsModule
   ],
   providers: [
     {
@@ -63,7 +69,8 @@ import { ExampleComponent } from './components/index/example/example.component';
     },
     HttpRequestService,
     EventService,
-    ProjectService
+    ProjectService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
