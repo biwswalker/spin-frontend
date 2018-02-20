@@ -32,6 +32,7 @@ import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
 import { ExampleComponent } from './components/index/example/example.component';
 import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
+import { ProjectSearchComponent } from './components/project/project-search/project-search.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { ComponentExampleComponent } from './components/index/component-example/
     IndexComponent,
     ExampleComponent,
     ComponentExampleComponent,
+    ProjectSearchComponent,
   ],
   imports: [
     BrowserModule,
