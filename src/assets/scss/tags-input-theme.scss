@@ -1,0 +1,42 @@
+@import "node_modules/ngx-chips/core/styles/core/_core";
+
+$spin-primary: #ff0076;
+$spin-primary-dark: darken($spin-primary, 10%);
+
+// this is the container's theme
+$spin-theme: (
+    container-border-bottom: 1px solid $spin-primary
+);
+
+// this is the tag's theme
+$spin-tag-theme: (
+    background: $spin-primary,
+    background-focused: $spin-primary-dark,
+    background-active: $spin-primary-dark,
+    background-hover: $spin-primary-dark,
+    color: #fff,
+    color-hover: #fff,
+    border-radius: 10px
+);
+
+// this is the delete icon's theme
+$spin-icon-theme: (
+    fill: #fff,
+    fill-focus: #eee,
+    transition: all 0.35s
+);
+
+// apply theme to the container
+.ng2-tag-input.pink-theme {
+    @include tag-input-theme($spin-theme);
+}
+
+// apply theme to the tags
+.ng2-tag-input.pink-theme tag {
+    @include tag-theme($spin-tag-theme);
+}
+
+// apply theme to the delete icon
+.ng2-tag-input.pink-theme tag delete-icon {
+    @include icon-theme($spin-icon-theme);
+}

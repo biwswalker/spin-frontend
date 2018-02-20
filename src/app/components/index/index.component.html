@@ -1,8 +1,8 @@
 
 
-<div class="wrapper">
+
     <!-- Sidebar -->
-     <nav id="sidebar">
+     <div id="sidebar">
          <!-- Sidebar Header -->
 
          <div class="sidebar-header">
@@ -17,38 +17,37 @@
                      <img src="/assets/img/brand/logo_L_white.png" width="150" class="d-inline-block align-top" alt="">
                  </a>
              </div>
-
-
-
          </div>
 
          <!-- Sidebar Links -->
-         <ul class="list-unstyled components">
-               <li class="nav-item active">
-                   <a class="nav-link" href="#"><i class="fas fa-pen-square"></i><span class="menu-title">เวลาทำงาน</span><span class="sr-only">(current)</span></a>
-                 </li>
-               <li class="nav-item active">
-                 <a class="nav-link" href="#"><i class="fas fa-folder-open"></i><span class="menu-title">โครงการ</span></a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link" href="#"><i class="fas fa-suitcase"></i><span class="menu-title">ระบบลา</span></a>
-               </li>
-               <li class="nav-item">
-                   <a class="nav-link" href="#"><i class="fas fa-history"></i><span class="menu-title">เข้า-ออก</span></a>
-                 </li>
-               <li class="nav-item">
-                 <a class="nav-link" href="#"><i class="fas fa-calendar-alt"></i><span class="menu-title">ปฏิทิน</span></a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link" href="#"><i class="fas fa-newspaper"></i><span class="menu-title">ข่าวสาร</span></a>
-               </li>
-         </ul>
-     </nav>
+         <nav class="spin-link">
+          <ul class="nav flex-column">
+            <li class="nav-item active">
+                <a class="nav-link" href="#"><i class="fas fa-pen-square"></i><span class="menu-title">เวลาทำงาน</span><span class="sr-only">(current)</span></a>
+              </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><i class="fas fa-folder-open"></i><span class="menu-title">โครงการ</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fas fa-suitcase"></i><span class="menu-title">ระบบลา</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-history"></i><span class="menu-title">เข้า-ออก</span></a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fas fa-calendar-alt"></i><span class="menu-title">ปฏิทิน</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fas fa-newspaper"></i><span class="menu-title">ข่าวสาร</span></a>
+            </li>
+          </ul>
+        </nav>
+        </div>
 
      <!-- Page Content -->
          <div class="container-fluid">
 
-             <nav class="navbar navbar-expand-xs navbar-light" style=" background: #90000e;">
+             <nav class="navbar navbar-expand-xs navbar-light position-sticky sticky-top" style=" background: #90000e;">
                 <ul class="nav left-section">
                     <li class="nav-item">
                         <button type="button" id="show-sidebar">
@@ -63,7 +62,7 @@
 
 
 
-                     <ul class="nav justify-content-end">
+                     <ul class="nav justify-content-end nav-profile">
                         <li class="nav-item">
                             <img class="user-image-thumbnail rounded-circle" src="assets/img/profile/profile.jpg" width="50" height="50">
                         </li>
@@ -90,14 +89,9 @@
                <div class="row">
                  <div class="col-md-4 col-lg-3 col-xl-2 menu-shadow-col">Menu area</div>
                  <div class="col-sm-12 col-md-8 col-lg-9 col-xl-10 example-col">
-                     <div class="row">
-                          <!-- Sub Header -->
-                            <app-example></app-example>
-                       </div>
+                      <!-- Sub Header -->
                        <div class="row">
-                         <!-- Main Content -->
-                          <div class="col-12 col-lg-6 example-col">Coding Left Contents Here</div>
-                          <div class="col-12 col-lg-6 example-col">Coding Left Contents Here</div>
+                        <router-outlet></router-outlet>
                         </div>
                  </div>
                </div>
@@ -108,4 +102,9 @@
                     </div>
                </div>
          </div>
+<<<<<<< HEAD
       </div>
+=======
+
+
+>>>>>>> 58bb9b00cc11d1ee81173877bbcb7ca6de00b0ca

@@ -13,11 +13,10 @@
   transition: all 0.3s;
   position: -webkit-fixed;
   position: fixed;
-  z-index: 1000;
+  z-index: 1021;
   top:0rem;
   height: calc(100vh) !important;
-  .components{
-    padding: 20px 0;
+
     p {
       color: #fff;
       padding: 10px;
@@ -51,13 +50,14 @@
       background: rgba(0, 0, 0, 0.3);
       transition: all 0.3s;
     }
-  }
 
 
   .sidebar-header {
     #sidebar-brand{
-      padding-top: 20px;
+      padding-top: 5px;
       text-align: center;
+      background: #90000e;
+      min-height: 70px;
       a.sidebar-brand{
         display: inline-block;
         font-size: 2rem;
@@ -65,6 +65,15 @@
         color:#fff !important;
       }
     }
+  }
+
+  .spin-link{
+    display: block!important;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+
+    margin-top: 2rem;
+    padding-bottom: 1rem;
   }
 }
 
@@ -98,6 +107,7 @@
 }
 
 .navbar{
+  min-height: 70px;
   .account-box{
     color:#fff;
     display: inline-block;
@@ -136,12 +146,18 @@
 }
 
 @include media-breakpoint-down(sm) {
+  #sidebar-brand{
+    background: transparent !important;
+  }
   #hide-sidebar {
     visibility: visible;
   }
   .navbar{
     .left-section{
       visibility: visible;
+    }
+    .nav-profile{
+      margin-left: 2.5rem;
     }
   }
 }
