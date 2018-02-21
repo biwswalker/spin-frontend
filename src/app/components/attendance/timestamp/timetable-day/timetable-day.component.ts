@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { TaskService } from '../../../../providers/task.service';
+import { Time } from '../../../../config/properties';
 declare var SpinModal: any;
+declare var convertTimeString: any;
 declare var $: any;
 
 @Component({
@@ -9,9 +12,7 @@ declare var $: any;
 })
 export class TimetableDayComponent implements OnInit {
 
-
-
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit() {
     this.spinTimestamp();
@@ -23,6 +24,13 @@ export class TimetableDayComponent implements OnInit {
     // $(".ggwp1").append("<div style='position: absolute;background: rgba(232, 0, 11, 0.4);top: 0;bottom: 0;left: 0;right: 0;'><div>Loader...</div><div>Detail1</div><div>Detail2</div><div>Detail3</div><div>Detail4</div></div>");
     // $(".ggwp2").append("<div style='position: absolute;background: rgba(232, 0, 11, 0.4);top: 0;bottom: 0;left: 0;right: 0;'>Loading...</div>");
 
+  }
+
+  spinTimestamp() {
+    $(".timestamp").selectable({
+      stop: this.selectedTimetable,
+      filter: '.stamp:not(".unavailable")'
+    });
   }
 
   selectedTimetable() {
@@ -46,40 +54,32 @@ export class TimetableDayComponent implements OnInit {
         }
       }
     }
+    // Get time from slide
     if (timeList.length > 0) {
-      let startWorkingTime = '0000';
-      let endWorkingTime = '0000';
-      if (timeList.length = 1) {
+      let startWorkingTime = '';
+      let endWorkingTime = '';
+
+      if (timeList.length == 1) {
         let starttime = Number(timeList[0])
         let endtime = Number(timeList[0]) + 29
-        startWorkingTime = this.convertTimeString(starttime);
-        endWorkingTime = this.convertTimeString(endtime);
-      }else{
+        startWorkingTime = convertTimeString(starttime);
+        endWorkingTime = convertTimeString(endtime);
+      } else {
         let starttime = Number(timeList[0])
         let endtime = Number(timeList[timeList.length - 1]) + 29
-        startWorkingTime = this.convertTimeString(starttime);
-        endWorkingTime = this.convertTimeString(endtime);
+        startWorkingTime = convertTimeString(starttime);
+        endWorkingTime = convertTimeString(endtime);
       }
-      console.log(startWorkingTime)
-      console.log(endWorkingTime)
+      Time.start = startWorkingTime;
+      Time.end = endWorkingTime;
+
+      // Call task modal
+      let modal = new SpinModal();
+      modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
+      modal.onClose('#task-modal', function () {
+        $('.timestamp .ui-selected').removeClass('ui-selected')
+      })
     }
-    let modal = new SpinModal();
-    modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
-    modal.onClose('#task-modal', function () {
-      console.log('Close Modal')
-      $('.timestamp .ui-selected').removeClass('ui-selected')
-    })
   }
 
-  spinTimestamp() {
-    $(".timestamp").selectable({
-      stop: this.selectedTimetable,
-      filter: '.stamp:not(".unavailable")'
-    });
-  }
-
-  convertTimeString(num): string {
-    var zero = 4 - num.toString().length + 1;
-    return Array(+(zero > 0 && zero)).join("0") + num;
-  }
 }
