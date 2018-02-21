@@ -6,20 +6,14 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.scss']
 })
-export class TaskModalComponent implements OnInit,AfterViewInit  {
+export class TaskModalComponent implements OnInit  {
 
-  ngAfterViewInit() {
-    this.message = this.taskDetail.onClick();
-    console.log(this.message)
-  }
-  @ViewChild(TaskDetailComponent) taskDetail;
+  bgColor:string;
 
-  message:string;
   constructor() { }
 
   ngOnInit() {
     this.validateForm();
-
   }
 
   validateForm(){
@@ -30,7 +24,7 @@ export class TaskModalComponent implements OnInit,AfterViewInit  {
         var forms = document.getElementsByClassName('needs-validation');
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
-          // form.addEventListener('tab', function(event) {
+          // Listrening Tab Click
             document.getElementById("tap-info").addEventListener('click', function(event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
@@ -45,5 +39,10 @@ export class TaskModalComponent implements OnInit,AfterViewInit  {
 
   onSubmit(){
 
+  }
+
+  receiveMessage(event){
+    this.bgColor = event;
+    console.log(this.bgColor)
   }
 }

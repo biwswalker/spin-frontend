@@ -1,32 +1,15 @@
 <div class="form-row">
-    <div class="form-group col-12">
-      <div class="col-12">
-        <label>สีพื้นหลัง * </label>
-      </div>
-        <div class="col-12">
-        <a class="btn btn-primary color-picker" (click)="onColor('#007bff')"></a>
-        <a class="btn btn-success color-picker" (click)="onColor('#28a745')"></a>
-        <a class="btn btn-danger color-picker" (click)="onColor('#dc3545')"></a>
-        <a class="btn btn-warning color-picker" (click)="onColor('#ffc107')"></a>
-        <a class="btn btn-secondary color-picker" (click)="onColor('#6c757d')"></a>
-        <a class="btn btn-info color-picker" (click)="onColor('#17a2b8')"></a>
-        <a class="btn btn-dark color-picker" (click)="onColor('#343a40')"></a>
-        <a class="btn btn-light color-picker" (click)="onColor('#f8f9fa')"></a>
-      </div>
-    </div>
-</div>
-<div class="form-row row">
-    <div class="form-group col-8">
-        <label>กำหนดเป็นค่าเริ่มต้น</label>
-    </div>
-    <div class="form-group col-4">
-        <div class="toggleWrapper">
-            <input type="checkbox" id="visibility-flag" name="visibility-flag" />
-            <label for="visibility-flag" class="toggle">
-          <span class="toggle__handler"></span>
-        </label>
-        </div>
-    </div>
+  <div class="form-group col-6">
+    <label for="">สิ้นสุดการทำงาน</label>
+  </div>
+  <div class="form-group col-6 position-r">
+      <span class="end-task-toggle">
+          <input type="checkbox" class="switch" id="end-task-toggle" [(ngModel)]="taskStatus">
+          <label for="end-task-toggle">
+            <span></span>
+          </label>
+        </span>
+  </div>
 </div>
 <div class="form-row">
     <div class="form-group col-6">
@@ -38,7 +21,7 @@
     </div>
     <div class="form-group col-3">
         <label>เวลา *</label>
-        <input class="form-control" id="task-start-time" type="time" [(ngModel)]="startTime" required>
+        <input class="form-control" id="task-start-time" type="time" [(ngModel)]="startTime" (onblur)="checkTime()" required>
         <div class="invalid-tooltip">
             กรุณากรอกเวลาเริ่มต้น
         </div>
@@ -77,4 +60,50 @@
     </div>
 </div>
 
-<button class="btn btn-primary" (click)="onClick()">Test</button>
+<div class="form-row">
+    <div class="form-group col-12">
+        <div class="col">
+            <label>สีพื้นหลัง * </label>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary color-picker" (click)="onColorPick('#007bff')"></a>
+            </div>
+            <div class="col">
+                <a class="btn btn-success color-picker" (click)="onColorPick('#28a745')"></a>
+            </div>
+            <div class="col">
+                <a class="btn btn-danger color-picker" (click)="onColorPick('#dc3545')"></a>
+            </div>
+            <div class="col">
+                <a class="btn btn-warning color-picker" (click)="onColorPick('#ffc107')"></a>
+            </div>
+            <div class="col">
+                <a class="btn btn-secondary color-picker" (click)="onColorPick('#6c757d')"></a>
+            </div>
+            <div class="col">
+                <a class="btn btn-info color-picker" (click)="onColorPick('#17a2b8')"></a>
+            </div>
+            <div class="col">
+                <a class="btn btn-dark color-picker" (click)="onColorPick('#343a40')"></a>
+            </div>
+            <div class="col">
+                <a class="btn btn-light color-picker" (click)="onColorPick('#f8f9fa')"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-row row">
+    <div class="form-group col-8">
+        <label>กำหนดเป็นค่าเริ่มต้น</label>
+    </div>
+    <div class="form-group col-4 position-r">
+        <span class="task-color-toggle">
+            <input type="checkbox" class="switch" id="task-color-toggle" [(ngModel)]="colorStatus">
+            <label for="task-color-toggle">
+              <span></span>
+            </label>
+          </span>
+    </div>
+</div>

@@ -40,8 +40,11 @@ import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
+import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
 import { TaskDirective } from './directives/task/task.component';
 import { TaskService } from './providers/task.service';
+import { PrjInfoDetailComponent } from './components/project/project-info/prj-info-detail/prj-info-detail.component';
+import { PrjInfoMemberComponent } from './components/project/project-info/prj-info-member/prj-info-member.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,10 @@ import { TaskService } from './providers/task.service';
     TaskDetailComponent,
     TaskMemberComponent,
     TaskTagComponent,
-    TaskDirective
+    ProjectInfoComponent,
+    TaskDirective,
+    PrjInfoDetailComponent,
+    PrjInfoMemberComponent
   ],
   imports: [
     BrowserModule,
