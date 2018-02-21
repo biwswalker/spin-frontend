@@ -37,6 +37,7 @@ import { PrjInfoDetailComponent } from './components/project/project-info/prj-in
 import { PrjInfoMemberComponent } from './components/project/project-info/prj-info-member/prj-info-member.component';
 import { TaskDirective } from './components/attendance/task/task/task.component';
 import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
+import { PrjInfoSummaryComponent } from './components/project/project-info/prj-info-summary/prj-info-summary.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -72,7 +73,8 @@ import { TaskService } from './providers/task.service';
     ProjectInfoComponent,
     TaskDirective,
     PrjInfoDetailComponent,
-    PrjInfoMemberComponent
+    PrjInfoMemberComponent,
+    PrjInfoSummaryComponent
   ],
   imports: [
     BrowserModule,
