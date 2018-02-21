@@ -9,3 +9,7 @@ export const Severity = {
     WARN: 'warn',
     ERROR: 'error'
 }
+export const Status = {
+    SUCCESS: 'success',
+    ERROR: 'error'
+}
