@@ -19,7 +19,6 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
 import { ProjectModalDetailComponent } from './components/project/project-modal/detail/project-modal-detail.component';
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
-
 import { ExampleComponent } from './components/index/example/example.component';
 import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
@@ -34,17 +33,17 @@ import { ProjectSearchComponent } from './components/project/project-search/proj
 import { TaskDetailComponent } from './components/attendance/task/task-modal/task-detail/task-detail.component';
 import { TaskMemberComponent } from './components/attendance/task/task-modal/task-member/task-member.component';
 import { TaskTagComponent } from './components/attendance/task/task-modal/task-tag/task-tag.component';
+import { PrjInfoDetailComponent } from './components/project/project-info/prj-info-detail/prj-info-detail.component';
+import { PrjInfoMemberComponent } from './components/project/project-info/prj-info-member/prj-info-member.component';
+import { TaskDirective } from './components/attendance/task/task/task.component';
+import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
-import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
-import { TaskDirective } from './directives/task/task.component';
 import { TaskService } from './providers/task.service';
-import { PrjInfoDetailComponent } from './components/project/project-info/prj-info-detail/prj-info-detail.component';
-import { PrjInfoMemberComponent } from './components/project/project-info/prj-info-member/prj-info-member.component';
 
 @NgModule({
   declarations: [
