@@ -7,12 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskTagComponent implements OnInit {
 
-  tagList:any[] = [];
+  usedTagList:any[] = [];
+  tagList: any[] = [];
   autoCompleteTagList: any[] = [];
   constructor() { }
 
   ngOnInit() {
     this.autoCompleteTagList = ['pizza', 'pig', 'hamburger', 'ham'];
+    this.usedTagList = ['pizza', 'pig', 'hamburger', 'ham'];
   }
 
+  onSelected(event){
+    console.log(event)
+    this.tagList.push(event);
+  }
 }

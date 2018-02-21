@@ -1,6 +1,6 @@
+import { TaskModalComponent } from './../task-modal.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Time } from '@angular/common';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-detail',
@@ -9,62 +9,34 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class TaskDetailComponent implements OnInit {
 
+
   @Output() messageEvent = new EventEmitter<string>();
 
+
   color: string = "";
-  startTime: string = "";
-  endTime: string = "";
+  workStartTime: Time;
+  workEndTime: Time;
   topic: string = "";
   activity: string = "";
   taskProject: string = "";
-  taskDate: any = "";
+  workDate: any = "";
   ProjectList: any[] = [];
-  taskStatus: boolean = false;
-  colorStatus: boolean = true;
-  constructor() { }
+  statusFlag: boolean = false;
+  colorStatus: boolean = false;
+
+
+  constructor(public taskModal: TaskModalComponent) { }
 
   ngOnInit() {
-
-  }
-
-  onClick() {
-
-    // console.log('taskDate: ', this.taskDate);
-    // console.log('startTime: ', this.startTime);
-    // console.log('endTime: ', this.endTime);
-    // console.log('topic: ', this.topic);
-    // console.log('ativity: ', this.activity);
-    // console.log('taskProject: ', this.taskProject);
   }
 
   onColorPick(color) {
-    // if (color) {
-    //   this.color = color;
-    //   this.messageEvent.emit(this.color);
-    //   this.checkTime();
-        console.log('taskDate: ', this.taskDate);
-      console.log('startTime: ', this.startTime);
-      console.log('endTime: ', this.endTime);
-      console.log('topic: ', this.topic);
-      console.log('ativity: ', this.activity);
-      console.log('taskProject: ', this.taskProject);
-      console.log('taskStatus: ', this.taskStatus);
-      console.log('ColorStatus: ', this.colorStatus);
-    // }
+      this.messageEvent.emit(color);
   }
 
-  checkTime() {
-    if(this.startTime){
-      this.endTime = this.startTime;
-    }
+  showData(){
+    console.log(this.taskModal.taskForm)
   }
-
-  showDate(event) {
-    console.log('showDate')
-    console.log(this.taskDate)
-    console.log(event)
-  }
-
 }
 
 
