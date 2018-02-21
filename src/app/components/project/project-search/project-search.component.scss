@@ -49,13 +49,14 @@ p{
 
       .project-thumbnail{
         display: inline-block;
+        text-align: center;
       }
       .project-abbr{
         font-size: 1.5rem;
         font-weight: 600;
       }
       .customer-name{
-        margin: -0.5rem 0rem 1rem;
+        margin: -0.5rem 0rem 0rem;
         opacity: 0.8;
         filter: opacity(80);
       }

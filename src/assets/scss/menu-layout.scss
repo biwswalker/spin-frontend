@@ -6,8 +6,7 @@
 
 #sidebar {
   /* don't forget to add all the previously mentioned styles here too */
-  min-width: 250px;
-  max-width: 250px;
+  width: 250px;
   background: #bf0013;
   color: #fff;
   transition: all 0.3s;
@@ -133,11 +132,13 @@
   }
 }
 
-
 @include media-breakpoint-up(sm) {
-  #hide-sidebar {
-    visibility: hidden;
-  }
+
+    .toggle-sidebar {
+      display: none;
+    }
+
+
   .navbar{
     .left-section{
       visibility: hidden;
@@ -146,12 +147,14 @@
 }
 
 @include media-breakpoint-down(sm) {
+
+  .toggle-sidebar {
+    display: block;
+  }
   #sidebar-brand{
     background: transparent !important;
   }
-  #hide-sidebar {
-    visibility: visible;
-  }
+
   .navbar{
     .left-section{
       visibility: visible;

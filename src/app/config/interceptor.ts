@@ -9,11 +9,9 @@ export class Interceptor implements HttpInterceptor {
     constructor(private auth: AuthenticationService) { }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(this.auth.token)
         if (this.auth.token) {
             const headers = {
-                'Authorization': `${this.auth.token.token_type} ${this.auth.token.access_token}`,
-                'Content-Type': 'application/json'
+                'Authorization': `${this.auth.token.token_type} ${this.auth.token.access_token}`
             };
             const request = req.clone({
                 headers: req.headers.set('Authorization', `${this.auth.token.token_type} ${this.auth.token.access_token}`)

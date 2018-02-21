@@ -1,0 +1,15 @@
+@import '~assets/scss/navs';
+
+@include custom-spin-pills('tasks-criteria-tab', white, blue);
+
+.profile-img{
+  width:100%;
+}
+.hour{
+  text-align: center;
+}
+.member-list{
+  li{
+    padding: 0rem;
+  }
+}

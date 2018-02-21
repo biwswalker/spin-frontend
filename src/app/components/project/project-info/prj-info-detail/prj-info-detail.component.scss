@@ -1,0 +1,42 @@
+.project-thumbnail img{
+  width: 100%;
+}
+.project-abbr{
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 0.8;
+}
+.customer-name{
+  font-size: 1.5rem;
+  opacity: 0.8;
+  filter: opacity(80);
+}
+.project-name{
+  text-align: center;
+  background-color: #088000;
+  color:white;
+}
+.phase-list{
+  li.list-group-item{
+    padding: 0rem 0.5rem;
+    .phase{
+      .phase-name{
+        padding-left: 0.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      .phase-start, .phase-end{
+        text-align: center;
+      }
+      p{
+        margin-bottom: 0rem;
+      }
+      span{
+        font-size: 0.8rem;
+      }
+    }
+
+  }
+}
+
+

@@ -34,21 +34,38 @@ export class TimetableDayComponent implements OnInit {
       let index = element.dataset.index;
       let value = element.dataset.value;
       if (preIndex == null) {
-        timeList.push(value)
-        indexList.push(index)
+        timeList.push(value);
+        indexList.push(index);
         preIndex = index;
       } else {
         let prevInd: number = index - 1;
         if (prevInd == preIndex) {
-          timeList.push(value)
-          indexList.push(index)
+          timeList.push(value);
+          indexList.push(index);
           preIndex = index;
         }
       }
     }
+    if (timeList.length > 0) {
+      let startWorkingTime = '0000';
+      let endWorkingTime = '0000';
+      if (timeList.length = 1) {
+        let starttime = Number(timeList[0])
+        let endtime = Number(timeList[0]) + 29
+        startWorkingTime = this.convertTimeString(starttime);
+        endWorkingTime = this.convertTimeString(endtime);
+      }else{
+        let starttime = Number(timeList[0])
+        let endtime = Number(timeList[timeList.length - 1]) + 29
+        startWorkingTime = this.convertTimeString(starttime);
+        endWorkingTime = this.convertTimeString(endtime);
+      }
+      console.log(startWorkingTime)
+      console.log(endWorkingTime)
+    }
     let modal = new SpinModal();
     modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
-    modal.onClose('#task-modal', function (){
+    modal.onClose('#task-modal', function () {
       console.log('Close Modal')
       $('.timestamp .ui-selected').removeClass('ui-selected')
     })
@@ -59,5 +76,10 @@ export class TimetableDayComponent implements OnInit {
       stop: this.selectedTimetable,
       filter: '.stamp:not(".unavailable")'
     });
+  }
+
+  convertTimeString(num): string {
+    var zero = 4 - num.toString().length + 1;
+    return Array(+(zero > 0 && zero)).join("0") + num;
   }
 }
