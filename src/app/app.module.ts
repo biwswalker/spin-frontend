@@ -41,9 +41,6 @@ import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
 import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
-import { DetailComponent } from './components/project/project-info/detail/detail.component';
-import { MemberComponent } from './components/project/project-info/member/member.component';
-
 import { TaskDirective } from './directives/task/task.component';
 import { TaskService } from './providers/task.service';
 
@@ -72,8 +69,6 @@ import { TaskService } from './providers/task.service';
     TaskMemberComponent,
     TaskTagComponent,
     ProjectInfoComponent,
-    DetailComponent,
-    MemberComponent,
     TaskDirective
   ],
   imports: [
