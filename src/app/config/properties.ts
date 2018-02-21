@@ -13,8 +13,3 @@ export const Status = {
     SUCCESS: 'success',
     ERROR: 'error'
 }
-
-export let Time = {
-    start: '',
-    end: '',
-}
