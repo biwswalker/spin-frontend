@@ -1,6 +1,13 @@
 $font-color:#fff;
 $first-bg-color:rgb(0, 108, 224);
 $second-bg-color:rgba(0, 0, 0, 0.5);
+
+$border-color1: green;
+p{
+  font-size: 1.3rem;
+  margin:0 !important;
+}
+
 .project-highlight{
   background:$first-bg-color;
   color:$font-color;
@@ -22,10 +29,7 @@ $second-bg-color:rgba(0, 0, 0, 0.5);
   .phase{
     text-align: center;
     margin: 0rem 1rem;
-    p{
-      font-size: 1.3rem;
-      margin:0 !important;
-    }
+
     .phase-name{
       padding: 0.5rem 1.5rem;
       background-color: #ffc800;
@@ -36,5 +40,46 @@ $second-bg-color:rgba(0, 0, 0, 0.5);
 
 }
 
+.project-list{
+  li{
+    margin-bottom:0.5rem;
+  .project-item{
+    .card-body{
+      padding: 0.5rem;
+
+      .project-thumbnail{
+        display: inline-block;
+      }
+      .project-abbr{
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      .customer-name{
+        margin: -0.5rem 0rem 1rem;
+        opacity: 0.8;
+        filter: opacity(80);
+      }
+      .project-name{
+        border:0.1rem solid $border-color1;
+      }
+      .phase{
+        text-align: center;
+        p{
+          font-size: 1rem;
+        }
+        span{
+          font-size: 0.8rem;
+          margin-top:-0.1rem;
+          display: block;
+        }
+        .phase-name{
+          padding: 0.5rem 0.8rem;
+          background: #ffc800;
+        }
+      }
+    }
+  }
+}
+}
 
 

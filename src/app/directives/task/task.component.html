@@ -1,0 +1,33 @@
+<div class="nav flex-column task-list"
+     (click)="onselectTask()">
+  <li class="nav-item">
+    <div class="card task-card selection">
+      <div class="card-body">
+        <span>30 มกราคม</span>
+        <button type="button"
+                (click)="onView()"
+                class="btn btn-outline-info float-right">
+          <i class="fas fa-external-link-square-alt"></i> view</button>
+        <h6 class="card-title text-truncate">{{source.topic}}</h6>
+        <p class="card-text text-truncate">{{source.activity}}</p>
+
+        <div class="float-left task-owner">
+            {{source.ownerUserId}}
+        </div>
+        <div class="float-right task-collaborators">
+          <i class="fas fa-users"></i>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="task-project float-left">
+          #spin-project
+        </div>
+        <div class="task-tags">
+          <span class="badge badge-pill badge-tags">Development</span>
+          <span class="badge badge-pill badge-tags">Angular</span>
+          <span class="badge badge-pill badge-tags">Spring boot</span>
+        </div>
+      </div>
+    </div>
+  </li>
+</div>

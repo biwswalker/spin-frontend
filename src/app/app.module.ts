@@ -24,7 +24,6 @@ import { ExampleComponent } from './components/index/example/example.component';
 import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { TimestampComponent } from './components/attendance/timestamp/timestamp.component';
-import { TimetableComponent } from './components/attendance/timestamp/timetable/timetable.component';
 import { TaskComponent } from './components/attendance/task/task.component';
 import { TaskModalComponent } from './components/attendance/task/task-modal/task-modal.component';
 import { TimetableDayComponent } from './components/attendance/timestamp/timetable-day/timetable-day.component';
@@ -41,7 +40,9 @@ import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
-
+import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
+import { TaskDirective } from './directives/task/task.component';
+import { TaskService } from './providers/task.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,6 @@ import { AuthenticationService } from './providers/authentication.service';
     ProjectModalDetailComponent,
     ProjectModalPhaseComponent,
     ProjectModalMemberComponent,
-    TimetableComponent,
     TaskComponent,
     TaskModalComponent,
     ExampleComponent,
@@ -68,6 +68,8 @@ import { AuthenticationService } from './providers/authentication.service';
     TaskDetailComponent,
     TaskMemberComponent,
     TaskTagComponent,
+    ProjectInfoComponent,
+    TaskDirective
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ import { AuthenticationService } from './providers/authentication.service';
     HttpRequestService,
     EventService,
     ProjectService,
-    AuthenticationService
+    AuthenticationService,
+    TaskService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,32 @@
+$df-background: #bf0013;
+$df-color:white;
+@mixin custom-spin-pills($ul-class,$bg-color,$font-color){
+  .spin-nav.#{$ul-class}{
+    background-color:$bg-color;
+    padding: 0.5rem 0rem;
+    border-radius: 0.25rem;
+    .nav-item{
+      margin: 0rem 0.5rem;
+      .nav-link{
+        color:$font-color;
+        background-color: transparent;
+        border-radius: 0rem;
+        border-bottom: 0.2rem solid $bg-color;
+        &.active{
+          border-bottom: 0.2rem solid $font-color;
+          transition: all 0.3s;
+        }
+        &:hover, &.active:hover{
+          opacity: 0.8;
+          filter: opacity(80);
+          transition: all 0.3s;
+        }
+      }
+
+    }
+  }
+
+}
+
+@include custom-spin-pills('project-tab', $df-background, $df-color);
+@include custom-spin-pills('example-tab', $df-background, $df-color);

@@ -13,6 +13,7 @@ $font-size-base: 1rem;
 $font-size-lg: ($font-size-base * 1.25);
 $font-size-sm: ($font-size-base * .875);
 $input-height: 2.375rem;
+$input-width: 3rem;
 $input-height-sm: 1.9375rem;
 $input-height-lg: 3rem;
 $input-btn-focus-width: .2rem;
@@ -29,6 +30,7 @@ $theme-colors: (
 // These variables can be used to customize the switch component.
 //
 $switch-height: calc(#{$input-height} * .8) !default;
+$switch-width: calc(#{$input-width} * .8) !default;
 $switch-height-sm: calc(#{$input-height-sm} * .8) !default;
 $switch-height-lg: calc(#{$input-height-lg} * .8) !default;
 $switch-border-radius: $switch-height !default;
@@ -61,7 +63,7 @@ $switch-transition: .2s all !default;
       + label {
 
         position: relative;
-        min-width: calc(#{$switch-height} * 2);
+        min-width: calc(#{$switch-width} * 2);
         border-radius: $switch-border-radius;
         height: $switch-height;
         line-height: $switch-height;
@@ -70,10 +72,10 @@ $switch-transition: .2s all !default;
         outline: none;
         user-select: none;
         vertical-align: middle;
-        text-indent: calc(calc(#{$switch-height} * 2) + .5rem);
+        text-indent: calc(calc(#{$switch-width} * 2) + .5rem);
         span::before{
           position: absolute;
-          margin-left: -2.5rem;
+          margin-left: -3rem;
           content: $off-status;
         }
 
@@ -86,7 +88,7 @@ $switch-transition: .2s all !default;
         position: absolute;
         top: 0;
         left: 0;
-        width: calc(#{$switch-height} * 2);
+        width: calc(#{$switch-width} * 2);
         bottom: 0;
         display: block;
 
@@ -114,14 +116,15 @@ $switch-transition: .2s all !default;
       }
 
       &:checked + label::after {
-        margin-left: $switch-height;
+        // margin-left: $switch-width;
+        margin-left:calc(3.5rem * .8);
       }
       &:checked + label > span::before{
         position: absolute;
-        margin-left: -3.8rem;
-          color:$white;
-          content: $on-status;
-        }
+        margin-left: -4.5rem;
+        color:$white;
+        content: $on-status;
+      }
 
       &:focus + label::before {
         outline: none;
@@ -200,7 +203,10 @@ $switch-transition: .2s all !default;
 }
 
 
+// custom-toggle([class name],[word show when false],[word show when true]);
  @include custom-toggle('project-filter','OFF','ON');
  @include custom-toggle('task-color-toggle','ไม่','ใช่');
  @include custom-toggle('end-task-toggle','ไม่','ใช่');
+ @include custom-toggle('switch','OFF','ON');
+
 

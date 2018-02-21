@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimestampComponent } from './timestamp.component';
+import { ProjectInfoComponent } from './project-info.component';
 
-describe('TimestampComponent', () => {
-  let component: TimestampComponent;
-  let fixture: ComponentFixture<TimestampComponent>;
+describe('ProjectInfoComponent', () => {
+  let component: ProjectInfoComponent;
+  let fixture: ComponentFixture<ProjectInfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimestampComponent ]
+      declarations: [ ProjectInfoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TimestampComponent);
+    fixture = TestBed.createComponent(ProjectInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
