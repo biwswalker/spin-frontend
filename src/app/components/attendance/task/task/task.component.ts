@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Task } from '../../models/task';
-import { TaskService } from '../../providers/task.service';
+import { Task } from '../../../../models/task';
+import { TaskService } from '../../../../providers/task.service';
 
 @Component({
   selector: 'task',
