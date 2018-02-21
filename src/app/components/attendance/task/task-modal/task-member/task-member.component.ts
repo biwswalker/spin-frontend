@@ -28,8 +28,6 @@ export class TaskMemberComponent implements OnInit {
       this.partnerList.push({name: name});
       this.name = "";
     }
-
-    console.log(this.memberList)
   }
 
   deletePartner(obj){
