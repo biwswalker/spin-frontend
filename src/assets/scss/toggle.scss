@@ -201,4 +201,6 @@ $switch-transition: .2s all !default;
 
 
  @include custom-toggle('project-filter','OFF','ON');
+ @include custom-toggle('task-color-toggle','ไม่','ใช่');
+ @include custom-toggle('end-task-toggle','ไม่','ใช่');
 
