@@ -1,0 +1,10 @@
+@import 'task-card';
+//For accordion panel
+#accordion{
+  .card{
+    margin-bottom: 0.5rem;
+    .card-header{
+      padding: 0.5rem !important;
+    }
+  }
+}
