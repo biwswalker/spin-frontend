@@ -1,18 +1,17 @@
 $(document).ready(function () {
-  var winddowsW = $(window).width(); // New width
+  var winddowsW = window.innerWidth; // New width
   menuDisplay(winddowsW);
   layoutGapDisplay(winddowsW);
   $(window).resize(function() {
     // This will execute whenever the window is resized
-    var winddowsH = $(window).height(); // New height
-    this.winddowsW = $(window).width(); // New width
+    // var winddowsH = $(window).height(); // New height
+    this.winddowsW = window.innerWidth; // New width
     menuDisplay(this.winddowsW);
     layoutGapDisplay(this.winddowsW);
   });
 
   function layoutGapDisplay($width){
-    console.log('width: '+$width+' px');
-    if($width > 1182 && $width < 1428){
+    if($width > 1199 && $width < 1440){
       $('.menu-space').removeClass('col-xl-2');
       $('.content-space').removeClass('col-xl-10');
       $('.menu-space').addClass('col-xl-3');

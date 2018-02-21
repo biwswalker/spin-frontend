@@ -9,29 +9,41 @@
     <div class="form-group col-12">
         <label>สมาชิกโครงการ</label>
     </div>
-    <div class="form-group col-12">
-        <div id="member-list" *ngFor="let obj of memberList">
-            <input type="checkbox" name="" id="" [(ngModel)]="obj.status"> {{obj.name}}
+    <div class="form-group col-12 rounded bg-white text-dark scroll-auto">
+        <div id="member-list"
+          *ngFor="let obj of memberList">
+            <input type="checkbox"
+              name="member-status"
+              id="member-status"
+              [(ngModel)]="obj.status">
+                {{obj.name}}
         </div>
     </div>
 </div>
 <label>ผู้ร่วมงาน</label>
 <div class="form-row">
-    <div class="form-group col-12">
-        <div id="partner-list" *ngFor="let obj of partnerList">
+    <div class="form-group  col-12 scroll-auto bg-white rounded text-dark">
+      <div *ngIf="partnerList">
+        <div id="partner-list"
+          name="partner-list"
+          *ngFor="let obj of partnerList" >
             {{obj.name}}
-            <a (click)="deletePartner(obj)" class="fas fa-times-circle"></a>
+            <a (click)="deletePartner(obj)"
+              class="fas fa-times-circle">
+            </a>
         </div>
+      </div>
     </div>
 </div>
 <div class="form-row">
-    <div class="form-group col-10">
-        <input class="form-control" type="text" [(ngModel)]="name">
-        <span>
-          <i type="button" class="btn btn-success fa-plus" (click)="addPartner()">เพิ่ม</i>
-        </span>
+    <div class="form-group col">
+        <input class="form-control"
+          id="task-partner-input"
+          name="task-partner-input"
+          type="text"
+          [(ngModel)]="name">
     </div>
-    <div class="form-group col-2 position-r">
+    <div class="form-group col-1 position-r">
         <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
     </div>
 </div>

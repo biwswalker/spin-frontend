@@ -132,14 +132,13 @@
   }
 }
 
-// For manage sidebar menu
-@media (min-width: 576px) and (max-width: 767.98px) {
-
-}
 @include media-breakpoint-up(sm) {
-  .toggle-sidebar {
-    display: none;
-  }
+
+    .toggle-sidebar {
+      display: none;
+    }
+
+
   .navbar{
     .left-section{
       visibility: hidden;
@@ -148,9 +147,14 @@
 }
 
 @include media-breakpoint-down(sm) {
+
   .toggle-sidebar {
     display: block;
   }
+  #sidebar-brand{
+    background: transparent !important;
+  }
+
   .navbar{
     .left-section{
       visibility: visible;

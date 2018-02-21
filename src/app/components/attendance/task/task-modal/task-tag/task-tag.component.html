@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-    <tag-input [(ngModel)]='tagList' theme='pink-theme'
+    <tag-input class="form-control" [(ngModel)]='tagList' theme='pink-theme'
     [removable]='true'
     [maxItems]='10'
     [onlyFromAutocomplete]="false">
@@ -13,5 +13,11 @@
 </div>
 <div class="footer">
   <p>ป้ายกำกับที่เคยใช้</p>
-
+  <tag-input
+    [removable]="false"
+    [ngModel]="usedTagList"
+    [removable]='true'
+    [maxItems]='0'
+    (onSelect)="onSelected($event)">
+  </tag-input>
 </div>

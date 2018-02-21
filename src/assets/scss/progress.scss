@@ -1,0 +1,7 @@
+@include media-breakpoint-down(xl){
+  .progress{
+    .progress-bar{
+      padding-top: 0.1rem;
+    }
+  }
+}

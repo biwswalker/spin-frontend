@@ -34,5 +34,4 @@ export class TaskMemberComponent implements OnInit {
     this.partnerList.splice(this.partnerList.indexOf(obj), 1)
   }
 
-
 }

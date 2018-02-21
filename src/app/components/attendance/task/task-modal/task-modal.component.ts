@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { TaskForm } from '../../../../forms/taskForm';
 
 @Component({
   selector: 'app-task-modal',
@@ -8,12 +9,13 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
 })
 export class TaskModalComponent implements OnInit  {
 
-  bgColor:string;
-
+  public bgColor:string;
+  public taskForm: TaskForm;
   constructor() { }
 
   ngOnInit() {
-    this.validateForm();
+    this.taskForm = new TaskForm();
+    // this.validateForm();
   }
 
   validateForm(){
