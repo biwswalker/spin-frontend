@@ -41,6 +41,9 @@ import { HttpRequestService } from './providers/utils/http-request.service';
 import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
+import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
+import { DetailComponent } from './components/project/project-info/detail/detail.component';
+import { MemberComponent } from './components/project/project-info/member/member.component';
 
 
 @NgModule({
@@ -68,6 +71,9 @@ import { AuthenticationService } from './providers/authentication.service';
     TaskDetailComponent,
     TaskMemberComponent,
     TaskTagComponent,
+    ProjectInfoComponent,
+    DetailComponent,
+    MemberComponent,
   ],
   imports: [
     BrowserModule,
