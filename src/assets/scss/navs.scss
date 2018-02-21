@@ -29,3 +29,4 @@ $df-color:white;
 }
 
 @include custom-spin-pills('project-tab', $df-background, $df-color);
+@include custom-spin-pills('example-tab', $df-background, $df-color);

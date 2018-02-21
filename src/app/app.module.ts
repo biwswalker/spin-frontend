@@ -24,7 +24,6 @@ import { ExampleComponent } from './components/index/example/example.component';
 import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { TimestampComponent } from './components/attendance/timestamp/timestamp.component';
-import { TimetableComponent } from './components/attendance/timestamp/timetable/timetable.component';
 import { TaskComponent } from './components/attendance/task/task.component';
 import { TaskModalComponent } from './components/attendance/task/task-modal/task-modal.component';
 import { TimetableDayComponent } from './components/attendance/timestamp/timetable-day/timetable-day.component';
@@ -45,6 +44,8 @@ import { ProjectInfoComponent } from './components/project/project-info/project-
 import { DetailComponent } from './components/project/project-info/detail/detail.component';
 import { MemberComponent } from './components/project/project-info/member/member.component';
 
+import { TaskDirective } from './directives/task/task.component';
+import { TaskService } from './providers/task.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,6 @@ import { MemberComponent } from './components/project/project-info/member/member
     ProjectModalDetailComponent,
     ProjectModalPhaseComponent,
     ProjectModalMemberComponent,
-    TimetableComponent,
     TaskComponent,
     TaskModalComponent,
     ExampleComponent,
@@ -74,6 +74,7 @@ import { MemberComponent } from './components/project/project-info/member/member
     ProjectInfoComponent,
     DetailComponent,
     MemberComponent,
+    TaskDirective
   ],
   imports: [
     BrowserModule,
@@ -93,7 +94,8 @@ import { MemberComponent } from './components/project/project-info/member/member
     HttpRequestService,
     EventService,
     ProjectService,
-    AuthenticationService
+    AuthenticationService,
+    TaskService
   ],
   bootstrap: [AppComponent]
 })

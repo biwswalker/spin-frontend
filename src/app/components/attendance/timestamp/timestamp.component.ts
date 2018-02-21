@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'timestamp',
-  templateUrl: './timestamp.component.html',
+  template: `<timetable-day></timetable-day>`,
   styleUrls: ['./timestamp.component.scss']
 })
 export class TimestampComponent implements OnInit {
