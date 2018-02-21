@@ -45,6 +45,7 @@ import { TaskDirective } from './directives/task/task.component';
 import { TaskService } from './providers/task.service';
 import { PrjInfoDetailComponent } from './components/project/project-info/prj-info-detail/prj-info-detail.component';
 import { PrjInfoMemberComponent } from './components/project/project-info/prj-info-member/prj-info-member.component';
+import { PrjInfoSummaryComponent } from './components/project/project-info/prj-info-summary/prj-info-summary.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { PrjInfoMemberComponent } from './components/project/project-info/prj-in
     ProjectInfoComponent,
     TaskDirective,
     PrjInfoDetailComponent,
-    PrjInfoMemberComponent
+    PrjInfoMemberComponent,
+    PrjInfoSummaryComponent
   ],
   imports: [
     BrowserModule,
