@@ -21,7 +21,7 @@ export class TaskDetailComponent implements OnInit {
   colorStatus: boolean = false;
   projectDropdown: boolean = false;
   projectList: any[] = [];
-  project: any = "";
+  project: any;
 
   constructor(
     public taskModal: TaskModalComponent) {
@@ -42,7 +42,14 @@ export class TaskDetailComponent implements OnInit {
 
   };
   ngOnInit() {
-    this.projectList = ['Project', 'Adobe', 'Break', 'Concat', 'Java Script', 'Angular', 'Jquery'];
+    this.projectList = [
+      {prjId: 1, name: 'Java'},
+      {prjId: 2, name: 'OOP'},
+      {prjId: 3, name: 'Angular'},
+      {prjId: 4, name: 'Jquery'},
+      {prjId: 5, name: 'Java'},
+      {prjId: 6, name: 'SpringBoot'}
+    ];
   }
 
   onColorPick(color) {
@@ -52,14 +59,8 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  selectedDate(){
-    let d = this.workDate['date'].day.toString();
-    let m = this.workDate['date'].month.toString();
-    let y = this.workDate['date'].year.toString();
-    if(this.workDate['date'].month < 10){
-      m = '0' + m;
-    }
-    this.taskModal.taskForm.task.workDate = d + m + y;
+  initialProject(){
+
   }
 }
 

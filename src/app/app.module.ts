@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { MyDatePickerModule } from 'mydatepicker';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -46,6 +47,7 @@ import { ProjectService } from './providers/project.service';
 import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
 import { TaskService } from './providers/task.service';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 @NgModule({
   declarations: [
@@ -87,7 +89,8 @@ import { TaskService } from './providers/task.service';
     TagInputModule,
     BrowserAnimationsModule,
     NguiAutoCompleteModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    InfiniteScrollModule
   ],
   providers: [
     {
@@ -104,3 +107,5 @@ import { TaskService } from './providers/task.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);

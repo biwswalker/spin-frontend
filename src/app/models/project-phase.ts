@@ -1,8 +1,8 @@
 export class ProjectPhase{
-  public project_id: number;
-  public seq_id: number;
-  public phase_name: string;
-  public start_date: string;
-  public end_date: string;
-  public version_id:number;
+  public projectId: number;
+  public seqId: number;
+  public phaseName: string;
+  public startDate: string;
+  public endDate: string;
+  public versionId:number;
 }

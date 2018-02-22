@@ -1,11 +1,9 @@
 export class ProjectMember{
-  public project_id: number;
-  public user_id: string;
-  public resp_id: number;
+  public projectId: number;
+  public userId: string;
+  public respId: number;
   public remark: string;
-  public active_flag: number;
-  public version_id: number;
+  public activeFlag: number;
+  public versionId: number;
 
-  //for display
-  public user_name: string;
 }
