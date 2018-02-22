@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskForm } from '../../../../forms/taskForm';
 import { TaskTagComponent } from './task-tag/task-tag.component';
+import { TaskService } from '../../../../providers/task.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -14,7 +15,7 @@ export class TaskModalComponent implements OnInit  {
   public bgColor:string;
   public taskForm: TaskForm;
 
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
 
   ngOnInit() {
@@ -45,7 +46,11 @@ export class TaskModalComponent implements OnInit  {
 
   onSubmit(){
     console.log(this.taskForm)
-
+    this.taskService.insertTask(this.taskForm.task).subscribe(
+      res=>{
+        console.log(res)
+      }
+    )
   }
 
   receiveMessage(event){
