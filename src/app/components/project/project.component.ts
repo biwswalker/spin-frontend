@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-declare var SpinModal: any;
+import { ProjectModalComponent } from './project-modal/project-modal.component';
+import { ProjectSearchComponent } from './project-search/project-search.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ProjectInfoComponent } from './project-info/project-info.component';
+import { AuthenticationService } from '../../providers/authentication.service';
+import { ProjectService } from '../../providers/project.service';
+import { EventService } from '../../providers/utils/event.service';
+
 
 @Component({
   selector: 'project',
@@ -8,10 +14,20 @@ declare var SpinModal: any;
 })
 export class ProjectComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(ProjectSearchComponent) projectSearch;
+  @ViewChild(ProjectInfoComponent) projectInfo;
+  @ViewChild(ProjectModalComponent) projectModal;
+  constructor(
+    private projectService: ProjectService,
+    private eventService: EventService,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
-    let modal = new SpinModal();
+
+  }
+
+  onNewProjectClick(){
+    this.projectModal.newProject();
   }
 
 }

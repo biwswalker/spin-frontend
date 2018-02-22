@@ -1,6 +1,8 @@
+import { TaskMemberComponent } from './task-member/task-member.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskForm } from '../../../../forms/taskForm';
+import { TaskTagComponent } from './task-tag/task-tag.component';
 
 @Component({
   selector: 'app-task-modal',
@@ -11,7 +13,9 @@ export class TaskModalComponent implements OnInit  {
 
   public bgColor:string;
   public taskForm: TaskForm;
+
   constructor() { }
+
 
   ngOnInit() {
     this.taskForm = new TaskForm();
@@ -40,6 +44,7 @@ export class TaskModalComponent implements OnInit  {
   }
 
   onSubmit(){
+    console.log(this.taskForm)
 
   }
 

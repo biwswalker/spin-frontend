@@ -17,7 +17,7 @@ export class Task {
     public referTaskId: number;
     public remark: string;
     public activeFlag: string;
-    
+
     public taskTagList: TaskTag[];
     public taskPartnerList: TaskPartner[];
 }

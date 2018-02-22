@@ -17,8 +17,12 @@
 <div class="form-row">
     <div class="form-group col-6">
         <label>วันที่ *</label>
-        <my-date-picker  name="mydate" [options]="myDatePickerOptions"
-        [(ngModel)]="taskModal.taskForm.task.workDate" required></my-date-picker>
+        <my-date-picker name="mydate"
+          [options]="myDatePickerOptions"
+          [(ngModel)]="workDate"
+          onselect="selectedDate()"
+          required>
+        </my-date-picker>
           <div class="invalid-tooltip">
             กรุณากรอกวันที่
           </div>
@@ -67,7 +71,7 @@
     <div class="form-group col-12">
         <label>กิจกรรม *</label>
         <textarea class="form-control"
-          rows="5"
+          rows="3"
           id="task-activity"
           name="task-activity"
           [(ngModel)]="taskModal.taskForm.task.activity"
@@ -100,65 +104,50 @@
                   (click)="onColorPick('#007bff')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
-            </div>
-            <div class="col">
                 <a class="btn btn-success color-picker"
                   (click)="onColorPick('#28a745')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
-            </div>
-            <div class="col">
                 <a class="btn btn-danger color-picker"
                   (click)="onColorPick('#dc3545')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
-            </div>
-            <div class="col">
                 <a class="btn btn-warning color-picker"
                   (click)="onColorPick('#ffc107')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
-            </div>
-            <div class="col">
                 <a class="btn btn-secondary color-picker"
                   (click)="onColorPick('#6c757d')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
-            </div>
-            <div class="col">
                 <a class="btn btn-info color-picker"
                   (click)="onColorPick('#17a2b8')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
-            </div>
-            <div class="col">
                 <a class="btn btn-dark color-picker"
                   (click)="onColorPick('#343a40')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
             </div>
+
         </div>
     </div>
 </div>
 
 <div class="form-row row">
-    <div class="form-group col d-flex">
-        <div class="ml-auto">
-            <label>กำหนดเป็นค่าเริ่มต้น</label>
-        <span class="task-color-toggle">
-            <input class="switch"
-              type="checkbox"
-              id="task-color-toggle"
-              [(ngModel)]="colorStatus">
-              <label for="task-color-toggle">
-                <span></span>
-              </label>
-        </span>
-    </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="button btn btn-primary" type="button" (click)="showData()">Show</div>
-  </div>
+  <div class="form-group col d-flex">
+    <div class="ml-auto">
+        <label>กำหนดเป็นค่าเริ่มต้น</label>
+    <span class="task-color-toggle">
+        <input class="switch"
+          type="checkbox"
+          id="task-color-toggle"
+          [(ngModel)]="colorStatus">
+          <label for="task-color-toggle">
+            <span></span>
+          </label>
+    </span>
+</div>
+</div>
 </div>

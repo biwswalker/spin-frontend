@@ -3,6 +3,7 @@
     <tag-input class="form-control" [(ngModel)]='tagList' theme='pink-theme'
     [removable]='true'
     [maxItems]='10'
+    (inputTextChange)="addTag($event)"
     [onlyFromAutocomplete]="false">
       <tag-input-dropdown
         [showDropdownIfEmpty]="false"

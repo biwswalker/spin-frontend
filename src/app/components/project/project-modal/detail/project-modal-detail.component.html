@@ -1,20 +1,18 @@
 <form [formGroup]="projectDetailGroup">
     <!-- Visibility -->
     <div class="row">
-      <div class="col-8">
-        <p>อนุญาติให้คนอื่นเห็นโครงการได้</p>
-      </div>
-      <div class="col-4">
-        <div class="toggleWrapper">
-          <input type="checkbox"
-                 id="visibility-flag"
-                 name="visibility-flag"
-                 formControlName="visibilityFlag" />
-          <label for="visibility-flag"
-                 class="toggle">
-            <span class="toggle__handler"></span>
-          </label>
-        </div>
+      <div class="col-12 d-flex">
+          <div class="ml-auto">
+              <span class="d-inline-block">อนุญาติให้คนอื่นเห็นโครงการได้</span>
+              <span class="project-filter">
+                  <input type="checkbox"
+                  id="visibility-flag"
+                  name="visibility-flag"
+                  formControlName="visibilityFlag"
+                  class="switch">
+                  <label for="visibility-flag"><span></span></label>
+              </span>
+            </div>
       </div>
     </div>
 
@@ -82,14 +80,14 @@
                href="#tab-hardware"
                role="tab"
                id="hardware-a"
-               data-toggle="tab">Hardware</a>
+               data-toggle="tab">ฮาร์ดแวร์</a>
           </li>
           <li class="nav-item">
             <a class="nav-link"
                href="#tab-software"
                role="tab"
                id="software-a"
-               data-toggle="tab">Software</a>
+               data-toggle="tab">ซอฟต์แวร์</a>
           </li>
         </ul>
 
