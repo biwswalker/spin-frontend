@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
-
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+import { MyDatePickerModule } from 'mydatepicker';
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -74,7 +75,7 @@ import { TaskService } from './providers/task.service';
     TaskDirective,
     PrjInfoDetailComponent,
     PrjInfoMemberComponent,
-    PrjInfoSummaryComponent
+    PrjInfoSummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,7 +84,10 @@ import { TaskService } from './providers/task.service';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    TagInputModule, BrowserAnimationsModule
+    TagInputModule,
+    BrowserAnimationsModule,
+    NguiAutoCompleteModule,
+    MyDatePickerModule
   ],
   providers: [
     {

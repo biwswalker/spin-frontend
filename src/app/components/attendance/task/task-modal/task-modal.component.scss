@@ -1,1 +1,19 @@
 @import '~assets/scss/modal.scss';
+
+.autocomplete-dropdown{
+  position: absolute;
+  z-index: 1;
+  width: 98.5%;
+  max-height: 10rem;
+  background-color: white;
+  border-radius: 0.3rem;
+  overflow-y: auto;
+}
+
+.autocomplete-item{
+  padding: 0.5rem;
+}
+
+.autocomplete-item:hover{
+  background:#C2C2C2;
+}

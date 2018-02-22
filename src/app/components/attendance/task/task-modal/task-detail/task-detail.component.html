@@ -1,8 +1,7 @@
 <div class="form-row">
-    <div class="form-group col text-right">
-        <label for="end-task-toggle">สิ้นสุดการทำงาน</label>
-    </div>
-    <div class="col-2">
+    <div class="form-group col d-flex">
+      <div class="ml-auto">
+        <span for="end-task-toggle">สิ้นสุดการทำงาน</span>
         <span class="end-task-toggle">
           <input class="switch"
             type="checkbox"
@@ -12,17 +11,14 @@
             <span></span>
           </label>
         </span>
+      </div>
     </div>
 </div>
 <div class="form-row">
     <div class="form-group col-6">
         <label>วันที่ *</label>
-        <input class="form-control"
-          type="text"
-          id="task-datepicker"
-          [(ngModel)]="taskModal.taskForm.task.workDate"
-          maxlength="8"
-          required>
+        <my-date-picker  name="mydate" [options]="myDatePickerOptions"
+        [(ngModel)]="taskModal.taskForm.task.workDate" required></my-date-picker>
           <div class="invalid-tooltip">
             กรุณากรอกวันที่
           </div>
@@ -82,15 +78,11 @@
 <div class="form-row">
     <div class="form-group col-12">
         <label>ชื่อโครงการ</label>
-        <!-- <input class="form-control"
-          type="text"
-          name="task-detail-project"
-          id="task-detail-project"
+        <input auto-complete
+          class="form-control"
+          min-chars="1"
           [(ngModel)]="taskModal.taskForm.taskProject"
-          required> -->
-          <input type="text" id="ajax" list="json-datalist" placeholder="e.g. datalist">
-          <datalist id="json-datalist"></datalist>
-
+          [source]="projectList" />
           <div class="invalid-tooltip">
             กรุณากรอกกิจกรรม
           </div>
@@ -150,10 +142,9 @@
 </div>
 
 <div class="form-row row">
-    <div class="form-group col text-right">
-        <label>กำหนดเป็นค่าเริ่มต้น</label>
-    </div>
-    <div class="form-group col-2 ">
+    <div class="form-group col d-flex">
+        <div class="ml-auto">
+            <label>กำหนดเป็นค่าเริ่มต้น</label>
         <span class="task-color-toggle">
             <input class="switch"
               type="checkbox"
@@ -166,8 +157,8 @@
     </div>
 </div>
 
-<!-- <div class="row">
+<div class="row">
   <div class="col">
     <div class="button btn btn-primary" type="button" (click)="showData()">Show</div>
   </div>
-</div> -->
+</div>

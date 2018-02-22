@@ -12,6 +12,8 @@ export class TaskMemberComponent implements OnInit {
   owner: string = "";
   memberList: any[] = [];
   partnerList: any[] = [];
+  partner: any = "";
+  autocompletePartnerList: any[] = [];
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +21,10 @@ export class TaskMemberComponent implements OnInit {
     this.memberList.push({ name: 'member1', status: true });
     this.memberList.push({ name: 'member2', status: false});
     this.memberList.push({ name: 'member3', status: true });
+    this.autocompletePartnerList.push('phai');
+    this.autocompletePartnerList.push('pond');
+    this.autocompletePartnerList.push('aig');
+    this.autocompletePartnerList.push('biw');
   }
 
   addPartner(){
