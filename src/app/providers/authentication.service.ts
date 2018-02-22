@@ -22,7 +22,7 @@ export class AuthenticationService {
     const headers = new HttpHeaders({
       "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
     })
-    const options = { headers: headers}
+    const options = { headers: headers }
     return this.request.requestMethodPOSTWithHeader('oauth/token', data, options).toPromise()
       .then(token => {
         if (token) {

@@ -20,9 +20,9 @@ export class ProjectModalPhaseComponent implements OnInit {
 
   validateForm(){
     this.projectPhaseGroup = new FormGroup({
-      phase_name: new FormControl(this.projectPhase.phase_name, Validators.required),
-      start_date: new FormControl(this.projectPhase.start_date, Validators.required),
-      end_date: new FormControl(this.projectPhase.end_date, Validators.required),
+      phaseName: new FormControl(this.projectPhase.phaseName, Validators.required),
+      startDate: new FormControl(this.projectPhase.startDate, Validators.required),
+      endDate: new FormControl(this.projectPhase.endDate, Validators.required),
 
     })
   }

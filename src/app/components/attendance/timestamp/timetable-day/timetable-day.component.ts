@@ -15,6 +15,8 @@ declare var $: any;
 export class TimetableDayComponent implements OnInit {
 
   @ViewChild(TaskModalComponent) taskModalChild;
+
+  // Get time list
   public worktable = WorkingTime
 
   constructor(private taskService: TaskService) {
@@ -47,17 +49,12 @@ export class TimetableDayComponent implements OnInit {
           $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
         }
         $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} position-relative' (click)="onViewTask()" style='cursor: pointer;'></div>`);
-        $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'><div>${task.topic}</div><div>Detail1</div><div>Detail2</div><div>Detail3</div><div>Detail4</div></div>`);
+        $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'><div>${task.topic}</div><div>${task.activity}</div><div>Detail2</div></div>`);
         index++;
       }
     }, err => {
       console.log(err)
     })
-    // $(".working1").wrapAll("<div class='ggwp1' style='position:relative'></div>");
-    // $(".working2").wrapAll("<div class='ggwp2' style='position:relative'></div>");
-    // $(".ggwp1").append("<div style='position: absolute;background: rgba(232, 0, 11, 0.4);top: 0;bottom: 0;left: 0;right: 0;'><div>Loader...</div><div>Detail1</div><div>Detail2</div><div>Detail3</div><div>Detail4</div></div>");
-    // $(".ggwp2").append("<div style='position: absolute;background: rgba(232, 0, 11, 0.4);top: 0;bottom: 0;left: 0;right: 0;'>Loading...</div>");
-
   }
 
   spinTimestamp() {
@@ -108,6 +105,7 @@ export class TimetableDayComponent implements OnInit {
           self.taskService.updateCurrentTimeTask(startWorkingTime, endWorkingTime)
 
           // Call Modal
+          self.commitDataTaskModal();
           let modal = new SpinModal();
           modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
           modal.onClose('#task-modal', function () {
@@ -118,25 +116,14 @@ export class TimetableDayComponent implements OnInit {
     });
   }
 
+  commitDataTaskModal(){
+    console.log('commitDataTaskModal')
+    this.taskModalChild.onTimestampCommit();
+  }
+
   onViewTask() {
     console.log('onViewTask')
   }
 
-  sampleInsertTask() {
-    // console.log('sampleInsertTask')
-    // let tasks = new Task();
-    // tasks.workDate = '25610222';
-    // tasks.workStartTime = '1430';
-    // tasks.workEndTime = '1459';
-    // tasks.topic = 'Dev spinning3';
-    // tasks.activity = 'dev3';
-    // tasks.color = 'red';
-    // tasks.statusFlag = 'I';
-    // tasks.doSelfFlag = 'N';
-    // tasks.activeFlag = 'A';
-    // tasks.ownerUserId = 'jannarong.sa'
-    // tasks.taskPartnerList = [];
-    // tasks.taskTagList = [];
-    // this.taskService.insertTask(tasks).subscribe(callback => console.log(callback));
-  }
+
 }
