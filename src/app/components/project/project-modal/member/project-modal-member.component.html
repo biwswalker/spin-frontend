@@ -1,0 +1,44 @@
+<div class="row phase-list-row">
+    <div class="col-12">
+      <ul   class="list-group list-group-flush phase-list">
+        <li class="list-group-item">
+
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <form [formGroup]="projectMemberGroup">
+  <div class="row">
+    <div class="col-12 d-flex">
+        <h4>สมาชิก</h4>
+        <button type="button" class="btn btn-link ml-auto" ><i class="fas fa-check fa-lg"></i></button>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label for="member-name">ชื่อ - นามสกุล *</label>
+            <input type="text" class="form-control"
+            id="member-name"
+            formControlName="member-name"
+            placeholder="Enter member name">
+            <div class="invalid-feedback">
+                Please choose a username.
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label for="responsibility">ตำแหน่ง *</label>
+            <input type="text" class="form-control"
+            id="responsibility"
+            formControlName="responsibility"
+            placeholder="Enter member name">
+            <div class="invalid-feedback">
+                Please choose a username.
+            </div>
+        </div>
+    </div>
+
+  </div>
+  </form>

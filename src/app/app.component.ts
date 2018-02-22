@@ -8,7 +8,7 @@ import { AuthenticationService } from './providers/authentication.service';
 })
 export class AppComponent {
 
-  private isAccess = false;
+  public isAccess = false;
 
   constructor(private authService: AuthenticationService) {
     this.authService.crrAccess.subscribe(accesses => {

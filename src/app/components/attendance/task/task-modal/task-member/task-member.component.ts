@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskModalComponent } from '../task-modal.component';
 
 @Component({
   selector: 'app-task-member',
@@ -14,7 +15,9 @@ export class TaskMemberComponent implements OnInit {
   partnerList: any[] = [];
   partner: any = "";
   autocompletePartnerList: any[] = [];
-  constructor() { }
+  constructor(
+    private taskModal: TaskModalComponent
+  ) { }
 
   ngOnInit() {
     this.owner = "ทิวากร จันทร์ปัญญา"
@@ -28,10 +31,12 @@ export class TaskMemberComponent implements OnInit {
   }
 
   addPartner(){
+    console.log(this.name);
     let name = "";
     if(this.name != ""){
       name = this.name;
       this.partnerList.push({name: name});
+      this.taskModal.taskForm.taskPartner['userId'].push(name);
       this.name = "";
     }
   }

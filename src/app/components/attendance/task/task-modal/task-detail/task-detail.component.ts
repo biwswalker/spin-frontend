@@ -15,14 +15,7 @@ export class TaskDetailComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
 
-
-  color: string = "";
-  workStartTime: Time;
-  workEndTime: Time;
-  topic: string = "";
-  activity: string = "";
-  taskProject: string = "";
-  workDate: any = "";
+  workDate: Date;
   ProjectList: any[] = [];
   statusFlag: boolean = false;
   colorStatus: boolean = false;
@@ -30,7 +23,9 @@ export class TaskDetailComponent implements OnInit {
   projectList: any[] = [];
   project: any = "";
 
-  constructor(public taskModal: TaskModalComponent) { }
+  constructor(
+    public taskModal: TaskModalComponent) {
+     }
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -51,13 +46,21 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
-    this.messageEvent.emit(color);
+    if(color){
+      this.taskModal.taskForm.task.color = color;
+      this.messageEvent.emit(color);
+    }
   }
 
-  showData() {
-    console.log(this.taskModal.taskForm)
+  selectedDate(){
+    let d = this.workDate['date'].day.toString();
+    let m = this.workDate['date'].month.toString();
+    let y = this.workDate['date'].year.toString();
+    if(this.workDate['date'].month < 10){
+      m = '0' + m;
+    }
+    this.taskModal.taskForm.task.workDate = d + m + y;
   }
-
 }
 
 
