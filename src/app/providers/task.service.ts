@@ -25,4 +25,11 @@ export class TaskService {
       this.selectedTask.next(selected);
     }
   }
+
+  updateCurrentTimeTask(start, end) {
+    this.task.workStartTime = start;
+    this.task.workEndTime = end;
+    this.selectedTask.next(this.task);
+    console.log('updated')
+  }
 }
