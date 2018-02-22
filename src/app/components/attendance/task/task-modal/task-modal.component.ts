@@ -4,16 +4,18 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskForm } from '../../../../forms/taskForm';
 import { TaskTagComponent } from './task-tag/task-tag.component';
 import { TaskService } from '../../../../providers/task.service';
+import { Task } from '../../../../models/task';
 
 @Component({
   selector: 'app-task-modal',
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.scss']
 })
-export class TaskModalComponent implements OnInit  {
+export class TaskModalComponent implements OnInit {
 
-  public bgColor:string;
+  public bgColor: string;
   public taskForm: TaskForm;
+  public task: Task = new Task();
 
   constructor(private taskService: TaskService) { }
 
@@ -23,16 +25,22 @@ export class TaskModalComponent implements OnInit  {
     // this.validateForm();
   }
 
-  validateForm(){
-    (function() {
+  onTimestampCommit() {
+    this.taskService.currentTask.subscribe(selectedTask => {
+      this.task = selectedTask
+    })
+  }
+
+  validateForm() {
+    (function () {
       'use strict';
-      window.addEventListener('load', function() {
+      window.addEventListener('load', function () {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.getElementsByClassName('needs-validation');
         // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
+        var validation = Array.prototype.filter.call(forms, function (form) {
           // Listrening Tab Click
-            document.getElementById("tap-info").addEventListener('click', function(event) {
+          document.getElementById("tap-info").addEventListener('click', function (event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -44,16 +52,16 @@ export class TaskModalComponent implements OnInit  {
     })();
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.taskForm)
     this.taskService.insertTask(this.taskForm.task).subscribe(
-      res=>{
+      res => {
         console.log(res)
       }
     )
   }
 
-  receiveMessage(event){
+  receiveMessage(event) {
     this.bgColor = event;
     console.log(this.bgColor)
   }
