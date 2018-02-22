@@ -1,6 +1,7 @@
 import { TaskModalComponent } from './../task-modal.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Time } from '@angular/common';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-task-detail',
@@ -23,11 +24,13 @@ export class TaskDetailComponent implements OnInit {
   ProjectList: any[] = [];
   statusFlag: boolean = false;
   colorStatus: boolean = false;
-
+  projectList: any[] = [];
+  searchTerm$ = new Subject<string>();
 
   constructor(public taskModal: TaskModalComponent) { }
 
   ngOnInit() {
+    this.projectList = ['Project', 'Adobe', 'Break', 'Concat'];
   }
 
   onColorPick(color) {

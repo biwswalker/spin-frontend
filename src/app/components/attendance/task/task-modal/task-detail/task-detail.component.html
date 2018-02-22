@@ -82,12 +82,15 @@
 <div class="form-row">
     <div class="form-group col-12">
         <label>ชื่อโครงการ</label>
-        <input class="form-control"
+        <!-- <input class="form-control"
           type="text"
           name="task-detail-project"
           id="task-detail-project"
           [(ngModel)]="taskModal.taskForm.taskProject"
-          required>
+          required> -->
+          <input type="text" id="ajax" list="json-datalist" placeholder="e.g. datalist">
+          <datalist id="json-datalist"></datalist>
+
           <div class="invalid-tooltip">
             กรุณากรอกกิจกรรม
           </div>
