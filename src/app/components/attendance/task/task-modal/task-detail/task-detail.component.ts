@@ -59,7 +59,9 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
+  initialProject(){
 
+  }
 }
 
 

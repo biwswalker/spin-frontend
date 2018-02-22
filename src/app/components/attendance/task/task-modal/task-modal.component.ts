@@ -22,12 +22,14 @@ export class TaskModalComponent implements OnInit {
 
   ngOnInit() {
     this.taskForm = new TaskForm();
+    this.onTimestampCommit();
     // this.validateForm();
   }
 
   onTimestampCommit() {
     this.taskService.currentTask.subscribe(selectedTask => {
-      this.task = selectedTask
+      this.taskForm.task = selectedTask;
+      console.log( this.taskForm.task );
     })
   }
 
@@ -52,7 +54,6 @@ export class TaskModalComponent implements OnInit {
     })();
   }
 
-<<<<<<< HEAD
   onSubmit(){
     this.getDate();
     this.taskForm.task.activeFlag = 'A'
@@ -65,9 +66,6 @@ export class TaskModalComponent implements OnInit {
     this.taskForm.task.doSelfFlag = "N";
     // this.taskForm.task.taskPartnerList = []
     // this.taskForm.task.statusFlag = (this.taskForm.task.statusFlag == true ? true : false)
-=======
-  onSubmit() {
->>>>>>> 3e58b9333a8c6f4e89e1bdd8588ee91ff01c7cd1
     console.log(this.taskForm)
     this.taskService.insertTask(this.taskForm.task).subscribe(
       res => {
@@ -79,7 +77,6 @@ export class TaskModalComponent implements OnInit {
     )
   }
 
-<<<<<<< HEAD
   getStatusFlag(data){
     if(data == true){
       return 'A'
@@ -108,9 +105,6 @@ export class TaskModalComponent implements OnInit {
   }
 
   receiveMessage(event){
-=======
-  receiveMessage(event) {
->>>>>>> 3e58b9333a8c6f4e89e1bdd8588ee91ff01c7cd1
     this.bgColor = event;
     console.log(this.bgColor)
   }
