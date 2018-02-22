@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { HttpRequestService } from './utils/http-request.service';
 
 @Injectable()
 export class TaskService {
@@ -9,7 +10,7 @@ export class TaskService {
   private task = new Task();
   public currentTask = this.selectedTask.asObservable();
 
-  constructor() { }
+  constructor(private request: HttpRequestService) { }
 
   chageSelectedTask(selected: Task) {
     if (this.task.taskId) {
@@ -30,6 +31,13 @@ export class TaskService {
     this.task.workStartTime = start;
     this.task.workEndTime = end;
     this.selectedTask.next(this.task);
-    console.log('updated')
+  }
+
+  findWorkingTaskByDate(date) {
+    return this.request.requestMethodGET(`task-management/working-tasks/date/${date}`);
+  }
+
+  insertTask(taskForm: Task) {
+    return this.request.requestMethodPUT('task-management/tasks', taskForm);
   }
 }

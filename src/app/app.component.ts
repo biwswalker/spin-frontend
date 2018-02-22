@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from './providers/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+
+  private isAccess = false;
+
+  constructor(private authService: AuthenticationService) {
+    this.authService.crrAccess.subscribe(accesses => {
+      this.isAccess = accesses;
+    })
+  }
 }

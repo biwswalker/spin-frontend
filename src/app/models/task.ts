@@ -1,3 +1,6 @@
+import { TaskTag } from "./task-tag";
+import { TaskPartner } from "./task-partner";
+
 export class Task {
     public taskId: number;
     public ownerUserId: string;
@@ -14,4 +17,7 @@ export class Task {
     public referTaskId: number;
     public remark: string;
     public activeFlag: string;
+    
+    public taskTagList: TaskTag[];
+    public taskPartnerList: TaskPartner[];
 }
