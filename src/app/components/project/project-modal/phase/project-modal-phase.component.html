@@ -1,0 +1,63 @@
+<div class="row phase-list-row">
+  <div class="col-12">
+    <ul   class="list-group list-group-flush phase-list">
+      <li *ngFor="let phase of projectPhases" class="list-group-item">
+        <div class="phase row">
+          <div class="phase-name col-4 text-center">{{phase.phase_name}}</div>
+          <div class="phase-start col-4">
+            <p>{{phase.start_date}}</p>
+            <span>เริ่มโครงการ</span>
+          </div>
+          <div class="phase-end col-4">
+            <p>{{phase.end_date}}</p>
+            <span>สิ้นสุดโครงการ</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<form [formGroup]="projectPhaseGroup">
+<div class="row">
+  <div class="col-12 d-flex">
+      <h4>ระยะโครงการ</h4>
+      <button type="button" class="btn btn-link ml-auto" (click)="onAddMember()"><i class="fas fa-check fa-lg"></i></button>
+  </div>
+  <div class="col-6 col-lg-4">
+      <div class="form-group">
+          <label for="phase_name">ระยะ</label>
+          <input type="text" class="form-control form-control-3xl text-center"
+          id="phase_name"
+          formControlName="phase_name"
+          placeholder="Enter phase name">
+          <div class="invalid-feedback">
+              Please choose a username.
+            </div>
+        </div>
+  </div>
+  <div class="col-6 col-lg-8">
+      <div class="form-group">
+          <label for="start_date">วันที่เริ่มโครงการ *</label>
+          <input type="text" class="form-control"
+          id="start_date"
+          formControlName="start_date"
+          placeholder="Enter start date">
+          <div class="invalid-feedback">
+              Please choose a username.
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="end_date">วันที่สิ้นสุดโครงการ *</label>
+          <input type="text" class="form-control"
+          id="end_date"
+          formControlName="end_date"
+          placeholder="Enter start date">
+          <div class="invalid-feedback">
+              Please choose a username.
+          </div>
+      </div>
+  </div>
+</div>
+</form>
