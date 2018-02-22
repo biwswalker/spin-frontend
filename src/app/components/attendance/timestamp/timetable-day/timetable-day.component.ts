@@ -27,6 +27,7 @@ export class TimetableDayComponent implements OnInit {
   ngAfterViewInit() {
     this.taskService.findWorkingTaskByDate('25610222').subscribe((tasks: Task[]) => {
       let index = 0;
+      console.log(tasks)
       for (let task of tasks) {
         const start = Number(task.workStartTime);
         const end = Number(task.workEndTime) - 29;
@@ -123,20 +124,20 @@ export class TimetableDayComponent implements OnInit {
   }
 
   sampleInsertTask() {
-    // console.log('sampleInsertTask')
-    // let tasks = new Task();
-    // tasks.workDate = '25610222';
-    // tasks.workStartTime = '1430';
-    // tasks.workEndTime = '1459';
-    // tasks.topic = 'Dev spinning3';
-    // tasks.activity = 'dev3';
-    // tasks.color = 'red';
-    // tasks.statusFlag = 'I';
-    // tasks.doSelfFlag = 'N';
-    // tasks.activeFlag = 'A';
-    // tasks.ownerUserId = 'jannarong.sa'
-    // tasks.taskPartnerList = [];
-    // tasks.taskTagList = [];
-    // this.taskService.insertTask(tasks).subscribe(callback => console.log(callback));
+    console.log('sampleInsertTask')
+    let tasks = new Task();
+    tasks.workDate = '25610222';
+    tasks.workStartTime = '0700';
+    tasks.workEndTime = '0859';
+    tasks.topic = 'Dev ';
+    tasks.activity = 'dev lasted';
+    tasks.color = 'yellow';
+    tasks.statusFlag = 'I';
+    tasks.doSelfFlag = 'N';
+    tasks.activeFlag = 'A';
+    tasks.ownerUserId = 'jannarong.sa'
+    tasks.taskPartnerList = [];
+    tasks.taskTagList = [];
+    this.taskService.insertTask(tasks).subscribe(callback => console.log(callback));
   }
 }
