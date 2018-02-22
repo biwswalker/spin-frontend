@@ -12,7 +12,6 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit() {
     let modal = new SpinModal();
-    modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { TaskService } from '../../../../providers/task.service';
 import { TaskModalComponent } from '../../task/task-modal/task-modal.component';
+import { Task } from '../../../../models/task';
 declare var SpinModal: any;
 declare var convertTimeString: any;
 declare var $: any;
@@ -14,7 +15,13 @@ export class TimetableDayComponent implements OnInit {
 
   @ViewChild(TaskModalComponent) taskModalChild;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {
+    this.taskService.findWorkingTaskByDate('25610222').subscribe(tasks => {
+      console.log(tasks)
+    }, err => {
+      console.log(err)
+    })
+  }
 
   ngOnInit() {
     this.spinTimestamp();
@@ -84,5 +91,23 @@ export class TimetableDayComponent implements OnInit {
         }
       },
     });
+  }
+
+  sampleInsertTask(){
+    // console.log('sampleInsertTask')
+    // let tasks = new Task();
+    // tasks.workDate = '25610222';
+    // tasks.workStartTime = '1430';
+    // tasks.workEndTime = '1459';
+    // tasks.topic = 'Dev spinning3';
+    // tasks.activity = 'dev3';
+    // tasks.color = 'red';
+    // tasks.statusFlag = 'I';
+    // tasks.doSelfFlag = 'N';
+    // tasks.activeFlag = 'A';
+    // tasks.ownerUserId = 'jannarong.sa'
+    // tasks.taskPartnerList = [];
+    // tasks.taskTagList = [];
+    // this.taskService.insertTask(tasks).subscribe(callback => console.log(callback));
   }
 }

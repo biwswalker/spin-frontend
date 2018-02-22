@@ -1,0 +1,27 @@
+
+.phase-list{
+  display: block !important;
+  max-height: 20rem;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+  li.list-group-item{
+    padding: 0.5rem;
+    .phase{
+      .phase-name{
+        padding-left: 0.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      .phase-start, .phase-end{
+        text-align: center;
+      }
+      p{
+        margin-bottom: 0rem;
+      }
+      span{
+        font-size: 0.8rem;
+      }
+    }
+
+  }
+}

@@ -24,23 +24,26 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    // ("username", "supreeya.ch");
-    // ("password", "104083");
     if (this.loginGroup.valid) {
       spin(true);
       setTimeout(() => {
+        let result = false;
         this.authService.authen(this.loginGroup.value.username, this.loginGroup.value.password).then((data) => {
+          result = true;
           if (data == Status.SUCCESS) {
             console.log(Status.SUCCESS)
             spin(false);
           } else {
+            spin(false);
             console.log(Status.ERROR)
           }
         });
         setTimeout(() => {
           spin(false);
-          console.info('Connention timeout: Plz call 191.')
-        }, 30000);
+          if (!result) {
+            console.info('Connention timeout: Plz call 191.')
+          }
+        }, 25000);
       }, 2500)
     }
   }
