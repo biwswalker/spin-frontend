@@ -23,7 +23,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     let modal = new SpinModal();
-    modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
+    // modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
 
     this.task = new Task();
     this.task.taskId = 1;
