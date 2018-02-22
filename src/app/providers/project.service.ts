@@ -12,4 +12,8 @@ export class ProjectService {
     return this.request.requestMethodPOST('projects', project)
   }
 
+  findProjects(isMember,page,size) {
+    return this.request.requestMethodGET('projects-management/find-allow-project/'+isMember+'?page='+page+'&size='+size);
+  }
+
 }

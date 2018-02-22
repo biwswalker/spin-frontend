@@ -16,11 +16,12 @@ export class ProjectModalMemberComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.validateForm();
   }
 
   validateForm(){
     this.projectMemberGroup = new FormGroup({
-      phase_name: new FormControl(this.projectMember.user_id, Validators.required),
+      user_id: new FormControl(this.projectMember.user_id, Validators.required),
       resp_id: new FormControl(this.projectMember.resp_id, Validators.required),
 
     })
