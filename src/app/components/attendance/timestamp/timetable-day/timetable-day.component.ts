@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { TaskService } from '../../../../providers/task.service';
 import { TaskModalComponent } from '../../task/task-modal/task-modal.component';
-import { TaskForms } from '../../../../forms/task-form';
 import { Task } from '../../../../models/task';
 declare var SpinModal: any;
 declare var convertTimeString: any;
