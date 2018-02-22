@@ -10,7 +10,7 @@ declare var SpinTask: any;
 export class TaskDayComponent implements OnInit, AfterViewInit {
 
   private task: Task = new Task();
-  private taskList: Task[] = [];
+  public taskList: Task[] = [];
 
   constructor() { }
 
