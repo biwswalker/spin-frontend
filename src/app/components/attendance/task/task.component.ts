@@ -10,12 +10,12 @@ declare var SpinTask: any;
 })
 export class TaskComponent implements OnInit, AfterViewInit {
 
-  
+
   private task: Task = new Task();
   private taskList: Task[] = [];
 
   constructor() { }
-  
+
   ngAfterViewInit(): void {
     let stask = new SpinTask();
     stask.initial();
@@ -23,7 +23,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     let modal = new SpinModal();
-    // modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
+    modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
 
     this.task = new Task();
     this.task.taskId = 1;

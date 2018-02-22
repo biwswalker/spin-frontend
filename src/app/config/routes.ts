@@ -1,3 +1,4 @@
+import { TaskModalComponent } from './../components/attendance/task/task-modal/task-modal.component';
 import { ExampleComponent } from './../components/index/example/example.component';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'project', component: ProjectComponent },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'task', component: TaskComponent },
-  { path: 'example', component: ExampleComponent }
+  { path: 'example', component: ExampleComponent },
+  { path: 'task-modal', component: TaskModalComponent }
 ]
 
 @NgModule({
