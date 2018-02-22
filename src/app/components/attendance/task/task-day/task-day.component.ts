@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Task } from '../../../../models/task';
+import { TaskService } from '../../../../providers/task.service';
+import { Observable } from 'rxjs/Observable';
+import { TaskForm } from '../../../../forms/taskForm';
 declare var SpinTask: any;
 
 @Component({
@@ -9,30 +12,13 @@ declare var SpinTask: any;
 })
 export class TaskDayComponent implements OnInit, AfterViewInit {
 
-  private task: Task = new Task();
-  private taskList: Task[] = [];
+  public taskForms = new Observable<TaskForm[]>();
 
-  constructor() { }
+  constructor(private taskService: TaskService) {
+    this.taskForms = this.taskService.findTaskByDate('25610222')
+  }
 
   ngOnInit() {
-    this.task = new Task();
-    this.task.taskId = 1;
-    this.task.topic = "Spin WTF"
-    this.task.ownerUserId = "Jannarong Sanpang"
-    this.task.activity = "วิ่งเล่นในสนามหญ้า แล้วเจองูกีดไข่ ดิ้นดุ๊กดิ๊ก"
-    this.taskList.push(this.task)
-    this.task = new Task();
-    this.task.taskId = 2;
-    this.task.topic = "2"
-    this.task.ownerUserId = "Jannarong Sanpang"
-    this.task.activity = "วิ่งเล่นในสนามหญ้า แล้วเจองูกีดไข่ ดิ้นดุ๊กดิ๊ก"
-    this.taskList.push(this.task)
-    this.task = new Task();
-    this.task.taskId = 3;
-    this.task.topic = "3"
-    this.task.ownerUserId = "Jannarong Sanpang"
-    this.task.activity = "วิ่งเล่นในสนามหญ้า แล้วเจองูกีดไข่ ดิ้นดุ๊กดิ๊ก"
-    this.taskList.push(this.task)
   }
 
   ngAfterViewInit(): void {
