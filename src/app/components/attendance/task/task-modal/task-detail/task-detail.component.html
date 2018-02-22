@@ -19,7 +19,7 @@
         <label>วันที่ *</label>
         <my-date-picker name="mydate"
           [options]="myDatePickerOptions"
-          [(ngModel)]="workDate"
+          [(ngModel)]="taskModal.taskForm.task.workDate"
           onselect="selectedDate()"
           required>
         </my-date-picker>
@@ -85,6 +85,8 @@
         <input auto-complete
           class="form-control"
           min-chars="1"
+          value-property-name="prjId"
+          display-property-name="name"
           [(ngModel)]="taskModal.taskForm.taskProject"
           [source]="projectList" />
           <div class="invalid-tooltip">
@@ -101,31 +103,31 @@
         <div class="row">
             <div class="col">
                 <a class="btn btn-primary color-picker"
-                  (click)="onColorPick('#007bff')"
+                  (click)="onColorPick('blue')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-success color-picker"
-                  (click)="onColorPick('#28a745')"
+                  (click)="onColorPick('green')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-danger color-picker"
-                  (click)="onColorPick('#dc3545')"
+                  (click)="onColorPick('red')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-warning color-picker"
-                  (click)="onColorPick('#ffc107')"
+                  (click)="onColorPick('yellow')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-secondary color-picker"
-                  (click)="onColorPick('#6c757d')"
+                  (click)="onColorPick('gray')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-info color-picker"
-                  (click)="onColorPick('#17a2b8')"
+                  (click)="onColorPick('lightblue')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-dark color-picker"
-                  (click)="onColorPick('#343a40')"
+                  (click)="onColorPick('darkgray')"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
             </div>
