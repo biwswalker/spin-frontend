@@ -22,12 +22,14 @@ export class TaskModalComponent implements OnInit {
 
   ngOnInit() {
     this.taskForm = new TaskForm();
+    this.onTimestampCommit();
     // this.validateForm();
   }
 
   onTimestampCommit() {
     this.taskService.currentTask.subscribe(selectedTask => {
-      this.task = selectedTask
+      this.taskForm.task = selectedTask;
+      console.log( this.taskForm.task );
     })
   }
 
