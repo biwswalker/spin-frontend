@@ -8,6 +8,7 @@ import { AttendanceComponent } from '../components/attendance/attendance.compone
 import { TaskComponent } from '../components/attendance/task/task.component';
 
 const routes: Routes = [
+  { path: '', component: AttendanceComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'task', component: TaskComponent },

@@ -1,13 +1,12 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Task } from '../../../models/task';
-declare var SpinModal: any;
-declare var SpinTask: any;
 
 @Component({
   selector: 'tasks',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
+<<<<<<< HEAD
 export class TaskComponent implements OnInit, AfterViewInit {
 
 
@@ -43,6 +42,14 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.task.ownerUserId = "Jannarong Sanpang"
     this.task.activity = "วิ่งเล่นในสนามหญ้า แล้วเจองูกีดไข่ ดิ้นดุ๊กดิ๊ก"
     this.taskList.push(this.task)
+=======
+export class TaskComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+    
+>>>>>>> 3e58b9333a8c6f4e89e1bdd8588ee91ff01c7cd1
   }
 
 }
