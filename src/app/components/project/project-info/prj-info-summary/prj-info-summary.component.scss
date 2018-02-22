@@ -2,8 +2,13 @@
 
 @include custom-spin-pills('tasks-criteria-tab', white, blue);
 
+// tags criteria
+
+
+//member tab
 .profile-img{
-  width:100%;
+  width:50px;
+  height:50px;
 }
 .hour{
   text-align: center;
@@ -12,4 +17,10 @@
   li{
     padding: 0rem;
   }
+}
+
+
+//tags tab
+i{
+  color:#FF006F;
 }

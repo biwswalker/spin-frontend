@@ -1,24 +1,18 @@
 <!-- Modal -->
-<div class="modal fade"
-     id="project-modal">
-  <div class="modal-dialog modal-lg"
-       role="document">
+<div class="modal fade"  id="project-modal" tabindex="-1" role="dialog" aria-labelledby="project-modal"  aria-hidden="true">
+  <div class="modal-dialog modal-lg"  role="document">
     <div class="modal-content">
 
       <!-- Header -->
       <div class="modal-header">
-        <a href="#"
-           data-dismiss="modal">
-          <i class="fas fa-times fa-lg"></i>
-        </a>
+        <button type="button" class="btn btn-link" data-dismiss="modal"><i class="fas fa-times fa-lg"></i></button>
 
         <div class="text-center header-text">
           New Project
         </div>
 
-        <a [routerLink]="" (click)="onSubmit()">
-          <i class="fas fa-check fa-lg"></i>
-        </a>
+        <button type="button" class="btn btn-link" [routerLink]="" (click)="onSubmit()"><i class="fas fa-check fa-lg"></i></button>
+
       </div>
 
       <!-- Tab -->
