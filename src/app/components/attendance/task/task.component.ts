@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Task } from '../../../models/task';
 declare var SpinModal: any;
+declare var SpinTask: any;
 
 @Component({
   selector: 'tasks',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, AfterViewInit {
 
+  
   private task: Task = new Task();
   private taskList: Task[] = [];
 
   constructor() { }
+  
+  ngAfterViewInit(): void {
+    let stask = new SpinTask();
+    stask.initial();
+  }
 
   ngOnInit() {
     let modal = new SpinModal();
