@@ -1,11 +1,11 @@
 export class Officer{
-public officeId:string;
+public officerId:string;
 public titleTh:string;
-public firstnameTh:string;
-public lastnameTh:string;
+public firstNameTh:string;
+public lastNameTh:string;
 public titleEn:string;
-public firstnameEn:string;
-public lastnameEn:string;
+public firstNameEn:string;
+public lastNameEn:string;
 public startDate:string;
 public deptId:number;
 public positionId:number;

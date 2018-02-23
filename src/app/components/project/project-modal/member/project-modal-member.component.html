@@ -1,8 +1,11 @@
 <div class="row phase-list-row">
     <div class="col-12">
       <ul   class="list-group list-group-flush phase-list">
-        <li class="list-group-item">
-
+        <li class="list-group-item" *ngFor="let data of projectMembers">
+          <div class="member">
+            <div class="member-name">{{data.user.officer.firstNameTh}}</div>
+            <div class="member-reponsibility">{{data.responsibility.respName}}</div>
+          </div>
         </li>
       </ul>
     </div>
@@ -19,13 +22,14 @@
         <div class="form-group">
             <label for="member-name">ชื่อ - นามสกุล *</label>
             <input formControlName="userId"
-                    [(ngModel)]="user"
+                    [(ngModel)]="userName"
                     [typeahead]="users"
                     [typeaheadOptionsLimit]="7"
                     [typeaheadMinLength]="0"
-                    typeaheadOptionField="officer.firstNameTh"
+                    typeaheadOptionField="userId"
                     [typeaheadItemTemplate]="customItemTemplate"
                     [typeaheadOptionsInScrollableView]="10"
+                    (typeaheadOnSelect)="onSelectedMember($event)"
                     class="form-control">
 
                     <ng-template #customItemTemplate let-model="item" let-index="index">
@@ -40,7 +44,13 @@
             <input type="text" class="form-control"
             id="responsibility"
             formControlName="respId"
-            placeholder="Enter member name">
+            [(ngModel)]="respName"
+            [typeahead]="responsibilities"
+            [typeaheadOptionsLimit]="7"
+            [typeaheadMinLength]="0"
+            typeaheadOptionField="respName"
+            [typeaheadOptionsInScrollableView]="10"
+            (typeaheadOnSelect)="onSelectedResp($event)">
             <div class="invalid-feedback">
                 Please choose a username.
             </div>

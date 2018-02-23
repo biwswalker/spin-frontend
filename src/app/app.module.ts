@@ -54,6 +54,7 @@ import { TagService } from './providers/tag.service';
 import { PartnerService } from './providers/partner.service';
 import { OfficerService } from './providers/officer.service';
 import { HttpModule } from '@angular/http';
+import { ResponsibilityService } from './providers/responsibility.service';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { HttpModule } from '@angular/http';
     UtilsService,
     PartnerService,
     TagService,
-    OfficerService
+    OfficerService,
+    ResponsibilityService
   ],
   bootstrap: [AppComponent]
 })

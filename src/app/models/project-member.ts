@@ -1,4 +1,5 @@
 import { User } from "./user";
+import { Responsibility } from "./responsibility";
 
 export class ProjectMember{
   public projectId: number;
@@ -8,5 +9,6 @@ export class ProjectMember{
   public activeFlag: number;
   public versionId: number;
 
-  public user:User=new User;
+  public user:User;
+  public responsibility: Responsibility;
 }

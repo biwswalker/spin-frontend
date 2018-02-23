@@ -1,3 +1,4 @@
+import { Responsibility } from './../../../../models/responsibility';
 import { User } from './../../../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -6,6 +7,7 @@ import { OfficerService } from '../../../../providers/officer.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { ResponsibilityService } from '../../../../providers/responsibility.service';
 
 
 
@@ -20,9 +22,12 @@ export class ProjectModalMemberComponent implements OnInit {
   public projectMember: ProjectMember = new ProjectMember;
   public projectMembers: ProjectMember[] = [];
   public users: User[] = [];
-  public user: User = new User;
+  public responsibilities: Responsibility[] = [];
+  public userName:string;
+  public respName:string;
 
-  constructor(private officerService: OfficerService) {
+  constructor(private officerService: OfficerService,
+  private respService:ResponsibilityService) {
   }
 
 
@@ -39,7 +44,15 @@ export class ProjectModalMemberComponent implements OnInit {
       },err=>{
         console.log(err);
       }
-    )
+    );
+
+    this.respService.fetchResponsibilityAutocomplete('A').subscribe(
+      data=>{
+        this.responsibilities = data;
+      },err=>{
+        console.log(err);
+      }
+    );
 
 
   ;
@@ -54,16 +67,26 @@ export class ProjectModalMemberComponent implements OnInit {
     })
   }
 
-  onSubmit(){
-    console.log(this.user);
-    if(this.projectMemberGroup.valid){
-      this.projectMember.user = this.user;
-      this.projectMembers = this.projectMembers.concat(this.projectMember);
-      this.user = null;
-    }
+  onSelectedMember(event){
+    console.log(event);
+    this.projectMember.user = event.item;
   }
 
+  onSelectedResp(event){
+    console.log(event);
+    this.projectMember.responsibility = event.item;
+  }
+
+  onSubmit($event){
+    console.log(this.userName);
+    if(this.projectMemberGroup.valid){
+      this.projectMembers = this.projectMembers.concat(this.projectMember);
+      this.projectMember = new ProjectMember;
+      this.userName = null;
+      this.respName = null;
+    }
 
 
+  }
 
 }
