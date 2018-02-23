@@ -1,11 +1,14 @@
-<div class="form-row">
-    <div class="form-group col d-flex">
+<form [formGroup]="taskModal.taskDetailFormGroup">
+<div class="row">
+    <div class="col d-flex">
       <div class="ml-auto">
         <span for="end-task-toggle">สิ้นสุดการทำงาน</span>
         <span class="end-task-toggle">
           <input class="switch"
             type="checkbox"
-            id="end-task-toggle"
+            id="task-detail-status-flag"
+            name="task-detail-status-flag"
+            formControlName="taskDetailStatusFlag"
             [(ngModel)]="taskModal.taskForm.task.statusFlag">
           <label for="end-task-toggle">
             <span></span>
@@ -14,87 +17,83 @@
       </div>
     </div>
 </div>
-<div class="form-row">
-    <div class="form-group col-6">
+<div class="row">
+    <div class="col-6">
         <label>วันที่ *</label>
         <my-date-picker name="mydate"
           [options]="myDatePickerOptions"
-          [(ngModel)]="taskModal.taskForm.task.workDate"
-          onselect="selectedDate()"
-          required>
+          id="task-detail-work-date"
+          name="task-detail-work-date"
+          formControlName="taskDetailWorkDate"
+          [(ngModel)]="taskModal.taskForm.task.workDate">
         </my-date-picker>
-          <div class="invalid-tooltip">
-            กรุณากรอกวันที่
-          </div>
     </div>
-    <div class="form-group col-3">
+    <div class=" col-3">
         <label>เวลา *</label>
         <input class="form-control"
-          id="task-start-time"
+          id="task-detail-start-time"
+          name="task-detail-start-time"
+          formControlName="taskDetailStartTime"
           type="time"
           [(ngModel)]="taskModal.taskForm.task.workStartTime"
           maxlength="4"
           required>
-          <div class="invalid-tooltip">
-            กรุณากรอกเวลาเริ่มต้น
-          </div>
     </div>
-    <div class="form-group col-3">
+    <div class=" col-3">
         <label class="invisible">เวลา *</label>
         <input class="form-control"
-          id="task-end-time"
+          id="task-detail-end-time"
+          name="task-detail-end-time"
+          formControlName="taskDetailEndTime"
           type="time"
           maxlength="4"
           [(ngModel)]="taskModal.taskForm.task.workEndTime"
-          [min]="taskModal.taskForm.task.workStartTime"
-          required>
-          <div class="invalid-tooltip">
-            กรุณากรอกเวลาสิ้นสุด
-          </div>
+          [min]="taskModal.taskForm.task.workStartTime">
     </div>
 </div>
-<div class="form-row">
-    <div class="form-group col-12">
+<div class="row">
+    <div class=" col-12">
         <label>หัวข้อ *</label>
         <input class="form-control"
           type="text"
           name="task-detail-topic"
           id="task-detail-topic"
-          [(ngModel)]="taskModal.taskForm.task.topic"
-          required>
-          <div class="invalid-tooltip">
-            กรุณากรอกหัวข้อ
-          </div>
+          formControlName="taskDetailTopic"
+          [(ngModel)]="taskModal.taskForm.task.topic">
     </div>
 </div>
-<div class="form-row">
-    <div class="form-group col-12">
+<div class="row">
+    <div class=" col-12">
         <label>กิจกรรม *</label>
         <textarea class="form-control"
           rows="3"
-          id="task-activity"
-          name="task-activity"
-          [(ngModel)]="taskModal.taskForm.task.activity"
-          required>
+          id="task-detail-activity"
+          name="task-detail-activity"
+          formControlName="taskDetailActivity"
+          [(ngModel)]="taskModal.taskForm.task.activity">
         </textarea>
     </div>
 </div>
-<div class="form-row">
-    <div class="form-group col-12">
+<div class="row">
+    <div class=" col-12">
         <label>ชื่อโครงการ</label>
-        <input auto-complete
+        <input ngui-auto-complete
           class="form-control"
           min-chars="1"
+          id="task-detail-project"
+          name="task-detail-project"
+          formControlName="taskDetailProject"
+          [source]="projectList"
+          value-property-name="id"
+          display-property-name="name"
+          [list-formatter]="autocompleListFormatter"
           [(ngModel)]="taskModal.taskForm.taskProject"
-          [source]="projectList" />
-          <div class="invalid-tooltip">
-            กรุณากรอกกิจกรรม
-          </div>
+          />
     </div>
 </div>
 
-<div class="form-row">
-    <div class="form-group col-12">
+<div class="row">
+    <div class=" col-12">
         <div class="col">
             <label>สีพื้นหลัง * </label>
         </div>
@@ -102,44 +101,49 @@
             <div class="col">
                 <a class="btn btn-primary color-picker"
                   (click)="onColorPick('blue')"
+                  id="corlor-picker"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-success color-picker"
                   (click)="onColorPick('green')"
+                  id="corlor-picker"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-danger color-picker"
                   (click)="onColorPick('red')"
+                  id="corlor-picker"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-warning color-picker"
                   (click)="onColorPick('yellow')"
+                  id="corlor-picker"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-secondary color-picker"
                   (click)="onColorPick('gray')"
+                  id="corlor-picker"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-info color-picker"
                   (click)="onColorPick('lightblue')"
+                  id="corlor-picker"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
                 <a class="btn btn-dark color-picker"
                   (click)="onColorPick('darkgray')"
+                  id="corlor-picker"
                   [(ngModel)]="taskModal.taskForm.task.color">
                 </a>
             </div>
-
         </div>
     </div>
 </div>
 
-<div class="form-row row">
-
-  <div class="form-group col d-flex">
+<div class="row row">
+  <div class=" col d-flex">
     <div class="ml-auto">
         <label>กำหนดเป็นค่าเริ่มต้น</label>
-    <span class="task-color-toggle">
+        <span class="task-color-toggle">
         <input class="switch"
           type="checkbox"
           id="task-color-toggle"
@@ -147,7 +151,8 @@
           <label for="task-color-toggle">
             <span></span>
           </label>
-    </span>
+        </span>
+    </div>
+  </div>
 </div>
-</div>
-</div>
+</form>

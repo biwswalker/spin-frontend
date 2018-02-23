@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { TaskMemberComponent } from './task-member/task-member.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
@@ -14,67 +15,61 @@ import { Task } from '../../../../models/task';
 export class TaskModalComponent implements OnInit {
 
   public bgColor: string;
-  public taskForm: TaskForm;
-  public task: Task = new Task();
+  public taskForm: TaskForm = new TaskForm();
+  public taskDetailFormGroup: FormGroup;
+  // @ViewChild(TaskDetailComponent) taskDetailComponent;
+  // @ViewChild(TaskMemberComponent) taskMemberComponent;
+  // @ViewChild(TaskTagComponent) taskTagComponent;
 
   constructor(private taskService: TaskService) { }
 
 
   ngOnInit() {
-    this.taskForm = new TaskForm();
     this.onTimestampCommit();
     // this.validateForm();
   }
 
   onTimestampCommit() {
     this.taskService.currentTask.subscribe(selectedTask => {
-      this.taskForm.task = selectedTask;
-      console.log( this.taskForm.task );
+      console.log(selectedTask)
+      this.taskForm.task.workStartTime = this.convertTimeData(selectedTask.workStartTime);
+      this.taskForm.task.workEndTime = this.convertTimeData(selectedTask.workEndTime);
     })
   }
 
-  validateForm() {
-    (function () {
-      'use strict';
-      window.addEventListener('load', function () {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function (form) {
-          // Listrening Tab Click
-          document.getElementById("tap-info").addEventListener('click', function (event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
+  convertTimeData(time){
+    if(time){
+      let hour = time.substring(0,2);
+      let minute = time.substring(2, 4);
+      return hour + ':' + minute;
+    }
+
   }
 
+  // onSubmit(){
+  //   this.getDate();
+  //   this.taskForm.task.activeFlag = 'A'
+  //   this.taskForm.task.projectId = this.taskForm.taskProject['prjId'];
+  //   this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
+  //   this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
+  //   this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
+  //   this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.task.statusFlag);
+  //   this.taskForm.task.ownerUserId = 'tiwakorn.ja';
+  //   this.taskForm.task.doSelfFlag = "N";
+  //   console.log(this.taskForm)
+  //   this.taskService.insertTask(this.taskForm.task).subscribe(
+  //     res => {
+  //       console.log(res)
+  //     },
+  //     error=>{
+  //       console.log(error)
+  //     }
+  //   )
+  // }
+
   onSubmit(){
-    this.getDate();
-    this.taskForm.task.activeFlag = 'A'
-    this.taskForm.task.projectId = this.taskForm.taskProject['prjId'];
-    this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
-    this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
-    this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
-    this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.task.statusFlag);
-    this.taskForm.task.ownerUserId = 'tiwakorn.ja';
-    this.taskForm.task.doSelfFlag = "N";
-    // this.taskForm.task.taskPartnerList = []
-    // this.taskForm.task.statusFlag = (this.taskForm.task.statusFlag == true ? true : false)
-    console.log(this.taskForm)
-    this.taskService.insertTask(this.taskForm.task).subscribe(
-      res => {
-        console.log(res)
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+    console.log(this.taskDetailFormGroup.value.taskDetailProject)
+    console.log(this.taskDetailFormGroup.value.taskDetailProject.id)
   }
 
   getStatusFlag(data){
