@@ -48,6 +48,7 @@ import { EventService } from './providers/utils/event.service';
 import { AuthenticationService } from './providers/authentication.service';
 import { TaskService } from './providers/task.service';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { UtilsService } from './providers/utils/utils.service';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     EventService,
     ProjectService,
     AuthenticationService,
-    TaskService
+    TaskService,
+    UtilsService
   ],
   bootstrap: [AppComponent]
 })

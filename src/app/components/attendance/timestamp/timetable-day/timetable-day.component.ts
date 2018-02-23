@@ -3,6 +3,7 @@ import { TaskService } from '../../../../providers/task.service';
 import { TaskModalComponent } from '../../task/task-modal/task-modal.component';
 import { Task } from '../../../../models/task';
 import { WorkingTime } from '../../../../config/properties';
+import { UtilsService } from '../../../../providers/utils/utils.service';
 declare var SpinModal: any;
 declare var convertTimeString: any;
 declare var $: any;
@@ -19,11 +20,18 @@ export class TimetableDayComponent implements OnInit {
   // Get time list
   public worktable = WorkingTime
 
-  constructor(private taskService: TaskService) {
+  private date = '';
+
+  constructor(private taskService: TaskService, private utilsService: UtilsService) {
   }
 
   ngOnInit() {
     this.spinTimestamp();
+    // console.log('en date : '+this.utilsService.getCurrentEnDate());
+    // console.log('th date : '+this.utilsService.getCurrentThDate());
+    // console.log('next Date : '+this.utilsService.getNextDay(this.utilsService.getCurrentEnDate()));
+    // console.log('prev Date : '+this.utilsService.getPreviousDay(this.utilsService.getCurrentEnDate()));
+    // console.log('display : '+this.utilsService.displayTimestampDate(this.utilsService.getCurrentEnDate()));
   }
 
   ngAfterViewInit() {
