@@ -1,3 +1,4 @@
+import { PartnerService } from './../../../../../providers/partner.service';
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 
@@ -16,7 +17,8 @@ export class TaskMemberComponent implements OnInit {
   partner: any = "";
   autocompletePartnerList: any[] = [];
   constructor(
-    private taskModal: TaskModalComponent
+    private taskModal: TaskModalComponent,
+    private partnerService: PartnerService
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,11 @@ export class TaskMemberComponent implements OnInit {
     this.autocompletePartnerList.push('pond');
     this.autocompletePartnerList.push('aig');
     this.autocompletePartnerList.push('biw');
+    this.findByProjectId();
+  }
+
+  initialDefaultData(){
+    this.taskModal.taskForm.task.doSelfFlag = 'A'
   }
 
   addPartner(){
@@ -45,4 +52,11 @@ export class TaskMemberComponent implements OnInit {
     this.partnerList.splice(this.partnerList.indexOf(obj), 1)
   }
 
+  findByProjectId(){
+    this.partnerService.findByProjrctId(this.taskModal.taskForm.taskProject.projectId).subscribe(
+      data=>{
+        console.log(data)
+      }
+    )
+  }
 }

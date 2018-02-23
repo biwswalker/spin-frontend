@@ -8,11 +8,13 @@ export class TaskForm{
   public taskProject: Project;
   public taskPartner: TaskPartner[];
   public taskTag: TaskTag[];
+  public taskProject2: any
 
   constructor(){
     this.task = new Task();
     this.taskPartner = [];
     this.taskTag = [];
     this.taskProject = new Project();
+    this.taskProject2 = [];
   }
 }

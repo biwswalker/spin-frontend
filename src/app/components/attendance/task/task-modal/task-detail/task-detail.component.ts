@@ -1,8 +1,12 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TaskModalComponent } from './../task-modal.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Time } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { IMyDpOptions } from 'mydatepicker';
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { ProjectService } from '../../../../../providers/project.service';
+import { Project } from '../../../../../models/project';
 
 @Component({
   selector: 'app-task-detail',
@@ -15,22 +19,19 @@ export class TaskDetailComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
 
-  workDate: Date;
-  ProjectList: any[] = [];
-  statusFlag: boolean = false;
-  colorStatus: boolean = false;
-  projectDropdown: boolean = false;
-  projectList: any[] = [];
-  project: any;
-
+  data: any = "";
+  projectList: Project[] = [];
+  public taskDetailFormGroup: FormGroup;
+  colorStatus: boolean = true;
   constructor(
-    public taskModal: TaskModalComponent) {
-     }
+    public taskModal: TaskModalComponent,
+    private _sanitizer: DomSanitizer,
+    private projectService: ProjectService) { }
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd mmm yyyy',
-    dayLabels: {su: 'อา', mo: 'จ', tu: 'อ', we: 'พ', th: 'พฤ', fr: 'ศ', sa: 'ส'},
+    dayLabels: { su: 'อา', mo: 'จ', tu: 'อ', we: 'พ', th: 'พฤ', fr: 'ศ', sa: 'ส' },
     monthLabels: { 1: 'มกราคม', 2: 'กุมภาพันธ์', 3: 'มีนาคม', 4: 'เมษายน', 5: 'พฤษภาคม', 6: 'มิถุนายน', 7: 'กรกฏาคม', 8: 'สิงหาคม', 9: 'กันยายน', 10: 'ตุลาคม', 11: 'พฤศจิกายน', 12: 'ธันวาคม' },
     showTodayBtn: false,
     monthSelector: false,
@@ -41,25 +42,54 @@ export class TaskDetailComponent implements OnInit {
     firstDayOfWeek: 'su',
 
   };
+
   ngOnInit() {
-    this.projectList = [
-      {prjId: 1, name: 'Java'},
-      {prjId: 2, name: 'OOP'},
-      {prjId: 3, name: 'Angular'},
-      {prjId: 4, name: 'Jquery'},
-      {prjId: 5, name: 'Java'},
-      {prjId: 6, name: 'SpringBoot'}
-    ];
+    // this.validateData();
+    this.initialDefaultValue();
+    this.findProject();
+  }
+  validateData() {
+    this.taskDetailFormGroup = new FormGroup(
+      {
+        taskDetailStatusFlag: new FormControl((this.taskModal.taskForm.task.statusFlag == 'A' ? true : false)),
+        taskDetailWorkDate: new FormControl(this.taskModal.taskForm.task.workDate, Validators.required),
+        taskDetailStartTime: new FormControl(this.taskModal.taskForm.task.workStartTime, Validators.required),
+        taskDetailEndTime: new FormControl(this.taskModal.taskForm.task.workEndTime, Validators.required),
+        taskDetailTopic: new FormControl(this.taskModal.taskForm.task.topic, Validators.required),
+        taskDetailActivity: new FormControl(this.taskModal.taskForm.task.activity, Validators.required),
+        taskDetailProject: new FormControl(this.taskModal.taskForm.taskProject, Validators.required)
+      }
+    )
+  }
+
+  initialDefaultValue() {
+    this.taskModal.taskForm.task.activeFlag = 'A';
+    this.taskModal.taskForm.task.statusFlag = 'I';
+    this.taskModal.taskForm.task.doSelfFlag = 'N';
+    this.taskModal.taskForm.task.taskPartnerList = [];
+    this.taskModal.taskForm.task.taskTagList = [];
   }
 
   onColorPick(color) {
-    if(color){
+    if (color) {
       this.taskModal.taskForm.task.color = color;
       this.messageEvent.emit(color);
     }
   }
 
-  initialProject(){
+  findProject(){
+    this.projectService.fetchProjectAutocomplete().subscribe(
+      data=>{
+        this.projectList = data;
+        console.log(this.projectList);
+      }
+    )
+  }
+
+  showData(event){
+    console.log(event)
+    // this.taskModal.taskForm.taskProject = event;
+    // console.log(this.taskModal.taskForm.taskProject)
 
   }
 }
