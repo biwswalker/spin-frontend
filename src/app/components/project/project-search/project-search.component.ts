@@ -30,7 +30,8 @@ export class ProjectSearchComponent implements OnInit {
       data=>{
         console.log(data);
         if(data.length != 0){
-          this.projectList.push(data);
+          this.projectList = this.projectList.concat(data);
+          console.log(this.projectList);
           this.page += 1;
         }
 

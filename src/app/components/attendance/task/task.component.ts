@@ -11,7 +11,11 @@ export class TaskComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 52aec25bed985c016cba11e804c0fe4fe8a6e288
   }
 
 }

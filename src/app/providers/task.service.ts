@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { HttpRequestService } from './utils/http-request.service';
+import { Observable } from 'rxjs/Observable';
+import { TaskForm } from '../forms/taskForm';
 
 @Injectable()
 export class TaskService {
@@ -37,7 +39,22 @@ export class TaskService {
     return this.request.requestMethodGET(`task-management/working-tasks/date/${date}`);
   }
 
-  insertTask(taskForm: Task) {
-    return this.request.requestMethodPUT('task-management/tasks', taskForm);
+  findTaskByDate(date): Observable<TaskForm[]> {
+    return new Observable(observer => {
+      this.request.requestMethodGET(`task-management/tasks/date/${date}`).subscribe((tasks: Task[]) => {
+        let taskFormList: TaskForm[] = [];
+        let taskForm = new TaskForm();
+        for (let task of tasks) {
+          taskForm.task = task
+          taskFormList.push(taskForm)
+        }
+        observer.next(taskFormList)
+      });
+      return observer
+    })
+  }
+
+  insertTask(task: Task) {
+    return this.request.requestMethodPUT('task-management/tasks', task);
   }
 }
