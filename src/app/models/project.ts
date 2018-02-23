@@ -1,3 +1,5 @@
+import { ProjectMember } from './project-member';
+import { ProjectPhase } from './project-phase';
 export class Project {
     public projectId: number;
     public projectName: string;
@@ -11,4 +13,11 @@ export class Project {
     public activeFlag: string;
     public projectImage: any;
     public projectThumbnail: any;
+
+    // for UI input
+    public isVisble: boolean;
+
+    // For insrt and update
+    public projectPhaseList: ProjectPhase[];
+    public projectMemberList: ProjectMember[];
 }

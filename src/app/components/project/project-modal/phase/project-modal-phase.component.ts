@@ -15,7 +15,6 @@ export class ProjectModalPhaseComponent implements OnInit {
 
   ngOnInit() {
     this.validateForm();
-
   }
 
   validateForm(){
@@ -28,7 +27,7 @@ export class ProjectModalPhaseComponent implements OnInit {
   }
 
   onAddMember(){
-    this.projectPhases.push(this.projectPhaseGroup.value);
+    this.projectPhases.push(this.projectPhase);
     this.projectPhase = new ProjectPhase;
   }
 

@@ -51,6 +51,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { UtilsService } from './providers/utils/utils.service';
 import { TagService } from './providers/tag.service';
 import { PartnerService } from './providers/partner.service';
+import { OfficerService } from './providers/officer.service';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { PartnerService } from './providers/partner.service';
     UtilsService,
     PartnerService,
     TagService
+    OfficerService
   ],
   bootstrap: [AppComponent]
 })
