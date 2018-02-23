@@ -13,22 +13,26 @@
   <div class="row">
     <div class="col-12 d-flex">
         <h4>สมาชิก</h4>
-        <button type="button" class="btn btn-link ml-auto" ><i class="fas fa-check fa-lg"></i></button>
+        <button type="button" class="btn btn-link ml-auto" (click)="onSubmit()"><i class="fas fa-check fa-lg"></i></button>
     </div>
     <div class="col-12">
         <div class="form-group">
             <label for="member-name">ชื่อ - นามสกุล *</label>
-            <input
-            auto-complete
-            [(ngModel)]="selected"
-            type="text" class="form-control"
-            id="member-name"
-            formControlName="userId"
-            placeholder="Enter member name">
-            <div class="invalid-feedback">
-                Please choose a username.
-            </div>
+            <input formControlName="userId"
+                    [(ngModel)]="user"
+                    [typeahead]="users"
+                    [typeaheadOptionsLimit]="7"
+                    [typeaheadMinLength]="0"
+                    typeaheadOptionField="officer.firstNameTh"
+                    [typeaheadItemTemplate]="customItemTemplate"
+                    [typeaheadOptionsInScrollableView]="10"
+                    class="form-control">
+
+                    <ng-template #customItemTemplate let-model="item" let-index="index">
+                        <h6>{{model.officer.firstNameTh}} {{model.officer.lastNameTh}}</h6>
+                      </ng-template>
         </div>
+
     </div>
     <div class="col-12">
         <div class="form-group">

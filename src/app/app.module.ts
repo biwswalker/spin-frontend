@@ -7,6 +7,7 @@ import { TagInputModule } from 'ngx-chips';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { MyDatePickerModule } from 'mydatepicker';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -96,7 +97,7 @@ import { HttpModule } from '@angular/http';
     NguiAutoCompleteModule,
     MyDatePickerModule,
     InfiniteScrollModule,
-
+    TypeaheadModule.forRoot()
   ],
   providers: [
     {

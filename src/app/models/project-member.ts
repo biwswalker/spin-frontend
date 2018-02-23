@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export class ProjectMember{
   public projectId: number;
   public userId: string;
@@ -6,4 +8,5 @@ export class ProjectMember{
   public activeFlag: number;
   public versionId: number;
 
+  public user:User=new User;
 }
