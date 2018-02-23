@@ -109,7 +109,7 @@ import { OfficerService } from './providers/officer.service';
     TaskService,
     UtilsService,
     PartnerService,
-    TagService
+    TagService,
     OfficerService
   ],
   bootstrap: [AppComponent]

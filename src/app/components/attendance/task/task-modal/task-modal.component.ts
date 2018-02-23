@@ -71,7 +71,9 @@ export class TaskModalComponent implements OnInit {
   // }
 
   onSubmit() {
-    console.log(this.taskForm.task)
+    console.log(this.taskForm.taskProject)
+    console.log(this.taskForm.taskProject.projectId)
+    // console.log(this.taskForm.taskProject['projectId'])
   }
 
   getStatusFlag(data) {

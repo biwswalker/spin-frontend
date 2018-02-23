@@ -19,6 +19,7 @@ export class TaskDetailComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
 
+  data: any = "";
   projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
   colorStatus: boolean = true;
@@ -69,11 +70,6 @@ export class TaskDetailComponent implements OnInit {
     this.taskModal.taskForm.task.taskTagList = [];
   }
 
-  autocompleListFormatter = (data: any) => {
-    let html = `<span>${data.projectName}</span>`;
-    return this._sanitizer.bypassSecurityTrustHtml(html);
-  }
-
   onColorPick(color) {
     if (color) {
       this.taskModal.taskForm.task.color = color;
@@ -84,16 +80,17 @@ export class TaskDetailComponent implements OnInit {
   findProject(){
     this.projectService.fetchProjectAutocomplete().subscribe(
       data=>{
-        console.log(data)
-        this.projectList = data
-        console.log(this.projectList)
+        this.projectList = data;
+        console.log(this.projectList);
       }
     )
   }
 
-
   showData(event){
     console.log(event)
+    // this.taskModal.taskForm.taskProject = event;
+    // console.log(this.taskModal.taskForm.taskProject)
+
   }
 }
 

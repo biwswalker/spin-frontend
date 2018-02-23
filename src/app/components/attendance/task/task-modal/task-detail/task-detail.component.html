@@ -69,17 +69,13 @@
     <div class="row">
         <div class=" col-12">
             <label>ชื่อโครงการ</label>
-            <input ngui-auto-complete
-              class="form-control"
-              min-chars="1"
-              id="task-detail-project"
-              name="task-detail-project"
-              [source]="projectList"
-              value-property-name="projectId"
-              display-property-name="projectName"
-              [list-formatter]="autocompleListFormatter"
-              [(ngModel)]="taskModal.taskForm.taskProject2"
-            />
+            <input  ngui-auto-complete
+                   [source]="projectList"
+                   list-formatter="projectName"
+                   value-property-name="projectId"
+                   display-property-name="projectName"
+                   [(ngModel)]="taskModal.taskForm.taskProject"
+                   class="form-control">
         </div>
     </div>
 

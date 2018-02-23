@@ -30,6 +30,7 @@ export class TaskMemberComponent implements OnInit {
     this.autocompletePartnerList.push('pond');
     this.autocompletePartnerList.push('aig');
     this.autocompletePartnerList.push('biw');
+    this.findByProjectId();
   }
 
   initialDefaultData(){
