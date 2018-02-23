@@ -22,7 +22,7 @@ export class ProjectModalComponent implements OnInit {
   constructor(private projectService: ProjectService, private eventService: EventService, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.modal.initial('#project-modal', { show: false, backdrop: 'static', keyboard: true });
+
     // this.authService.authen()
   }
 
@@ -53,7 +53,7 @@ export class ProjectModalComponent implements OnInit {
   }
 
   openModal(){
-    this.modal.open('#project-modal');
+    this.modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
   }
 
   oncloseModal(){
