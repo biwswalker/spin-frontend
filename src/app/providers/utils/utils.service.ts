@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Format } from '../../config/properties';
 declare var moment: any;
 
 @Injectable()
@@ -9,40 +10,40 @@ export class UtilsService {
   }
 
   getCurrentThDate(): string {
-    let crr = moment().format('YYYYMMDD');
+    let crr = moment().format(Format.DATE_DB);
     let monthDate = crr.substring(4);
     return `${this.convertToThYearStrByEnDate(crr)}${monthDate}`
   }
 
   getCurrentEnDate(): string {
-    return `${moment().format('YYYYMMDD')}`;
+    return `${moment().format(Format.DATE_DB)}`;
   }
 
   getThDayWord(enDate): string {
-    var day = moment(enDate, 'YYYYMMDD');
-    var thday = day.format('dddd');
+    var day = moment(enDate, Format.DATE_DB);
+    var thday = day.format(Format.DDDD);
     return `${thday}`
   }
 
   getThMonthWord(enDate): string {
-    var month = moment(enDate, 'YYYYMMDD');
-    var thmonth = month.format('MMM');
+    var month = moment(enDate, Format.DATE_DB);
+    var thmonth = month.format(Format.MMM);
     return `${thmonth}`
   }
 
   getThGetDate(enDate): string {
-    var date = moment(enDate, 'YYYYMMDD');
-    var thdate = date.format('DD');
+    var date = moment(enDate, Format.DATE_DB);
+    var thdate = date.format(Format.DD);
     return `${thdate}`
   }
 
   getPreviousDay(enDate): string {
-    var previousDay =  moment(enDate, 'YYYYMMDD').subtract(1, 'days').format("YYYYMMDD");
+    var previousDay =  moment(enDate, Format.DATE_DB).subtract(1, 'days').format(Format.DATE_DB);
     return previousDay
   }
 
   getNextDay(enDate): string {
-    var nextDay =  moment(enDate, 'YYYYMMDD').add(1, 'days').format("YYYYMMDD");
+    var nextDay =  moment(enDate, Format.DATE_DB).add(1, 'days').format(Format.DATE_DB);
     return nextDay;
   }
 
