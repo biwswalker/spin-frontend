@@ -1,9 +1,7 @@
 <div class="row">
-  <!-- <div id="workingDatePicker"></div> -->
+  <div id="workingDatePicker"></div>
 </div>
-<div class="row">
-  <div id="task-list">
-    <task [source]="taskf.task"
-          *ngFor=" let taskf of taskForms | async"></task>
-  </div>
+<div id="task-list">
+  <task [source]="taskf.task"
+        *ngFor=" let taskf of taskForms | async"></task>
 </div>

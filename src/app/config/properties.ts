@@ -23,14 +23,8 @@ export const Default = {
     NO: btoa('spin:no')
 }
 
-export const DateOptions = {
-    DAY: { su: 'อา', mo: 'จ', tu: 'อ', we: 'พ', th: 'พฤ', fr: 'ศ', sa: 'ส' },
-    MONTH: { 1: 'มกราคม', 2: 'กุมภาพันธ์', 3: 'มีนาคม', 4: 'เมษายน', 5: 'พฤษภาคม', 6: 'มิถุนายน', 7: 'กรกฏาคม', 8: 'สิงหาคม', 9: 'กันยายน', 10: 'ตุลาคม', 11: 'พฤศจิกายน', 12: 'ธันวาคม' },
-}
-
 export const Format = {
     DATE_DB: 'YYYYMMDD',
-    DATE_PKR: 'dd mmm yyyy',
     DDDD: 'dddd',
     DD: 'DD',
     MMM: 'MMM',

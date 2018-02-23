@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
-import { MyDatePickerModule } from 'mydatepicker';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -93,7 +92,6 @@ import { OfficerService } from './providers/officer.service';
     TagInputModule,
     BrowserAnimationsModule,
     NguiAutoCompleteModule,
-    MyDatePickerModule,
     InfiniteScrollModule
   ],
   providers: [
