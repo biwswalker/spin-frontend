@@ -91,6 +91,7 @@ export class TaskDetailComponent implements OnInit {
     )
   }
 
+
   showData(event){
     console.log(event)
   }

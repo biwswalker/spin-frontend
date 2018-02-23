@@ -76,10 +76,9 @@
               name="task-detail-project"
               [source]="projectList"
               value-property-name="projectId"
-              (select)="showData($event)"
               display-property-name="projectName"
               [list-formatter]="autocompleListFormatter"
-              [(ngModel)]="taskModal.taskForm.taskProject"
+              [(ngModel)]="taskModal.taskForm.taskProject2"
             />
         </div>
     </div>

@@ -50,6 +50,7 @@ import { TaskService } from './providers/task.service';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { UtilsService } from './providers/utils/utils.service';
 import { TagService } from './providers/tag.service';
+import { PartnerService } from './providers/partner.service';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { TagService } from './providers/tag.service';
     AuthenticationService,
     TaskService,
     UtilsService,
+    PartnerService,
     TagService
   ],
   bootstrap: [AppComponent]
