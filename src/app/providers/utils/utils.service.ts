@@ -6,15 +6,16 @@ export class UtilsService {
 
   constructor() {
     moment.locale('th');
-   }
+  }
 
   getCurrentThDate(): string {
-    const date = `${ moment().format('YYYYMMDD')}`
-    return `${this.convertToThYearStrByEnDate(date)}`
+    let crr = moment().format('YYYYMMDD');
+    let monthDate = crr.substring(4);
+    return `${this.convertToThYearStrByEnDate(crr)}${monthDate}`
   }
 
   getCurrentEnDate(): string {
-    return `${ moment().format('YYYYMMDD')}`;
+    return `${moment().format('YYYYMMDD')}`;
   }
 
   getThDayWord(enDate): string {
@@ -29,20 +30,20 @@ export class UtilsService {
     return `${thmonth}`
   }
 
-  getGetDate(enDate): string {
+  getThGetDate(enDate): string {
     var date = moment(enDate, 'YYYYMMDD');
-    var thdate = date.format('Do');
+    var thdate = date.format('DD');
     return `${thdate}`
   }
 
   getPreviousDay(enDate): string {
-    var previousDay = moment(enDate, 'YYYYMMDD').subtract(1, 'days')
-    return ``
+    var previousDay =  moment(enDate, 'YYYYMMDD').subtract(1, 'days').format("YYYYMMDD");
+    return previousDay
   }
 
   getNextDay(enDate): string {
-    var previousDay = moment(enDate, 'YYYYMMDD').add(1, 'days')
-    return ``
+    var nextDay =  moment(enDate, 'YYYYMMDD').add(1, 'days').format("YYYYMMDD");
+    return nextDay;
   }
 
   convertToThYear(year: number): number {
@@ -56,20 +57,27 @@ export class UtilsService {
   }
 
   convertToThYearStrByEnDate(enDate: string): string {
-    let yearStr = enDate.substring(1, 5);
+    let yearStr = enDate.substring(0, 4);
     let thYear = Number(yearStr) + 543;
     return `${thYear}`;
   }
 
-  convertTHDateToEn(thDate: string): string {
-    let yearStr = thDate.substring(1, 5);
-    let monthDate = thDate.substring(5);
+  convertThDateToEn(thDate: string): string {
+    let yearStr = thDate.substring(0, 4);
+    let monthDate = thDate.substring(4);
     let yearEn = Number(yearStr) - 543;
     return `${yearEn}${monthDate}`;
   }
 
+  convertEnDateToTh(enDate: string): string {
+    let yearStr = enDate.substring(0, 4);
+    let monthDate = enDate.substring(4);
+    let yearTh = Number(yearStr) + 543;
+    return `${yearTh}${monthDate}`;
+  }
+
   displayTimestampDate(enDate: string): string {
-    return `${this.getThDayWord(enDate)} ${this.getGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`
+    return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`
   }
 
 }
