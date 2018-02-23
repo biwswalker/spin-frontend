@@ -1,6 +1,17 @@
+<div class="row mb-2">
+  <div class="btn-group"
+       role="group">
+    <button type="button"
+            class="btn btn-sm btn-outline-secondary" (click)="onChangeDate('prev')"><i class="fas fa-chevron-left"></i></button>
+    <button type="button"
+            class="btn btn-sm btn-outline-secondary" (click)="onChangeDate('')">วันนี้</button>
+    <button type="button"
+            class="btn btn-sm btn-outline-secondary" (click)="onChangeDate('next')"><i class="fas fa-chevron-right"></i></button>
+  </div>
+</div>
 <div class="row">
   <div class="col-12 time-header">
-    ศุกร์ 8 ธ.ค. 2561
+    {{ displayDate }}
   </div>
 </div>
 <div class="row time-body">

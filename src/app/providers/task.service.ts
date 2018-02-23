@@ -29,7 +29,8 @@ export class TaskService {
     }
   }
 
-  updateCurrentTimeTask(start, end) {
+  updateCurrentTimeTask(date, start, end) {
+    this.task.workDate = date;
     this.task.workStartTime = start;
     this.task.workEndTime = end;
     this.selectedTask.next(this.task);

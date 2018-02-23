@@ -35,14 +35,14 @@ export class AuthenticationService {
                 return Status.SUCCESS;
               } else {
                 console.log('error user')
-                this.token = null
-                this.isAccess.next(false)
+                // this.token = null
+                // this.isAccess.next(false)
                 return Status.ERROR;
               }
             }).catch(error => {
               console.log(error)
-              this.token = null
-              this.isAccess.next(false)
+              // this.token = null
+              // this.isAccess.next(false)
               return Status.ERROR;
             });
         } else {
