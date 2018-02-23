@@ -10,4 +10,8 @@ class SpinModal {
     onClose(selectorID) {
         $(selectorID).modal('hide');
     }
+
+    close(name) {
+        $(name).modal({ show: false });
+    }
 }

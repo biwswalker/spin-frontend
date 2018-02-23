@@ -19,23 +19,40 @@ export class TimetableDayComponent implements OnInit {
 
   // Get time list
   public worktable = WorkingTime
-
-  private date = '';
+  public displayDate = ''
+  private enDate = '';
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
   }
 
   ngOnInit() {
     this.spinTimestamp();
-    // console.log('en date : '+this.utilsService.getCurrentEnDate());
-    // console.log('th date : '+this.utilsService.getCurrentThDate());
-    // console.log('next Date : '+this.utilsService.getNextDay(this.utilsService.getCurrentEnDate()));
-    // console.log('prev Date : '+this.utilsService.getPreviousDay(this.utilsService.getCurrentEnDate()));
-    // console.log('display : '+this.utilsService.displayTimestampDate(this.utilsService.getCurrentEnDate()));
+    this.enDate = this.utilsService.getCurrentEnDate();
+    this.displayDate = this.utilsService.displayTimestampDate(this.enDate);
+  }
+
+  onChangeDate(control) {
+    let oldEnDate = this.enDate;
+    if (control === 'next') {
+      this.enDate = this.utilsService.getNextDay(oldEnDate);
+      this.displayDate = this.utilsService.displayTimestampDate(this.enDate);
+    } else if (control === 'prev') {
+      this.enDate = this.utilsService.getPreviousDay(oldEnDate);
+      this.displayDate = this.utilsService.displayTimestampDate(this.enDate);
+    } else {
+      this.enDate = this.utilsService.getCurrentEnDate();
+      this.displayDate = this.utilsService.displayTimestampDate(this.enDate);
+    }
+    this.fecthWorkingTaskByDate();
   }
 
   ngAfterViewInit() {
-    this.taskService.findWorkingTaskByDate('25610222').subscribe((tasks: Task[]) => {
+    this.fecthWorkingTaskByDate();
+  }
+
+  fecthWorkingTaskByDate() {
+    this.refreshTimeTable();
+    this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(this.enDate)).subscribe((tasks: Task[]) => {
       let index = 0;
       for (let task of tasks) {
         const start = Number(task.workStartTime);
@@ -56,13 +73,30 @@ export class TimetableDayComponent implements OnInit {
         for (let i = startIndex; i <= endIndex; i++) {
           $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
         }
-        $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} position-relative' (click)="onViewTask()" style='cursor: pointer;'></div>`);
+        $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' (click)="onViewTask()" style='cursor: pointer;'></div>`);
         $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'><div>${task.topic}</div><div>${task.activity}</div><div>Detail2</div></div>`);
         index++;
       }
     }, err => {
       console.log(err)
     })
+  }
+
+  refreshTimeTable() {
+    // Move to top overlap
+    let timegroup = $('.timestamp').find('.timegroup');
+    for (let time of timegroup) {
+      let overlap = time.className.split(" ", 1)[0];
+      $(`.${overlap}`).before($(`.${overlap}`).find('.stamp'));
+      $(`.${overlap}`).remove();
+    }
+    // Delete unavailable
+    let stamped = $('.timestamp').find('.unavailable');
+    for (let stamp of stamped) {
+      let unavailable = stamp.className.split(" ", 4)[3];
+      $('.stamp').removeClass(unavailable);
+    }
+    $('.stamp').removeClass('unavailable');
   }
 
   spinTimestamp() {
@@ -110,7 +144,7 @@ export class TimetableDayComponent implements OnInit {
             endWorkingTime = convertTimeString(endtime);
           }
           // Call TS fucntion
-          self.taskService.updateCurrentTimeTask(startWorkingTime, endWorkingTime)
+          self.taskService.updateCurrentTimeTask(this.utilsService.convertEnDateToTh(this.enDate), startWorkingTime, endWorkingTime)
 
           // Call Modal
           self.commitDataTaskModal();
@@ -124,8 +158,7 @@ export class TimetableDayComponent implements OnInit {
     });
   }
 
-  commitDataTaskModal(){
-    console.log('commitDataTaskModal')
+  commitDataTaskModal() {
     this.taskModalChild.onTimestampCommit();
   }
 
