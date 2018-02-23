@@ -95,7 +95,7 @@ import { ResponsibilityService } from './providers/responsibility.service';
     TagInputModule,
     BrowserAnimationsModule,
     NguiAutoCompleteModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
     TypeaheadModule.forRoot()
   ],
   providers: [
