@@ -49,6 +49,7 @@ import { AuthenticationService } from './providers/authentication.service';
 import { TaskService } from './providers/task.service';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { UtilsService } from './providers/utils/utils.service';
+import { OfficerService } from './providers/officer.service';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { UtilsService } from './providers/utils/utils.service';
     ProjectService,
     AuthenticationService,
     TaskService,
-    UtilsService
+    UtilsService,
+    OfficerService
   ],
   bootstrap: [AppComponent]
 })

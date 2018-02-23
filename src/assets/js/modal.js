@@ -3,7 +3,11 @@ class SpinModal {
         $(name).modal(option);
     }
 
-    onClose(name, callback) {
-        $(name).on('hidden.bs.modal', callback);
+    onOpen(selectorID){
+      $(selectorID).modal('show');
+    }
+
+    onClose(selectorID) {
+        $(selectorID).modal('hide');
     }
 }

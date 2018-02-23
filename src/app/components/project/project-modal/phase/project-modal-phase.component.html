@@ -31,6 +31,7 @@
           <input type="text" class="form-control form-control-3xl text-center"
           id="phase-name"
           formControlName="phaseName"
+          [(ngModel)]="projectPhase.phaseName"
           placeholder="Enter phase name">
           <div class="invalid-feedback">
               Please choose a username.
@@ -43,6 +44,7 @@
           <input type="text" class="form-control"
           id="start-date"
           formControlName="startDate"
+          [(ngModel)]="projectPhase.startDate"
           placeholder="Enter start date">
           <div class="invalid-feedback">
               Please choose a username.
@@ -53,6 +55,7 @@
           <input type="text" class="form-control"
           id="end-date"
           formControlName="endDate"
+          [(ngModel)]="projectPhase.endDate"
           placeholder="Enter start date">
           <div class="invalid-feedback">
               Please choose a username.

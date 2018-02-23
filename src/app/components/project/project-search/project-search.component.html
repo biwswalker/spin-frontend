@@ -33,8 +33,8 @@
             <span class="project-filter">
                 <input type="checkbox"
                 class="switch"
-                id="visibility-flag" [(ngModel)]="isVisibility"
-                (change)="onChangeProjectVisibility()">
+                id="visibility-flag" [(ngModel)]="onlyMember"
+                (change)="onChangeProjectFilter()">
                 <label for="visibility-flag"><span></span></label>
             </span>
         </div>
@@ -61,7 +61,7 @@
                           </div>
                           <div class="phase d-flex justify-content-between">
                             <div class="phase-start">
-                              <p>{{prj.spartDate}}</p>
+                              <p>{{prj.startDate}}</p>
                               <span>เริ่มโครงการ</span>
                             </div>
                             <div class="phase-end">

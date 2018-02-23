@@ -6,11 +6,12 @@
               <span class="d-inline-block">อนุญาติให้คนอื่นเห็นโครงการได้</span>
               <span class="project-filter">
                   <input type="checkbox"
-                  id="visibility-flag"
-                  name="visibility-flag"
+                  id="secret-flag"
+                  name="secret-flag"
                   formControlName="visibilityFlag"
+                  [(ngModel)]="project.isVisble"
                   class="switch">
-                  <label for="visibility-flag"><span></span></label>
+                  <label for="secret-flag"><span></span></label>
               </span>
             </div>
       </div>
@@ -21,6 +22,11 @@
       <div class="col-4">
         <img src="./assets/img/ico/startup.png"
              class="img-thumbnail rounded">
+             <div id="overlay">
+              <div id="text">
+                <button class="btn btn-success">Upload</button>
+              </div>
+            </div>
       </div>
 
       <!-- Project ABBR $$ Project Name-->
@@ -32,7 +38,9 @@
                    class="form-control"
                    id="project-abbr"
                    name="project-abbr"
-                   formControlName="projectAbbr">
+                   formControlName="projectAbbr"
+                   [(ngModel)]="project.projectAbbr"
+                   >
           </div>
         </div>
         <div class="row">
@@ -42,7 +50,8 @@
                    class="form-control"
                    id="project-name"
                    name="project-name"
-                   formControlName="projectName">
+                   formControlName="projectName"
+                   [(ngModel)]="project.projectName">
           </div>
         </div>
       </div>
@@ -57,7 +66,8 @@
                class="form-control"
                id="customer-name"
                name="customer-name"
-               formControlName="customerName">
+               formControlName="customerName"
+               [(ngModel)]="project.customerName">
       </div>
     </div>
 
@@ -102,7 +112,8 @@
                         rows="5"
                         id="project-detail"
                         name="project-detail"
-                        formControlName="projectDetail"></textarea>
+                        formControlName="projectDetail"
+                        [(ngModel)]="project.detail"></textarea>
             </div>
           </div>
 
@@ -115,7 +126,8 @@
                         rows="5"
                         id="hardware"
                         name="hardware"
-                        formControlName="hardware"></textarea>
+                        formControlName="hardware"
+                        [(ngModel)]="project.hardware"></textarea>
             </div>
           </div>
 
@@ -128,7 +140,8 @@
                         rows="5"
                         id="software"
                         name="software"
-                        formControlName="software"></textarea>
+                        formControlName="software"
+                        [(ngModel)]="project.software"></textarea>
             </div>
           </div>
         </div>
