@@ -4,10 +4,8 @@ import { TaskService } from '../../../../providers/task.service';
 import { Observable } from 'rxjs/Observable';
 import { TaskForm } from '../../../../forms/taskForm';
 import { UtilsService } from '../../../../providers/utils/utils.service';
-import { IMyDpOptions } from 'mydatepicker';
 import { DateOptions, Format } from '../../../../config/properties';
 declare var SpinTask: any;
-declare var SpinDatePicker: any;
 @Component({
   selector: 'task-day',
   templateUrl: './task-day.component.html',
@@ -31,13 +29,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let stask = new SpinTask();
     stask.initial();
-    let datePicker = new SpinDatePicker();
-    datePicker.initialInline('#workingDatePicker', this.selectedDate);
-  }
-
-  selectedDate(ff) {
-    console.log('Biwswalker')
-    console.log(ff)
   }
 
 }
