@@ -9,11 +9,12 @@ import { ProjectService } from '../../../providers/project.service';
 export class ProjectSearchComponent implements OnInit {
 
   public projectList: any[] = [];
-  page = 1;
-  size = 5;
+  public page = 1;
+  public size = 5;
 
-  throttle = 1000;
-  scrollDistance = 1;
+  public throttle = 1000;
+  public scrollDistance = 1;
+  public isVisibility = false;
 
   constructor(
     private projectService: ProjectService
@@ -26,9 +27,8 @@ export class ProjectSearchComponent implements OnInit {
 
   onScrollDown() {
     console.log('scrolled!!');
-    this.projectService.findProjects('N',this.page,this.size).subscribe(
+    this.projectService.findProjects((this.isVisibility?'Y':'N'),this.page,this.size).subscribe(
       data=>{
-        console.log(data);
         if(data.length != 0){
           this.projectList = this.projectList.concat(data);
           console.log(this.projectList);
@@ -40,6 +40,13 @@ export class ProjectSearchComponent implements OnInit {
       }
     )
 
+  }
+
+  onChangeProjectVisibility(){
+    console.log(this.isVisibility);
+    this.projectList = [];
+    this.page = 1;
+    this.onScrollDown();
   }
 
 }

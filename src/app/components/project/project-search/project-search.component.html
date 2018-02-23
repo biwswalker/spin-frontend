@@ -31,8 +31,11 @@
         <div>
           <span class="d-none d-md-inline-block">เฉพาะโครงการที่ฉันเป็นสมาชิก</span>
             <span class="project-filter">
-                <input type="checkbox" class="switch" id="switch-id">
-                <label for="switch-id"><span></span></label>
+                <input type="checkbox"
+                class="switch"
+                id="visibility-flag" [(ngModel)]="isVisibility"
+                (change)="onChangeProjectVisibility()">
+                <label for="visibility-flag"><span></span></label>
             </span>
         </div>
     </div>
@@ -48,7 +51,7 @@
                 <div class="card project-item">
                     <div class="card-body row">
                       <div class="project-thumbnail d-none d-sm-inline-block col-sm-3 col-md-3 col-lg-2 col-xl-3">
-                          <img class="my-3" src="../../../../assets/img/projects/Burger_King_Logo.png" width="100" height="100">
+                          <img class="my-3" src="{{prj.projectThumbnail}}" width="100" height="100">
                       </div>
                       <div class="col-12 col-sm-9 col-md-9 col-lg-10 col-xl-9">
                           <div class="project-abbr d-flex">{{prj.projectAbbr}} <i class="far fa-star ml-auto favorite"></i></div>
@@ -58,15 +61,15 @@
                           </div>
                           <div class="phase d-flex justify-content-between">
                             <div class="phase-start">
-                              <p>1 มี.ค. 2561</p>
+                              <p>{{prj.spartDate}}</p>
                               <span>เริ่มโครงการ</span>
                             </div>
                             <div class="phase-end">
-                                <p>31 ธ.ค. 2561</p>
+                                <p>{{prj.endDate}}</p>
                                 <span>สิ้นสุดโครงการ</span>
                             </div>
                             <div class="phase-name">
-                              MA
+                              {{prj.phaseName}}
                             </div>
                           </div>
                       </div>
