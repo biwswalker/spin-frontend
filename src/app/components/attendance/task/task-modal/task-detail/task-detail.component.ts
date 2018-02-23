@@ -5,6 +5,8 @@ import { Time } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { IMyDpOptions } from 'mydatepicker';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { ProjectService } from '../../../../../providers/project.service';
+import { Project } from '../../../../../models/project';
 
 @Component({
   selector: 'app-task-detail',
@@ -17,12 +19,13 @@ export class TaskDetailComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
 
-  projectList: any[] = [];
-
+  projectList: Project[] = [];
+  public taskDetailFormGroup: FormGroup;
   colorStatus: boolean = true;
   constructor(
     public taskModal: TaskModalComponent,
-    private _sanitizer: DomSanitizer) { }
+    private _sanitizer: DomSanitizer,
+    private projectService: ProjectService) { }
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -40,19 +43,20 @@ export class TaskDetailComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.validateDate();
+    // this.validateData();
     this.initialDefaultValue();
+    this.findProject();
   }
-  validateDate() {
-    this.taskModal.taskDetailFormGroup = new FormGroup(
+  validateData() {
+    this.taskDetailFormGroup = new FormGroup(
       {
         taskDetailStatusFlag: new FormControl((this.taskModal.taskForm.task.statusFlag == 'A' ? true : false)),
         taskDetailWorkDate: new FormControl(this.taskModal.taskForm.task.workDate, Validators.required),
         taskDetailStartTime: new FormControl(this.taskModal.taskForm.task.workStartTime, Validators.required),
         taskDetailEndTime: new FormControl(this.taskModal.taskForm.task.workEndTime, Validators.required),
-        taskDetailTopic: new FormControl(this.taskModal.taskForm.task.workEndTime, Validators.required),
-        taskDetailActivity: new FormControl(this.taskModal.taskForm.task.workEndTime, Validators.required),
-        taskDetailProject: new FormControl(this.taskModal.taskForm.task.workEndTime, Validators.required)
+        taskDetailTopic: new FormControl(this.taskModal.taskForm.task.topic, Validators.required),
+        taskDetailActivity: new FormControl(this.taskModal.taskForm.task.activity, Validators.required),
+        taskDetailProject: new FormControl(this.taskModal.taskForm.taskProject, Validators.required)
       }
     )
   }
@@ -63,18 +67,10 @@ export class TaskDetailComponent implements OnInit {
     this.taskModal.taskForm.task.doSelfFlag = 'N';
     this.taskModal.taskForm.task.taskPartnerList = [];
     this.taskModal.taskForm.task.taskTagList = [];
-    this.projectList = [
-      { id: 1, name: 'Java' },
-      { id: 2, name: 'OOP' },
-      { id: 3, name: 'Angular' },
-      { id: 4, name: 'Jquery' },
-      { id: 5, name: 'Java' },
-      { id: 6, name: 'SpringBoot' }
-    ];
   }
 
   autocompleListFormatter = (data: any) => {
-    let html = `<span>${data.name}</span>`;
+    let html = `<span>${data.projectName}</span>`;
     return this._sanitizer.bypassSecurityTrustHtml(html);
   }
 
@@ -85,8 +81,18 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  initialProject() {
+  findProject(){
+    this.projectService.fetchProjectAutocomplete().subscribe(
+      data=>{
+        console.log(data)
+        this.projectList = data
+        console.log(this.projectList)
+      }
+    )
+  }
 
+  showData(event){
+    console.log(event)
   }
 }
 

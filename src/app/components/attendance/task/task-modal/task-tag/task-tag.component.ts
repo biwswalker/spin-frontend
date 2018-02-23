@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
+import { TagService } from '../../../../../providers/tag.service';
 
 @Component({
   selector: 'app-task-tag',
@@ -12,12 +13,23 @@ export class TaskTagComponent implements OnInit {
   tagList: any[] = [];
   autoCompleteTagList: any[] = [];
   constructor(
-    private taskModal: TaskModalComponent
+    private taskModal: TaskModalComponent,
+    private tagService: TagService
   ) { }
 
   ngOnInit() {
     this.autoCompleteTagList = ['pizza', 'pig', 'hamburger', 'ham'];
-    this.usedTagList = ['pizza', 'pig', 'hamburger', 'ham'];
+    this.findUsedTag();
+    // this.usedTagList = ['pizza', 'pig', 'hamburger', 'ham'];
+  }
+
+  findUsedTag(){
+    this.tagService.findUsedTag().subscribe(
+      data=>{
+        console.log(data)
+        this.usedTagList = data
+      }
+    )
   }
 
   onSelected(event) {

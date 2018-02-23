@@ -16,7 +16,7 @@ export class TaskModalComponent implements OnInit {
 
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
-  public taskDetailFormGroup: FormGroup;
+
   // @ViewChild(TaskDetailComponent) taskDetailComponent;
   // @ViewChild(TaskMemberComponent) taskMemberComponent;
   // @ViewChild(TaskTagComponent) taskTagComponent;
@@ -34,6 +34,8 @@ export class TaskModalComponent implements OnInit {
       console.log(selectedTask)
       this.taskForm.task.workStartTime = this.convertTimeData(selectedTask.workStartTime);
       this.taskForm.task.workEndTime = this.convertTimeData(selectedTask.workEndTime);
+      console.log(this.taskForm.task.workEndTime)
+      console.log(this.taskForm.task.workStartTime)
     })
   }
 
@@ -68,8 +70,7 @@ export class TaskModalComponent implements OnInit {
   // }
 
   onSubmit(){
-    console.log(this.taskDetailFormGroup.value.taskDetailProject)
-    console.log(this.taskDetailFormGroup.value.taskDetailProject.id)
+    console.log(this.taskForm.task)
   }
 
   getStatusFlag(data){
