@@ -15,6 +15,13 @@ export class ProjectModalDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.project = new Project;
+    this.project.isVisble = false;
+    this.project.activeFlag = 'A';
+    this.validateForm();
+  }
+
+  validateForm(){
     this.projectDetailGroup = new FormGroup({
       projectAbbr: new FormControl(this.project.projectAbbr, Validators.required),
       projectName: new FormControl(this.project.projectName, Validators.required),
@@ -22,7 +29,7 @@ export class ProjectModalDetailComponent implements OnInit {
       projectDetail: new FormControl(this.project.detail),
       hardware: new FormControl(this.project.hardware),
       software: new FormControl(this.project.software),
-      visibilityFlag: new FormControl((this.project.visibilityFlag == 'A' ? true : false))
+      visibilityFlag: new FormControl(this.project.isVisble)
     })
   }
 

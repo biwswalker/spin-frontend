@@ -14,7 +14,7 @@ export class ProjectSearchComponent implements OnInit {
 
   public throttle = 1000;
   public scrollDistance = 1;
-  public isVisibility = false;
+  public onlyMember = false;
 
   constructor(
     private projectService: ProjectService
@@ -27,9 +27,10 @@ export class ProjectSearchComponent implements OnInit {
 
   onScrollDown() {
     console.log('scrolled!!');
-    this.projectService.findProjects((this.isVisibility?'Y':'N'),this.page,this.size).subscribe(
+    this.projectService.findProjects((this.onlyMember?'Y':'N'),this.page,this.size).subscribe(
       data=>{
-        if(data.length != 0){
+        console.log(data);
+        if(data!){
           this.projectList = this.projectList.concat(data);
           console.log(this.projectList);
           this.page += 1;
@@ -42,8 +43,8 @@ export class ProjectSearchComponent implements OnInit {
 
   }
 
-  onChangeProjectVisibility(){
-    console.log(this.isVisibility);
+  onChangeProjectFilter(){
+    console.log(this.onlyMember);
     this.projectList = [];
     this.page = 1;
     this.onScrollDown();

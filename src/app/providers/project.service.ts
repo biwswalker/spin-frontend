@@ -8,8 +8,7 @@ export class ProjectService {
   constructor(private request: HttpRequestService) { }
 
   createProject(project) {
-    // return this.request.requestWithProgress(Method.POST, 'projects', project);
-    return this.request.requestMethodPOST('projects', project)
+    return this.request.requestMethodPUT('projects-management', project);
   }
 
   findProjects(isMember,page,size) {
