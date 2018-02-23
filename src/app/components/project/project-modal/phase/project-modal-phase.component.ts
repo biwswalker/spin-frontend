@@ -14,6 +14,8 @@ export class ProjectModalPhaseComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.projectPhase = new ProjectPhase;
+    this.projectPhases = [];
     this.validateForm();
   }
 

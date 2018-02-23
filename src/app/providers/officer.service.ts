@@ -6,7 +6,10 @@ export class OfficerService {
 
   constructor(private request: HttpRequestService) { }
 
-  fetchOfficerAutocomplete(){
-
+  fetchAllAutocomplete(activeFlag){
+    return this.request.requestMethodGET('user-management/users/${activeFlag}');
+  }
+  fetchExceptMemberAutocomplete(activeFlag){
+    return this.request.requestMethodGET('user-management/users/${activeFlag}');
   }
 }

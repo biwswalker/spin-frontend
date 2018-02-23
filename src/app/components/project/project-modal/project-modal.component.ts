@@ -46,6 +46,9 @@ export class ProjectModalComponent implements OnInit {
 
   newProject(){
     this.openModal();
+    this.projectModalDetail.ngOnInit();
+    this.projectModalPhase.ngOnInit();
+    this.projectModalMember.ngOnInit();
   }
 
   updateProject(){
