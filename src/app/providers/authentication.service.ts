@@ -59,4 +59,9 @@ export class AuthenticationService {
       })
   }
 
+  logout() {
+    this.request.requestMethodGET(`logout/${this.token.access_token}`).subscribe((response: Response) => console.log(response))
+    this.token = null
+    this.isAccess.next(false)
+  }
 }

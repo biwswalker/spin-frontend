@@ -7,7 +7,7 @@ import { UtilsService } from '../../../../providers/utils/utils.service';
 import { IMyDpOptions } from 'mydatepicker';
 import { DateOptions, Format } from '../../../../config/properties';
 declare var SpinTask: any;
-
+declare var SpinDatePicker: any;
 @Component({
   selector: 'task-day',
   templateUrl: './task-day.component.html',
@@ -19,24 +19,11 @@ export class TaskDayComponent implements OnInit, AfterViewInit {
   public workingDate = '';
   private enDate = '';
 
-  public dateOption: IMyDpOptions = {
-    dateFormat: Format.DATE_PKR,
-    dayLabels: DateOptions.DAY,
-    monthLabels: DateOptions.MONTH,
-    inline: true,
-    showTodayBtn: false,
-    monthSelector: false,
-    yearSelector: false,
-    disableHeaderButtons: false,
-    editableDateField: false,
-    openSelectorOnInputClick: true,
-    firstDayOfWeek: 'su',
-  };
-
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
   }
 
   ngOnInit() {
+    console.log(new Date())
     this.enDate = this.utilsService.getCurrentEnDate();
     this.taskForms = this.taskService.findTaskByDate(this.utilsService.convertEnDateToTh(this.enDate))
   }
@@ -44,10 +31,13 @@ export class TaskDayComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let stask = new SpinTask();
     stask.initial();
+    let datePicker = new SpinDatePicker();
+    datePicker.initialInline('#workingDatePicker', this.selectedDate);
   }
 
-  selectedDate(){
-    
+  selectedDate(ff) {
+    console.log('Biwswalker')
+    console.log(ff)
   }
 
 }

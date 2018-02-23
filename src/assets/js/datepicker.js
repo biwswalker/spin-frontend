@@ -1,8 +1,39 @@
-$(function() {
-    $("#task-datepicker").datepicker({
-        dateFormat: 'dd MM yy',
-        dayNamesMin: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-        monthNames: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"],
-        monthNamesShort: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."],
-    });
+$(function ($) {
+    $.datepicker.regional['th'] = {
+        closeText: 'ปิด',
+        prevText: '&laquo;&nbsp;ย้อน',
+        nextText: 'ถัดไป&nbsp;&raquo;',
+        currentText: 'วันนี้',
+        monthNames: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+            'กรกฏาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+        monthNamesShort: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
+            'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'],
+        dayNames: ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'],
+        dayNamesShort: ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'],
+        dayNamesMin: ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'],
+        weekHeader: 'Wk',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 0,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['th']);
 });
+
+class SpinDatePicker {
+    initial(name) {
+        $(name).datepicker({ isBE: true });
+    }
+
+    initialInline(name, onSelectedDate) {
+        $(name).datepicker({
+            isBE: true,
+            onSelect: (dateText, inst) => onSelectedDate(dateText)
+        });
+        $($(name).find('.ui-datepicker-inline')).addClass('w-100');
+        $(name).css({ "width": "100%", "max-width": "400px" });
+        $('.ui-state-default').css({ 'border': '0px', 'background': 'none' })
+        $('.ui-state-default').addClass('text-center')
+    }
+}
