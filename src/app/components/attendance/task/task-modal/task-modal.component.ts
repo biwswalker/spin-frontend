@@ -48,30 +48,30 @@ export class TaskModalComponent implements OnInit {
 
   }
 
-  // onSubmit(){
-  //   this.getDate();
-  //   this.taskForm.task.activeFlag = 'A'
-  //   this.taskForm.task.projectId = this.taskForm.taskProject['prjId'];
-  //   this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
-  //   this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
-  //   this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
-  //   this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.task.statusFlag);
-  //   this.taskForm.task.ownerUserId = 'tiwakorn.ja';
-  //   this.taskForm.task.doSelfFlag = "N";
-  //   console.log(this.taskForm)
-  //   this.taskService.insertTask(this.taskForm.task).subscribe(
-  //     res => {
-  //       console.log(res)
-  //     },
-  //     error=>{
-  //       console.log(error)
-  //     }
-  //   )
-  // }
-
   onSubmit(){
+    this.getDate();
+    this.taskForm.task.activeFlag = 'A'
+    this.taskForm.task.projectId = this.taskForm.taskProject['prjId'];
+    this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
+    this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
+    this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
+    this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.task.statusFlag);
+    this.taskForm.task.ownerUserId = 'tiwakorn.ja';
+    this.taskForm.task.doSelfFlag = "N";
     console.log(this.taskForm.task)
+    // this.taskService.insertTask(this.taskForm.task).subscribe(
+    //   res => {
+    //     console.log(res)
+    //   },
+    //   error=>{
+    //     console.log(error)
+    //   }
+    // )
   }
+
+  // onSubmit(){
+  //   console.log(this.taskForm.task)
+  // }
 
   getStatusFlag(data){
     if(data == true){
