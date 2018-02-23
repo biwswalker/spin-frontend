@@ -50,6 +50,7 @@ import { TaskService } from './providers/task.service';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { UtilsService } from './providers/utils/utils.service';
 import { OfficerService } from './providers/officer.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { OfficerService } from './providers/officer.service';
     BrowserAnimationsModule,
     NguiAutoCompleteModule,
     MyDatePickerModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+
   ],
   providers: [
     {

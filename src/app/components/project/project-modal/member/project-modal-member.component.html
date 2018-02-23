@@ -18,7 +18,10 @@
     <div class="col-12">
         <div class="form-group">
             <label for="member-name">ชื่อ - นามสกุล *</label>
-            <input type="text" class="form-control"
+            <input
+            auto-complete
+            [(ngModel)]="selected"
+            type="text" class="form-control"
             id="member-name"
             formControlName="userId"
             placeholder="Enter member name">

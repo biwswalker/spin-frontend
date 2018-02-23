@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProjectMember } from '../../../../models/project-member';
+import { OfficerService } from '../../../../providers/officer.service';
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'project-modal-member',
@@ -12,14 +15,24 @@ export class ProjectModalMemberComponent implements OnInit {
   public projectMemberGroup: FormGroup;
   public projectMember: ProjectMember = new ProjectMember;
   public projectMembers: ProjectMember[] = [];
+  public selected: any = null;
+  // public searchResult = Observable<any[]>();
 
-  constructor() { }
+
+  constructor(private officerService: OfficerService) { }
+
 
   ngOnInit() {
     this.projectMember = new ProjectMember;
     this.projectMembers = [];
     this.validateForm();
+    this.officerService.fetchAllAutocomplete('A').subscribe(
+      data=>{
+        console.log(data)
+      }
+    )
   }
+
 
   validateForm(){
     this.projectMemberGroup = new FormGroup({
