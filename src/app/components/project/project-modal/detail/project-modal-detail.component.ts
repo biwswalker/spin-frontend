@@ -15,8 +15,13 @@ export class ProjectModalDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.project = new Project;
     this.project.isVisble = false;
     this.project.activeFlag = 'A';
+    this.validateForm();
+  }
+
+  validateForm(){
     this.projectDetailGroup = new FormGroup({
       projectAbbr: new FormControl(this.project.projectAbbr, Validators.required),
       projectName: new FormControl(this.project.projectName, Validators.required),

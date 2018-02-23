@@ -16,6 +16,8 @@ export class ProjectModalMemberComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.projectMember = new ProjectMember;
+    this.projectMembers = [];
     this.validateForm();
   }
 
