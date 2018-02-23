@@ -13,7 +13,11 @@ export class ProjectService {
   }
 
   findProjects(isMember,page,size) {
-    return this.request.requestMethodGET('projects-management/find-allow-project/'+isMember+'?page='+page+'&size='+size);
+    return this.request.requestMethodGET('projects-management/find-allow-project/'+isMember+'?p='+page+'&s='+size);
+  }
+
+  fetchProjectAutocomplete(){
+    return this.request.requestMethodGET('projects-management/find-allow-project/N');
   }
 
 }
