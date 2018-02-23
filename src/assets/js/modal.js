@@ -3,15 +3,16 @@ class SpinModal {
         $(name).modal(option);
     }
 
-    onOpen(selectorID){
+
+
+    onClose(selectorID,callback) {
+        $(selectorID).modal('hidden.bs.modal',callback);
+    }
+
+    open(selectorID){
       $(selectorID).modal('show');
     }
-
-    onClose(selectorID) {
+    close(selectorID) {
         $(selectorID).modal('hide');
-    }
-
-    close(name) {
-        $(name).modal({ show: false });
     }
 }

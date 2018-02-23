@@ -53,11 +53,11 @@ export class ProjectModalComponent implements OnInit {
   }
 
   openModal(){
-    this.modal.onOpen('#project-modal');
+    this.modal.open('#project-modal');
   }
 
   oncloseModal(){
-    this.modal.onClose('#project-modal');
+    this.modal.close('#project-modal');
     this.project = new Project;
   }
 
