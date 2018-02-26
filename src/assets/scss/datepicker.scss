@@ -1,0 +1,50 @@
+.inline-picker {
+    .ui-widget {
+        font-family: "Kanit", sans-serif !important;
+    } // Header 
+    .ui-widget-header {
+        background: transparent !important;
+        border: 0px !important;
+    } // Table
+    .ui-datepicker td span,
+    .ui-datepicker td a {
+        text-align: center !important;
+    }
+    .ui-state-default,
+    .ui-widget-content .ui-state-default,
+    .ui-widget-header .ui-state-default {
+        background: transparent !important;
+        border: 0px !important;
+    }
+    .ui-state-highlight,
+    .ui-widget-content .ui-state-highlight,
+    .ui-widget-header .ui-state-highlight {
+        color: red;
+    }
+    .holiday {
+        position: relative;
+    }
+    .holiday:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        display: block;
+        border-left: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-top: 10px solid #f00;
+    }
+    .unstamped {
+        width: 30px;
+        border-radius: 50%;
+        text-align: center;
+        background: #f00;
+        color: white;
+    }
+    
+    .ui-widget-content .ui-state-active {
+        color: blue;
+    }
+}
