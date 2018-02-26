@@ -39,8 +39,14 @@ export class ProjectModalMemberComponent implements OnInit {
 
 
     this.officerService.fetchAllAutocomplete('A').subscribe(
-      data=>{
-        this.users = data;
+      users=>{
+        this.users = [];
+        for (let user of users){
+          user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
+          this.users = this.users.concat(user);
+        }
+
+        // this.usersdata;
       },err=>{
         console.log(err);
       }
@@ -61,24 +67,25 @@ export class ProjectModalMemberComponent implements OnInit {
 
   validateForm(){
     this.projectMemberGroup = new FormGroup({
-      userId: new FormControl(this.projectMember.userId, Validators.required),
+      userName: new FormControl(this.userName, Validators.required),
       respId: new FormControl(this.projectMember.respId, Validators.required),
 
     })
   }
 
   onSelectedMember(event){
-    console.log(event);
+    console.log('onSelectedMember...');
     this.projectMember.user = event.item;
+    this.projectMember.id.userId = this.projectMember.user.userId;
+    this.userName = this.projectMember.user.officer.firstNameTh+' '+this.projectMember.user.officer.lastNameTh;
   }
 
   onSelectedResp(event){
-    console.log(event);
     this.projectMember.responsibility = event.item;
+    this.projectMember.respId = this.projectMember.responsibility.respId;
   }
 
   onSubmit($event){
-    console.log(this.userName);
     if(this.projectMemberGroup.valid){
       this.projectMembers = this.projectMembers.concat(this.projectMember);
       this.projectMember = new ProjectMember;

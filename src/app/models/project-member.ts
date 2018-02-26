@@ -2,13 +2,19 @@ import { User } from "./user";
 import { Responsibility } from "./responsibility";
 
 export class ProjectMember{
-  public projectId: number;
-  public userId: string;
+  public id:Id = new Id;
   public respId: number;
   public remark: string;
-  public activeFlag: number;
+  public activeFlag: string;
   public versionId: number;
 
+  //use for store data
   public user:User;
   public responsibility: Responsibility;
+
+}
+class Id{
+  public projectId: number;
+  public userId: string;
+
 }

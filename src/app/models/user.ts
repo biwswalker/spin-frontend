@@ -14,5 +14,5 @@ export class User{
   public department: Department = new Department;
 
 
-
+  public fullName: string;
 }

@@ -3,7 +3,7 @@
       <ul   class="list-group list-group-flush phase-list">
         <li class="list-group-item" *ngFor="let data of projectMembers">
           <div class="member">
-            <div class="member-name">{{data.user.officer.firstNameTh}}</div>
+            <div class="member-name">{{data.user.officer.firstNameTh}} {{data.user.officer.lastNameTh}}</div>
             <div class="member-reponsibility">{{data.responsibility.respName}}</div>
           </div>
         </li>
@@ -21,12 +21,12 @@
     <div class="col-12">
         <div class="form-group">
             <label for="member-name">ชื่อ - นามสกุล *</label>
-            <input formControlName="userId"
+            <input formControlName="userName"
                     [(ngModel)]="userName"
                     [typeahead]="users"
                     [typeaheadOptionsLimit]="7"
                     [typeaheadMinLength]="0"
-                    typeaheadOptionField="userId"
+                    typeaheadOptionField="user.fullName"
                     [typeaheadItemTemplate]="customItemTemplate"
                     [typeaheadOptionsInScrollableView]="10"
                     (typeaheadOnSelect)="onSelectedMember($event)"

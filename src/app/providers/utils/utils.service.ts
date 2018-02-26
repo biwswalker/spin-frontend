@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Format } from '../../config/properties';
+import { Observable } from 'rxjs/Observable';
 declare var moment: any;
 
 @Injectable()
