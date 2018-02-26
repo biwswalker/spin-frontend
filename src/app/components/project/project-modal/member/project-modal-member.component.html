@@ -24,7 +24,7 @@
             <input formControlName="userName"
                     [(ngModel)]="userName"
                     [typeahead]="users"
-                    [typeaheadOptionsLimit]="7"
+                    [typeaheadOptionsLimit]="10"
                     [typeaheadMinLength]="0"
                     typeaheadOptionField="user.fullName"
                     [typeaheadItemTemplate]="customItemTemplate"
