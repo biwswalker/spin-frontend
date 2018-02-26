@@ -20,6 +20,13 @@ $white: #FFFFFF;
       font-size: 20px;
       font-weight: 200;
   }
+  button > i{
+    color:$white !important;
+  }
+  button:hover{
+    opacity: 0.8;
+    filter: opacity(80);
+  }
 }
 
 .nav-item {
