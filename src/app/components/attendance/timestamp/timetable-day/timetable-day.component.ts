@@ -4,6 +4,7 @@ import { TaskModalComponent } from '../../task/task-modal/task-modal.component';
 import { Task } from '../../../../models/task';
 import { WorkingTime } from '../../../../config/properties';
 import { UtilsService } from '../../../../providers/utils/utils.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 declare var SpinModal: any;
 declare var convertTimeString: any;
 declare var $: any;
@@ -20,39 +21,39 @@ export class TimetableDayComponent implements OnInit {
   // Get time list
   public worktable = WorkingTime
   public displayDate = ''
-  private enDate = '';
+  private enDateStr = '';
+  private subjectDate = new BehaviorSubject<string>(this.utilsService.getCurrentEnDate());
+  private crrEnDate = this.subjectDate.asObservable();
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
+    // Async
+    this.crrEnDate.subscribe(enDate => {
+      this.enDateStr = enDate;
+      this.displayDate = this.utilsService.displayTimestampDate(enDate);
+      this.fecthWorkingTaskByDate(enDate)
+    })
+    // End Async
   }
 
   ngOnInit() {
+    // Initial Timestamp
     this.spinTimestamp();
-    this.enDate = this.utilsService.getCurrentEnDate();
-    this.displayDate = this.utilsService.displayTimestampDate(this.enDate);
   }
 
   onChangeDate(control) {
-    let oldEnDate = this.enDate;
+    let oldEnDate = this.enDateStr;
     if (control === 'next') {
-      this.enDate = this.utilsService.getNextDay(oldEnDate);
-      this.displayDate = this.utilsService.displayTimestampDate(this.enDate);
+      this.subjectDate.next(this.utilsService.getNextDay(oldEnDate));
     } else if (control === 'prev') {
-      this.enDate = this.utilsService.getPreviousDay(oldEnDate);
-      this.displayDate = this.utilsService.displayTimestampDate(this.enDate);
+      this.subjectDate.next(this.utilsService.getPreviousDay(oldEnDate));
     } else {
-      this.enDate = this.utilsService.getCurrentEnDate();
-      this.displayDate = this.utilsService.displayTimestampDate(this.enDate);
+      this.subjectDate.next(this.utilsService.getCurrentEnDate());
     }
-    this.fecthWorkingTaskByDate();
   }
 
-  ngAfterViewInit() {
-    this.fecthWorkingTaskByDate();
-  }
-
-  fecthWorkingTaskByDate() {
+  fecthWorkingTaskByDate(enDate: string) {
     this.refreshTimeTable();
-    this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(this.enDate)).subscribe((tasks: Task[]) => {
+    this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(enDate)).subscribe((tasks: Task[]) => {
       let index = 0;
       for (let task of tasks) {
         const start = Number(task.workStartTime);
@@ -144,7 +145,7 @@ export class TimetableDayComponent implements OnInit {
             endWorkingTime = convertTimeString(endtime);
           }
           // Call TS fucntion
-          self.taskService.updateCurrentTimeTask(this.utilsService.convertEnDateToTh(this.enDate), startWorkingTime, endWorkingTime)
+          self.taskService.updateCurrentTimeTask(this.utilsService.convertEnDateToTh(this.enDateStr), startWorkingTime, endWorkingTime)
 
           // Call Modal
           self.commitDataTaskModal();

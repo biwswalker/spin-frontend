@@ -28,4 +28,6 @@ export const Format = {
     DDDD: 'dddd',
     DD: 'DD',
     MMM: 'MMM',
+    MM: 'MM',
+    YYYY: 'YYYY'
 }
