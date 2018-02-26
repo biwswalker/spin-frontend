@@ -1,3 +1,4 @@
+
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TaskModalComponent } from './../task-modal.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
@@ -7,6 +8,7 @@ import { IMyDpOptions } from 'mydatepicker';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
+import { PartnerService } from '../../../../../providers/partner.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -26,7 +28,8 @@ export class TaskDetailComponent implements OnInit {
   constructor(
     public taskModal: TaskModalComponent,
     private _sanitizer: DomSanitizer,
-    private projectService: ProjectService) { }
+    private projectService: ProjectService,
+    private partnerService: PartnerService) { }
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -44,7 +47,6 @@ export class TaskDetailComponent implements OnInit {
   };
 
   ngOnInit() {
-    // this.validateData();
     this.initialDefaultValue();
     this.findProject();
   }
@@ -86,11 +88,20 @@ export class TaskDetailComponent implements OnInit {
     )
   }
 
-  showData(event){
-    console.log(event)
-    // this.taskModal.taskForm.taskProject = event;
-    // console.log(this.taskModal.taskForm.taskProject)
-
+  findProjectMember(event){
+    console.log(event.projectId)
+    this.partnerService.findByProjrctId(event.projectId).subscribe(
+      data=>{
+        console.log(data)
+        if(data){
+          for(let obj of data){
+            console.log(obj)
+            this.taskModal.taskForm.taskPartner.push(obj['id'].userId);
+            console.log(this.taskModal.taskForm.taskPartner);
+          }
+        }
+      }
+    )
   }
 }
 

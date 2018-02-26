@@ -6,6 +6,7 @@ import { TaskForm } from '../../../../forms/taskForm';
 import { TaskTagComponent } from './task-tag/task-tag.component';
 import { TaskService } from '../../../../providers/task.service';
 import { Task } from '../../../../models/task';
+import { PartnerService } from '../../../../providers/partner.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -21,24 +22,23 @@ export class TaskModalComponent implements OnInit {
   // @ViewChild(TaskMemberComponent) taskMemberComponent;
   // @ViewChild(TaskTagComponent) taskTagComponent;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService,
+    private partnerService: PartnerService) { }
 
 
   ngOnInit() {
     this.onTimestampCommit();
-    // this.validateForm();
+    this.findAllUser();
   }
 
   onTimestampCommit() {
-    this.taskService.currentTask.subscribe(selectedTask => {
-      console.log(selectedTask)
-      this.taskForm.task.workStartTime = this.convertTimeData(selectedTask.workStartTime);
-      this.taskForm.task.workEndTime = this.convertTimeData(selectedTask.workEndTime);
-      // this.taskForm.task.workDate = this.setDate(selectedTask.workDate);
-      console.log(this.taskForm.task.workEndTime)
-      console.log(this.taskForm.task.workStartTime)
-    })
+    this.taskService.currentTask.subscribe(
+      selectedTask => {
+        this.taskForm.task.workStartTime = this.convertTimeData(selectedTask.workStartTime);
+        this.taskForm.task.workEndTime = this.convertTimeData(selectedTask.workEndTime);
+      })
   }
+
 
   convertTimeData(time) {
     if (time) {
@@ -46,6 +46,16 @@ export class TaskModalComponent implements OnInit {
       let minute = time.substring(2, 4);
       return hour + ':' + minute;
     }
+
+  }
+
+  findAllUser() {
+    this.partnerService.findAllUSer().subscribe(
+      data => {
+        this.taskForm.autocompletePartnerList = data;
+        console.log(this.taskForm.autocompletePartnerList);
+      }
+    )
 
   }
 
@@ -71,9 +81,26 @@ export class TaskModalComponent implements OnInit {
   // }
 
   onSubmit() {
-    console.log(this.taskForm.taskProject)
     console.log(this.taskForm.taskProject.projectId)
-    // console.log(this.taskForm.taskProject['projectId'])
+    this.getDate();
+    this.taskForm.task.projectId = this.taskForm.taskProject.projectId;
+    this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
+    this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
+    this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
+    this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.task.statusFlag);
+    this.taskForm.task.ownerUserId = 'tiwakorn.ja';
+    for(let obj of this.taskForm.taskTag){
+      this.taskForm.task.taskTagList.push(obj.value)
+    }
+    console.log(this.taskForm)
+    this.taskService.insertTask(this.taskForm.task).subscribe(
+        res => {
+          console.log(res)
+        },
+        error=>{
+          console.log(error)
+        }
+      )
   }
 
   getStatusFlag(data) {
@@ -96,7 +123,7 @@ export class TaskModalComponent implements OnInit {
   getDate() {
     let d = this.taskForm.task.workDate['date'].day.toString();
     let m = this.taskForm.task.workDate['date'].month.toString();
-    let y = this.taskForm.task.workDate['date'].year.toString();
+    let y = (this.taskForm.task.workDate['date'].year+543).toString();
     if (this.taskForm.task.workDate['date'].month < 10) {
       m = '0' + m;
     }
