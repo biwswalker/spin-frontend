@@ -23,7 +23,7 @@
         <img *ngIf="resizedImage && resizedImage!=='processing'"
         [src]="resizedImageTrusted"
         class="img-thumbnail project-image">
-        <a class="btn btn-info"><label id="upload-project-label" for="upload-project">Browse</label></a>
+        <a class="btn btn-info btn-sm btn-block"><label id="upload-project-label" for="upload-project">Browse</label></a>
         <input type="file"
         id="upload-project"
         (change)="handleFileInput($event.target.files)">

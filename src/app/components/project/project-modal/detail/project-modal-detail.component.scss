@@ -16,11 +16,14 @@
         border-bottom-right-radius: .25rem;
     }
     .img-thumbnail.project-image{
-      height: 8rem !important;
+      min-height: 8rem !important;
+      max-height: 8rem !important;
+      color: $white;
     }
 
     #upload-project-label{
       cursor: pointer;
+      margin-bottom: 0rem !important;
     }
     #upload-project{
       opacity: 0;

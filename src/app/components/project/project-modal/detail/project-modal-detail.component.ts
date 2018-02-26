@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Project } from '../../../../models/project';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
-declare var document: any;
+
 @Component({
   selector: 'project-modal-detail',
   styleUrls: ['./project-modal-detail.component.scss'],
@@ -14,8 +14,6 @@ export class ProjectModalDetailComponent implements OnInit {
   public projectDetailGroup: FormGroup;
   public project: Project = new Project();
   public fileToUpload: File = null;
-  public imageThumbnail: any;
-  public imageOrigin: any;
 
   resizedImage:string=null;
   resizedImageTrusted:SafeUrl=null;
@@ -28,7 +26,7 @@ export class ProjectModalDetailComponent implements OnInit {
     this.project.activeFlag = 'A';
     this.validateForm();
     this.resizedImage = './assets/img/ico/startup.png';
-    this.resizedImageTrusted=this.sanitizer.bypassSecurityTrustUrl(this.resizedImage);
+    this.resizedImageTrusted = this.sanitizer.bypassSecurityTrustUrl(this.resizedImage);
   }
 
   validateForm(){
@@ -68,10 +66,15 @@ export class ProjectModalDetailComponent implements OnInit {
     var thmReader:FileReader = new FileReader();
     var oriReader:FileReader = new FileReader();
 
-    thmReader.onloadend = (e) => {this.imageThumbnail = thmReader.result; }
-    oriReader.onloadend = (e) => {this.imageOrigin = oriReader.result; }
+    thmReader.onloadend = (e) => {
+      this.project.projectThumbnail = thmReader.result;
+      console.log(this.project.projectThumbnail);
+    }
+    oriReader.onloadend = (e) => {
+      this.project.projectImage = oriReader.result;
+    }
 
-    thmReader.readAsDataURL(thm);
+    thmReader.readAsArrayBuffer(thm);
     oriReader.readAsDataURL(ori);
   }
 
