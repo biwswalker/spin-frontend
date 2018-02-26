@@ -20,13 +20,13 @@
     <div class="row">
       <!-- Image -->
       <div class="col-4">
-        <img src="./assets/img/ico/startup.png"
-             class="img-thumbnail rounded">
-             <div id="overlay">
-              <div id="text">
-                <button class="btn btn-success">Upload</button>
-              </div>
-            </div>
+        <img *ngIf="resizedImage && resizedImage!=='processing'"
+        [src]="resizedImageTrusted"
+        class="img-thumbnail project-image">
+        <a class="btn btn-info"><label id="upload-project-label" for="upload-project">Browse</label></a>
+        <input type="file"
+        id="upload-project"
+        (change)="handleFileInput($event.target.files)">
       </div>
 
       <!-- Project ABBR $$ Project Name-->
