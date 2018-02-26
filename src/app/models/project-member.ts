@@ -1,3 +1,6 @@
+import { User } from "./user";
+import { Responsibility } from "./responsibility";
+
 export class ProjectMember{
   public projectId: number;
   public userId: string;
@@ -6,4 +9,6 @@ export class ProjectMember{
   public activeFlag: number;
   public versionId: number;
 
+  public user:User;
+  public responsibility: Responsibility;
 }

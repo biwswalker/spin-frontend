@@ -1,13 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Task } from '../../../../models/task';
 import { TaskService } from '../../../../providers/task.service';
 import { Observable } from 'rxjs/Observable';
 import { TaskForm } from '../../../../forms/taskForm';
 import { UtilsService } from '../../../../providers/utils/utils.service';
-import { IMyDpOptions } from 'mydatepicker';
-import { DateOptions, Format } from '../../../../config/properties';
-declare var SpinTask: any;
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+declare var $: any;
 @Component({
   selector: 'task-day',
   templateUrl: './task-day.component.html',
@@ -15,39 +12,35 @@ declare var SpinTask: any;
 })
 export class TaskDayComponent implements OnInit, AfterViewInit {
 
+  private subjectDate = new BehaviorSubject<string>(this.utilsService.getCurrentThDate());
+  private crrDate = this.subjectDate.asObservable();
   public taskForms = new Observable<TaskForm[]>();
-  public workingDate = '';
-  private enDate = '';
-
-  public dateOption: IMyDpOptions = {
-    dateFormat: Format.DATE_PKR,
-    dayLabels: DateOptions.DAY,
-    monthLabels: DateOptions.MONTH,
-    inline: true,
-    showTodayBtn: false,
-    monthSelector: false,
-    yearSelector: false,
-    disableHeaderButtons: false,
-    editableDateField: false,
-    openSelectorOnInputClick: true,
-    firstDayOfWeek: 'su',
-  };
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
+    // Async
+    this.crrDate.subscribe(date => {
+      this.taskForms = this.taskService.findTaskByDate(date);
+    })
+    // End Async
   }
 
   ngOnInit() {
-    this.enDate = this.utilsService.getCurrentEnDate();
-    this.taskForms = this.taskService.findTaskByDate(this.utilsService.convertEnDateToTh(this.enDate))
   }
 
   ngAfterViewInit(): void {
-    let stask = new SpinTask();
-    stask.initial();
+    // Call DatePicker
+    let datepickerId = '#workingDatePicker'
+    let self = this;
+    $(datepickerId).datepicker({
+      isBE: true,
+      onSelect: function (dateText, inst) {
+        self.subjectDate.next(dateText);
+      }
+    });
+    // Sets stye
+    $(datepickerId).addClass('w-100');
+    $($(datepickerId).find('.ui-datepicker-inline')).addClass('w-100');
+    $($(datepickerId).find('.ui-datepicker-inline')).css({ 'max-width': '400px' });
+    // End Call DatePicker
   }
-
-  selectedDate(){
-    
-  }
-
 }

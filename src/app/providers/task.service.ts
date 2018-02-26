@@ -42,17 +42,18 @@ export class TaskService {
 
   findTaskByDate(date): Observable<TaskForm[]> {
     return new Observable(observer => {
-      this.request.requestMethodGET(`task-management/tasks/date/${date}`).subscribe((tasks: Task[]) => {
+      return this.request.requestMethodGET(`task-management/tasks/date/${date}`).subscribe((tasks: Task[]) => {
         let taskFormList: TaskForm[] = [];
         let taskForm = new TaskForm();
         for (let task of tasks) {
-          taskForm.task = task
-          taskFormList.push(taskForm)
+          taskForm = new TaskForm();
+          taskForm.task = task;
+          taskFormList.push(taskForm);
         }
-        observer.next(taskFormList)
+        observer.next(taskFormList);
+        return observer;
       });
-      return observer
-    })
+    });
   }
 
   insertTask(task: Task) {

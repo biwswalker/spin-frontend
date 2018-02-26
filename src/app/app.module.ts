@@ -5,8 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
-import { MyDatePickerModule } from 'mydatepicker';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -52,6 +52,8 @@ import { UtilsService } from './providers/utils/utils.service';
 import { TagService } from './providers/tag.service';
 import { PartnerService } from './providers/partner.service';
 import { OfficerService } from './providers/officer.service';
+import { HttpModule } from '@angular/http';
+import { ResponsibilityService } from './providers/responsibility.service';
 
 @NgModule({
   declarations: [
@@ -93,8 +95,8 @@ import { OfficerService } from './providers/officer.service';
     TagInputModule,
     BrowserAnimationsModule,
     NguiAutoCompleteModule,
-    MyDatePickerModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    TypeaheadModule.forRoot()
   ],
   providers: [
     {
@@ -110,7 +112,8 @@ import { OfficerService } from './providers/officer.service';
     UtilsService,
     PartnerService,
     TagService,
-    OfficerService
+    OfficerService,
+    ResponsibilityService
   ],
   bootstrap: [AppComponent]
 })

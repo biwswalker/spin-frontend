@@ -150,7 +150,7 @@ export class TimetableDayComponent implements OnInit {
           self.commitDataTaskModal();
           let modal = new SpinModal();
           modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
-          modal.onClose('#task-modal', function () {
+          $('#task-modal').on("hidden.bs.modal", function () {
             $('.timestamp .ui-selected').removeClass('ui-selected')
           })
         }

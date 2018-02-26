@@ -4,7 +4,6 @@ import { TaskModalComponent } from './../task-modal.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Time } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
-import { IMyDpOptions } from 'mydatepicker';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
@@ -30,21 +29,6 @@ export class TaskDetailComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private projectService: ProjectService,
     private partnerService: PartnerService) { }
-
-  public myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: 'dd mmm yyyy',
-    dayLabels: { su: 'อา', mo: 'จ', tu: 'อ', we: 'พ', th: 'พฤ', fr: 'ศ', sa: 'ส' },
-    monthLabels: { 1: 'มกราคม', 2: 'กุมภาพันธ์', 3: 'มีนาคม', 4: 'เมษายน', 5: 'พฤษภาคม', 6: 'มิถุนายน', 7: 'กรกฏาคม', 8: 'สิงหาคม', 9: 'กันยายน', 10: 'ตุลาคม', 11: 'พฤศจิกายน', 12: 'ธันวาคม' },
-    showTodayBtn: false,
-    monthSelector: false,
-    yearSelector: false,
-    disableHeaderButtons: false,
-    editableDateField: false,
-    openSelectorOnInputClick: true,
-    firstDayOfWeek: 'su',
-
-  };
 
   ngOnInit() {
     this.initialDefaultValue();
