@@ -1,14 +1,14 @@
     <div class="row">
         <div class="col d-flex">
             <div class="ml-auto">
-                <span for="end-task-toggle">สิ้นสุดการทำงาน</span>
-                <span class="end-task-toggle">
+                <span for="status-flag">สิ้นสุดการทำงาน</span>
+                <span class="status-flag">
           <input class="switch"
             type="checkbox"
-            id="task-detail-status-flag"
-            name="task-detail-status-flag"
+            id="status-flag"
+            name="status-flag"
             [(ngModel)]="taskModal.taskForm.task.statusFlag">
-          <label for="end-task-toggle">
+          <label for="status-flag-toggle">
             <span></span>
                 </label>
                 </span>
@@ -18,18 +18,15 @@
     <div class="row">
         <div class="col-6">
             <label>วันที่ *</label>
-            <!-- <my-date-picker name="mydate"
-              [options]="myDatePickerOptions"
-              id="task-detail-work-date"
-              name="task-detail-work-date"
-              [(ngModel)]="taskModal.taskForm.task.workDate">
-            </my-date-picker> -->
+            <input type="text"
+              class="form-control"
+              id="datepicker">
         </div>
         <div class=" col-3">
             <label>เวลา *</label>
             <input class="form-control"
-              id="task-detail-start-time"
-              name="task-detail-start-time"
+              id="work-start-time"
+              name="work-start-time"
               type="time"
               [(ngModel)]="taskModal.taskForm.task.workStartTime"
               maxlength="4">
@@ -37,8 +34,8 @@
         <div class=" col-3">
             <label class="invisible">เวลา *</label>
             <input class="form-control"
-              id="task-detail-end-time"
-              name="task-detail-end-time"
+              id="work-end-time"
+              name="work-end-time"
               type="time"
               maxlength="4"
               [(ngModel)]="taskModal.taskForm.task.workEndTime"
@@ -50,8 +47,8 @@
             <label>หัวข้อ *</label>
             <input class="form-control"
               type="text"
-              name="task-detail-topic"
-              id="task-detail-topic"
+              name="topic"
+              id="topic"
               [(ngModel)]="taskModal.taskForm.task.topic">
         </div>
     </div>
@@ -60,8 +57,8 @@
             <label>กิจกรรม *</label>
             <textarea class="form-control"
               rows="3"
-              id="task-detail-activity"
-              name="task-detail-activity"
+              id="activity"
+              name="activity"
               [(ngModel)]="taskModal.taskForm.task.activity">
         </textarea>
         </div>
@@ -70,13 +67,15 @@
         <div class=" col-12">
             <label>ชื่อโครงการ</label>
             <input  ngui-auto-complete
-                   [source]="projectList"
-                   list-formatter="projectName"
-                   value-property-name="projectId"
-                   display-property-name="projectName"
-                   (valueChanged)="findProjectMember($event)"
-                   [(ngModel)]="taskModal.taskForm.taskProject"
-                   class="form-control">
+                  id="project-id"
+                  name="project-id"
+                  [source]="projectList"
+                  list-formatter="projectName"
+                  value-property-name="projectId"
+                  display-property-name="projectName"
+                  (valueChanged)="findProjectMember($event)"
+                  [(ngModel)]="taskModal.taskForm.taskProject"
+                  class="form-control">
         </div>
     </div>
 
@@ -87,19 +86,19 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-primary color-picker" (click)="onColorPick('blue')" id="corlor-picker-blue" >
+                    <a class="btn btn-primary color-picker" (click)="onColorPick('blue')" id="corlor" >
                     </a>
-                    <a class="btn btn-success color-picker" (click)="onColorPick('green')" id="corlor-picker-green" >
+                    <a class="btn btn-success color-picker" (click)="onColorPick('green')" id="corlor" >
                     </a>
-                    <a class="btn btn-danger color-picker" (click)="onColorPick('red')" id="corlor-picker-red" >
+                    <a class="btn btn-danger color-picker" (click)="onColorPick('red')" id="corlor" >
                     </a>
-                    <a class="btn btn-warning color-picker" (click)="onColorPick('yellow')" id="corlor-picker-yellow" >
+                    <a class="btn btn-warning color-picker" (click)="onColorPick('yellow')" id="corlor" >
                     </a>
-                    <a class="btn btn-secondary color-picker" (click)="onColorPick('gray')" id="corlor-picker-gray" >
+                    <a class="btn btn-secondary color-picker" (click)="onColorPick('gray')" id="corlor" >
                     </a>
-                    <a class="btn btn-info color-picker" (click)="onColorPick('lightblue')" id="corlor-picker-lightblue" >
+                    <a class="btn btn-info color-picker" (click)="onColorPick('lightblue')" id="corlor" >
                     </a>
-                    <a class="btn btn-dark color-picker" (click)="onColorPick('darkgray')" id="corlor-picker-darkgray" >
+                    <a class="btn btn-dark color-picker" (click)="onColorPick('darkgray')" id="corlor" >
                     </a>
                 </div>
             </div>
@@ -114,7 +113,8 @@
         <input class="switch"
           type="checkbox"
           id="task-color-toggle"
-          [(ngModel)]="colorStatus">
+          [(ngModel)]="colorStatus"
+          onselect="getColorStatus($event)">
           <label for="task-color-toggle">
             <span></span>
                 </label>

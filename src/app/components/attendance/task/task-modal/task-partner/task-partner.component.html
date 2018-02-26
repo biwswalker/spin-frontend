@@ -19,7 +19,7 @@
         </div>
     </div>
 </div>
-<label>ผู้ร่วมงาน</label>
+<!-- <label>ผู้ร่วมงาน</label>
 <div class="row">
     <div class=" col-12 scroll-auto bg-white rounded text-dark">
       <div *ngIf="partnerList">
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-</div>
+</div> -->
 <div class="row">
     <div class="col">
         <input auto-complete
@@ -42,10 +42,9 @@
           [(ngModel)]="partner"
           min-chars="1"
           [source]="taskModal.taskForm.autocompletePartnerList" />
-    </div>
-</div>
-<div class="row">
-    <div class="col">
+      </div>
+      <div class="col-2">
+
         <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
-    </div>
+      </div>
 </div>

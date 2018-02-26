@@ -1,10 +1,12 @@
 <div class="row">
     <div class="col-12">
-    <tag-input class="form-control" [(ngModel)]='taskModal.taskForm.taskTag' theme='pink-theme'
-    [removable]='true'
-    [maxItems]='10'
-    (inputTextChange)="addTag($event)"
-    [onlyFromAutocomplete]="false">
+    <tag-input class="form-control"
+      theme='pink-theme'
+      [(ngModel)]='taskModal.taskForm.taskTagList'
+      id="tag-name"
+      [removable]='true'
+      [maxItems]='10'
+      [onlyFromAutocomplete]="false">
       <tag-input-dropdown
         [showDropdownIfEmpty]="false"
         [autocompleteItems]="autoCompleteTagList">
@@ -17,7 +19,6 @@
   <tag-input
     [removable]="false"
     [ngModel]="usedTagList"
-    [removable]='true'
     [maxItems]='0'
     (onSelect)="onSelected($event)">
   </tag-input>

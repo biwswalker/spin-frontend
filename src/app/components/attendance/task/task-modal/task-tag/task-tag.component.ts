@@ -24,18 +24,14 @@ export class TaskTagComponent implements OnInit {
   findUsedTag(){
     this.tagService.findUsedTag().subscribe(
       data=>{
-        console.log(data)
-        this.usedTagList = data
+        for(let obj of data){
+          this.usedTagList.push({display: obj.tagName, value: obj.tagName});
+        }
       }
     )
   }
 
   onSelected(event) {
-    this.tagList.push(event);
-  }
-
-  addTag(event) {
-    this.taskModal.taskForm.task.taskTagList = [];
-    console.log(Object.values(this.taskModal.taskForm.taskTag))
+    this.taskModal.taskForm.taskTagList.push(event);
   }
 }
