@@ -75,7 +75,12 @@ export class TimetableDayComponent implements OnInit {
           $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
         }
         $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' (click)="onViewTask()" style='cursor: pointer;'></div>`);
-        $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'><div>${task.topic}</div><div>${task.activity}</div><div>Detail2</div></div>`);
+        $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
+        <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
+        <p class="text-truncate m-0 stamp-activity">${task.activity}</p>        
+        <p class="text-truncate colla-display m-0"><i class="fas fa-users"></i></p>        
+      </div>`);
+        $(`.${overlayClass}`).addClass('stamp-box')
         index++;
       }
     }, err => {
