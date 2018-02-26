@@ -67,14 +67,18 @@
     <div class="row">
         <div class=" col-12">
             <label>ชื่อโครงการ</label>
-            <input  auto-complete
-                class="form-control"
-                id="project-id"
-                name="project-id"
-                [source]="projectList"
-                min-chars="1"
-                list-formatter="projectName"
-                [(ngModel)]="taskModal.taskForm.taskProject">
+            <input class="form-control"
+                [(ngModel)]="project"
+                [typeahead]="projectList"
+                [typeaheadMinLength]="0"
+                typeaheadOptionField="projectName"
+                [typeaheadItemTemplate]="customItemTemplate"
+                [typeaheadScrollable]="true"
+                [typeaheadOptionsInScrollableView]="7"
+                (typeaheadOnSelect)="findProjectMember($event)">
+                    <ng-template #customItemTemplate let-model="item" let-index="index">
+                        <h6>{{model.projectName}}</h6>
+                    </ng-template>
         </div>
     </div>
 

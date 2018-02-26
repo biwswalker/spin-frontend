@@ -19,6 +19,7 @@ declare var SpinDatePicker: any;
 export class TaskDetailComponent implements OnInit, AfterViewInit {
 
 
+  public project: string = "";
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -80,8 +81,9 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   }
 
   findProjectMember(event){
-    if(event.projectId){
-      this.partnerService.findByProjrctId(event.projectId).subscribe(
+    console.log(event.item.projectId);
+    if(event.item.projectId){
+      this.partnerService.findByProjrctId(event.item.projectId).subscribe(
         data=>{
           if(data){
             console.log(data);

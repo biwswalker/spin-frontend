@@ -12,7 +12,7 @@ export class TaskPartnerComponent implements OnInit {
 
   owner: string = "";
   public partnerList: any[] = [];
-  partner: any = "";
+  partner: string = "";
   public autocompletePartnerList: any[] = [];
   constructor(
     public taskModal: TaskModalComponent,

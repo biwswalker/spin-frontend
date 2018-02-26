@@ -36,14 +36,25 @@
 </div>
 <div class="row">
     <div class="col">
-        <input auto-complete
+        <!-- <input auto-complete
           id="task-partner"
           name="task-partner"
           class="form-control"
           list-formatter="email"
           [(ngModel)]="partner"
           min-chars="1"
-          [source]="taskModal.taskForm.autocompletePartnerList" />
+          [source]="taskModal.taskForm.autocompletePartnerList" /> -->
+      <input class="form-control"
+          [(ngModel)]="partner"
+          [typeahead]="taskModal.taskForm.taskPartner"
+          [typeaheadMinLength]="0"
+          typeaheadOptionField="email"
+          [typeaheadItemTemplate]="customItemTemplate"
+          [typeaheadScrollable]="true"
+          [typeaheadOptionsInScrollableView]="5">
+              <ng-template #customItemTemplate let-model="item" let-index="index">
+                  <h6>{{model.email}}</h6>
+              </ng-template>
       </div>
       <div class="col-2">
         <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
