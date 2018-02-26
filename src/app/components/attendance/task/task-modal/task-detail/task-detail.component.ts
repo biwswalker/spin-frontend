@@ -73,6 +73,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   findProject(){
     this.projectService.fetchProjectAutocomplete().subscribe(
       data=>{
+        console.log(data)
         this.projectList = data;
       }
     )
@@ -83,9 +84,10 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
       this.partnerService.findByProjrctId(event.projectId).subscribe(
         data=>{
           if(data){
+            console.log(data);
             this.taskModal.taskForm.taskPartner = [];
             for(let obj of data){
-              this.taskModal.taskForm.taskPartner.push(obj.id.userId);
+              this.taskModal.taskForm.taskPartner.push({userId: obj.id.userId, email: obj.user.email});
             }
           }
         }

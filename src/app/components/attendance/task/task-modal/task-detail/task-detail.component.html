@@ -1,3 +1,4 @@
+<div class="container modal-h-600">
     <div class="row">
         <div class="col d-flex">
             <div class="ml-auto">
@@ -66,16 +67,14 @@
     <div class="row">
         <div class=" col-12">
             <label>ชื่อโครงการ</label>
-            <input  ngui-auto-complete
-                  id="project-id"
-                  name="project-id"
-                  [source]="projectList"
-                  list-formatter="projectName"
-                  value-property-name="projectId"
-                  display-property-name="projectName"
-                  (valueChanged)="findProjectMember($event)"
-                  [(ngModel)]="taskModal.taskForm.taskProject"
-                  class="form-control">
+            <input  auto-complete
+                class="form-control"
+                id="project-id"
+                name="project-id"
+                [source]="projectList"
+                min-chars="1"
+                list-formatter="projectName"
+                [(ngModel)]="taskModal.taskForm.taskProject">
         </div>
     </div>
 
@@ -122,3 +121,4 @@
             </div>
         </div>
     </div>
+</div>

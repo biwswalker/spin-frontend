@@ -29,31 +29,29 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   addPartner(){
-    console.log('addpartner')
+    console.log('addpartner');
     let partner = null;
     if(this.partner != null){
       partner = this.partner;
-      console.log(partner)
-
+      console.log(partner);
+      // if(this.taskModal.taskForm.taskPartner.indexOf(partner) <= -1){
+      //   this.taskModal.taskForm.taskPartner.push(partner);
+      //   this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.autocompletePartnerList.indexOf(partner), 1);
+      // }
       if(this.taskModal.taskForm.taskPartner.indexOf(partner) <= -1){
-        this.taskModal.taskForm.taskPartner.push(partner)
-        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.autocompletePartnerList.indexOf(partner), 1)
+        console.log(this.partnerList);
+        console.log(this.taskModal.taskForm.autocompletePartnerList);
+        this.partnerList.push(partner);
+        this.taskModal.taskForm.autocompletePartnerList.splice(this.partnerList.indexOf(partner), 1);
       }
       this.partner = null;
-      console.log(this.taskModal.taskForm.taskPartner)
+      console.log(this.taskModal.taskForm.taskPartner);
     }
   }
 
   deletePartner(obj){
-    this.partnerList.splice(this.partnerList.indexOf(obj), 1)
-    this.taskModal.taskForm.taskPartnerList.splice(this.taskModal.taskForm.taskPartnerList.indexOf(obj), 1)
+    this.partnerList.splice(this.partnerList.indexOf(obj), 1);
+    this.autocompletePartnerList.push(obj);
+    // this.taskModal.taskForm.taskPartnerList.splice(this.taskModal.taskForm.taskPartnerList.indexOf(obj), 1);
   }
-
-  // findByProjectId(){
-  //   this.partnerService.findByProjrctId(this.taskModal.taskForm.taskProject.projectId).subscribe(
-  //     data=>{
-  //       console.log(data)
-  //     }
-  //   )
-  // }
 }

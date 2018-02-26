@@ -15,11 +15,11 @@
             <input type="checkbox"
               name="member-status"
               id="member-status">
-                {{obj}}
+                {{obj.email}}
         </div>
     </div>
 </div>
-<!-- <label>ผู้ร่วมงาน</label>
+<label>ผู้ร่วมงาน</label>
 <div class="row">
     <div class=" col-12 scroll-auto bg-white rounded text-dark">
       <div *ngIf="partnerList">
@@ -33,10 +33,12 @@
         </div>
       </div>
     </div>
-</div> -->
+</div>
 <div class="row">
     <div class="col">
         <input auto-complete
+          id="task-partner"
+          name="task-partner"
           class="form-control"
           list-formatter="email"
           [(ngModel)]="partner"
@@ -44,7 +46,6 @@
           [source]="taskModal.taskForm.autocompletePartnerList" />
       </div>
       <div class="col-2">
-
         <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
       </div>
 </div>
