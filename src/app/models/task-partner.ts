@@ -1,5 +1,10 @@
 export class TaskPartner {
-    public taskId: number;
-    public userId: string;
-    public sortNo: number;
+  public id: Id;
+  public versionId: number;
+  public sortNo: number;
+}
+
+class Id {
+  public taskId: number;
+  public userId: string;
 }

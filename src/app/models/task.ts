@@ -18,6 +18,6 @@ export class Task {
     public remark: string;
     public activeFlag: string;
 
-    public taskTagList: string[] = [];
-    public taskPartnerList: string[] = [];
+    public taskTagList: any[] = [];
+    public taskPartnerList: any[] = [];
 }

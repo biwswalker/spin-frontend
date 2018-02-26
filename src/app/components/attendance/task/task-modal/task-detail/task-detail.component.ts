@@ -1,13 +1,14 @@
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TaskModalComponent } from './../task-modal.component';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { Time } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
+declare var SpinDatePicker: any;
 
 @Component({
   selector: 'app-task-detail',
@@ -15,13 +16,14 @@ import { PartnerService } from '../../../../../providers/partner.service';
   styleUrls: ['./task-detail.component.scss', '../task-modal.component.scss'],
 
 })
-export class TaskDetailComponent implements OnInit {
+export class TaskDetailComponent implements OnInit, AfterViewInit {
 
+
+  public project: string = "";
 
   @Output() messageEvent = new EventEmitter<string>();
 
-  data: any = "";
-  projectList: Project[] = [];
+  public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
   colorStatus: boolean = true;
   constructor(
@@ -34,6 +36,12 @@ export class TaskDetailComponent implements OnInit {
     this.initialDefaultValue();
     this.findProject();
   }
+
+  ngAfterViewInit(){
+    let datepicker = new SpinDatePicker();
+    datepicker.initial('#datepicker');
+  }
+
   validateData() {
     this.taskDetailFormGroup = new FormGroup(
       {
@@ -52,8 +60,8 @@ export class TaskDetailComponent implements OnInit {
     this.taskModal.taskForm.task.activeFlag = 'A';
     this.taskModal.taskForm.task.statusFlag = 'I';
     this.taskModal.taskForm.task.doSelfFlag = 'N';
-    this.taskModal.taskForm.task.taskPartnerList = [];
-    this.taskModal.taskForm.task.taskTagList = [];
+    this.taskModal.taskForm.taskPartnerList = [];
+    this.taskModal.taskForm.taskTagList = [];
   }
 
   onColorPick(color) {
@@ -66,26 +74,31 @@ export class TaskDetailComponent implements OnInit {
   findProject(){
     this.projectService.fetchProjectAutocomplete().subscribe(
       data=>{
+        console.log(data)
         this.projectList = data;
-        console.log(this.projectList);
       }
     )
   }
 
   findProjectMember(event){
-    console.log(event.projectId)
-    this.partnerService.findByProjrctId(event.projectId).subscribe(
-      data=>{
-        console.log(data)
-        if(data){
-          for(let obj of data){
-            console.log(obj)
-            this.taskModal.taskForm.taskPartner.push(obj['id'].userId);
-            console.log(this.taskModal.taskForm.taskPartner);
+    console.log(event.item.projectId);
+    if(event.item.projectId){
+      this.partnerService.findByProjrctId(event.item.projectId).subscribe(
+        data=>{
+          if(data){
+            console.log(data);
+            this.taskModal.taskForm.taskPartner = [];
+            for(let obj of data){
+              this.taskModal.taskForm.taskPartner.push({userId: obj.id.userId, email: obj.user.email});
+            }
           }
         }
-      }
-    )
+      );
+    }
+  }
+
+  getColorStatus(status){
+    console.log(status)
   }
 }
 

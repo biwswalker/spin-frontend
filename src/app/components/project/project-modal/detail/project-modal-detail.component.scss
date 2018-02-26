@@ -1,17 +1,32 @@
     @import '~assets/scss/toggle.scss';
-    $red: rgb(234, 130, 139);
-    $black: #212529;
+    $active: #2359c5;
+    $white: white;
     a {
-        color: $black;
+        color: $white;
     }
 
     .nav-link.active {
         border-radius: 0;
-        background-color: $red;
+        background-color: $active;
     }
 
     textarea.form-control {
         border-radius: 0;
         border-bottom-left-radius: .25rem;
         border-bottom-right-radius: .25rem;
+    }
+    .img-thumbnail.project-image{
+      min-height: 8rem !important;
+      max-height: 8rem !important;
+      color: $white;
+    }
+
+    #upload-project-label{
+      cursor: pointer;
+      margin-bottom: 0rem !important;
+    }
+    #upload-project{
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
     }

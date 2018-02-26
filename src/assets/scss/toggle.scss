@@ -206,7 +206,7 @@ $switch-transition: .2s all !default;
 // custom-toggle([class name],[word show when false],[word show when true]);
  @include custom-toggle('project-filter','OFF','ON');
  @include custom-toggle('task-color-toggle','ไม่','ใช่');
- @include custom-toggle('end-task-toggle','ไม่','ใช่');
+ @include custom-toggle('status-flag','ไม่','ใช่');
  @include custom-toggle('switch','OFF','ON');
 
 

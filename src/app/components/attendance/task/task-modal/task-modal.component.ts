@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { TaskMemberComponent } from './task-member/task-member.component';
+import { TaskPartnerComponent } from './task-partner/task-partner.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskForm } from '../../../../forms/taskForm';
@@ -16,7 +16,7 @@ import { PartnerService } from '../../../../providers/partner.service';
 export class TaskModalComponent implements OnInit {
 
   public bgColor: string;
-  public taskForm: TaskForm = new TaskForm();
+  public taskForm: TaskForm;
 
   // @ViewChild(TaskDetailComponent) taskDetailComponent;
   // @ViewChild(TaskMemberComponent) taskMemberComponent;
@@ -27,6 +27,7 @@ export class TaskModalComponent implements OnInit {
 
 
   ngOnInit() {
+    this.taskForm = new TaskForm();
     this.onTimestampCommit();
     this.findAllUser();
   }
@@ -52,55 +53,41 @@ export class TaskModalComponent implements OnInit {
   findAllUser() {
     this.partnerService.findAllUSer().subscribe(
       data => {
-        this.taskForm.autocompletePartnerList = data;
-        console.log(this.taskForm.autocompletePartnerList);
+        if(data){
+          console.log(data);
+          for(let obj of data){
+            this.taskForm.autocompletePartnerList.push({userId: obj.userId,email: obj.email });
+          }
+        }
       }
     )
 
   }
 
-  // onSubmit(){
-  //   this.getDate();
-  //   this.taskForm.task.activeFlag = 'A'
-  //   this.taskForm.task.projectId = this.taskForm.taskProject['prjId'];
-  //   this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
-  //   this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
-  //   this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
-  //   this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.task.statusFlag);
-  //   this.taskForm.task.ownerUserId = 'tiwakorn.ja';
-  //   this.taskForm.task.doSelfFlag = "N";
-  //   console.log(this.taskForm.task)
-  // this.taskService.insertTask(this.taskForm.task).subscribe(
-  //   res => {
-  //     console.log(res)
-  //   },
-  //   error=>{
-  //     console.log(error)
-  //   }
-  // )
-  // }
-
   onSubmit() {
-    console.log(this.taskForm.taskProject.projectId)
-    this.getDate();
+    // this.taskForm.task.workDate = this.getDate(this.taskForm.task.workDate);
+    this.taskForm.task.workDate = '25610226';
     this.taskForm.task.projectId = this.taskForm.taskProject.projectId;
     this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
     this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
     this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
     this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.task.statusFlag);
     this.taskForm.task.ownerUserId = 'tiwakorn.ja';
-    for(let obj of this.taskForm.taskTag){
-      this.taskForm.task.taskTagList.push(obj.value)
+    for (let obj of this.taskForm.taskPartner) {
+      this.taskForm.task.taskPartnerList.push({ id: { userId: obj} });
     }
-    console.log(this.taskForm)
+    for (let obj of this.taskForm.taskTagList) {
+      this.taskForm.task.taskTagList.push({ tag: { tagName: obj['display'] } });
+    }
+    console.log(this.taskForm.task);
     this.taskService.insertTask(this.taskForm.task).subscribe(
-        res => {
-          console.log(res)
-        },
-        error=>{
-          console.log(error)
-        }
-      )
+      res => {
+        console.log(res)
+      },
+      error => {
+        console.log(error)
+      }
+    );
   }
 
   getStatusFlag(data) {
@@ -111,23 +98,20 @@ export class TaskModalComponent implements OnInit {
     }
   }
   gettime(data: string) {
-    console.log(data)
     let time = data.split(':');
     let h = time[0];
-    console.log(h)
     let m = time[1];
-    console.log(m)
     return h + m;
   }
 
-  getDate() {
-    let d = this.taskForm.task.workDate['date'].day.toString();
-    let m = this.taskForm.task.workDate['date'].month.toString();
-    let y = (this.taskForm.task.workDate['date'].year+543).toString();
-    if (this.taskForm.task.workDate['date'].month < 10) {
+  getDate(date) {
+    let d = date['date'].day.toString();
+    let m = date['date'].month.toString();
+    let y = (date['date'].year + 543).toString();
+    if (date['date'].month < 10) {
       m = '0' + m;
     }
-    this.taskForm.task.workDate = y + m + d;
+    return y + m + d;
   }
 
   setDate(date) {
@@ -139,6 +123,5 @@ export class TaskModalComponent implements OnInit {
 
   receiveMessage(event) {
     this.bgColor = event;
-    console.log(this.bgColor)
   }
 }
