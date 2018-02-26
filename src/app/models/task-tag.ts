@@ -1,5 +1,10 @@
 export class TaskTag {
-    public taskId: number;
-    public tagId: number;
-    public sortNo: number;
+  public id: Id;
+  public sortNo: number;
+  public versionId: number;
+}
+
+class Id{
+  public taskId: number;
+  public tagId: number;
 }

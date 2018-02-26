@@ -1,5 +1,5 @@
+import { TaskForm } from './../../../forms/taskForm';
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../../../models/task';
 
 @Component({
   selector: 'tasks',

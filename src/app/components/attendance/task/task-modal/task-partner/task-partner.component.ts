@@ -4,16 +4,13 @@ import { TaskModalComponent } from '../task-modal.component';
 import { TaskPartner } from '../../../../../models/task-partner';
 
 @Component({
-  selector: 'app-task-member',
-  templateUrl: './task-member.component.html',
-  styleUrls: ['./task-member.component.scss']
+  selector: 'app-task-partner',
+  templateUrl: './task-partner.component.html',
+  styleUrls: ['./task-partner.component.scss']
 })
-export class TaskMemberComponent implements OnInit {
+export class TaskPartnerComponent implements OnInit {
 
-  status: boolean;
-  name: string = "";
   owner: string = "";
-  memberList: any[] = [];
   public partnerList: any[] = [];
   partner: any = "";
   public autocompletePartnerList: any[] = [];
@@ -32,23 +29,24 @@ export class TaskMemberComponent implements OnInit {
   }
 
   addPartner(){
+    console.log('addpartner')
     let partner = null;
-
     if(this.partner != null){
       partner = this.partner;
       console.log(partner)
-      this.partnerList.push(partner);
-      this.taskModal.taskForm.task.taskPartnerList.push(partner.userId)
+
+      if(this.taskModal.taskForm.taskPartner.indexOf(partner) <= -1){
+        this.taskModal.taskForm.taskPartner.push(partner)
+        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.autocompletePartnerList.indexOf(partner), 1)
+      }
       this.partner = null;
+      console.log(this.taskModal.taskForm.taskPartner)
     }
   }
 
   deletePartner(obj){
-    console.log(obj)
-    console.log(obj.userId)
-    console.log(this.taskModal.taskForm.task.taskPartnerList.indexOf(obj.userId))
     this.partnerList.splice(this.partnerList.indexOf(obj), 1)
-    this.taskModal.taskForm.task.taskPartnerList.splice(this.taskModal.taskForm.task.taskPartnerList.indexOf(obj), 1)
+    this.taskModal.taskForm.taskPartnerList.splice(this.taskModal.taskForm.taskPartnerList.indexOf(obj), 1)
   }
 
   // findByProjectId(){
