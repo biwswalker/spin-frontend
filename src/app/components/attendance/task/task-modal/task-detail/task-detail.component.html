@@ -1,4 +1,4 @@
-<div class="container modal-h-600">
+<div class="container modal-h">
     <div class="row">
         <div class="col d-flex">
             <div class="ml-auto">
@@ -21,6 +21,7 @@
             <label>วันที่ *</label>
             <input type="text"
               class="form-control"
+              [(ngModel)]="taskModal.taskForm.task.workDate"
               id="datepicker">
         </div>
         <div class=" col-3">

@@ -31,14 +31,17 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.taskModal.taskForm.doSelfFlag = true;
-    // this.initialDefaultValue();
     this.findProject();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     let self = this;
-    $('#datepicker').datepicker({ dateFormat: 'dd/mm/yy', isBE: true , onSelect:(date)=>self.onSelectCallBack(date)});
+    $('#datepicker').datepicker(
+      {
+        dateFormat: 'dd/mm/yy', isBE: true, onSelect: (date) => self.onSelectCallBack(date)
+      });
   }
+
   onSelectCallBack(date: string) {
     console.log(date)
   }
@@ -72,24 +75,35 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-  findProject(){
+  findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
-      data=>{
+      data => {
         console.log(data)
         this.projectList = data;
       }
     )
   }
 
-  findProjectMember(event){
-    if(event.item.projectId){
+  findProjectMember(event) {
+    this.taskModal.taskForm.task.projectId = event.item.projectId;
+    if (event.item.projectId) {
       this.partnerService.findByProjrctId(event.item.projectId).subscribe(
-        data=>{
-          if(data){
+        data => {
+          if (data) {
             console.log(data);
             this.taskModal.taskForm.taskMember = [];
-            for(let obj of data){
-              this.taskModal.taskForm.taskMember.push({userId: obj.id.userId, email: obj.user.email, status: true});
+            for (let obj of data) {
+              this.taskModal.taskForm.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
+            }
+          }
+        }
+      );
+      this.partnerService.findAllUSer(event.item.projectId).subscribe(
+        data => {
+          if (data) {
+            console.log(data);
+            for (let obj of data) {
+              this.taskModal.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
             }
           }
         }
@@ -97,7 +111,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getColorStatus(status){
+  getColorStatus(status) {
     console.log(status)
   }
 }

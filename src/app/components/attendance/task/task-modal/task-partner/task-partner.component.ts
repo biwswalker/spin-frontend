@@ -11,9 +11,9 @@ declare var $: any;
 })
 export class TaskPartnerComponent implements OnInit {
 
+  selectPartner: any;
   owner: string = "";
-  partner: TaskPartner;
-  public autocompletePartnerList: any[] = [];
+  partner: any;
   memberStatus: boolean;
   constructor(
     public taskModal: TaskModalComponent,
@@ -24,35 +24,34 @@ export class TaskPartnerComponent implements OnInit {
     this.owner = "ทิวากร จันทร์ปัญญา"
   }
 
-  initialDefaultData(){
-  }
-
-  addPartner(event){
-    console.log(event)
-    let partner;
-    if(this.partner != null){
-      partner = this.partner;
-      console.log(partner)
+  addPartner(){
+    if(this.selectPartner != null){
+      let partner = this.selectPartner;
+      // console.log(partner);
+      console.log(this.taskModal.taskForm.taskMember.indexOf(partner));
       if(this.taskModal.taskForm.taskMember.indexOf(partner) <= -1){
         this.taskModal.taskForm.taskPartner.push(partner);
+        console.log(this.taskModal.taskForm.taskPartner);
+        console.log(partner)
         this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner), 1);
-        console.log(this.taskModal.taskForm.autocompletePartnerList);
+        console.log(this.taskModal.taskForm.autocompletePartnerList)
       }
-
       this.partner = null;
-      console.log(this.taskModal.taskForm.taskPartner);
+      this.selectPartner = null;
     }
   }
 
-  onclick(){
-    $('#add-partner-btn').click( function(){
-      $('autocompletePartner')
-    });
+  onSelect(event){
+    this.selectPartner = event.item;
   }
 
   deletePartner(obj){
+    console.log(obj)
+    this.taskModal.taskForm.autocompletePartnerList.push(obj);
+    console.log(this.taskModal.taskForm.autocompletePartnerList);
     this.taskModal.taskForm.taskPartner.splice(this.taskModal.taskForm.taskPartner.indexOf(obj), 1);
-    this.autocompletePartnerList.push(obj);
+    console.log(this.taskModal.taskForm.taskPartner);
+
     // this.taskModal.taskForm.taskPartnerList.splice(this.taskModal.taskForm.taskPartnerList.indexOf(obj), 1);
   }
 }

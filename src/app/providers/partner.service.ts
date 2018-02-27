@@ -15,7 +15,8 @@ export class PartnerService {
     return this.request.requestMethodGET('user-management/users/' + 'Y');
   }
 
-  findAllUSer(){
-      return this.request.requestMethodGET('user-management/users/active-flag/A');
+  findAllUSer(prjId: number){
+    console.log(prjId)
+      return this.request.requestMethodGET('user-management/users/project-id/'+ prjId);
   }
 }

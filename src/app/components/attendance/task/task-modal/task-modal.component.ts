@@ -29,7 +29,7 @@ export class TaskModalComponent implements OnInit {
   ngOnInit() {
     this.taskForm = new TaskForm();
     this.onTimestampCommit();
-    this.findAllUser();
+    // this.findAllUser();
   }
 
   onTimestampCommit() {
@@ -50,24 +50,10 @@ export class TaskModalComponent implements OnInit {
 
   }
 
-  findAllUser() {
-    this.partnerService.findAllUSer().subscribe(
-      data => {
-        if (data) {
-          console.log(data);
-          for (let obj of data) {
-            this.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
-          }
-        }
-      }
-    )
-
-  }
-
   onSubmit() {
-    // this.taskForm.task.workDate = this.getDate(this.taskForm.task.workDate);
-    this.taskForm.task.workDate = '25610226';
-    this.taskForm.task.projectId = this.taskForm.taskProject.projectId;
+    this.taskForm.task.workDate = this.getDate(this.taskForm.task.workDate);
+    this.taskForm.task.workDate = '25610227';
+    // this.taskForm.task.projectId = this.taskForm.taskProject.projectId;
     this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
     this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
     this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
@@ -86,11 +72,14 @@ export class TaskModalComponent implements OnInit {
         this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
       }
     }
+    for(let obj of this.taskForm.taskPartner){
+      this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
+    }
     for (let obj of this.taskForm.taskTagList) {
       this.taskForm.task.taskTagList.push({ tag: { tagName: obj['display'] } });
     }
     console.log(this.taskForm.task);
-    this.insertTask(this.taskForm.task);
+    // this.insertTask(this.taskForm.task);
   }
 
   insertTask(task: Task) {
@@ -119,13 +108,15 @@ export class TaskModalComponent implements OnInit {
   }
 
   getDate(date) {
-    let d = date['date'].day.toString();
-    let m = date['date'].month.toString();
-    let y = (date['date'].year + 543).toString();
+    if(date){
+    let d = date.substr(0, 2);
+    let m = date.substr(4, 6);
+    let y = date.substr(8, 11);
     if (date['date'].month < 10) {
       m = '0' + m;
     }
     return y + m + d;
+  }
   }
 
   setDate(date) {
