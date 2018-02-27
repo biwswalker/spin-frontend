@@ -8,7 +8,7 @@
                            type="checkbox"
                            id="status-flag"
                            name="status-flag"
-                           [(ngModel)]="taskModal.taskForm.statusFlag">
+                           [(ngModel)]="statusFlag">
                     <label for="status-flag">
                         <span></span>
                     </label>
@@ -21,7 +21,7 @@
             <label>วันที่ *</label>
             <input type="text"
                    class="form-control"
-                   [(ngModel)]="taskModal.taskForm.task.workDate"
+                   [(ngModel)]="workDate"
                    id="datepicker">
         </div>
         <div class=" col-3">
@@ -30,7 +30,7 @@
                    id="work-start-time"
                    name="work-start-time"
                    type="text"
-                   [(ngModel)]="taskModal.taskForm.task.workStartTime"
+                   [(ngModel)]="taskObj.workStartTime"
                    maxlength="4">
         </div>
         <div class=" col-3">
@@ -40,7 +40,7 @@
                    name="work-end-time"
                    type="text"
                    maxlength="4"
-                   [(ngModel)]="taskModal.taskForm.task.workEndTime"
+                   [(ngModel)]="taskObj.workEndTime"
                    [min]="startTime">
         </div>
     </div>
@@ -75,7 +75,7 @@
                   [typeaheadItemTemplate]="customItemTemplate"
                   [typeaheadScrollable]="true"
                   [typeaheadOptionsInScrollableView]="7"
-                  (typeaheadOnSelect)="findProjectMember($event)">
+                  (typeaheadOnSelect)="onChangeProject($event)">
             <ng-template #customItemTemplate
                          let-model="item"
                          let-index="index">

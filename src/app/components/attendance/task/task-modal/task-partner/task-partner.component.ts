@@ -22,8 +22,12 @@ export class TaskPartnerComponent implements OnInit {
     private partnerService: PartnerService
   ) {
     // this async
-    this.getProjectMember();
-    this.getautoCompletePartner();
+    this.taskService.currentProjectId.subscribe(projectId => {
+      if (projectId) {
+        this.getProjectMember(projectId);
+        this.getautoCompletePartner(projectId);
+      }
+    });
     // End this async
   }
 
@@ -31,6 +35,7 @@ export class TaskPartnerComponent implements OnInit {
     this.owner = "ทิวากร จันทร์ปัญญา"
   }
 
+<<<<<<< HEAD
   getProjectMember(){
     this.taskService.currentProjectId.subscribe(projectId => {
       if (projectId) {
@@ -41,17 +46,21 @@ export class TaskPartnerComponent implements OnInit {
         })
       }
     });
+=======
+  getProjectMember(projectId) {
+    this.partnerService.findByProjrctId(projectId).subscribe(projects => {
+      console.log(projects)
+      this.taskModal.taskForm.taskMember = projects;
+      console.log(this.taskModal.taskForm.taskMember)
+    })
+>>>>>>> fe65944b7a0917d6d485cd219f511bae835d8c6e
   }
 
-  getautoCompletePartner(){
-    this.taskService.currentProjectId.subscribe(
-      projectId =>{
-        this.partnerService.findAllUSer(projectId).subscribe(
-          partner =>{
-            console.log(partner);
-            this.taskModal.taskForm.autocompletePartnerList = partner;
-          }
-        )
+  getautoCompletePartner(projectId) {
+    this.partnerService.findAllUSer(projectId).subscribe(
+      partner => {
+        console.log(partner);
+        this.taskModal.taskForm.autocompletePartnerList = partner;
       }
     )
   }

@@ -1,61 +1,31 @@
 <div class="row ">
   <div class="col-3 project-thumbnail">
-          <img src="../../../../assets/img/projects/Burger_King_Logo.png">
+          <img src="{{project.projectThumbnail || './assets/img/ico/startup.png'}}">
   </div>
   <div class="col-9">
-      <div class="project-abbr mt-xl-5">RD-DDC</div>
-      <div class="customer-name">กรมสรรพากร</div>
+      <div class="project-abbr mt-xl-5">{{project.projectAbbr}}</div>
+      <div class="customer-name">{{project.customerName}}</div>
   </div>
 </div>
 <div class="row">
   <div class="col-12 project-name py-2">
-          ระบบศูนย์ข้อมูลดิจิตอล
+      {{project.projectName}}
   </div>
 </div>
 <div class="row">
   <div class="col-12">
       <ul class="list-group list-group-flush phase-list">
-          <li class="list-group-item">
+          <li class="list-group-item" *ngFor="let data of phases">
               <div class="phase row">
                   <div class="phase-name col-4">
-                      MA
+                      {{data.phaseName}}
                     </div>
                   <div class="phase-start col-4">
-                    <p>1 มี.ค. 2561</p>
+                    <p>{{data.startDate}}</p>
                     <span>เริ่มโครงการ</span>
                   </div>
                   <div class="phase-end col-4">
-                      <p>31 ธ.ค. 2561</p>
-                      <span>สิ้นสุดโครงการ</span>
-                  </div>
-                </div>
-          </li>
-          <li class="list-group-item">
-              <div class="phase row">
-                  <div class="phase-name col-4">
-                      WA
-                    </div>
-                  <div class="phase-start col-4">
-                    <p>1 มี.ค. 2561</p>
-                    <span>เริ่มโครงการ</span>
-                  </div>
-                  <div class="phase-end col-4">
-                      <p>31 ธ.ค. 2561</p>
-                      <span>สิ้นสุดโครงการ</span>
-                  </div>
-                </div>
-          </li>
-          <li class="list-group-item">
-              <div class="phase row">
-                  <div class="phase-name col-4">
-                      DEV
-                    </div>
-                  <div class="phase-start col-4">
-                    <p>1 มี.ค. 2561</p>
-                    <span>เริ่มโครงการ</span>
-                  </div>
-                  <div class="phase-end col-4">
-                      <p>31 ธ.ค. 2561</p>
+                      <p>{{data.endDate}}</p>
                       <span>สิ้นสุดโครงการ</span>
                   </div>
                 </div>
@@ -77,7 +47,7 @@
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                {{project.detail}}
               </div>
             </div>
           </div>
@@ -91,7 +61,7 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                {{project.hardware}}
               </div>
             </div>
           </div>
@@ -105,7 +75,7 @@
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                {{project.software}}
               </div>
             </div>
           </div>

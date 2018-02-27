@@ -30,4 +30,9 @@ export class ProjectComponent implements OnInit {
     this.projectModal.newProject();
   }
 
+  passKeyToProjectDetail(projectId){
+    console.log('passKeyToProjectDetail: '+projectId);
+    this.projectInfo.sendKeyToChilds(projectId);
+  }
+
 }
