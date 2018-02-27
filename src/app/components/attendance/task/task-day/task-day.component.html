@@ -8,6 +8,6 @@
   </button>
 </div>
 <div id="task-list">
-  <task [source]="taskf"
+  <task [source]="taskf.task"
         *ngFor=" let taskf of taskForms | async"></task>
 </div>

@@ -22,9 +22,3 @@ jQuery(function ($) {
 	};
 	$.datepicker.setDefaults($.datepicker.regional['th']);
 });
-
-class SpinDatePicker {
-	initial(name) {
-		$(name).datepicker({ isBE: true });
-	}
-}

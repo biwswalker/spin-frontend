@@ -49,9 +49,6 @@ export class TaskService {
         for (let task of tasks) {
           taskForm = new TaskForm();
           taskForm.task = task;
-          if (taskForm.task.projectId) {
-            this.projectSerive.findProjectById(task.projectId).subscribe(project => taskForm.taskProject = project)
-          }
           taskFormList.push(taskForm);
         }
         observer.next(taskFormList);

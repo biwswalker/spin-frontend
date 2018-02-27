@@ -20,8 +20,7 @@ export class TimetableDayComponent implements OnInit {
 
   // Get time list
   public worktable = WorkingTime
-  public displayDate = ''
-  private enDateStr = '';
+  public enDateStr = '';
   private subjectDate = new BehaviorSubject<string>(this.utilsService.getCurrentEnDate());
   private crrEnDate = this.subjectDate.asObservable();
 
@@ -29,7 +28,6 @@ export class TimetableDayComponent implements OnInit {
     // Async
     this.crrEnDate.subscribe(enDate => {
       this.enDateStr = enDate;
-      this.displayDate = this.utilsService.displayTimestampDate(enDate);
       this.fecthWorkingTaskByDate(enDate)
     })
     // End Async
@@ -45,32 +43,34 @@ export class TimetableDayComponent implements OnInit {
     this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(enDate)).subscribe((tasks: Task[]) => {
       let index = 0;
       for (let task of tasks) {
-        const start = Number(task.workStartTime);
-        const end = Number(task.workEndTime) - 29;
-        let startIndex = -1;
-        let endIndex = -1;
-        if (start === end) {
-          startIndex = this.worktable.findIndex(time => time === start)
-          endIndex = startIndex;
-        } else {
-          startIndex = this.worktable.findIndex(time => time === start)
-          endIndex = this.worktable.findIndex(time => time === end)
-        }
+        if (task.activeFlag === 'A') {
+          const start = Number(task.workStartTime);
+          const end = Number(task.workEndTime) - 29;
+          let startIndex = -1;
+          let endIndex = -1;
+          if (start === end) {
+            startIndex = this.worktable.findIndex(time => time === start)
+            endIndex = startIndex;
+          } else {
+            startIndex = this.worktable.findIndex(time => time === start)
+            endIndex = this.worktable.findIndex(time => time === end)
+          }
 
-        let groupClass = `stamped${index}`
-        let overlapClass = `overlap${index}`
-        let overlayClass = `overlay${index}`
-        for (let i = startIndex; i <= endIndex; i++) {
-          $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
-        }
-        $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' (click)="onViewTask()" style='cursor: pointer;'></div>`);
-        $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
+          let groupClass = `stamped${index}`
+          let overlapClass = `overlap${index}`
+          let overlayClass = `overlay${index}`
+          for (let i = startIndex; i <= endIndex; i++) {
+            $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
+          }
+          $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' (click)="onViewTask()" style='cursor: pointer;'></div>`);
+          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
         <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
         <p class="text-truncate m-0 stamp-activity">${task.activity}</p>        
         <p class="text-truncate colla-display m-0"><i class="fas fa-users"></i></p>        
       </div>`);
-        $(`.${overlayClass}`).addClass('stamp-box')
-        index++;
+          $(`.${overlayClass}`).addClass('stamp-box')
+          index++;
+        }
       }
     }, err => {
       console.log(err)

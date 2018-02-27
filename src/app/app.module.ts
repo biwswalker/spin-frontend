@@ -8,6 +8,7 @@ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
+
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -58,6 +59,10 @@ import { ResponsibilityService } from './providers/responsibility.service';
 import { HolidayService } from './providers/holiday.service';
 import { LeaveService } from './providers/leave.service';
 
+// Pipe
+import { ThaiDatePipe } from './pipes/thai-date.pipe';
+import { ProjectNamePipe } from './pipes/project-name.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +92,8 @@ import { LeaveService } from './providers/leave.service';
     PrjInfoDetailComponent,
     PrjInfoMemberComponent,
     PrjInfoSummaryComponent,
+    ThaiDatePipe,
+    ProjectNamePipe,
   ],
   imports: [
     BrowserModule,
