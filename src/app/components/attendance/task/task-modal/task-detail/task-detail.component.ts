@@ -21,7 +21,8 @@ export class TaskDetailComponent implements OnInit {
 
   public project: string = "";
 
-  @Output() messageEvent = new EventEmitter<string>();
+  @Output() messageEvent = new EventEmitter<string>(); 
+  
   public taskObj = new Task();
   public projectObj = new Project();
   public workDate = '';
