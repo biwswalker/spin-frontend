@@ -40,17 +40,6 @@ export class TimetableDayComponent implements OnInit {
     this.spinTimestamp();
   }
 
-  onChangeDate(control) {
-    let oldEnDate = this.enDateStr;
-    if (control === 'next') {
-      this.subjectDate.next(this.utilsService.getNextDay(oldEnDate));
-    } else if (control === 'prev') {
-      this.subjectDate.next(this.utilsService.getPreviousDay(oldEnDate));
-    } else {
-      this.subjectDate.next(this.utilsService.getCurrentEnDate());
-    }
-  }
-
   fecthWorkingTaskByDate(enDate: string) {
     this.refreshTimeTable();
     this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(enDate)).subscribe((tasks: Task[]) => {

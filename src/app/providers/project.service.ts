@@ -15,6 +15,10 @@ export class ProjectService {
     return this.request.requestMethodGET('projects-management/find-allow-project/'+isMember+'?p='+page+'&s='+size);
   }
 
+  findProjectById(projectId) {
+    return this.request.requestMethodGET(`projects-management/${projectId}`);
+  }
+
   fetchProjectAutocomplete(){
     return this.request.requestMethodGET('projects-management/find-allow-project/N');
   }

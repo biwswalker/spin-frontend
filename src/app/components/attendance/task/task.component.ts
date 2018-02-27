@@ -1,4 +1,4 @@
-import { TaskForm } from './../../../forms/taskForm';
+import { TaskForm } from './../../../forms/task-form';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
