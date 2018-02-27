@@ -4,7 +4,7 @@
             <div class="modal-content">
 
                 <!-- Header -->
-                <div class="modal-header" [style.background-color]="bgColor">
+                <div class="modal-header" [ngClass]="bgColor">
                     <a href="#" data-dismiss="modal">
                         <i class="fas fa-times fa-lg"></i>
                     </a>
@@ -19,21 +19,21 @@
                  <!-- Tab -->
                  <div>
                     <ul class="nav nav-pills nav-fill" id="tap-info" role="tablist" >
-                        <li class="nav-item" [style.background-color]="bgColor">
+                        <li class="nav-item" [ngClass]="bgColor">
                             <a class="nav-link active" href="#tab-detail" role="tab" id="task-detail" data-toggle="tab">
                                 <i class="fas fa-info-circle fa-lg"></i>
                                 <br>รายละเอียด
                             </a>
                         </li>
 
-                        <li class="nav-item" [style.background-color]="bgColor">
+                        <li class="nav-item" [ngClass]="bgColor">
                             <a class="nav-link" href="#tab-member" role="tab" id="task-member" data-toggle="tab">
                                 <i class="fas fa-users fa-lg"></i>
                                 <br>ผู้ร่วมงาน
                             </a>
                         </li>
 
-                        <li class="nav-item" [style.background-color]="bgColor">
+                        <li class="nav-item" [ngClass]="bgColor">
                             <a class="nav-link" href="#tab-tag" role="tab" id="task-tag" data-toggle="tab">
                                 <i class="fas fa-tag fa-lg"></i>
                                 <br>ป้ายกำกับ
