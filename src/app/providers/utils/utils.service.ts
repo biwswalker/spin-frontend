@@ -109,8 +109,12 @@ export class UtilsService {
     return `${newYear}${newMonth}${newDay}`;
   }    
 
-  convertThCalendarToThDate(){
-
+  convertThCalendarToThDate(thDate){
+    let split = thDate.split(' ', 3)
+    let datemonth =  `${split[0]} ${split[1]}`;
+    let year = split[2];
+    var date = moment(datemonth, Format.DATE_PIKC).format(Format.DATE_PIKR)
+    return `${year}${date}`
   }
   
   displayTimestampDate(enDate: string): string {
