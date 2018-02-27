@@ -7,6 +7,7 @@ import { PartnerService } from '../../../../../providers/partner.service';
 import { Task } from '../../../../../models/task';
 import { UtilsService } from '../../../../../providers/utils/utils.service';
 import { Format } from '../../../../../config/properties';
+import { TaskService } from '../../../../../providers/task.service';
 declare var $: any;
 
 @Component({
@@ -36,7 +37,7 @@ export class TaskDetailComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private partnerService: PartnerService,
+    private taskService: TaskService,
     private utilsService: UtilsService) { }
 
   ngOnInit() {
@@ -95,6 +96,7 @@ export class TaskDetailComponent implements OnInit {
 
   findProjectMember(event) {
     this.taskObj.projectId = event.item.projectId;
+    this.taskService.selectedProjectId.next(this.taskObj.projectId);
     // if (event.item.projectId) {
     //   this.partnerService.findByProjrctId(event.item.projectId).subscribe(
     //     data => {
