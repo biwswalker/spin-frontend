@@ -70,14 +70,6 @@ export class TaskDetailComponent implements OnInit {
     )
   }
 
-  // initialDefaultValue() {
-  //   this.taskObj.activeFlag = 'A';
-  //   this.taskObj.statusFlag = 'I';
-  //   this.taskObj.doSelfFlag = 'N';
-  //   this.taskObjPartnerList = [];
-  //   this.taskObjTagList = [];
-  // }
-
   onColorPick(color) {
     if (color) {
       this.taskObj.color = color;
@@ -89,7 +81,7 @@ export class TaskDetailComponent implements OnInit {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
         console.log(data)
-        // this.projectList = data;
+        this.projectList = data;
       }
     )
   }
