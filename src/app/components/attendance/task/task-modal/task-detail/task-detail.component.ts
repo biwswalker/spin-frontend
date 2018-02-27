@@ -9,6 +9,7 @@ import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
 declare var SpinDatePicker: any;
+declare var $: any;
 
 @Component({
   selector: 'app-task-detail',
@@ -19,7 +20,7 @@ declare var SpinDatePicker: any;
 export class TaskDetailComponent implements OnInit, AfterViewInit {
 
   @Output() messageEvent = new EventEmitter<string>();
-
+  public project: any;
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
   constructor(
@@ -35,8 +36,11 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    let datepicker = new SpinDatePicker();
-    datepicker.initial('#datepicker');
+    let self = this;
+    $('#datepicker').datepicker({ dateFormat: 'dd/mm/yy', isBE: true , onSelect:(date)=>self.onSelectCallBack(date)});
+  }
+  onSelectCallBack(date: string) {
+    console.log(date)
   }
 
   validateData() {

@@ -38,6 +38,7 @@
     <div class="row">
         <div class="col">
             <input class="form-control"
+            id="autocompletePartner"
               [(ngModel)]="partner"
               [typeahead]="taskModal.taskForm.autocompletePartnerList"
               [typeaheadMinLength]="1"
@@ -51,7 +52,7 @@
             </ng-template>
         </div>
         <div class="col-2">
-            <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
+            <button type="button" class="btn btn-success" id="add-partner-btn" (click)="onclick()">เพิ่ม</button>
         </div>
     </div>
 </div>

@@ -74,13 +74,13 @@ export class TaskModalComponent implements OnInit {
     this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.statusFlag);
     this.taskForm.task.ownerUserId = "tiwakorn.ja"
     this.taskForm.task.taskPartnerList = [];
-    if (this.taskForm.doSelfFlag == true) {
-      this.taskForm.task.doSelfFlag = 'Y';
-      this.taskForm.task.taskPartnerList.push({ id: { userId: 'tiwakorn.ja' } });
-    } else {
-      this.taskForm.task.doSelfFlag = 'N';
-      this.taskForm.task.taskPartnerList.splice(this.taskForm.task.taskPartnerList.indexOf({ userId: 'tiwakorn.ja' }), 1)
-    }
+    // if (this.taskForm.doSelfFlag == true) {
+    //   this.taskForm.task.doSelfFlag = 'Y';
+    //   this.taskForm.task.taskPartnerList.push({ id: { userId: 'tiwakorn.ja' } });
+    // } else {
+    //   this.taskForm.task.doSelfFlag = 'N';
+    //   this.taskForm.task.taskPartnerList.splice(this.taskForm.task.taskPartnerList.indexOf({ userId: 'tiwakorn.ja' }), 1)
+    // }
     for (let obj of this.taskForm.taskMember) {
       if (obj.status == true) {
         this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });

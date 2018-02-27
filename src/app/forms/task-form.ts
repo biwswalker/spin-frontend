@@ -21,5 +21,6 @@ export class TaskForm{
     this.taskTag = [];
     this.taskProject = new Project();
     this.autocompletePartnerList = [];
+    this.taskMember = [];
   }
 }

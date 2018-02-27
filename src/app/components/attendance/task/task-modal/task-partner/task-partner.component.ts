@@ -2,6 +2,7 @@ import { PartnerService } from './../../../../../providers/partner.service';
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 import { TaskPartner } from '../../../../../models/task-partner';
+declare var $: any;
 
 @Component({
   selector: 'app-task-partner',
@@ -27,8 +28,8 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   addPartner(event){
-    console.log(event.item.userId);
-    let partner = null;
+    console.log(event)
+    let partner;
     if(this.partner != null){
       partner = this.partner;
       console.log(partner)
@@ -37,9 +38,16 @@ export class TaskPartnerComponent implements OnInit {
         this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner), 1);
         console.log(this.taskModal.taskForm.autocompletePartnerList);
       }
+
       this.partner = null;
       console.log(this.taskModal.taskForm.taskPartner);
     }
+  }
+
+  onclick(){
+    $('#add-partner-btn').click( function(){
+      $('autocompletePartner')
+    });
   }
 
   deletePartner(obj){
