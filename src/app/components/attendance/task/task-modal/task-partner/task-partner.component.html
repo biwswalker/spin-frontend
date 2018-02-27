@@ -1,8 +1,15 @@
-<div class="container modal-h-600">
+<div class="container modal-h">
     <div class="header">
         <div class="row">
-            <div class="col-12">
+            <div class="col-11">
                 <p>{{owner}}</p>
+            </div>
+            <div class="col-1">
+              <input type="checkbox"
+                class="form-control"
+                name="do-self-flag"
+                id="do-self-flag"
+                [(ngModel)]="taskModal.taskForm.doSelfFlag">
             </div>
         </div>
     </div>
@@ -11,17 +18,17 @@
             <label>สมาชิกโครงการ</label>
         </div>
         <div class="col-12 rounded bg-white text-dark scroll-auto">
-            <div id="member-list" *ngFor="let obj of taskModal.taskForm.taskPartner">
-                <input type="checkbox" name="member-status" id="member-status"> {{obj.email}}
+            <div id="member-list" *ngFor="let obj of taskModal.taskForm.taskMember">
+                <input type="checkbox" name="member-status" id="member-status" [(ngModel)]="obj.status"> {{obj.email}}
             </div>
         </div>
     </div>
     <label>ผู้ร่วมงาน</label>
     <div class="row">
         <div class=" col-12 scroll-auto bg-white rounded text-dark">
-            <div *ngIf="partnerList">
-                <div id="partner-list" name="partner-list" *ngFor="let obj of partnerList">
-                    {{obj}}
+            <div *ngIf="taskModal.taskForm.taskPartner">
+                <div id="partner-list" name="partner-list" *ngFor="let obj of taskModal.taskForm.taskPartner">
+                    {{obj.email}}
                     <a (click)="deletePartner(obj)" class="fas fa-times-circle">
                     </a>
                 </div>
@@ -31,6 +38,7 @@
     <div class="row">
         <div class="col">
             <input class="form-control"
+              id="autocompletePartner"
               [(ngModel)]="partner"
               [typeahead]="taskModal.taskForm.autocompletePartnerList"
               [typeaheadMinLength]="1"
@@ -38,13 +46,13 @@
               [typeaheadItemTemplate]="customItemTemplate"
               [typeaheadScrollable]="true"
               [typeaheadOptionsInScrollableView]="5"
-              (typeaheadOnSelect)="addPartner($event)">
+              (typeaheadOnSelect)="onSelect($event)">
             <ng-template #customItemTemplate let-model="item" let-index="index">
                 <h6>{{model.email}}</h6>
             </ng-template>
         </div>
         <div class="col-2">
-            <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
+            <button type="button" class="btn btn-success" id="add-partner-btn" (click)="addPartner()">เพิ่ม</button>
         </div>
     </div>
 </div>

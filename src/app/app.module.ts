@@ -58,6 +58,7 @@ import { HttpModule } from '@angular/http';
 import { ResponsibilityService } from './providers/responsibility.service';
 import { HolidayService } from './providers/holiday.service';
 import { LeaveService } from './providers/leave.service';
+import { EventMessagesService } from './providers/utils/event-messages.service';
 
 // Pipe
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
@@ -126,7 +127,8 @@ import { ProjectNamePipe } from './pipes/project-name.pipe';
     OfficerService,
     ResponsibilityService,
     HolidayService,
-    LeaveService
+    LeaveService,
+    EventMessagesService
   ],
   bootstrap: [AppComponent]
 })

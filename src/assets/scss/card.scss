@@ -1,4 +1,8 @@
 @import 'task-card';
+
+$bg-list-hover: rgba(255, 100, 100,0.7);
+$bg-list-active: rgba(255, 100, 100,1);
+$white:white;
 //For accordion panel
 #accordion{
   .card{
@@ -7,4 +11,17 @@
       padding: 0.5rem !important;
     }
   }
+}
+
+
+// For cards display as list
+.data-can-select-list{
+li:hover> .card{
+  background-color: $bg-list-hover;
+  color: $white;
+}
+li.active> .card{
+  background-color: $bg-list-active;
+  color: $white;
+}
 }

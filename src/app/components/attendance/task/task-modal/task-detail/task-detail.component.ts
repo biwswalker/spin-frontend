@@ -6,6 +6,8 @@ import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
 import { Task } from '../../../../../models/task';
 import { UtilsService } from '../../../../../providers/utils/utils.service';
+import { Format } from '../../../../../config/properties';
+declare var $: any;
 
 @Component({
   selector: 'app-task-detail',
@@ -13,18 +15,20 @@ import { UtilsService } from '../../../../../providers/utils/utils.service';
   styleUrls: ['./task-detail.component.scss', '../task-modal.component.scss'],
 
 })
-export class TaskDetailComponent implements OnInit, AfterViewInit {
+export class TaskDetailComponent implements OnInit {
 
 
-  public project: string = "Summit Personnel Information Network10";
+  public project: string = "";
 
   @Output() messageEvent = new EventEmitter<string>();
   public taskObj = new Task();
   public projectObj = new Project();
-  public taskPartnerList = [];
-  public taskTagList = [];
+  public workDate = '';
   public startTime = '';
   public endTime = '';
+  public doSelfFlag = true;
+  public statusFlag = true;
+  public colorFlag = '';
 
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
@@ -41,13 +45,16 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     this.findProject();
   }
 
-  ngAfterViewInit() {
-  }
-
   initTaskDetail() {
     this.initialDefaultValue();
     this.startTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.endTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
+    let self = this;
+    $('#datepicker').datepicker({ dateFormat: Format.DATE_PIKC, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
+  }
+
+  onSelectCallBack(date: string) {
+    console.log(date)
   }
 
   validateData() {
@@ -68,8 +75,6 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     this.taskObj.activeFlag = 'A';
     this.taskObj.statusFlag = 'I';
     this.taskObj.doSelfFlag = 'N';
-    this.taskPartnerList = [];
-    this.taskTagList = [];
   }
 
   onColorPick(color) {
@@ -89,22 +94,36 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   }
 
   findProjectMember(event) {
-    console.log(this.project)
-    console.log(event.item.projectId);
-    if (event.item.projectId) {
-      this.partnerService.findByProjrctId(event.item.projectId).subscribe(
-        data => {
-          if (data) {
-            console.log(data);
-            this.taskPartnerList = [];
-            for (let obj of data) {
-              this.taskPartnerList.push({ userId: obj.id.userId, email: obj.user.email });
-            }
-          }
-        }
-      );
-    }
+    this.taskObj.projectId = event.item.projectId;
+    // if (event.item.projectId) {
+    //   this.partnerService.findByProjrctId(event.item.projectId).subscribe(
+    //     data => {
+    //       if (data) {
+    //         console.log(data);
+    //         this.taskPartnerList = [];
+    //         for (let obj of data) {
+    //           this.taskPartnerList.push({ userId: obj.id.userId, email: obj.user.email });
+    //           console.log(data);
+    //           this.taskModal.taskForm.taskMember = [];
+    //           for (let obj of data) {
+    //             this.taskModal.taskForm.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
+    //           }
+    //         }
+    //       }
+    //     });
+    //   this.partnerService.findAllUSer(event.item.projectId).subscribe(
+    //     data => {
+    //       if (data) {
+    //         console.log(data);
+    //         for (let obj of data) {
+    //           this.taskModal.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
+    //         }
+    //       }
+    //     }
+    //   );
+    // }
   }
+
 
   getColorStatus(status) {
     console.log(status)

@@ -2,6 +2,7 @@ import { PartnerService } from './../../../../../providers/partner.service';
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 import { TaskPartner } from '../../../../../models/task-partner';
+declare var $: any;
 
 @Component({
   selector: 'app-task-partner',
@@ -10,10 +11,10 @@ import { TaskPartner } from '../../../../../models/task-partner';
 })
 export class TaskPartnerComponent implements OnInit {
 
+  selectPartner: any;
   owner: string = "";
-  public partnerList: any[] = [];
-  partner: TaskPartner;
-  public autocompletePartnerList: any[] = [];
+  partner: any;
+  memberStatus: boolean;
   constructor(
     public taskModal: TaskModalComponent,
     private partnerService: PartnerService
@@ -21,37 +22,36 @@ export class TaskPartnerComponent implements OnInit {
 
   ngOnInit() {
     this.owner = "ทิวากร จันทร์ปัญญา"
-
   }
 
-  initialDefaultData(){
-    this.taskModal.taskForm.task.doSelfFlag = 'A'
-  }
-
-  addPartner(event){
-    console.log(event)
-    let partner = null;
-    if(this.partner != null){
-      partner = this.partner;
-      console.log(partner)
-      // if(this.taskModal.taskForm.taskPartner.indexOf(partner) <= -1){
-      //   this.taskModal.taskForm.taskPartner.push(partner);
-      //   this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.autocompletePartnerList.indexOf(partner), 1);
-      // }
-      if(this.taskModal.taskForm.taskPartner.indexOf(partner) <= -1){
-        this.partnerList.push(partner);
-        console.log(this.partnerList);
-        this.taskModal.taskForm.autocompletePartnerList.splice(this.partnerList.indexOf(partner), 1);
-        console.log(this.taskModal.taskForm.autocompletePartnerList);
+  addPartner(){
+    if(this.selectPartner != null){
+      let partner = this.selectPartner;
+      // console.log(partner);
+      console.log(this.taskModal.taskForm.taskMember.indexOf(partner));
+      if(this.taskModal.taskForm.taskMember.indexOf(partner) <= -1){
+        this.taskModal.taskForm.taskPartner.push(partner);
+        console.log(this.taskModal.taskForm.taskPartner);
+        console.log(partner)
+        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner), 1);
+        console.log(this.taskModal.taskForm.autocompletePartnerList)
       }
       this.partner = null;
-      console.log(this.taskModal.taskForm.taskPartner);
+      this.selectPartner = null;
     }
   }
 
+  onSelect(event){
+    this.selectPartner = event.item;
+  }
+
   deletePartner(obj){
-    this.partnerList.splice(this.partnerList.indexOf(obj), 1);
-    this.autocompletePartnerList.push(obj);
+    console.log(obj)
+    this.taskModal.taskForm.autocompletePartnerList.push(obj);
+    console.log(this.taskModal.taskForm.autocompletePartnerList);
+    this.taskModal.taskForm.taskPartner.splice(this.taskModal.taskForm.taskPartner.indexOf(obj), 1);
+    console.log(this.taskModal.taskForm.taskPartner);
+
     // this.taskModal.taskForm.taskPartnerList.splice(this.taskModal.taskForm.taskPartnerList.indexOf(obj), 1);
   }
 }

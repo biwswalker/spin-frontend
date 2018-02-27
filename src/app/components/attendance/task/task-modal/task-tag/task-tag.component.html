@@ -1,4 +1,6 @@
+<div class="container modal-h">
 <div class="row">
+  <label for="">ป้ายกำกับ</label>
     <div class="col-12">
     <tag-input class="form-control"
       theme='pink-theme'
@@ -14,7 +16,7 @@
     </tag-input>
   </div>
 </div>
-<div class="footer">
+<footer class="footer">
   <p>ป้ายกำกับที่เคยใช้</p>
   <tag-input
     [removable]="false"
@@ -22,4 +24,5 @@
     [maxItems]='0'
     (onSelect)="onSelected($event)">
   </tag-input>
+</footer>
 </div>
