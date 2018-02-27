@@ -2,6 +2,7 @@ import { PartnerService } from './../../../../../providers/partner.service';
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 import { TaskPartner } from '../../../../../models/task-partner';
+import { TaskService } from '../../../../../providers/task.service';
 declare var $: any;
 
 @Component({
@@ -17,8 +18,21 @@ export class TaskPartnerComponent implements OnInit {
   memberStatus: boolean;
   constructor(
     public taskModal: TaskModalComponent,
+    private taskService: TaskService,
     private partnerService: PartnerService
-  ) { }
+  ) {
+    // this async
+    this.taskService.currentProjectId.subscribe(projectId => {
+      if (projectId) {
+        this.partnerService.findByProjrctId(projectId).subscribe(projects => {
+          // Do here
+          console.log('GGGGWWWPPP')
+          console.log(projects)
+        })
+      }
+    });
+    // End this async
+  }
 
   ngOnInit() {
     this.owner = "ทิวากร จันทร์ปัญญา"

@@ -8,7 +8,10 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
-declare var SpinDatePicker: any;
+import { Task } from '../../../../../models/task';
+import { UtilsService } from '../../../../../providers/utils/utils.service';
+import { Format } from '../../../../../config/properties';
+import { TaskService } from '../../../../../providers/task.service';
 declare var $: any;
 
 @Component({
@@ -27,7 +30,8 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     public taskModal: TaskModalComponent,
     private _sanitizer: DomSanitizer,
     private projectService: ProjectService,
-    private partnerService: PartnerService) { }
+    private taskService: TaskService,
+    private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.taskModal.taskForm.doSelfFlag = true;
@@ -85,30 +89,35 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   }
 
   findProjectMember(event) {
-    this.taskModal.taskForm.task.projectId = event.item.projectId;
-    if (event.item.projectId) {
-      this.partnerService.findByProjrctId(event.item.projectId).subscribe(
-        data => {
-          if (data) {
-            console.log(data);
-            this.taskModal.taskForm.taskMember = [];
-            for (let obj of data) {
-              this.taskModal.taskForm.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
-            }
-          }
-        }
-      );
-      this.partnerService.findAllUSer(event.item.projectId).subscribe(
-        data => {
-          if (data) {
-            console.log(data);
-            for (let obj of data) {
-              this.taskModal.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
-            }
-          }
-        }
-      );
-    }
+    // this.taskObj.projectId = event.item.projectId;
+    // this.taskService.selectedProjectId.next(this.taskObj.projectId);
+    // if (event.item.projectId) {
+    //   this.partnerService.findByProjrctId(event.item.projectId).subscribe(
+    //     data => {
+    //       if (data) {
+    //         console.log(data);
+    //         this.taskPartnerList = [];
+    //         for (let obj of data) {
+    //           this.taskPartnerList.push({ userId: obj.id.userId, email: obj.user.email });
+    //           console.log(data);
+    //           this.taskModal.taskForm.taskMember = [];
+    //           for (let obj of data) {
+    //             this.taskModal.taskForm.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
+    //           }
+    //         }
+    //       }
+    //     });
+    //   this.partnerService.findAllUSer(event.item.projectId).subscribe(
+    //     data => {
+    //       if (data) {
+    //         console.log(data);
+    //         for (let obj of data) {
+    //           this.taskModal.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
+    //         }
+    //       }
+    //     }
+    //   );
+    // }
   }
 
   getColorStatus(status) {
