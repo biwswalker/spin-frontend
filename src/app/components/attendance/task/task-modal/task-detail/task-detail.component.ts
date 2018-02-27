@@ -26,7 +26,7 @@ export class TaskDetailComponent implements OnInit {
   public startTime = '';
   public endTime = '';
   public doSelfFlag = true;
-  public statusFlag = true;
+  public statusFlag = false;
   public colorFlag = '';
 
   public project: any;
@@ -42,14 +42,16 @@ export class TaskDetailComponent implements OnInit {
     this.taskObj = new Task();
     this.projectObj = new Project();
     this.findProject();
+    this.validateData();
   }
 
   initTaskDetail() {
-    this.startTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
-    this.endTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
+    this.taskObj.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
+    this.taskObj.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
+    this.validateData();
   }
 
   onSelectCallBack(date: string) {

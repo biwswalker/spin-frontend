@@ -36,9 +36,9 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   getProjectMember(projectId) {
-    this.partnerService.findByProjrctId(projectId).subscribe(projects => {
-      console.log(projects)
-      this.taskModal.taskForm.taskMember = projects;
+    this.partnerService.findByProjrctId(projectId).subscribe(member => {
+      console.log('member: ', member)
+      this.taskModal.taskForm.taskMember = member;
       console.log(this.taskModal.taskForm.taskMember)
     })
   }
