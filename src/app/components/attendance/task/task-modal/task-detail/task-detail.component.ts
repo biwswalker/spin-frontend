@@ -88,7 +88,8 @@ export class TaskDetailComponent implements OnInit {
   findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
-        this.projectList = data;
+        console.log(data)
+        // this.projectList = data;
       }
     )
   }
