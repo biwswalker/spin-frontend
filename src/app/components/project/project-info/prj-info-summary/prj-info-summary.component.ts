@@ -12,4 +12,8 @@ export class PrjInfoSummaryComponent implements OnInit {
   ngOnInit() {
   }
 
+  displayProjectSummary(projectId){
+
+  }
+
 }

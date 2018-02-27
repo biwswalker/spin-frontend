@@ -2,23 +2,23 @@
   <div class="col-12">
       <div class="card project-highlight">
           <div class="card-body">
-            <img class="project-thumbnail float-left mr-4" src="../../../../assets/img/projects/Burger_King_Logo.png" width="100" height="100">
-            <h1 class="project-abbr d-flex">RD-DDC <i class="far fa-star ml-auto favorite"></i></h1>
-            <span class="customer-name">กรมสรรพากร</span>
+            <img class="project-thumbnail float-left mr-4" src="{{projectSelected.projectThumbnail|| './assets/img/ico/startup.png'}}" width="100" height="100">
+            <h1 class="project-abbr d-flex">{{projectSelected.projectAbbr}} <i class="{{projectSelected.isFavorite?'fas':'far'}} fa-heart ml-auto favorite"></i></h1>
+            <span class="customer-name">{{projectSelected.customerName}}</span>
             <div class="project-name  d-flex justify-content-center">
-              ระบบศูนย์ข้อมูลดิจิตอล
+              {{projectSelected.projectName}}
             </div>
             <div class="phase d-flex justify-content-between">
               <div class="phase-start">
-                <p>1 มี.ค. 2561</p>
+                <p>{{projectSelected.startDate}}</p>
                 <span>เริ่มโครงการ</span>
               </div>
               <div class="phase-end">
-                  <p>31 ธ.ค. 2561</p>
+                  <p>{{projectSelected.endDate}}</p>
                   <span>สิ้นสุดโครงการ</span>
               </div>
               <div class="phase-name">
-                MA
+                  {{projectSelected.phaseName}}
               </div>
               </div>
           </div>
@@ -47,14 +47,14 @@
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
          <ul class="nav flex-column data-can-select-list" id="project-list">
-            <li *ngFor="let prj of projectList" class="nav-item">
+            <li *ngFor="let prj of projectList" class="nav-item" (click)="onProjectSelected(prj)">
                 <div class="card project-item">
                     <div class="card-body row">
                       <div class="project-thumbnail d-none d-sm-inline-block col-sm-3 col-md-3 col-lg-2 col-xl-3">
-                          <img class="my-3" [src]="prj.projectThumbnail" width="100" height="100">
+                          <img class="my-3" src="{{prj.projectThumbnail}}">
                       </div>
                       <div class="col-12 col-sm-9 col-md-9 col-lg-10 col-xl-9">
-                          <div class="project-abbr d-flex">{{prj.projectAbbr}} <i class="far fa-star ml-auto favorite"></i></div>
+                          <div class="project-abbr d-flex">{{prj.projectAbbr}} <i class="{{prj.isFavorite?'fas':'far'}} fa-heart ml-auto favorite" (click)="toggleFavoriteProject(prj.projectId)"></i></div>
                           <div class="customer-name">{{prj.customerName}}</div>
                           <div class="project-name d-flex justify-content-center py-2 mb-2">
                               {{prj.projectName}}
