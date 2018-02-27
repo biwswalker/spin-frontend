@@ -27,7 +27,7 @@ export class ProjectService {
   }
 
   fetchProjectAutocomplete(){
-    return this.request.requestMethodGET('projects-management/find-allow-project/N');
+    return this.request.requestMethodGET('projects-management/find-autocomplete-project/N');
   }
 
 }

@@ -2,6 +2,7 @@ import { PartnerService } from './../../../../../providers/partner.service';
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 import { TaskPartner } from '../../../../../models/task-partner';
+import { TaskService } from '../../../../../providers/task.service';
 declare var $: any;
 
 @Component({
@@ -17,11 +18,43 @@ export class TaskPartnerComponent implements OnInit {
   memberStatus: boolean;
   constructor(
     public taskModal: TaskModalComponent,
+    private taskService: TaskService,
     private partnerService: PartnerService
-  ) { }
+  ) {
+    // this async
+    this.getProjectMember();
+    this.getautoCompletePartner();
+    // End this async
+  }
 
   ngOnInit() {
     this.owner = "ทิวากร จันทร์ปัญญา"
+  }
+
+  getProjectMember(){
+    this.taskService.currentProjectId.subscribe(projectId => {
+      if (projectId) {
+        this.partnerService.findByProjrctId(projectId).subscribe(projects => {
+          // Do here
+          console.log(projects)
+          this.taskModal.taskForm.taskMember = projects;
+          console.log(this.taskModal.taskForm.taskMember)
+        })
+      }
+    });
+  }
+
+  getautoCompletePartner(){
+    this.taskService.currentProjectId.subscribe(
+      projectId =>{
+        this.partnerService.findAllUSer(projectId).subscribe(
+          partner =>{
+            console.log(partner);
+            this.taskModal.taskForm.autocompletePartnerList = partner;
+          }
+        )
+      }
+    )
   }
 
   addPartner() {
@@ -33,7 +66,7 @@ export class TaskPartnerComponent implements OnInit {
         this.taskModal.taskForm.taskPartner.push(partner);
         console.log(this.taskModal.taskForm.taskPartner);
         console.log(partner)
-        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner) + 1, 1);
+        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner), 1);
         console.log(this.taskModal.taskForm.autocompletePartnerList)
       }
       this.partner = null;

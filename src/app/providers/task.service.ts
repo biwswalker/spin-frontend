@@ -5,13 +5,18 @@ import { HttpRequestService } from './utils/http-request.service';
 import { Observable } from 'rxjs/Observable';
 import { TaskForm } from '../forms/task-form';
 import { ProjectService } from './project.service';
+import { Project } from '../models/project';
 
 @Injectable()
 export class TaskService {
 
-  private selectedTask = new BehaviorSubject<Task>(new Task);
   private task = new Task();
+  private selectedTask = new BehaviorSubject<Task>(new Task);
   public currentTask = this.selectedTask.asObservable();
+
+  public selectedProjectId = new BehaviorSubject<number>(0);
+  public currentProjectId = this.selectedProjectId.asObservable();
+  public autocompletePartner = this.selectedProjectId.asObservable();
 
   constructor(private request: HttpRequestService, private projectSerive: ProjectService) { }
 

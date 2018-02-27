@@ -47,18 +47,18 @@
                     <div class="tab-content">
 
                         <!-- Detail -->
-                        <div role="tabpanel" class="tab-pane in active" id="tab-detail">
+                        <div role="tabpanel" class="tab-pane in active fixed-modal" id="tab-detail">
                             <app-task-detail (messageEvent)="receiveMessage($event)"></app-task-detail>
                         </div>
 
                         <!-- Member -->
-                        <div role="tabpanel" class="tab-pane fade" id="tab-member">
-                            <!-- <app-task-partner></app-task-partner> -->
+                        <div role="tabpanel" class="tab-pane fade fixed-modal" id="tab-member">
+                            <app-task-partner></app-task-partner>
                         </div>
 
                         <!-- Tag -->
-                        <div role="tabpanel" class="tab-pane fade" id="tab-tag">
-                            <!-- <app-task-tag></app-task-tag> -->
+                        <div role="tabpanel" class="tab-pane fade fixed-modal" id="tab-tag">
+                            <app-task-tag></app-task-tag>
                         </div>
                     </div>
                 </div>
