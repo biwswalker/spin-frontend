@@ -11,12 +11,19 @@ export class ProjectService {
     return this.request.requestMethodPUT('projects-management', project);
   }
 
+  toggleFavorite(projectId){
+    return this.request.requestMethodGET('favorite-project-management/'+projectId);
+  }
+
   findProjects(isMember,page,size) {
     return this.request.requestMethodGET('projects-management/find-allow-project/'+isMember+'?p='+page+'&s='+size);
   }
 
   findProjectById(projectId) {
-    return this.request.requestMethodGET(`projects-management/${projectId}`);
+    return this.request.requestMethodGET('projects-management/'+projectId);
+  }
+  findProjectPhaseById(projectId) {
+    return this.request.requestMethodGET('/project-phase-management/'+projectId);
   }
 
   fetchProjectAutocomplete(){

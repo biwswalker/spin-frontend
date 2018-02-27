@@ -12,4 +12,7 @@ export class PrjInfoMemberComponent implements OnInit {
   ngOnInit() {
   }
 
+  displayProjectMember(projectId){
+
+  }
 }

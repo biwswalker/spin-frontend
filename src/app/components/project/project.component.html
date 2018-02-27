@@ -3,13 +3,13 @@
     <div class="d-flex">
         <button type="button" class="btn btn-link my-2" (click)="onNewProjectClick()">โครงการใหม่</button>
     </div>
-    <app-project-search></app-project-search>
+    <app-project-search (messageEvent)="passKeyToProjectDetail($event)"></app-project-search>
   </div>
   <div class="col-12 col-xl-6">
       <div class="d-flex">
           <button type="button" class="btn btn-link my-2 ml-auto">แก้ไขข้อมูลโครงการ</button>
       </div>
-      <app-project-info></app-project-info>
+      <app-project-info ></app-project-info>
     </div>
 </div>
 

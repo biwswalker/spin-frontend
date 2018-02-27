@@ -51,10 +51,19 @@ p{
         .project-thumbnail{
           display: inline-block;
           text-align: center;
+          img{
+            max-width: 90%;
+            max-height: 120px;
+            width: auto;
+            height: auto;
+          }
         }
         .project-abbr{
           font-size: 1.5rem;
           font-weight: 600;
+        }
+        .favorite.fas{
+          color:rgb(191, 0, 19);
         }
         .customer-name{
           margin: -0.5rem 0rem 0rem;
@@ -62,7 +71,7 @@ p{
           filter: opacity(80);
         }
         .project-name{
-          border:0.1rem solid $border-color1;
+          border:0.1rem solid $second-bg-color;
         }
         .phase{
           text-align: center;
@@ -81,9 +90,20 @@ p{
         }
       }
     }
-}
+  }
+  li.active> .project-item> .card-body .project-name{
+    border:0.1rem solid $font-color !important;
+  }
+  li:hover> .project-item> .card-body .project-name{
+    border:0.1rem solid $font-color !important;
+  }
 
 }
+
+.favorite:hover{
+  color: #ff385b;
+}
+
 
 
 .search-results {
