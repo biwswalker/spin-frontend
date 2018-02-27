@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { TaskService } from '../../../../providers/task.service';
 import { Observable } from 'rxjs/Observable';
-import { TaskForm } from '../../../../forms/taskForm';
+import { TaskForm } from '../../../../forms/task-form';
 import { UtilsService } from '../../../../providers/utils/utils.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HolidayService } from '../../../../providers/holiday.service';
@@ -9,7 +9,7 @@ import { Holiday } from '../../../../models/holiday';
 import { Leave } from '../../../../models/leave';
 import { LeaveService } from '../../../../providers/leave.service';
 declare var $: any;
-declare var inlineDatepicker: any;
+
 @Component({
   selector: 'task-day',
   templateUrl: './task-day.component.html',
@@ -48,7 +48,9 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
   }
 
   ngAfterViewInit(): void {
-
+    $("button.dp-btn-collapse").click(function () {
+      $("button.dp-btn-collapse > i").toggle();
+    });
     // Call DatePicker
     let datepickerId = '#workingDatePicker'
     let self = this;
@@ -96,7 +98,7 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     // End Call DatePicker
   }
 
-  ngAfterViewChecked() {      
+  ngAfterViewChecked() {
     $('.inline-picker > .ui-datepicker td').css({ 'margin-left': this.mrg + 'px', 'margin-right': this.mrg + 'px' })
     $('.inline-picker > .ui-datepicker th').css({ 'margin-left': this.mrg + 'px', 'margin-right': this.mrg + 'px' })
   }

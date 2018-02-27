@@ -1,4 +1,4 @@
-import { TaskForm } from './../../../forms/taskForm';
+import { TaskForm } from './../../../forms/task-form';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
-
+  
   constructor() { }
-
+  
   ngOnInit() {
   }
 

@@ -14,10 +14,13 @@ export class TaskDirective implements OnInit {
 
   // Is set css class
   public selected = false;
+  public isCollaborator = false;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {
+  }
 
   ngOnInit() {
+    this.isCollaborator = this.source.taskPartnerList ? true : false;
     // Async
     this.taskService.currentTask.subscribe(task => {
       if (task.taskId === this.source.taskId) {

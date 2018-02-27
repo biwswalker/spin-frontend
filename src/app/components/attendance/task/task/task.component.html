@@ -3,7 +3,7 @@
   <li class="nav-item">
     <div class="card task-card selection" [ngClass]="selected ? 'selected' : ''">
       <div class="card-body">
-        <span>{{source.workDate}}</span>
+        <span>{{source.workDate | thaiDate:'calendar'}}</span>
         <button type="button"
                 (click)="onView()"
                 class="btn btn-outline-info float-right">
@@ -14,13 +14,13 @@
         <div class="float-left task-owner">
             {{source.ownerUserId}}
         </div>
-        <div class="float-right task-collaborators">
+        <div class="float-right task-collaborators" *ngIf="isCollaborator">
           <i class="fas fa-users"></i>
         </div>
       </div>
-      <div class="card-footer">
-        <div class="task-project float-left">
-          #{{source.projectId}}
+      <div class="card-footer" [ngClass]="source.color">
+        <div class="task-project float-left" *ngIf="source.prijectId!">
+          #{{source.prijectId | projectName}}
         </div>
         <div class="task-tags">
           <span class="badge badge-pill badge-tags">Development</span>
