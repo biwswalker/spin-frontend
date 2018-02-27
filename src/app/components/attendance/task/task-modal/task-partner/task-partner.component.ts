@@ -38,7 +38,6 @@ export class TaskPartnerComponent implements OnInit {
           // Do here
           console.log(projects)
           this.taskModal.taskForm.taskMember = projects;
-          console.log(this.taskModal.taskForm.taskMember)
         })
       }
     });
