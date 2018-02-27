@@ -20,6 +20,14 @@ export class UtilsService {
     return `${moment().format(Format.DATE_DB)}`;
   }
 
+  getCurrentThMonth(): string {
+    return `${moment().format(Format.MM)}`
+  }
+
+  getCuurentThYear(): string {
+    return `${this.convertToThYearStr(moment().format(Format.YYYY))}`
+  }
+
   getThDayWord(enDate): string {
     var day = moment(enDate, Format.DATE_DB);
     var thday = day.format(Format.DDDD);
@@ -39,12 +47,12 @@ export class UtilsService {
   }
 
   getPreviousDay(enDate): string {
-    var previousDay =  moment(enDate, Format.DATE_DB).subtract(1, 'days').format(Format.DATE_DB);
+    var previousDay = moment(enDate, Format.DATE_DB).subtract(1, 'days').format(Format.DATE_DB);
     return previousDay
   }
 
   getNextDay(enDate): string {
-    var nextDay =  moment(enDate, Format.DATE_DB).add(1, 'days').format(Format.DATE_DB);
+    var nextDay = moment(enDate, Format.DATE_DB).add(1, 'days').format(Format.DATE_DB);
     return nextDay;
   }
 
@@ -77,6 +85,17 @@ export class UtilsService {
     let yearTh = Number(yearStr) + 543;
     return `${yearTh}${monthDate}`;
   }
+
+  convertNumberTo2Deci(numMonth: number): string {
+    return numMonth > 9 ? `${numMonth}` : `0${numMonth}`;
+  }
+
+  convertEnDDMYYYYToThDate(day, month, year){
+    let newDay = this.convertNumberTo2Deci(day);
+    let newMonth = this.convertNumberTo2Deci(month);
+    let newYear = this.convertToThYear(year);
+    return `${newYear}${newMonth}${newDay}`;
+  }    
 
   displayTimestampDate(enDate: string): string {
     return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`

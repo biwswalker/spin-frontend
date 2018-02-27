@@ -6,9 +6,9 @@ import { Project } from '../models/project';
 export class TaskForm{
   public task: Task;
   public taskProject: Project;
-  public taskPartner: string[];
+  public taskPartner: any[];
   public taskTag: TaskTag[];
-  public autocompletePartnerList: string[];
+  public autocompletePartnerList: any[];
   public taskTagList: string[] = [];
   public taskPartnerList: string[] = [];
   constructor(){

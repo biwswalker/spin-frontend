@@ -55,6 +55,8 @@ import { PartnerService } from './providers/partner.service';
 import { OfficerService } from './providers/officer.service';
 import { HttpModule } from '@angular/http';
 import { ResponsibilityService } from './providers/responsibility.service';
+import { HolidayService } from './providers/holiday.service';
+import { LeaveService } from './providers/leave.service';
 
 @NgModule({
   declarations: [
@@ -115,7 +117,9 @@ import { ResponsibilityService } from './providers/responsibility.service';
     PartnerService,
     TagService,
     OfficerService,
-    ResponsibilityService
+    ResponsibilityService,
+    HolidayService,
+    LeaveService
   ],
   bootstrap: [AppComponent]
 })

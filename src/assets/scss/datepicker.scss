@@ -1,4 +1,13 @@
+$red: #e41313;
+$gray: #afafaf;
+$white: #fff;
+$yellow: #dede1e;
+
 .inline-picker {
+    // table.ui-datepicker-calendar{
+    //     width: 350px;
+    //     margin: auto;
+    // }
     .ui-widget {
         font-family: "Kanit", sans-serif !important;
     } // Header 
@@ -6,10 +15,27 @@
         background: transparent !important;
         border: 0px !important;
     } // Table
-    .ui-datepicker td span,
-    .ui-datepicker td a {
-        text-align: center !important;
+    .ui-datepicker td {
+        width: 35px !important;
+        height: 35px !important;
+        display: inline-block;
+        padding: 0px !important;
+        span,a {
+            text-align: center !important;
+        }
     }
+    .ui-datepicker th {
+        width: 35px !important;
+        height: 35px !important;
+        display: inline-block;
+        span,a {
+            text-align: center !important;
+        }
+    }
+    // .ui-datepicker td span,
+    // .ui-datepicker td a {
+    //     text-align: center !important;
+    // }
     .ui-state-default,
     .ui-widget-content .ui-state-default,
     .ui-widget-header .ui-state-default {
@@ -19,12 +45,18 @@
     .ui-state-highlight,
     .ui-widget-content .ui-state-highlight,
     .ui-widget-header .ui-state-highlight {
-        color: red;
+        color: $red;
     }
-    .holiday {
+
+    .holiday a {
+            color: $red;
+    }
+
+    .unstamped {
         position: relative;
     }
-    .holiday:after {
+
+    .unstamped:after {
         content: "";
         position: absolute;
         top: 0;
@@ -34,17 +66,45 @@
         display: block;
         border-left: 10px solid transparent;
         border-bottom: 10px solid transparent;
-        border-top: 10px solid #f00;
+        border-top: 10px solid $yellow;
     }
-    .unstamped {
-        width: 30px;
+
+
+    .leave {
         border-radius: 50%;
         text-align: center;
-        background: #f00;
-        color: white;
+        background: $gray;
+        a.ui-state-default{
+            color: white !important;
+        }
     }
-    
-    .ui-widget-content .ui-state-active {
-        color: blue;
+
+    // Select day
+    .ui-datepicker-current-day{
+        display: block;
+        border-radius: 50%;
+        border: 1px solid $red;
+        text-align: center;
+        margin: auto;
+        a {
+            color: $red !important;
+        }
+    }
+
+    // Now day
+    .ui-datepicker-today{
+        border-radius: 50%;
+        text-align: center;
+        background: $red;
+        a {
+            color: $white !important;
+        }
+    }
+
+    // Week end
+    .ui-datepicker-week-end{
+        a {
+            color: $gray !important;
+        }
     }
 }

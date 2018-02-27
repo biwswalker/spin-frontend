@@ -1,50 +1,50 @@
-<div class="header">
+<div class="container modal-h-600">
+    <div class="header">
+        <div class="row">
+            <div class="col-12">
+                <p>{{owner}}</p>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
-            <p>{{owner}}</p>
+            <label>สมาชิกโครงการ</label>
+        </div>
+        <div class="col-12 rounded bg-white text-dark scroll-auto">
+            <div id="member-list" *ngFor="let obj of taskModal.taskForm.taskPartner">
+                <input type="checkbox" name="member-status" id="member-status"> {{obj.email}}
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <label>สมาชิกโครงการ</label>
-    </div>
-    <div class="col-12 rounded bg-white text-dark scroll-auto">
-        <div id="member-list"
-          *ngFor="let obj of taskModal.taskForm.taskPartner">
-            <input type="checkbox"
-              name="member-status"
-              id="member-status">
-                {{obj}}
+    <label>ผู้ร่วมงาน</label>
+    <div class="row">
+        <div class=" col-12 scroll-auto bg-white rounded text-dark">
+            <div *ngIf="partnerList">
+                <div id="partner-list" name="partner-list" *ngFor="let obj of partnerList">
+                    {{obj}}
+                    <a (click)="deletePartner(obj)" class="fas fa-times-circle">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<!-- <label>ผู้ร่วมงาน</label>
-<div class="row">
-    <div class=" col-12 scroll-auto bg-white rounded text-dark">
-      <div *ngIf="partnerList">
-        <div id="partner-list"
-          name="partner-list"
-          *ngFor="let obj of partnerList" >
-            {{obj.email}}
-            <a (click)="deletePartner(obj)"
-              class="fas fa-times-circle">
-            </a>
+    <div class="row">
+        <div class="col">
+            <input class="form-control"
+              [(ngModel)]="partner"
+              [typeahead]="taskModal.taskForm.autocompletePartnerList"
+              [typeaheadMinLength]="1"
+              typeaheadOptionField="email"
+              [typeaheadItemTemplate]="customItemTemplate"
+              [typeaheadScrollable]="true"
+              [typeaheadOptionsInScrollableView]="5"
+              (typeaheadOnSelect)="addPartner($event)">
+            <ng-template #customItemTemplate let-model="item" let-index="index">
+                <h6>{{model.email}}</h6>
+            </ng-template>
         </div>
-      </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
+        </div>
     </div>
-</div> -->
-<div class="row">
-    <div class="col">
-        <input auto-complete
-          class="form-control"
-          list-formatter="email"
-          [(ngModel)]="partner"
-          min-chars="1"
-          [source]="taskModal.taskForm.autocompletePartnerList" />
-      </div>
-      <div class="col-2">
-
-        <button type="button" class="btn btn-success" (click)="addPartner()">เพิ่ม</button>
-      </div>
 </div>

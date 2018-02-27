@@ -1,0 +1,28 @@
+.stamp-box {
+    border-radius: 3px !important;
+    padding-left: 3px !important;
+    padding-right: 5px !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.stamp-topic {
+    margin-top: -4px !important;
+    font-weight: 600;
+    color: #292929;
+}
+
+.stamp-activity {
+    margin-top: -4px !important;
+    font-weight: 400;
+    color: #353535;
+}
+
+
+.colla-display {
+    color: #292929;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: -4px !important;
+    margin-right: 3px !important;
+}

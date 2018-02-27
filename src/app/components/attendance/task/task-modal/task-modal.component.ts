@@ -54,8 +54,9 @@ export class TaskModalComponent implements OnInit {
     this.partnerService.findAllUSer().subscribe(
       data => {
         if(data){
+          console.log(data);
           for(let obj of data){
-            this.taskForm.autocompletePartnerList.push(obj.userId);
+            this.taskForm.autocompletePartnerList.push({userId: obj.userId,email: obj.email });
           }
         }
       }
