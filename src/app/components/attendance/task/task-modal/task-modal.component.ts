@@ -17,7 +17,7 @@ import { UtilsService } from '../../../../providers/utils/utils.service';
 export class TaskModalComponent {
 
   public bgColor: string;
-  public taskForm: TaskForm;
+  public taskForm: TaskForm = new TaskForm();
 
   @ViewChild(TaskDetailComponent) taskDetailChild;
   // @ViewChild(TaskMemberComponent) taskMemberComponent;
@@ -29,6 +29,7 @@ export class TaskModalComponent {
   onTimestampCommit() {
     this.taskService.currentTask.subscribe(
       (selectedTask: Task) => {
+        console.log(selectedTask)
         this.taskForm.task = selectedTask
         // Task Detail
         this.taskDetailChild.taskObj = this.taskForm.task;
