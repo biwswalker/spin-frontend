@@ -116,6 +116,14 @@ export class UtilsService {
     var date = moment(datemonth, Format.DATE_PIKC).format(Format.DATE_PIKR)
     return `${year}${date}`
   }
+
+  convertDisplayTime(time) {
+    if (time) {
+      let hour = time.substring(0, 2);
+      let minute = time.substring(2, 4);
+      return hour + ':' + minute;
+    }
+  }
   
   displayTimestampDate(enDate: string): string {
     return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`

@@ -9,7 +9,7 @@ import { Holiday } from '../../../../models/holiday';
 import { Leave } from '../../../../models/leave';
 import { LeaveService } from '../../../../providers/leave.service';
 declare var $: any;
-
+declare var inlineDatepicker: any;
 @Component({
   selector: 'task-day',
   templateUrl: './task-day.component.html',
@@ -27,8 +27,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
   private unstamped = [];
   private holidays: Holiday[] = [];
   private leaves: Leave[] = [];
-
-  private mrg = 0;
 
   constructor(private taskService: TaskService, private utilsService: UtilsService, private holidayService: HolidayService, private leaveService: LeaveService) {
     // Async
@@ -58,12 +56,8 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
       isBE: true,
       onSelect: function (dateText, inst) {
         self.subjectDate.next(dateText);
-        $('.inline-picker > .ui-datepicker td').css({ 'margin-left': this.mrg + 'px', 'margin-right': this.mrg + 'px' })
-        $('.inline-picker > .ui-datepicker th').css({ 'margin-left': this.mrg + 'px', 'margin-right': this.mrg + 'px' })
       },
       beforeShowDay: function (date) {
-        var dpInlineWidth = $('#workingDatePicker').width();
-        self.mrg = ((dpInlineWidth / 7) / 2) - 19;
         let monthDate = self.utilsService.convertEnDDMYYYYToThDate(date.getDate(), date.getMonth() + 1, date.getFullYear())
         for (let hol of self.holidays) {
           if (hol.holDate == monthDate) {
@@ -95,12 +89,12 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     $(datepickerId).addClass('w-100');
     $($(datepickerId).find('.ui-datepicker-inline')).addClass('w-100');
     $($(datepickerId).find('.ui-datepicker-inline')).css({ 'margin-left': 'auto', 'margin-right': 'auto' });
+    inlineDatepicker()
     // End Call DatePicker
   }
 
   ngAfterViewChecked() {
-    $('.inline-picker > .ui-datepicker td').css({ 'margin-left': this.mrg + 'px', 'margin-right': this.mrg + 'px' })
-    $('.inline-picker > .ui-datepicker th').css({ 'margin-left': this.mrg + 'px', 'margin-right': this.mrg + 'px' })
+    inlineDatepicker()
   }
 
   fetchSpecialDate(year, month) {

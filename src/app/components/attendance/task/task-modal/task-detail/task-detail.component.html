@@ -8,7 +8,7 @@
             type="checkbox"
             id="status-flag"
             name="status-flag"
-            [(ngModel)]="taskModal.taskForm.task.statusFlag">
+            [(ngModel)]="taskObj.statusFlag">
           <label for="status-flag-toggle">
             <span></span>
                 </label>
@@ -29,7 +29,7 @@
               id="work-start-time"
               name="work-start-time"
               type="time"
-              [(ngModel)]="taskModal.taskForm.task.workStartTime"
+              [(ngModel)]="startTime"
               maxlength="4">
         </div>
         <div class=" col-3">
@@ -39,8 +39,8 @@
               name="work-end-time"
               type="time"
               maxlength="4"
-              [(ngModel)]="taskModal.taskForm.task.workEndTime"
-              [min]="taskModal.taskForm.task.workStartTime">
+              [(ngModel)]="endTime"
+              [min]="startTime">
         </div>
     </div>
     <div class="row">
@@ -50,7 +50,7 @@
               type="text"
               name="topic"
               id="topic"
-              [(ngModel)]="taskModal.taskForm.task.topic">
+              [(ngModel)]="taskObj.topic">
         </div>
     </div>
     <div class="row">
@@ -60,7 +60,7 @@
               rows="3"
               id="activity"
               name="activity"
-              [(ngModel)]="taskModal.taskForm.task.activity">
+              [(ngModel)]="taskObj.activity">
         </textarea>
         </div>
     </div>

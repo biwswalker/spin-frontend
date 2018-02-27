@@ -1,14 +1,11 @@
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TaskModalComponent } from './../task-modal.component';
 import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
-import { Time } from '@angular/common';
-import { Subject } from 'rxjs/Subject';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
-declare var SpinDatePicker: any;
+import { Task } from '../../../../../models/task';
+import { UtilsService } from '../../../../../providers/utils/utils.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -19,77 +16,89 @@ declare var SpinDatePicker: any;
 export class TaskDetailComponent implements OnInit, AfterViewInit {
 
 
-  public project: string = "";
+  public project: string = "Summit Personnel Information Network10";
 
   @Output() messageEvent = new EventEmitter<string>();
+  public taskObj = new Task();
+  public projectObj = new Project();
+  public taskPartnerList = [];
+  public taskTagList = [];
+  public startTime = '';
+  public endTime = '';
 
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
   colorStatus: boolean = true;
+
   constructor(
-    public taskModal: TaskModalComponent,
-    private _sanitizer: DomSanitizer,
     private projectService: ProjectService,
-    private partnerService: PartnerService) { }
+    private partnerService: PartnerService,
+    private utilsService: UtilsService) { }
 
   ngOnInit() {
-    this.initialDefaultValue();
+    this.taskObj = new Task();
+    this.projectObj = new Project();
     this.findProject();
   }
 
-  ngAfterViewInit(){
-    let datepicker = new SpinDatePicker();
-    datepicker.initial('#datepicker');
+  ngAfterViewInit() {
+  }
+
+  initTaskDetail() {
+    this.initialDefaultValue();
+    this.startTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
+    this.endTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
   }
 
   validateData() {
     this.taskDetailFormGroup = new FormGroup(
       {
-        taskDetailStatusFlag: new FormControl((this.taskModal.taskForm.task.statusFlag == 'A' ? true : false)),
-        taskDetailWorkDate: new FormControl(this.taskModal.taskForm.task.workDate, Validators.required),
-        taskDetailStartTime: new FormControl(this.taskModal.taskForm.task.workStartTime, Validators.required),
-        taskDetailEndTime: new FormControl(this.taskModal.taskForm.task.workEndTime, Validators.required),
-        taskDetailTopic: new FormControl(this.taskModal.taskForm.task.topic, Validators.required),
-        taskDetailActivity: new FormControl(this.taskModal.taskForm.task.activity, Validators.required),
-        taskDetailProject: new FormControl(this.taskModal.taskForm.taskProject, Validators.required)
+        taskDetailStatusFlag: new FormControl((this.taskObj.statusFlag == 'A' ? true : false)),
+        taskDetailWorkDate: new FormControl(this.taskObj.workDate, Validators.required),
+        taskDetailStartTime: new FormControl(this.taskObj.workStartTime, Validators.required),
+        taskDetailEndTime: new FormControl(this.taskObj.workEndTime, Validators.required),
+        taskDetailTopic: new FormControl(this.taskObj.topic, Validators.required),
+        taskDetailActivity: new FormControl(this.taskObj.activity, Validators.required),
+        taskDetailProject: new FormControl(this.projectObj, Validators.required)
       }
     )
   }
 
   initialDefaultValue() {
-    this.taskModal.taskForm.task.activeFlag = 'A';
-    this.taskModal.taskForm.task.statusFlag = 'I';
-    this.taskModal.taskForm.task.doSelfFlag = 'N';
-    this.taskModal.taskForm.taskPartnerList = [];
-    this.taskModal.taskForm.taskTagList = [];
+    this.taskObj.activeFlag = 'A';
+    this.taskObj.statusFlag = 'I';
+    this.taskObj.doSelfFlag = 'N';
+    this.taskPartnerList = [];
+    this.taskTagList = [];
   }
 
   onColorPick(color) {
     if (color) {
-      this.taskModal.taskForm.task.color = color;
+      this.taskObj.color = color;
       this.messageEvent.emit(color);
     }
   }
 
-  findProject(){
+  findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
-      data=>{
+      data => {
         console.log(data)
         this.projectList = data;
       }
     )
   }
 
-  findProjectMember(event){
+  findProjectMember(event) {
+    console.log(this.project)
     console.log(event.item.projectId);
-    if(event.item.projectId){
+    if (event.item.projectId) {
       this.partnerService.findByProjrctId(event.item.projectId).subscribe(
-        data=>{
-          if(data){
+        data => {
+          if (data) {
             console.log(data);
-            this.taskModal.taskForm.taskPartner = [];
-            for(let obj of data){
-              this.taskModal.taskForm.taskPartner.push({userId: obj.id.userId, email: obj.user.email});
+            this.taskPartnerList = [];
+            for (let obj of data) {
+              this.taskPartnerList.push({ userId: obj.id.userId, email: obj.user.email });
             }
           }
         }
@@ -97,7 +106,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getColorStatus(status){
+  getColorStatus(status) {
     console.log(status)
   }
 }
