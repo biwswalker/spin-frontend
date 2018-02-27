@@ -4,14 +4,14 @@
             <div class="ml-auto">
                 <label>สิ้นสุดการทำงาน</label>
                 <span class="status-flag">
-          <input class="switch"
-            type="checkbox"
-            id="status-flag"
-            name="status-flag"
-            [(ngModel)]="taskModal.taskForm.statusFlag">
-          <label for="status-flag">
-            <span></span>
-                </label>
+                    <input class="switch"
+                           type="checkbox"
+                           id="status-flag"
+                           name="status-flag"
+                           [(ngModel)]="statusFlag">
+                    <label for="status-flag">
+                        <span></span>
+                    </label>
                 </span>
             </div>
         </div>
@@ -20,48 +20,48 @@
         <div class="col-6">
             <label>วันที่ *</label>
             <input type="text"
-              class="form-control"
-              [(ngModel)]="taskModal.taskForm.task.workDate"
-              id="datepicker">
+                   class="form-control"
+                   [(ngModel)]="workDate"
+                   id="datepicker">
         </div>
         <div class=" col-3">
             <label>เวลา *</label>
             <input class="form-control"
-              id="work-start-time"
-              name="work-start-time"
-              type="time"
-              [(ngModel)]="taskModal.taskForm.task.workStartTime"
-              maxlength="4">
+                   id="work-start-time"
+                   name="work-start-time"
+                   type="time"
+                   [(ngModel)]="startTime"
+                   maxlength="4">
         </div>
         <div class=" col-3">
             <label class="invisible">เวลา *</label>
             <input class="form-control"
-              id="work-end-time"
-              name="work-end-time"
-              type="time"
-              maxlength="4"
-              [(ngModel)]="taskModal.taskForm.task.workEndTime"
-              [min]="taskModal.taskForm.task.workStartTime">
+                   id="work-end-time"
+                   name="work-end-time"
+                   type="time"
+                   maxlength="4"
+                   [(ngModel)]="endTime"
+                   [min]="startTime">
         </div>
     </div>
     <div class="row">
         <div class=" col-12">
             <label>หัวข้อ *</label>
             <input class="form-control"
-              type="text"
-              name="topic"
-              id="topic"
-              [(ngModel)]="taskModal.taskForm.task.topic">
+                   type="text"
+                   name="topic"
+                   id="topic"
+                   [(ngModel)]="taskObj.topic">
         </div>
     </div>
     <div class="row">
         <div class=" col-12">
             <label>กิจกรรม *</label>
             <textarea class="form-control"
-              rows="3"
-              id="activity"
-              name="activity"
-              [(ngModel)]="taskModal.taskForm.task.activity">
+                      rows="3"
+                      id="activity"
+                      name="activity"
+                      [(ngModel)]="taskObj.activity">
         </textarea>
         </div>
     </div>
@@ -69,17 +69,19 @@
         <div class=" col-12">
             <label>ชื่อโครงการ</label>
             <input class="form-control"
-                [(ngModel)]="project"
-                [typeahead]="projectList"
-                [typeaheadMinLength]="1"
-                typeaheadOptionField="projectName"
-                [typeaheadItemTemplate]="customItemTemplate"
-                [typeaheadScrollable]="true"
-                [typeaheadOptionsInScrollableView]="7"
-                (typeaheadOnSelect)="findProjectMember($event)">
-                    <ng-template #customItemTemplate let-model="item" let-index="index">
-                        <h6>{{model.projectName}}</h6>
-                    </ng-template>
+                   [(ngModel)]="project"
+                   [typeahead]="projectList"
+                   [typeaheadMinLength]="1"
+                   typeaheadOptionField="projectName"
+                   [typeaheadItemTemplate]="customItemTemplate"
+                   [typeaheadScrollable]="true"
+                   [typeaheadOptionsInScrollableView]="7"
+                   (typeaheadOnSelect)="findProjectMember($event)">
+            <ng-template #customItemTemplate
+                         let-model="item"
+                         let-index="index">
+                <h6>{{model.projectName}}</h6>
+            </ng-template>
         </div>
     </div>
 
@@ -90,19 +92,33 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-primary color-picker" (click)="onColorPick('blue')" id="corlor" >
+                    <a class="btn btn-primary color-picker"
+                       (click)="onColorPick('blue')"
+                       id="corlor">
                     </a>
-                    <a class="btn btn-success color-picker" (click)="onColorPick('green')" id="corlor" >
+                    <a class="btn btn-success color-picker"
+                       (click)="onColorPick('green')"
+                       id="corlor">
                     </a>
-                    <a class="btn btn-danger color-picker" (click)="onColorPick('red')" id="corlor" >
+                    <a class="btn btn-danger color-picker"
+                       (click)="onColorPick('red')"
+                       id="corlor">
                     </a>
-                    <a class="btn btn-warning color-picker" (click)="onColorPick('yellow')" id="corlor" >
+                    <a class="btn btn-warning color-picker"
+                       (click)="onColorPick('yellow')"
+                       id="corlor">
                     </a>
-                    <a class="btn btn-secondary color-picker" (click)="onColorPick('gray')" id="corlor" >
+                    <a class="btn btn-secondary color-picker"
+                       (click)="onColorPick('gray')"
+                       id="corlor">
                     </a>
-                    <a class="btn btn-info color-picker" (click)="onColorPick('lightblue')" id="corlor" >
+                    <a class="btn btn-info color-picker"
+                       (click)="onColorPick('lightblue')"
+                       id="corlor">
                     </a>
-                    <a class="btn btn-dark color-picker" (click)="onColorPick('darkgray')" id="corlor" >
+                    <a class="btn btn-dark color-picker"
+                       (click)="onColorPick('darkgray')"
+                       id="corlor">
                     </a>
                 </div>
             </div>
@@ -114,14 +130,14 @@
             <div class="ml-auto">
                 <label>กำหนดเป็นค่าเริ่มต้น</label>
                 <span class="task-color-toggle">
-        <input class="switch"
-          type="checkbox"
-          id="task-color-toggle"
-          [(ngModel)]="taskModal.taskForm.colorFlag"
-          onselect="getColorStatus($event)">
-          <label for="task-color-toggle">
-            <span></span>
-                </label>
+                    <input class="switch"
+                           type="checkbox"
+                           id="task-color-toggle"
+                           [(ngModel)]="colorFlag"
+                           onselect="getColorStatus($event)">
+                    <label for="task-color-toggle">
+                        <span></span>
+                    </label>
                 </span>
             </div>
         </div>

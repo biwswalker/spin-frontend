@@ -7,47 +7,47 @@ import { TaskTagComponent } from './task-tag/task-tag.component';
 import { TaskService } from '../../../../providers/task.service';
 import { Task } from '../../../../models/task';
 import { PartnerService } from '../../../../providers/partner.service';
+import { UtilsService } from '../../../../providers/utils/utils.service';
 
 @Component({
   selector: 'app-task-modal',
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.scss']
 })
-export class TaskModalComponent implements OnInit {
+export class TaskModalComponent {
 
   public bgColor: string;
   public taskForm: TaskForm;
 
-  // @ViewChild(TaskDetailComponent) taskDetailComponent;
+  @ViewChild(TaskDetailComponent) taskDetailChild;
   // @ViewChild(TaskMemberComponent) taskMemberComponent;
   // @ViewChild(TaskTagComponent) taskTagComponent;
 
   constructor(private taskService: TaskService,
     private partnerService: PartnerService) { }
 
-
-  ngOnInit() {
-    this.taskForm = new TaskForm();
-    this.onTimestampCommit();
-    // this.findAllUser();
-  }
-
   onTimestampCommit() {
     this.taskService.currentTask.subscribe(
-      selectedTask => {
-        this.taskForm.task.workStartTime = this.convertTimeData(selectedTask.workStartTime);
-        this.taskForm.task.workEndTime = this.convertTimeData(selectedTask.workEndTime);
+      (selectedTask: Task) => {
+        this.taskForm.task = selectedTask
+        // Task Detail
+        this.taskDetailChild.taskObj = this.taskForm.task;
+        this.taskDetailChild.projectObj = this.taskForm.taskProject;
+        this.taskDetailChild.initTaskDetail();
       })
   }
 
-
-  convertTimeData(time) {
-    if (time) {
-      let hour = time.substring(0, 2);
-      let minute = time.substring(2, 4);
-      return hour + ':' + minute;
-    }
-
+  findAllUser() {
+    // this.partnerService.findAllUSer().subscribe(
+    //   data => {
+    //     if (data) {
+    //       console.log(data);
+    //       for (let obj of data) {
+    //         this.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
+    //       }
+    //     }
+    //   }
+    // )
   }
 
   onSubmit() {
@@ -72,7 +72,7 @@ export class TaskModalComponent implements OnInit {
         this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
       }
     }
-    for(let obj of this.taskForm.taskPartner){
+    for (let obj of this.taskForm.taskPartner) {
       this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
     }
     for (let obj of this.taskForm.taskTagList) {
@@ -108,15 +108,15 @@ export class TaskModalComponent implements OnInit {
   }
 
   getDate(date) {
-    if(date){
-    let d = date.substr(0, 2);
-    let m = date.substr(4, 6);
-    let y = date.substr(8, 11);
-    if (date['date'].month < 10) {
-      m = '0' + m;
+    if (date) {
+      let d = date.substr(0, 2);
+      let m = date.substr(4, 6);
+      let y = date.substr(8, 11);
+      if (date['date'].month < 10) {
+        m = '0' + m;
+      }
+      return y + m + d;
     }
-    return y + m + d;
-  }
   }
 
   setDate(date) {
