@@ -62,9 +62,9 @@ p{
           font-size: 1.5rem;
           font-weight: 600;
         }
-        .favorite.fas{
-          color:rgb(191, 0, 19);
-        }
+
+
+
         .customer-name{
           margin: -0.5rem 0rem 0rem;
           opacity: 0.8;
@@ -100,11 +100,17 @@ p{
 
 }
 
+
+
+.favorite{
+  cursor: pointer;
+}
+.favorite.fas{
+  color:rgb(191, 0, 19);
+}
 .favorite:hover{
   color: #ff385b;
 }
-
-
 
 .search-results {
   height: 100%;
