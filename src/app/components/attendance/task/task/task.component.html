@@ -3,24 +3,24 @@
   <li class="nav-item">
     <div class="card task-card selection" [ngClass]="selected ? 'selected' : ''">
       <div class="card-body">
-        <span>{{source.task.workDate}}</span>
+        <span>{{source.workDate | thaiDate:'calendar'}}</span>
         <button type="button"
                 (click)="onView()"
                 class="btn btn-outline-info float-right">
           <i class="fas fa-external-link-square-alt"></i> view</button>
-        <h6 class="card-title text-truncate">{{source.task.topic}}</h6>
-        <p class="card-text text-truncate">{{source.task.activity}}</p>
+        <h6 class="card-title text-truncate">{{source.topic}}</h6>
+        <p class="card-text text-truncate">{{source.activity}}</p>
 
         <div class="float-left task-owner">
-            {{source.task.ownerUserId}}
+            {{source.ownerUserId}}
         </div>
         <div class="float-right task-collaborators" *ngIf="isCollaborator">
           <i class="fas fa-users"></i>
         </div>
       </div>
-      <div class="card-footer" [ngClass]="source.task.color">
-        <div class="task-project float-left" *ngIf="source.taskProject.projectName!">
-          #{{source.taskProject.projectName}}
+      <div class="card-footer" [ngClass]="source.color">
+        <div class="task-project float-left" *ngIf="source.prijectId!">
+          #{{source.prijectId | projectName}}
         </div>
         <div class="task-tags">
           <span class="badge badge-pill badge-tags">Development</span>

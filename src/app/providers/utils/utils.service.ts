@@ -34,16 +34,28 @@ export class UtilsService {
     return `${thday}`
   }
 
+  getThGetDate(enDate): string {
+    var date = moment(enDate, Format.DATE_DB);
+    var thdate = date.format(Format.DD);
+    return `${thdate}`
+  }
+
   getThMonthWord(enDate): string {
     var month = moment(enDate, Format.DATE_DB);
     var thmonth = month.format(Format.MMM);
     return `${thmonth}`
   }
 
-  getThGetDate(enDate): string {
-    var date = moment(enDate, Format.DATE_DB);
-    var thdate = date.format(Format.DD);
-    return `${thdate}`
+  getThMonth(enDate): string {
+    var month = moment(enDate, Format.DATE_DB);
+    var thmonth = month.format(Format.MM);
+    return `${thmonth}`
+  }
+
+  getThYear(enDate): string {
+    var year = moment(enDate, Format.DATE_DB);
+    var thyear = year.format(Format.YYYY);
+    return `${this.convertToThYearStr(thyear)}`
   }
 
   getPreviousDay(enDate): string {
@@ -97,8 +109,17 @@ export class UtilsService {
     return `${newYear}${newMonth}${newDay}`;
   }    
 
+  convertThCalendarToThDate(){
+
+  }
+  
   displayTimestampDate(enDate: string): string {
     return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`
+  }
+
+  displayCalendarDate(thDate: string): string {
+    let enDate = this.convertThDateToEn(thDate)
+    return `${this.getThGetDate(enDate)}/${this.getThMonth(enDate)}/${this.getThYear(enDate)}`
   }
 
 }
