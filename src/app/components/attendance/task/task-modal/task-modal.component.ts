@@ -29,6 +29,7 @@ export class TaskModalComponent {
     private utilsService: UtilsService) { }
 
   onTimestampCommit() {
+
     this.taskService.currentTask.subscribe(
       (selectedTask: Task) => {
         console.log(selectedTask)
@@ -36,6 +37,7 @@ export class TaskModalComponent {
         this.taskForm.task.workEndTime = this.utilsService.convertDisplayTime(selectedTask.workEndTime);
       })
   }
+
   onSubmit() {
     this.taskForm.task.workDate = this.getDate(this.taskForm.task.workDate);
     this.taskForm.task.workDate = '25610227';
@@ -44,6 +46,7 @@ export class TaskModalComponent {
     // this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
     this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
     this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.statusFlag);
+    // this.taskForm.task.
     this.taskForm.task.ownerUserId = "tiwakorn.ja"
     this.taskForm.task.taskPartnerList = [];
     // if (this.taskForm.doSelfFlag == true) {

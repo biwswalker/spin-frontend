@@ -20,7 +20,7 @@ declare var $: any;
   styleUrls: ['./task-detail.component.scss', '../task-modal.component.scss'],
 
 })
-export class TaskDetailComponent implements OnInit, AfterViewInit {
+export class TaskDetailComponent implements OnInit {
 
   startTime: string;
   endTime:string;
@@ -46,14 +46,6 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     this.findProject();
   }
 
-  ngAfterViewInit() {
-    let self = this;
-    $('#datepicker').datepicker(
-      {
-        dateFormat: 'dd/mm/yy', isBE: true, onSelect: (date) => self.onSelectCallBack(date)
-      });
-  }
-
   onSelectCallBack(date: string) {
     console.log(date)
   }
@@ -72,13 +64,13 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     )
   }
 
-  initialDefaultValue() {
-    this.taskModal.taskForm.task.activeFlag = 'A';
-    this.taskModal.taskForm.task.statusFlag = 'I';
-    this.taskModal.taskForm.task.doSelfFlag = 'N';
-    this.taskModal.taskForm.taskPartnerList = [];
-    this.taskModal.taskForm.taskTagList = [];
-  }
+  // initialDefaultValue() {
+  //   this.taskModal.taskForm.task.activeFlag = 'A';
+  //   this.taskModal.taskForm.task.statusFlag = 'I';
+  //   this.taskModal.taskForm.task.doSelfFlag = 'N';
+  //   this.taskModal.taskForm.taskPartnerList = [];
+  //   this.taskModal.taskForm.taskTagList = [];
+  // }
 
   onColorPick(color) {
     if (color) {
