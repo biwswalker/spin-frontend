@@ -22,20 +22,39 @@ export class TaskPartnerComponent implements OnInit {
     private partnerService: PartnerService
   ) {
     // this async
-    this.taskService.currentProjectId.subscribe(projectId => {
-      if (projectId) {
-        this.partnerService.findByProjrctId(projectId).subscribe(projects => {
-          // Do here
-          console.log('GGGGWWWPPP')
-          console.log(projects)
-        })
-      }
-    });
+    this.getProjectMember();
+    this.getautoCompletePartner();
     // End this async
   }
 
   ngOnInit() {
     this.owner = "ทิวากร จันทร์ปัญญา"
+  }
+
+  getProjectMember(){
+    this.taskService.currentProjectId.subscribe(projectId => {
+      if (projectId) {
+        this.partnerService.findByProjrctId(projectId).subscribe(projects => {
+          // Do here
+          console.log(projects)
+          this.taskModal.taskForm.taskMember = projects;
+          console.log(this.taskModal.taskForm.taskMember)
+        })
+      }
+    });
+  }
+
+  getautoCompletePartner(){
+    this.taskService.currentProjectId.subscribe(
+      projectId =>{
+        this.partnerService.findAllUSer(projectId).subscribe(
+          partner =>{
+            console.log(partner);
+            this.taskModal.taskForm.autocompletePartnerList = partner;
+          }
+        )
+      }
+    )
   }
 
   addPartner() {

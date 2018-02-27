@@ -1,28 +1,18 @@
-<div class="container modal-h">
-<div class="row">
-  <label for="">ป้ายกำกับ</label>
-    <div class="col-12">
-    <tag-input class="form-control"
-      theme='pink-theme'
-      [(ngModel)]='taskModal.taskForm.taskTagList'
-      id="tag-name"
-      [removable]='true'
-      [maxItems]='10'
-      [onlyFromAutocomplete]="false">
-      <tag-input-dropdown
-        [showDropdownIfEmpty]="false"
-        [autocompleteItems]="autoCompleteTagList">
-      </tag-input-dropdown>
-    </tag-input>
-  </div>
+<div class="container">
+    <div class="row">
+        <label for="">ป้ายกำกับ</label>
+        <div class="col-12">
+            <tag-input class="form-control" theme='pink-theme' [(ngModel)]='taskModal.taskForm.taskTagList' id="tag-name" [removable]='true' [maxItems]='10' [onlyFromAutocomplete]="false">
+                <tag-input-dropdown [showDropdownIfEmpty]="false" [autocompleteItems]="autoCompleteTagList">
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+    </div>
 </div>
 <footer class="footer">
-  <p>ป้ายกำกับที่เคยใช้</p>
-  <tag-input
-    [removable]="false"
-    [ngModel]="usedTagList"
-    [maxItems]='0'
-    (onSelect)="onSelected($event)">
-  </tag-input>
+    <div class="container">
+        <p>ป้ายกำกับที่เคยใช้</p>
+        <tag-input [removable]="false" [ngModel]="usedTagList" [maxItems]='0' (onSelect)="onSelected($event)">
+        </tag-input>
+    </div>
 </footer>
-</div>

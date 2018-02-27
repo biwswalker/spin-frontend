@@ -16,6 +16,7 @@ export class TaskService {
 
   public selectedProjectId = new BehaviorSubject<number>(0);
   public currentProjectId = this.selectedProjectId.asObservable();
+  public autocompletePartner = this.selectedProjectId.asObservable();
 
   constructor(private request: HttpRequestService, private projectSerive: ProjectService) { }
 

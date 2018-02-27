@@ -22,10 +22,18 @@ declare var $: any;
 })
 export class TaskDetailComponent implements OnInit, AfterViewInit {
 
+  startTime: string;
+  endTime:string;
+  topic: string;
+  activity: string;
+  colorFlag: string;
+
   @Output() messageEvent = new EventEmitter<string>();
+
   public project: any;
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
+
   constructor(
     public taskModal: TaskModalComponent,
     private _sanitizer: DomSanitizer,
@@ -82,42 +90,15 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
-        console.log(data)
         this.projectList = data;
       }
     )
   }
 
   findProjectMember(event) {
-    // this.taskObj.projectId = event.item.projectId;
-    // this.taskService.selectedProjectId.next(this.taskObj.projectId);
-    // if (event.item.projectId) {
-    //   this.partnerService.findByProjrctId(event.item.projectId).subscribe(
-    //     data => {
-    //       if (data) {
-    //         console.log(data);
-    //         this.taskPartnerList = [];
-    //         for (let obj of data) {
-    //           this.taskPartnerList.push({ userId: obj.id.userId, email: obj.user.email });
-    //           console.log(data);
-    //           this.taskModal.taskForm.taskMember = [];
-    //           for (let obj of data) {
-    //             this.taskModal.taskForm.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
-    //           }
-    //         }
-    //       }
-    //     });
-    //   this.partnerService.findAllUSer(event.item.projectId).subscribe(
-    //     data => {
-    //       if (data) {
-    //         console.log(data);
-    //         for (let obj of data) {
-    //           this.taskModal.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
-    //         }
-    //       }
-    //     }
-    //   );
-    // }
+    console.log(event);
+    let projectId = event.item.projectId;
+    this.taskService.selectedProjectId.next(projectId);
   }
 
   getColorStatus(status) {

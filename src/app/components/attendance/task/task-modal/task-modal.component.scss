@@ -1,1 +1,6 @@
 @import '~assets/scss/modal.scss';
+
+.fixed-modal{
+  height: 600px;
+  overflow: auto;
+}

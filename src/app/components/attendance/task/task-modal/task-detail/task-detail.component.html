@@ -1,4 +1,4 @@
-<div class="container modal-h">
+<div class="container">
     <div class="row">
         <div class="col d-flex">
             <div class="ml-auto">
@@ -8,7 +8,7 @@
                            type="checkbox"
                            id="status-flag"
                            name="status-flag"
-                           [(ngModel)]="statusFlag">
+                           [(ngModel)]="taskModal.taskForm.statusFlag">
                     <label for="status-flag">
                         <span></span>
                     </label>
@@ -21,7 +21,7 @@
             <label>วันที่ *</label>
             <input type="text"
                    class="form-control"
-                   [(ngModel)]="workDate"
+                   [(ngModel)]="taskModal.taskForm.task.workDate"
                    id="datepicker">
         </div>
         <div class=" col-3">
@@ -29,8 +29,8 @@
             <input class="form-control"
                    id="work-start-time"
                    name="work-start-time"
-                   type="time"
-                   [(ngModel)]="startTime"
+                   type="text"
+                   [(ngModel)]="taskModal.taskForm.task.workStartTime"
                    maxlength="4">
         </div>
         <div class=" col-3">
@@ -38,9 +38,9 @@
             <input class="form-control"
                    id="work-end-time"
                    name="work-end-time"
-                   type="time"
+                   type="text"
                    maxlength="4"
-                   [(ngModel)]="endTime"
+                   [(ngModel)]="taskModal.taskForm.task.workEndTime"
                    [min]="startTime">
         </div>
     </div>
@@ -51,7 +51,7 @@
                    type="text"
                    name="topic"
                    id="topic"
-                   [(ngModel)]="taskObj.topic">
+                   [(ngModel)]="topic">
         </div>
     </div>
     <div class="row">
@@ -61,7 +61,7 @@
                       rows="3"
                       id="activity"
                       name="activity"
-                      [(ngModel)]="taskObj.activity">
+                      [(ngModel)]="activity">
         </textarea>
         </div>
     </div>
@@ -69,14 +69,13 @@
         <div class=" col-12">
             <label>ชื่อโครงการ</label>
             <input class="form-control"
-                   [(ngModel)]="project"
-                   [typeahead]="projectList"
-
-                   typeaheadOptionField="projectName"
-                   [typeaheadItemTemplate]="customItemTemplate"
-                   [typeaheadScrollable]="true"
-                   [typeaheadOptionsInScrollableView]="7"
-                   (typeaheadOnSelect)="findProjectMember($event)">
+                  [(ngModel)]="project"
+                  [typeahead]="projectList"
+                  typeaheadOptionField="projectName"
+                  [typeaheadItemTemplate]="customItemTemplate"
+                  [typeaheadScrollable]="true"
+                  [typeaheadOptionsInScrollableView]="7"
+                  (typeaheadOnSelect)="findProjectMember($event)">
             <ng-template #customItemTemplate
                          let-model="item"
                          let-index="index">
