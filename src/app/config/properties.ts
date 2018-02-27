@@ -20,7 +20,9 @@ export const Default = {
     PWD: btoa('spin:password'),
     RMB: btoa('spin:rememberme'),
     YES: btoa('spin:yes'),
-    NO: btoa('spin:no')
+    NO: btoa('spin:no'),
+    TKN: btoa('spin:token'),
+    
 }
 
 export const Format = {
