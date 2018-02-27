@@ -27,7 +27,7 @@
   </div>
   <div class="col-6">
       <div class="form-group">
-          <label for="phase-name">ระยะ</label>
+          <label for="phase-name">ระยะ *</label>
           <input type="text" class="form-control form-control-3xl text-center"
           id="phase-name"
           formControlName="phaseName"
@@ -44,10 +44,7 @@
           id="start-date"
           formControlName="startDate"
           [(ngModel)]="projectPhase.startDate"
-          placeholder="Enter start date">
-          <div class="invalid-feedback">
-              Please choose a username.
-          </div>
+          >
       </div>
       <div class="form-group">
           <label for="end-date">วันที่สิ้นสุดโครงการ *</label>
@@ -55,10 +52,7 @@
           id="end-date"
           formControlName="endDate"
           [(ngModel)]="projectPhase.endDate"
-          placeholder="Enter start date">
-          <div class="invalid-feedback">
-              Please choose a username.
-          </div>
+          >
       </div>
   </div>
 </div>

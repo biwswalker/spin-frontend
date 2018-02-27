@@ -63,23 +63,20 @@ export class ProjectSearchComponent implements OnInit {
   }
 
   toggleFavoriteProject(projectId){
-    for(let prj of this.projectList){
-      if(projectId == prj.projectId){
-        prj.isFavorite = true;
+
+    this.projectService.toggleFavorite(projectId).subscribe(
+      data=>{
+        console.log(data);
+        for(let prj of this.projectList){
+          if(projectId == prj.projectId){
+            prj.isFavorite = data;
+          }
+        }
+      },err=>{
+        console.log('Exception: ',err);
       }
-    }
-    // this.projectService.toggleFavorite(projectId).subscribe(
-    //   data=>{
-    //     console.log(data);
-    //     for(let prj of this.projectList){
-    //       if(projectId == prj.projectId){
-    //         prj.isFavorite = data;
-    //       }
-    //     }
-    //   },err=>{
-    //     console.log('Exception: ',err);
-    //   }
-    // )
+    )
+
   }
 
 }
