@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TaskService } from '../../../../providers/task.service';
+import { TaskForm } from '../../../../forms/task-form';
 
 @Component({
   selector: 'task',
@@ -10,17 +11,20 @@ import { TaskService } from '../../../../providers/task.service';
 export class TaskDirective implements OnInit {
 
   // Directive
-  @Input() source: Task;
+  @Input() source: TaskForm;
 
   // Is set css class
   public selected = false;
+  public isCollaborator = false;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {
+  }
 
   ngOnInit() {
+    this.isCollaborator = this.source.taskPartnerList.length > 0 ? true : false;
     // Async
     this.taskService.currentTask.subscribe(task => {
-      if (task.taskId === this.source.taskId) {
+      if (task.taskId === this.source.task.taskId) {
         this.selected = true;
       } else {
         this.selected = false;
@@ -30,7 +34,7 @@ export class TaskDirective implements OnInit {
   }
 
   onselectTask() {
-    this.taskService.chageSelectedTask(this.source);
+    this.taskService.chageSelectedTask(this.source.task);
   }
 
   onView() {

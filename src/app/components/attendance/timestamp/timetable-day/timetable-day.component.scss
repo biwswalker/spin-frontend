@@ -12,10 +12,10 @@ $stamped:rgb(44, 111, 246);
 
 .time-header {
     background-color: $cheader;
-    height: 40px;
+    height: 30px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border-bottom: 5px solid $cgraymid;
+    border-bottom: 3px solid $cgraymid;
     text-align: center;
     color: $white;
     font-size: 18px;
@@ -28,7 +28,7 @@ $stamped:rgb(44, 111, 246);
         -ms-flex: 0 0 100px;
         flex: 0 0 100px;
         background-color: $cgraylight;
-        height: 500px;
+        height: 524px;
         padding: 0px;
         .time {
             padding-right: 10px;
@@ -44,7 +44,7 @@ $stamped:rgb(44, 111, 246);
         padding-right: 0px;
         padding-left: 0px;
         .stamp {
-            height: calc(500px / 26);
+            height: calc(524px / 26);
             position: relative;
         }
         .stamp:nth-child(even) {

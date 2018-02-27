@@ -2,7 +2,7 @@ import { FormGroup } from '@angular/forms';
 import { TaskPartnerComponent } from './task-partner/task-partner.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
-import { TaskForm } from '../../../../forms/taskForm';
+import { TaskForm } from '../../../../forms/task-form';
 import { TaskTagComponent } from './task-tag/task-tag.component';
 import { TaskService } from '../../../../providers/task.service';
 import { Task } from '../../../../models/task';

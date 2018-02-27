@@ -3,7 +3,8 @@ import { Task } from '../models/task';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { HttpRequestService } from './utils/http-request.service';
 import { Observable } from 'rxjs/Observable';
-import { TaskForm } from '../forms/taskForm';
+import { TaskForm } from '../forms/task-form';
+import { ProjectService } from './project.service';
 
 @Injectable()
 export class TaskService {
@@ -12,7 +13,7 @@ export class TaskService {
   private task = new Task();
   public currentTask = this.selectedTask.asObservable();
 
-  constructor(private request: HttpRequestService) { }
+  constructor(private request: HttpRequestService, private projectSerive: ProjectService) { }
 
   chageSelectedTask(selected: Task) {
     if (this.task.taskId) {
@@ -48,6 +49,9 @@ export class TaskService {
         for (let task of tasks) {
           taskForm = new TaskForm();
           taskForm.task = task;
+          if (taskForm.task.projectId) {
+            this.projectSerive.findProjectById(task.projectId).subscribe(project => taskForm.taskProject = project)
+          }
           taskFormList.push(taskForm);
         }
         observer.next(taskFormList);
@@ -58,5 +62,9 @@ export class TaskService {
 
   insertTask(task: Task) {
     return this.request.requestMethodPUT('task-management/tasks', task);
+  }
+
+  findUnStamped(year, month) {
+    return this.request.requestMethodGET(`task-management/un-stamp-task/${year}/${month}`)
   }
 }
