@@ -1,6 +1,7 @@
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { TaskModalComponent } from './../task-modal.component';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
@@ -18,11 +19,7 @@ declare var $: any;
 })
 export class TaskDetailComponent implements OnInit {
 
-
-  public project: string = "";
-
-  @Output() messageEvent = new EventEmitter<string>(); 
-  
+  @Output() messageEvent = new EventEmitter<string>();
   public taskObj = new Task();
   public projectObj = new Project();
   public workDate = '';
@@ -32,9 +29,9 @@ export class TaskDetailComponent implements OnInit {
   public statusFlag = true;
   public colorFlag = '';
 
+  public project: any;
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
-  colorStatus: boolean = true;
 
   constructor(
     private projectService: ProjectService,
@@ -48,11 +45,11 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail() {
-    this.initialDefaultValue();
     this.startTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.endTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
+    this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
     let self = this;
-    $('#datepicker').datepicker({ dateFormat: Format.DATE_PIKC, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
+    $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
   }
 
   onSelectCallBack(date: string) {
@@ -68,16 +65,18 @@ export class TaskDetailComponent implements OnInit {
         taskDetailEndTime: new FormControl(this.taskObj.workEndTime, Validators.required),
         taskDetailTopic: new FormControl(this.taskObj.topic, Validators.required),
         taskDetailActivity: new FormControl(this.taskObj.activity, Validators.required),
-        taskDetailProject: new FormControl(this.projectObj, Validators.required)
+        taskDetailProject: new FormControl(this.project, Validators.required)
       }
     )
   }
 
-  initialDefaultValue() {
-    this.taskObj.activeFlag = 'A';
-    this.taskObj.statusFlag = 'I';
-    this.taskObj.doSelfFlag = 'N';
-  }
+  // initialDefaultValue() {
+  //   this.taskObj.activeFlag = 'A';
+  //   this.taskObj.statusFlag = 'I';
+  //   this.taskObj.doSelfFlag = 'N';
+  //   this.taskObjPartnerList = [];
+  //   this.taskObjTagList = [];
+  // }
 
   onColorPick(color) {
     if (color) {
@@ -89,44 +88,15 @@ export class TaskDetailComponent implements OnInit {
   findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
-        console.log(data)
         this.projectList = data;
       }
     )
   }
 
-  findProjectMember(event) {
-    this.taskObj.projectId = event.item.projectId;
-    this.taskService.selectedProjectId.next(this.taskObj.projectId);
-    // if (event.item.projectId) {
-    //   this.partnerService.findByProjrctId(event.item.projectId).subscribe(
-    //     data => {
-    //       if (data) {
-    //         console.log(data);
-    //         this.taskPartnerList = [];
-    //         for (let obj of data) {
-    //           this.taskPartnerList.push({ userId: obj.id.userId, email: obj.user.email });
-    //           console.log(data);
-    //           this.taskModal.taskForm.taskMember = [];
-    //           for (let obj of data) {
-    //             this.taskModal.taskForm.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
-    //           }
-    //         }
-    //       }
-    //     });
-    //   this.partnerService.findAllUSer(event.item.projectId).subscribe(
-    //     data => {
-    //       if (data) {
-    //         console.log(data);
-    //         for (let obj of data) {
-    //           this.taskModal.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
-    //         }
-    //       }
-    //     }
-    //   );
-    // }
+  onChangeProject(event) {
+    let projectId = event.item.projectId;
+    this.taskService.selectedProjectId.next(projectId);
   }
-
 
   getColorStatus(status) {
     console.log(status)

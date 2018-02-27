@@ -24,11 +24,8 @@ export class TaskPartnerComponent implements OnInit {
     // this async
     this.taskService.currentProjectId.subscribe(projectId => {
       if (projectId) {
-        this.partnerService.findByProjrctId(projectId).subscribe(projects => {
-          // Do here
-          console.log('GGGGWWWPPP')
-          console.log(projects)
-        })
+        this.getProjectMember(projectId);
+        this.getautoCompletePartner(projectId);
       }
     });
     // End this async
@@ -36,6 +33,23 @@ export class TaskPartnerComponent implements OnInit {
 
   ngOnInit() {
     this.owner = "ทิวากร จันทร์ปัญญา"
+  }
+
+  getProjectMember(projectId) {
+    this.partnerService.findByProjrctId(projectId).subscribe(projects => {
+      console.log(projects)
+      this.taskModal.taskForm.taskMember = projects;
+      console.log(this.taskModal.taskForm.taskMember)
+    })
+  }
+
+  getautoCompletePartner(projectId) {
+    this.partnerService.findAllUSer(projectId).subscribe(
+      partner => {
+        console.log(partner);
+        this.taskModal.taskForm.autocompletePartnerList = partner;
+      }
+    )
   }
 
   addPartner() {
@@ -47,7 +61,7 @@ export class TaskPartnerComponent implements OnInit {
         this.taskModal.taskForm.taskPartner.push(partner);
         console.log(this.taskModal.taskForm.taskPartner);
         console.log(partner)
-        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner) + 1, 1);
+        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner), 1);
         console.log(this.taskModal.taskForm.autocompletePartnerList)
       }
       this.partner = null;

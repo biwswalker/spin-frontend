@@ -23,8 +23,10 @@ export class TaskModalComponent {
   // @ViewChild(TaskMemberComponent) taskMemberComponent;
   // @ViewChild(TaskTagComponent) taskTagComponent;
 
-  constructor(private taskService: TaskService,
-    private partnerService: PartnerService) { }
+  constructor(
+    private taskService: TaskService,
+    private partnerService: PartnerService,
+    private utilsService: UtilsService) { }
 
   onTimestampCommit() {
     this.taskService.currentTask.subscribe(
@@ -38,27 +40,15 @@ export class TaskModalComponent {
       })
   }
 
-  findAllUser() {
-    // this.partnerService.findAllUSer().subscribe(
-    //   data => {
-    //     if (data) {
-    //       console.log(data);
-    //       for (let obj of data) {
-    //         this.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
-    //       }
-    //     }
-    //   }
-    // )
-  }
-
   onSubmit() {
     this.taskForm.task.workDate = this.getDate(this.taskForm.task.workDate);
     this.taskForm.task.workDate = '25610227';
     // this.taskForm.task.projectId = this.taskForm.taskProject.projectId;
-    this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
-    this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
+    // this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
+    // this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
     this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
     this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.statusFlag);
+    // this.taskForm.task.
     this.taskForm.task.ownerUserId = "tiwakorn.ja"
     this.taskForm.task.taskPartnerList = [];
     // if (this.taskForm.doSelfFlag == true) {
@@ -101,12 +91,6 @@ export class TaskModalComponent {
       return 'I'
     }
   }
-  gettime(data: string) {
-    let time = data.split(':');
-    let h = time[0];
-    let m = time[1];
-    return h + m;
-  }
 
   getDate(date) {
     if (date) {
@@ -120,12 +104,6 @@ export class TaskModalComponent {
     }
   }
 
-  setDate(date) {
-    // let d = date.subsste
-    // let d = new Date(date)
-    // console.log(d);
-    // return d;
-  }
 
   receiveMessage(event) {
     this.bgColor = event;
