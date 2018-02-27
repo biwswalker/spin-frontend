@@ -74,7 +74,7 @@ export class ProjectModalDetailComponent implements OnInit {
       this.project.projectImage = oriReader.result;
     }
 
-    thmReader.readAsArrayBuffer(thm);
+    thmReader.readAsDataURL(thm);
     oriReader.readAsDataURL(ori);
   }
 
