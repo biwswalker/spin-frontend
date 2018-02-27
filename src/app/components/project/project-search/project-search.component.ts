@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../providers/project.service';
-
+import { EventMessagesService } from '../../../providers/utils/event-messages.service';
 @Component({
   selector: 'app-project-search',
   templateUrl: './project-search.component.html',
@@ -17,12 +17,12 @@ export class ProjectSearchComponent implements OnInit {
   public onlyMember = false;
 
   constructor(
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private eventMessageService: EventMessagesService
   ) { }
 
   ngOnInit() {
     this.onScrollDown();
-
   }
 
   onScrollDown() {

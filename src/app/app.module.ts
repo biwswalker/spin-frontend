@@ -57,6 +57,7 @@ import { HttpModule } from '@angular/http';
 import { ResponsibilityService } from './providers/responsibility.service';
 import { HolidayService } from './providers/holiday.service';
 import { LeaveService } from './providers/leave.service';
+import { EventMessagesService } from './providers/utils/event-messages.service';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { LeaveService } from './providers/leave.service';
     OfficerService,
     ResponsibilityService,
     HolidayService,
-    LeaveService
+    LeaveService,
+    EventMessagesService
   ],
   bootstrap: [AppComponent]
 })
