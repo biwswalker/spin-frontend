@@ -124,6 +124,11 @@ export class UtilsService {
       return hour + ':' + minute;
     }
   }
+
+  convertDatePickerToThDate(pickerDate: string): string {
+    let split = pickerDate.split('/', 3)
+    return `${split[2]}${split[1]}${split[0]}`
+  }
   
   displayTimestampDate(enDate: string): string {
     return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`

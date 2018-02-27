@@ -35,25 +35,12 @@ export class TaskPartnerComponent implements OnInit {
     this.owner = "ทิวากร จันทร์ปัญญา"
   }
 
-<<<<<<< HEAD
-  getProjectMember(){
-    this.taskService.currentProjectId.subscribe(projectId => {
-      if (projectId) {
-        this.partnerService.findByProjrctId(projectId).subscribe(projects => {
-          // Do here
-          console.log(projects)
-          this.taskModal.taskForm.taskMember = projects;
-        })
-      }
-    });
-=======
   getProjectMember(projectId) {
     this.partnerService.findByProjrctId(projectId).subscribe(projects => {
       console.log(projects)
       this.taskModal.taskForm.taskMember = projects;
       console.log(this.taskModal.taskForm.taskMember)
     })
->>>>>>> fe65944b7a0917d6d485cd219f511bae835d8c6e
   }
 
   getautoCompletePartner(projectId) {
