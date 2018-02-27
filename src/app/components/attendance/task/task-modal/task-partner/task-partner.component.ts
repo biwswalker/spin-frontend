@@ -24,16 +24,16 @@ export class TaskPartnerComponent implements OnInit {
     this.owner = "ทิวากร จันทร์ปัญญา"
   }
 
-  addPartner(){
-    if(this.selectPartner != null){
+  addPartner() {
+    if (this.selectPartner != null) {
       let partner = this.selectPartner;
       // console.log(partner);
       console.log(this.taskModal.taskForm.taskMember.indexOf(partner));
-      if(this.taskModal.taskForm.taskMember.indexOf(partner) <= -1){
+      if (this.taskModal.taskForm.taskMember.indexOf(partner) <= -1) {
         this.taskModal.taskForm.taskPartner.push(partner);
         console.log(this.taskModal.taskForm.taskPartner);
         console.log(partner)
-        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner), 1);
+        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner) + 1, 1);
         console.log(this.taskModal.taskForm.autocompletePartnerList)
       }
       this.partner = null;
@@ -41,11 +41,11 @@ export class TaskPartnerComponent implements OnInit {
     }
   }
 
-  onSelect(event){
+  onSelect(event) {
     this.selectPartner = event.item;
   }
 
-  deletePartner(obj){
+  deletePartner(obj) {
     console.log(obj)
     this.taskModal.taskForm.autocompletePartnerList.push(obj);
     console.log(this.taskModal.taskForm.autocompletePartnerList);
