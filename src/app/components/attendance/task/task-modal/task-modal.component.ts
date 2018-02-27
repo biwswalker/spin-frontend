@@ -53,10 +53,10 @@ export class TaskModalComponent implements OnInit {
   findAllUser() {
     this.partnerService.findAllUSer().subscribe(
       data => {
-        if(data){
+        if (data) {
           console.log(data);
-          for(let obj of data){
-            this.taskForm.autocompletePartnerList.push({userId: obj.userId,email: obj.email });
+          for (let obj of data) {
+            this.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
           }
         }
       }
@@ -71,15 +71,29 @@ export class TaskModalComponent implements OnInit {
     this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
     this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
     this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
-    this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.task.statusFlag);
-    this.taskForm.task.ownerUserId = 'tiwakorn.ja';
-    for (let obj of this.taskForm.taskPartner) {
-      this.taskForm.task.taskPartnerList.push({ id: { userId: obj} });
+    this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.statusFlag);
+    this.taskForm.task.ownerUserId = "tiwakorn.ja"
+    this.taskForm.task.taskPartnerList = [];
+    if (this.taskForm.doSelfFlag == true) {
+      this.taskForm.task.doSelfFlag = 'Y';
+      this.taskForm.task.taskPartnerList.push({ id: { userId: 'tiwakorn.ja' } });
+    } else {
+      this.taskForm.task.doSelfFlag = 'N';
+      this.taskForm.task.taskPartnerList.splice(this.taskForm.task.taskPartnerList.indexOf({ userId: 'tiwakorn.ja' }), 1)
+    }
+    for (let obj of this.taskForm.taskMember) {
+      if (obj.status == true) {
+        this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
+      }
     }
     for (let obj of this.taskForm.taskTagList) {
       this.taskForm.task.taskTagList.push({ tag: { tagName: obj['display'] } });
     }
     console.log(this.taskForm.task);
+    this.insertTask(this.taskForm.task);
+  }
+
+  insertTask(task: Task) {
     this.taskService.insertTask(this.taskForm.task).subscribe(
       res => {
         console.log(res)

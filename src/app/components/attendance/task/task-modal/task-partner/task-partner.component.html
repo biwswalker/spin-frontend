@@ -1,8 +1,15 @@
 <div class="container modal-h-600">
     <div class="header">
         <div class="row">
-            <div class="col-12">
+            <div class="col-11">
                 <p>{{owner}}</p>
+            </div>
+            <div class="col-1">
+              <input type="checkbox"
+                class="form-control"
+                name="do-self-flag"
+                id="do-self-flag"
+                [(ngModel)]="taskModal.taskForm.doSelfFlag">
             </div>
         </div>
     </div>
@@ -11,16 +18,16 @@
             <label>สมาชิกโครงการ</label>
         </div>
         <div class="col-12 rounded bg-white text-dark scroll-auto">
-            <div id="member-list" *ngFor="let obj of taskModal.taskForm.taskPartner">
-                <input type="checkbox" name="member-status" id="member-status"> {{obj.email}}
+            <div id="member-list" *ngFor="let obj of taskModal.taskForm.taskMember">
+                <input type="checkbox" name="member-status" id="member-status" [(ngModel)]="obj.status"> {{obj.email}}
             </div>
         </div>
     </div>
     <label>ผู้ร่วมงาน</label>
     <div class="row">
         <div class=" col-12 scroll-auto bg-white rounded text-dark">
-            <div *ngIf="partnerList">
-                <div id="partner-list" name="partner-list" *ngFor="let obj of partnerList">
+            <div *ngIf="taskModal.taskForm.taskPartner">
+                <div id="partner-list" name="partner-list" *ngFor="let obj of taskModal.taskForm.taskPartner">
                     {{obj}}
                     <a (click)="deletePartner(obj)" class="fas fa-times-circle">
                     </a>

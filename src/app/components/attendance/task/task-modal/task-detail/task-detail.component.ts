@@ -18,14 +18,10 @@ declare var SpinDatePicker: any;
 })
 export class TaskDetailComponent implements OnInit, AfterViewInit {
 
-
-  public project: string = "";
-
   @Output() messageEvent = new EventEmitter<string>();
 
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
-  colorStatus: boolean = true;
   constructor(
     public taskModal: TaskModalComponent,
     private _sanitizer: DomSanitizer,
@@ -33,7 +29,8 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     private partnerService: PartnerService) { }
 
   ngOnInit() {
-    this.initialDefaultValue();
+    this.taskModal.taskForm.doSelfFlag = true;
+    // this.initialDefaultValue();
     this.findProject();
   }
 
@@ -81,15 +78,14 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   }
 
   findProjectMember(event){
-    console.log(event.item.projectId);
     if(event.item.projectId){
       this.partnerService.findByProjrctId(event.item.projectId).subscribe(
         data=>{
           if(data){
             console.log(data);
-            this.taskModal.taskForm.taskPartner = [];
+            this.taskModal.taskForm.taskMember = [];
             for(let obj of data){
-              this.taskModal.taskForm.taskPartner.push({userId: obj.id.userId, email: obj.user.email});
+              this.taskModal.taskForm.taskMember.push({userId: obj.id.userId, email: obj.user.email, status: true});
             }
           }
         }

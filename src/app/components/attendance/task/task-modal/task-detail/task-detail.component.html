@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col d-flex">
             <div class="ml-auto">
-                <span for="status-flag">สิ้นสุดการทำงาน</span>
+                <label>สิ้นสุดการทำงาน</label>
                 <span class="status-flag">
           <input class="switch"
             type="checkbox"
             id="status-flag"
             name="status-flag"
-            [(ngModel)]="taskModal.taskForm.task.statusFlag">
-          <label for="status-flag-toggle">
+            [(ngModel)]="taskModal.taskForm.statusFlag">
+          <label for="status-flag">
             <span></span>
                 </label>
                 </span>
@@ -116,7 +116,7 @@
         <input class="switch"
           type="checkbox"
           id="task-color-toggle"
-          [(ngModel)]="colorStatus"
+          [(ngModel)]="taskModal.taskForm.colorFlag"
           onselect="getColorStatus($event)">
           <label for="task-color-toggle">
             <span></span>
