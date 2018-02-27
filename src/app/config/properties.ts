@@ -25,9 +25,12 @@ export const Default = {
 
 export const Format = {
     DATE_DB: 'YYYYMMDD',
+    DATE_PIK: 'dd MM yy',
+    DATE_PIKC: 'DD MMMM',
+    DATE_PIKR: 'MMDD',
     DDDD: 'dddd',
     DD: 'DD',
     MMM: 'MMM',
     MM: 'MM',
-    YYYY: 'YYYY'
+    YYYY: 'YYYY',
 }

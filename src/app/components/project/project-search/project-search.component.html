@@ -46,7 +46,7 @@
          [infiniteScrollDistance]="scrollDistance"
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
-         <ul class="nav flex-column project-list">
+         <ul class="nav flex-column data-can-select-list" id="project-list">
             <li *ngFor="let prj of projectList" class="nav-item">
                 <div class="card project-item">
                     <div class="card-body row">

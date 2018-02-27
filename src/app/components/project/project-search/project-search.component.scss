@@ -40,48 +40,51 @@ p{
 
 }
 
-.project-list{
+#project-list{
   li{
     margin-bottom:0.5rem;
-  .project-item{
-    .card-body{
-      padding: 0.5rem;
+    cursor: pointer;
+    .project-item{
+      .card-body{
+        padding: 0.5rem;
 
-      .project-thumbnail{
-        display: inline-block;
-        text-align: center;
-      }
-      .project-abbr{
-        font-size: 1.5rem;
-        font-weight: 600;
-      }
-      .customer-name{
-        margin: -0.5rem 0rem 0rem;
-        opacity: 0.8;
-        filter: opacity(80);
-      }
-      .project-name{
-        border:0.1rem solid $border-color1;
-      }
-      .phase{
-        text-align: center;
-        p{
-          font-size: 1rem;
+        .project-thumbnail{
+          display: inline-block;
+          text-align: center;
         }
-        span{
-          font-size: 0.8rem;
-          margin-top:-0.1rem;
-          display: block;
+        .project-abbr{
+          font-size: 1.5rem;
+          font-weight: 600;
         }
-        .phase-name{
-          padding: 0.5rem 0.8rem;
-          background: #ffc800;
+        .customer-name{
+          margin: -0.5rem 0rem 0rem;
+          opacity: 0.8;
+          filter: opacity(80);
+        }
+        .project-name{
+          border:0.1rem solid $border-color1;
+        }
+        .phase{
+          text-align: center;
+          p{
+            font-size: 1rem;
+          }
+          span{
+            font-size: 0.8rem;
+            margin-top:-0.1rem;
+            display: block;
+          }
+          .phase-name{
+            padding: 0.5rem 0.8rem;
+            background: #ffc800;
+          }
         }
       }
     }
-  }
 }
+
 }
+
 
 .search-results {
   height: 100%;
