@@ -33,7 +33,7 @@ export class TaskPartnerComponent implements OnInit {
         this.taskModal.taskForm.taskPartner.push(partner);
         console.log(this.taskModal.taskForm.taskPartner);
         console.log(partner)
-        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner) + 1, 1);
+        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner), 1);
         console.log(this.taskModal.taskForm.autocompletePartnerList)
       }
       this.partner = null;

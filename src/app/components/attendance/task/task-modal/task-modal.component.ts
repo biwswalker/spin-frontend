@@ -19,7 +19,7 @@ export class TaskModalComponent {
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
 
-  @ViewChild(TaskDetailComponent) taskDetailChild;
+  // @ViewChild(TaskDetailComponent) taskDetailChild;
   // @ViewChild(TaskMemberComponent) taskMemberComponent;
   // @ViewChild(TaskTagComponent) taskTagComponent;
 
@@ -27,15 +27,15 @@ export class TaskModalComponent {
     private partnerService: PartnerService) { }
 
   onTimestampCommit() {
-    this.taskService.currentTask.subscribe(
-      (selectedTask: Task) => {
-        console.log(selectedTask)
-        this.taskForm.task = selectedTask
-        // Task Detail
-        this.taskDetailChild.taskObj = this.taskForm.task;
-        this.taskDetailChild.projectObj = this.taskForm.taskProject;
-        this.taskDetailChild.initTaskDetail();
-      })
+    // this.taskService.currentTask.subscribe(
+    //   (selectedTask: Task) => {
+    //     console.log(selectedTask)
+    //     this.taskForm.task = selectedTask
+    //     // Task Detail
+    //     // this.taskDetailChild.taskObj = this.taskForm.task;
+    //     // this.taskDetailChild.projectObj = this.taskForm.taskProject;
+    //     // this.taskDetailChild.initTaskDetail();
+    //   })
   }
 
   findAllUser() {
@@ -118,13 +118,6 @@ export class TaskModalComponent {
       }
       return y + m + d;
     }
-  }
-
-  setDate(date) {
-    // let d = date.subsste
-    // let d = new Date(date)
-    // console.log(d);
-    // return d;
   }
 
   receiveMessage(event) {
