@@ -104,6 +104,7 @@ export class TaskDetailComponent implements OnInit {
   getColorStatus(status) {
     console.log(status)
   }
+
 }
 
 
