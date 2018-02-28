@@ -49,9 +49,13 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail() {
+    this.taskObj.color = 'primary';
     this.project = '';
     this.activity = '';
     this.topic = '';
+    this.workDate = '';
+    this.workStartTime = '';
+    this.workEndTime = '';
     this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
@@ -61,6 +65,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onSelectCallBack(date: string) {
+    this.workDate = date;
     console.log(date);
   }
 
@@ -77,7 +82,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
-    this.taskObj.color = 'primary';
     if (color) {
       this.taskObj.color = color;
       this.messageEvent.emit(color);

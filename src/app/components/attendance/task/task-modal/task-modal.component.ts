@@ -19,6 +19,7 @@ declare var SpinModal: any;
 })
 export class TaskModalComponent {
 
+  public task: Task = new Task();
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
   private modal = new SpinModal();
@@ -46,38 +47,35 @@ export class TaskModalComponent {
   }
 
   onSubmit() {
-    console.log('valid?')
-    console.log(this.taskDetailChild.taskDetailFormGroup)
-    console.log(this.taskDetailChild.taskDetailFormGroup.valid)
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
-      console.log('valid');
-      this.taskForm.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
-      this.taskForm.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
-      this.taskForm.task.color = this.taskDetailChild.taskObj.color;
-      this.taskForm.task.doSelfFlag = (this.taskPartnerChild.doSelfFlag == true ? 'Y' : 'N');
-      this.taskForm.task.topic = this.taskDetailChild.taskDetailFormGroup.value.taskDetailTopic;
-      this.taskForm.task.projectId = this.taskDetailChild.projectId;
-      this.taskForm.task.ownerUserId = 'tiwakorn.ja';
-      this.taskForm.task.workDate = this.utilsService.convertDatePickerToThDate(this.taskDetailChild.taskDetailFormGroup.value.taskDetailWorkDate);
-      this.taskForm.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
-      this.taskForm.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
-      this.taskForm.task.taskPartnerList = [];
+      this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
+      this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
+      this.task.color = this.taskDetailChild.taskObj.color;
+      this.task.doSelfFlag = (this.taskPartnerChild.doSelfFlag == true ? 'Y' : 'N');
+      this.task.topic = this.taskDetailChild.taskDetailFormGroup.value.taskDetailTopic;
+      this.task.projectId = this.taskDetailChild.projectId;
+      this.task.ownerUserId = 'tiwakorn.ja';
+      this.task.workDate = this.utilsService.convertDatePickerToThDate(this.taskDetailChild.taskDetailFormGroup.value.taskDetailWorkDate);
+      this.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
+      this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
+      this.task.taskPartnerList = [];
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
-          this.taskForm.task.taskPartnerList.push({ id: { userId: obj.user.userId } });
+          this.task.taskPartnerList.push({ id: { userId: obj.user.userId } });
         }
       }
       // for (let obj of this.taskForm.taskPartner) {
       //   this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
       // }
       for (let obj of this.taskTagChild.tagList) {
-        this.taskForm.task.taskTagList.push({ tag: { tagName: obj['display'] } });
+        this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
-      this.insertTask(this.taskForm.task);
+      console.log(this.task)
+      this.createNewTask(this.task);
     }
   }
 
-  insertTask(task: Task) {
+  createNewTask(task: Task) {
     this.taskService.insertTask(task).subscribe(
       res => {
         console.log(res)
@@ -90,9 +88,9 @@ export class TaskModalComponent {
     );
   }
 
-  oncloseModal(){
+  oncloseModal() {
     this.modal.close('#task-modal');
-    this.taskForm.task = new Task;
+    this.task = new Task;
   }
 
   receiveMessage(event) {
