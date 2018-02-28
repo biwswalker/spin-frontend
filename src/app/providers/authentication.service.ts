@@ -4,13 +4,15 @@ import { HttpParams, HttpHeaders } from '@angular/common/http';
 import { Status, Default } from '../config/properties';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { User } from '../models/user';
 
 @Injectable()
 export class AuthenticationService {
 
   private isAccess = new BehaviorSubject<boolean>(false);
   public crrAccess = this.isAccess.asObservable();
-  public currentUser: any;
+  private user = new BehaviorSubject<User>(new User());
+  public crrUser = this.user.asObservable();
 
   constructor(private request: HttpRequestService) { }
 
@@ -30,23 +32,7 @@ export class AuthenticationService {
           sessionStorage.setItem(Default.TOKNTY, token.token_type)
           sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
           this.isAccess.next(true);
-          return this.request.requestMethodGET('user-management/users/me').toPromise()
-            .then((user) => {
-              console.log(user)
-              if (user) {
-                return Status.SUCCESS;
-              } else {
-                console.log('error user')
-                // this.token = null
-                // this.isAccess.next(false)
-                return Status.ERROR;
-              }
-            }).catch(error => {
-              console.log(error)
-              // this.token = null
-              // this.isAccess.next(false)
-              return Status.ERROR;
-            });
+          return this.accessUser();
         } else {
           console.log('error token')
           this.isAccess.next(false)
@@ -66,6 +52,30 @@ export class AuthenticationService {
   refreshToken(): Observable<string> {
     let token: any = sessionStorage.getItem(Default.ACTOKN);
     return Observable.of(token.refresh_token).delay(200);
+  }
+
+  accessUser(): Promise<string> {
+    return this.request.requestMethodGET('user-management/users/me').toPromise()
+      .then((user) => {
+        if (user) {
+          let accessesUser = new User();
+          accessesUser = user.User;
+          if (user.Officer) {
+            accessesUser.officer = user.Officer;
+          }
+          if (user.Department) {
+            accessesUser.department = user.Department;
+          }
+          this.user.next(accessesUser);
+          return Status.SUCCESS;
+        } else {
+          console.log('error user')
+          return Status.ERROR;
+        }
+      }).catch(error => {
+        console.log(error)
+        return Status.ERROR;
+      });
   }
 
   logout() {
