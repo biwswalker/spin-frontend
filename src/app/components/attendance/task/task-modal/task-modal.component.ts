@@ -49,7 +49,7 @@ export class TaskModalComponent {
     console.log('valid?')
     console.log(this.taskDetailChild.taskDetailFormGroup)
     console.log(this.taskDetailChild.taskDetailFormGroup.valid)
-    // if (this.taskDetailChild.taskDetailFormGroup.valid) {
+    if (this.taskDetailChild.taskDetailFormGroup.valid) {
       console.log('valid');
       this.taskForm.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.taskForm.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
@@ -61,7 +61,7 @@ export class TaskModalComponent {
       this.taskForm.task.workDate = this.utilsService.convertDatePickerToThDate(this.taskDetailChild.taskDetailFormGroup.value.taskDetailWorkDate);
       this.taskForm.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
       this.taskForm.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
-
+      this.taskForm.task.taskPartnerList = [];
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
           this.taskForm.task.taskPartnerList.push({ id: { userId: obj.user.userId } });
@@ -74,7 +74,7 @@ export class TaskModalComponent {
         this.taskForm.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
       this.insertTask(this.taskForm.task);
-    // }
+    }
   }
 
   insertTask(task: Task) {

@@ -49,8 +49,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail() {
-    console.log('initTaskDetail')
-    // this.taskObj = new Task();
     this.project = '';
     this.activity = '';
     this.topic = '';
@@ -63,7 +61,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onSelectCallBack(date: string) {
-    console.log(date)
+    console.log(date);
   }
 
   validateData() {
