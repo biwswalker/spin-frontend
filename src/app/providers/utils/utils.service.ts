@@ -42,6 +42,12 @@ export class UtilsService {
 
   getThMonthWord(enDate): string {
     var month = moment(enDate, Format.DATE_DB);
+    var thmonth = month.format(Format.MMMM);
+    return `${thmonth}`
+  }
+
+  getThMonthShortWord(enDate): string {
+    var month = moment(enDate, Format.DATE_DB);
     var thmonth = month.format(Format.MMM);
     return `${thmonth}`
   }
@@ -56,6 +62,11 @@ export class UtilsService {
     var year = moment(enDate, Format.DATE_DB);
     var thyear = year.format(Format.YYYY);
     return `${this.convertToThYearStr(thyear)}`
+  }
+
+  getThYearDate(thDate): string {
+    let yearStr = thDate.substring(0, 4);
+    return `${yearStr}`;
   }
 
   getPreviousDay(enDate): string {
@@ -102,16 +113,16 @@ export class UtilsService {
     return numMonth > 9 ? `${numMonth}` : `0${numMonth}`;
   }
 
-  convertEnDDMYYYYToThDate(day, month, year){
+  convertEnDDMYYYYToThDate(day, month, year) {
     let newDay = this.convertNumberTo2Deci(day);
     let newMonth = this.convertNumberTo2Deci(month);
     let newYear = this.convertToThYear(year);
     return `${newYear}${newMonth}${newDay}`;
-  }    
+  }
 
-  convertThCalendarToThDate(thDate){
+  convertThCalendarToThDate(thDate) {
     let split = thDate.split(' ', 3)
-    let datemonth =  `${split[0]} ${split[1]}`;
+    let datemonth = `${split[0]} ${split[1]}`;
     let year = split[2];
     var date = moment(datemonth, Format.DATE_PIKC).format(Format.DATE_PIKR)
     return `${year}${date}`
@@ -129,7 +140,7 @@ export class UtilsService {
     let split = pickerDate.split('/', 3)
     return `${split[2]}${split[1]}${split[0]}`
   }
-  
+
   displayTimestampDate(enDate: string): string {
     return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`
   }
@@ -137,6 +148,22 @@ export class UtilsService {
   displayCalendarDate(thDate: string): string {
     let enDate = this.convertThDateToEn(thDate)
     return `${this.getThGetDate(enDate)}/${this.getThMonth(enDate)}/${this.getThYear(enDate)}`
+  }
+
+  displayShortDate(thDate: string): string {
+    let enDate = this.convertThDateToEn(thDate);
+    let date = this.getThGetDate(enDate);
+    let month = this.getThMonthShortWord(enDate);
+    let year = this.getThYearDate(thDate).substring(2, 4);
+    return ` ${date} ${month} ${year}`
+  }
+
+  displayFullDate(thDate: string): string {
+    let enDate = this.convertThDateToEn(thDate);
+    let date = this.getThGetDate(enDate);
+    let month = this.getThMonthWord(enDate);
+    let year = this.getThYearDate(thDate);
+    return ` ${date} ${month} ${year}`
   }
 
 }

@@ -33,6 +33,7 @@ export const Format = {
     DATE_PIKR: 'MMDD',
     DDDD: 'dddd',
     DD: 'DD',
+    MMMM: 'MMMM',
     MMM: 'MMM',
     MM: 'MM',
     YYYY: 'YYYY',
