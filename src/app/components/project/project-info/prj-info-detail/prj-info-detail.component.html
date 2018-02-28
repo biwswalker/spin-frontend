@@ -18,14 +18,14 @@
           <li class="list-group-item" *ngFor="let data of phases">
               <div class="phase row">
                   <div class="phase-name col-4">
-                      {{data.phaseName}}
+                      {{data.phaseName || 'N/A'}}
                     </div>
                   <div class="phase-start col-4">
-                    <p>{{data.startDate}}</p>
+                    <p>{{data.startDate | thaiDate:'short' || ''}}</p>
                     <span>เริ่มโครงการ</span>
                   </div>
                   <div class="phase-end col-4">
-                      <p>{{data.endDate}}</p>
+                      <p>{{data.endDate | thaiDate:'short' || ''}}</p>
                       <span>สิ้นสุดโครงการ</span>
                   </div>
                 </div>

@@ -20,18 +20,16 @@ declare var $: any;
 export class TaskDetailComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
-
   public taskObj = new Task();
   public projectObj = new Project();
-  public statusFlag = false;
-  public colorFlag = '';
-  public workStartTime = '';
-  public workEndTime = '';
   public workDate = '';
-  public topic = '';
-  public activity = '';
-  public projectId: number;
-  public project = '';
+  public startTime = '';
+  public endTime = '';
+  public doSelfFlag = true;
+  public statusFlag = true;
+  public colorFlag = '';
+
+  public project: any;
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
 
@@ -44,17 +42,14 @@ export class TaskDetailComponent implements OnInit {
     this.taskObj = new Task();
     this.projectObj = new Project();
     this.findProject();
-    this.validateData();
   }
 
   initTaskDetail() {
-    // this.taskObj = new Task();
-    this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
-    this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
+    this.startTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
+    this.endTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
-    this.validateData();
   }
 
   onSelectCallBack(date: string) {
@@ -62,20 +57,28 @@ export class TaskDetailComponent implements OnInit {
   }
 
   validateData() {
-    this.taskDetailFormGroup = new FormGroup({
-        // taskDetailStatusFlag: new FormControl((this.taskObj.statusFlag == 'A' ? true : false)),
-        taskDetailStatusFlag: new FormControl(this.statusFlag),
-        taskDetailWorkDate: new FormControl(this.workDate, Validators.required),
-        taskDetailStartTime: new FormControl(this.workStartTime, Validators.required),
-        taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
-        taskDetailTopic: new FormControl(this.topic, Validators.required),
-        taskDetailActivity: new FormControl(this.activity, Validators.required),
+    this.taskDetailFormGroup = new FormGroup(
+      {
+        taskDetailStatusFlag: new FormControl((this.taskObj.statusFlag == 'A' ? true : false)),
+        taskDetailWorkDate: new FormControl(this.taskObj.workDate, Validators.required),
+        taskDetailStartTime: new FormControl(this.taskObj.workStartTime, Validators.required),
+        taskDetailEndTime: new FormControl(this.taskObj.workEndTime, Validators.required),
+        taskDetailTopic: new FormControl(this.taskObj.topic, Validators.required),
+        taskDetailActivity: new FormControl(this.taskObj.activity, Validators.required),
         taskDetailProject: new FormControl(this.project, Validators.required)
-      });
+      }
+    )
   }
 
+  // initialDefaultValue() {
+  //   this.taskObj.activeFlag = 'A';
+  //   this.taskObj.statusFlag = 'I';
+  //   this.taskObj.doSelfFlag = 'N';
+  //   this.taskObjPartnerList = [];
+  //   this.taskObjTagList = [];
+  // }
+
   onColorPick(color) {
-    this.taskObj.color = 'primary';
     if (color) {
       this.taskObj.color = color;
       this.messageEvent.emit(color);
@@ -85,14 +88,15 @@ export class TaskDetailComponent implements OnInit {
   findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
-        this.projectList = data;
+        console.log(data)
+        // this.projectList = data;
       }
     )
   }
 
   onChangeProject(event) {
-    this.projectId = event.item.projectId;
-    this.taskService.selectedProjectId.next(this.projectId);
+    let projectId = event.item.projectId;
+    this.taskService.selectedProjectId.next(projectId);
   }
 
   getColorStatus(status) {

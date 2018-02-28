@@ -20,18 +20,13 @@ export class ProjectModalPhaseComponent implements OnInit {
     this.projectPhases = [];
     this.validateForm();
     let self = this;
-    $('#start-date').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(1,date) });
-    $('#end-date').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(2,date) });
+    // $('#start-date').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
+    // $('#end-date').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
   }
 
-  onSelectCallBack(pos:number,date: string) {
-    console.log(date)
-    if(pos == 1){
-      this.projectPhase.startDate = date;
-    }
-    if(pos == 2){
-      this.projectPhase.endDate = date;
-    }
+  onSelectCallBack(date: string) {
+    console.log('model: ',this.projectPhase);
+    console.log('form: ',this.projectPhaseGroup);
 
   }
 
@@ -41,14 +36,21 @@ export class ProjectModalPhaseComponent implements OnInit {
       startDate: new FormControl(this.projectPhase.startDate, Validators.required),
       endDate: new FormControl(this.projectPhase.endDate, Validators.required),
 
+
     })
   }
 
   onAddMember(){
-    this.projectPhase.startDate = this.utilsService.convertDatePickerToThDate(this.projectPhase.startDate);
-    this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhase.endDate);
-    this.projectPhases.push(this.projectPhase);
-    this.projectPhase = new ProjectPhase;
+    console.log('start date: ',this.projectPhase.startDate);
+    console.log('end date: ',this.projectPhase.endDate);
+    console.log('projectPhaseGroup: ',this.projectPhaseGroup.value);
+    if(this.projectPhaseGroup.valid){
+      this.projectPhase.startDate = this.utilsService.convertDatePickerToThDate(this.projectPhase.startDate);
+      this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhase.endDate);
+      this.projectPhases.push(this.projectPhase);
+      this.projectPhase = new ProjectPhase;
+    }
+
   }
 
 }

@@ -20,7 +20,9 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   sendKeyToChilds(projectId){
-    this.projectDetail.displayProjectDetail(projectId);
+    this.projectDetail.projectId = projectId;
+    this.projectMember.projectId = projectId;
+    this.projectSummary.projectId = projectId;
   }
 
 }

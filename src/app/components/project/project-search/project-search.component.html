@@ -10,15 +10,15 @@
             </div>
             <div class="phase d-flex justify-content-between">
               <div class="phase-start">
-                <p>{{projectSelected.startDate}}</p>
+                <p>{{projectSelected.startDate | thaiDate:'short' || ''}}</p>
                 <span>เริ่มโครงการ</span>
               </div>
               <div class="phase-end">
-                  <p>{{projectSelected.endDate}}</p>
+                  <p>{{projectSelected.endDate | thaiDate:'short' || ''}}</p>
                   <span>สิ้นสุดโครงการ</span>
               </div>
               <div class="phase-name">
-                  {{projectSelected.phaseName}}
+                  {{projectSelected.phaseName || 'N/A'}}
               </div>
               </div>
           </div>
@@ -61,15 +61,15 @@
                           </div>
                           <div class="phase d-flex justify-content-between">
                             <div class="phase-start">
-                              <p>{{prj.startDate}}</p>
+                              <p>{{prj.startDate | thaiDate:'short' || ''}}</p>
                               <span>เริ่มโครงการ</span>
                             </div>
                             <div class="phase-end">
-                                <p>{{prj.endDate}}</p>
+                                <p>{{prj.endDate | thaiDate:'short' || ''}}</p>
                                 <span>สิ้นสุดโครงการ</span>
                             </div>
                             <div class="phase-name">
-                              {{prj.phaseName}}
+                              {{prj.phaseName || 'N/A'}}
                             </div>
                           </div>
                       </div>

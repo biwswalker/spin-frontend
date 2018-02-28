@@ -1,6 +1,8 @@
 import { ProjectMember } from './project-member';
 import { ProjectPhase } from './project-phase';
 export class Project {
+
+  // For insrt and update
     public projectId: number;
     public projectName: string;
     public projectAbbr: string;
@@ -13,11 +15,15 @@ export class Project {
     public activeFlag: string;
     public projectImage: any;
     public projectThumbnail: any;
-
-    // for UI input
-    public isVisble: boolean;
-
-    // For insrt and update
     public projectPhaseList: ProjectPhase[];
     public projectMemberList: ProjectMember[];
+
+    // for UI input and Display
+    public isVisble: boolean;
+    public startDate: string;
+    public endDate: string;
+    public phaseName: string;
+    public isFavorite: boolean;
+
+
 }

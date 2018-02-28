@@ -5,11 +5,11 @@
         <div class="phase row">
           <div class="phase-name col-4 text-center">{{phase.phaseName}}</div>
           <div class="phase-start col-4">
-            <p>{{phase.startDate}}</p>
+            <p>{{phase.startDate | thaiDate:'short'}}</p>
             <span>เริ่มโครงการ</span>
           </div>
           <div class="phase-end col-4">
-            <p>{{phase.endDate}}</p>
+            <p>{{phase.endDate | thaiDate:'short'}}</p>
             <span>สิ้นสุดโครงการ</span>
           </div>
         </div>
@@ -19,11 +19,11 @@
 </div>
 
 
-<form [formGroup]="projectPhaseGroup">
+<form [formGroup]="projectPhaseGroup" (ngSubmit)="onAddMember()">
 <div class="row">
   <div class="col-12 d-flex">
       <h4>ระยะโครงการ</h4>
-      <button type="button" class="btn btn-link ml-auto" (click)="onAddMember()"><i class="fas fa-check fa-lg"></i></button>
+      <button type="submit" class="btn btn-link ml-auto"><i class="fas fa-check fa-lg"></i></button>
   </div>
   <div class="col-6">
       <div class="form-group">
