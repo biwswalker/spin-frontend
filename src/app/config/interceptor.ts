@@ -10,13 +10,14 @@ export class Interceptor implements HttpInterceptor {
     constructor(private auth: AuthenticationService) { }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let token:any = sessionStorage.getItem(Default.TKN);
-        if (token.access_token) {
+        let access_token:any = sessionStorage.getItem(Default.ACTOKN);
+        let token_type:any = sessionStorage.getItem(Default.TOKNTY);
+        if (access_token) {
             const headers = {
-                'Authorization': `${token.token_type} ${token.access_token}`
+                'Authorization': `${token_type} ${access_token}`
             };
             const request = req.clone({
-                headers: req.headers.set('Authorization', `${token.token_type} ${token.access_token}`)
+                headers: req.headers.set('Authorization', `${token_type} ${access_token}`)
             });
             return next.handle(request);
         }

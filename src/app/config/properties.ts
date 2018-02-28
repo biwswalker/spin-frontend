@@ -21,8 +21,9 @@ export const Default = {
     RMB: btoa('spin:rememberme'),
     YES: btoa('spin:yes'),
     NO: btoa('spin:no'),
-    TKN: btoa('spin:token'),
-    
+    ACTOKN: btoa('spin:access_token'),
+    TOKNTY: btoa('spin:token_type'),
+    RFTOKN: btoa('spin:refresh_token')
 }
 
 export const Format = {
