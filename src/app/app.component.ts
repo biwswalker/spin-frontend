@@ -12,7 +12,11 @@ export class AppComponent {
 
   constructor(private authService: AuthenticationService) {
     this.authService.crrAccess.subscribe(accesses => {
-      this.isAccess = accesses;
+      if(this.authService.isInSession()){
+        this.isAccess = true;
+      }else{
+        this.isAccess = false;
+      }
     })
   }
 }

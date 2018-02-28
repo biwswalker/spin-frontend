@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpRequestService } from './utils/http-request.service';
 import { HttpParams, HttpHeaders } from '@angular/common/http';
-import { Status } from '../config/properties';
+import { Status, Default } from '../config/properties';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService {
 
   private isAccess = new BehaviorSubject<boolean>(false);
   public crrAccess = this.isAccess.asObservable();
-  public token: any;
   public currentUser: any;
 
   constructor(private request: HttpRequestService) { }
@@ -26,8 +26,10 @@ export class AuthenticationService {
     return this.request.requestMethodPOSTWithHeader('oauth/token', data, options).toPromise()
       .then(token => {
         if (token) {
-          this.token = token
-          this.isAccess.next(true)
+          sessionStorage.setItem(Default.ACTOKN, token.access_token)
+          sessionStorage.setItem(Default.TOKNTY, token.token_type)
+          sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
+          this.isAccess.next(true);
           return this.request.requestMethodGET('user-management/users/me').toPromise()
             .then((user) => {
               console.log(user)
@@ -53,15 +55,32 @@ export class AuthenticationService {
       })
       .catch(error => {
         console.log(error)
-        this.token = null
+        sessionStorage.removeItem(Default.ACTOKN);
+        sessionStorage.removeItem(Default.TOKNTY);
+        sessionStorage.removeItem(Default.RFTOKN);
         this.isAccess.next(false)
         return Status.ERROR;
       })
   }
 
+  refreshToken(): Observable<string> {
+    let token: any = sessionStorage.getItem(Default.ACTOKN);
+    return Observable.of(token.refresh_token).delay(200);
+  }
+
   logout() {
-    this.request.requestMethodGET(`logout/${this.token.access_token}`).subscribe((response: Response) => console.log(response))
-    this.token = null
+    let acces_token: any = sessionStorage.getItem(Default.ACTOKN);
+    this.request.requestMethodGET(`logout/${acces_token}`).subscribe((response: Response) => console.log(response))
+    sessionStorage.removeItem(Default.ACTOKN)
+    sessionStorage.removeItem(Default.TOKNTY)
+    sessionStorage.removeItem(Default.RFTOKN)
     this.isAccess.next(false)
+  }
+
+  isInSession(): boolean {
+    if (sessionStorage.getItem(Default.ACTOKN)) {
+      return true;
+    }
+    return false;
   }
 }

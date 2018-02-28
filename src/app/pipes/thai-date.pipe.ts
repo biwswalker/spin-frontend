@@ -19,12 +19,10 @@ export class ThaiDatePipe implements PipeTransform {
             return this.utilsService.displayCalendarDate(value);
           }
           case 'short': {
-            //statements; 
-            break;
+            return this.utilsService.displayShortDate(value);
           }
           case 'full': {
-            //statements; 
-            break;
+            return this.utilsService.displayFullDate(value);
           }
         }
       }

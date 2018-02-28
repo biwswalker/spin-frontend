@@ -20,7 +20,10 @@ export const Default = {
     PWD: btoa('spin:password'),
     RMB: btoa('spin:rememberme'),
     YES: btoa('spin:yes'),
-    NO: btoa('spin:no')
+    NO: btoa('spin:no'),
+    ACTOKN: btoa('spin:access_token'),
+    TOKNTY: btoa('spin:token_type'),
+    RFTOKN: btoa('spin:refresh_token')
 }
 
 export const Format = {
@@ -30,6 +33,7 @@ export const Format = {
     DATE_PIKR: 'MMDD',
     DDDD: 'dddd',
     DD: 'DD',
+    MMMM: 'MMMM',
     MMM: 'MMM',
     MM: 'MM',
     YYYY: 'YYYY',

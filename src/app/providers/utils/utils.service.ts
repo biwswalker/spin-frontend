@@ -42,6 +42,12 @@ export class UtilsService {
 
   getThMonthWord(enDate): string {
     var month = moment(enDate, Format.DATE_DB);
+    var thmonth = month.format(Format.MMMM);
+    return `${thmonth}`
+  }
+
+  getThMonthShortWord(enDate): string {
+    var month = moment(enDate, Format.DATE_DB);
     var thmonth = month.format(Format.MMM);
     return `${thmonth}`
   }
@@ -56,6 +62,11 @@ export class UtilsService {
     var year = moment(enDate, Format.DATE_DB);
     var thyear = year.format(Format.YYYY);
     return `${this.convertToThYearStr(thyear)}`
+  }
+
+  getThYearDate(thDate): string {
+    let yearStr = thDate.substring(0, 4);
+    return `${yearStr}`;
   }
 
   getPreviousDay(enDate): string {
@@ -146,6 +157,22 @@ export class UtilsService {
   displayCalendarDate(thDate: string): string {
     let enDate = this.convertThDateToEn(thDate)
     return `${this.getThGetDate(enDate)}/${this.getThMonth(enDate)}/${this.getThYear(enDate)}`
+  }
+
+  displayShortDate(thDate: string): string {
+    let enDate = this.convertThDateToEn(thDate);
+    let date = this.getThGetDate(enDate);
+    let month = this.getThMonthShortWord(enDate);
+    let year = this.getThYearDate(thDate).substring(2, 4);
+    return ` ${date} ${month} ${year}`
+  }
+
+  displayFullDate(thDate: string): string {
+    let enDate = this.convertThDateToEn(thDate);
+    let date = this.getThGetDate(enDate);
+    let month = this.getThMonthWord(enDate);
+    let year = this.getThYearDate(thDate);
+    return ` ${date} ${month} ${year}`
   }
 
 }
