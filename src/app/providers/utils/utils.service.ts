@@ -102,16 +102,16 @@ export class UtilsService {
     return numMonth > 9 ? `${numMonth}` : `0${numMonth}`;
   }
 
-  convertEnDDMYYYYToThDate(day, month, year){
+  convertEnDDMYYYYToThDate(day, month, year) {
     let newDay = this.convertNumberTo2Deci(day);
     let newMonth = this.convertNumberTo2Deci(month);
     let newYear = this.convertToThYear(year);
     return `${newYear}${newMonth}${newDay}`;
-  }    
+  }
 
-  convertThCalendarToThDate(thDate){
+  convertThCalendarToThDate(thDate) {
     let split = thDate.split(' ', 3)
-    let datemonth =  `${split[0]} ${split[1]}`;
+    let datemonth = `${split[0]} ${split[1]}`;
     let year = split[2];
     var date = moment(datemonth, Format.DATE_PIKC).format(Format.DATE_PIKR)
     return `${year}${date}`
@@ -125,11 +125,20 @@ export class UtilsService {
     }
   }
 
+  convertTimeToDb(time) {
+    if (time) {
+      let t = time.split(':');
+      let h = t[0];
+      let m = t[1];
+      return h + m;
+    }
+  }
+
   convertDatePickerToThDate(pickerDate: string): string {
     let split = pickerDate.split('/', 3)
     return `${split[2]}${split[1]}${split[0]}`
   }
-  
+
   displayTimestampDate(enDate: string): string {
     return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`
   }

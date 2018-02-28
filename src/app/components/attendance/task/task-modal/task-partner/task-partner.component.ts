@@ -13,11 +13,14 @@ declare var $: any;
 export class TaskPartnerComponent implements OnInit {
 
   selectPartner: any;
+  taskPartner: any[];
+  doSelfFlag: boolean = true;
   owner: string = "";
+  taskMember: any[];
+  autocompletePartnerList: any[];
   partner: any;
-  memberStatus: boolean;
+
   constructor(
-    public taskModal: TaskModalComponent,
     private taskService: TaskService,
     private partnerService: PartnerService
   ) {
@@ -32,14 +35,16 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.owner = "ทิวากร จันทร์ปัญญา"
+    this.owner = "tiwakorn.ja@summitthai.com"
   }
 
   getProjectMember(projectId) {
     this.partnerService.findByProjrctId(projectId).subscribe(member => {
       console.log('member: ', member)
-      this.taskModal.taskForm.taskMember = member;
-      console.log(this.taskModal.taskForm.taskMember)
+      this.taskMember = member;
+      for (let obj of member) {
+        obj.status = true;
+      }
     })
   }
 
@@ -47,7 +52,7 @@ export class TaskPartnerComponent implements OnInit {
     this.partnerService.findAllUSer(projectId).subscribe(
       partner => {
         console.log(partner);
-        this.taskModal.taskForm.autocompletePartnerList = partner;
+        this.autocompletePartnerList = partner;
       }
     )
   }
@@ -55,16 +60,16 @@ export class TaskPartnerComponent implements OnInit {
   addPartner() {
     if (this.selectPartner != null) {
       let partner = this.selectPartner;
-      // console.log(partner);
-      console.log(this.taskModal.taskForm.taskMember.indexOf(partner));
-      if (this.taskModal.taskForm.taskMember.indexOf(partner) <= -1) {
-        this.taskModal.taskForm.taskPartner.push(partner);
-        console.log(this.taskModal.taskForm.taskPartner);
+      console.log(partner);
+      console.log(this.taskMember.indexOf(partner));
+      if (this.taskMember.indexOf(partner) <= -1) {
+        this.taskPartner.push(partner);
+        console.log(this.taskPartner);
         console.log(partner)
-        this.taskModal.taskForm.autocompletePartnerList.splice(this.taskModal.taskForm.taskPartner.indexOf(partner), 1);
-        console.log(this.taskModal.taskForm.autocompletePartnerList)
+        this.autocompletePartnerList.splice(this.taskPartner.indexOf(partner), 1);
+        console.log(this.autocompletePartnerList)
       }
-      this.partner = null;
+      // this.partner = null;
       this.selectPartner = null;
     }
   }
@@ -75,10 +80,10 @@ export class TaskPartnerComponent implements OnInit {
 
   deletePartner(obj) {
     console.log(obj)
-    this.taskModal.taskForm.autocompletePartnerList.push(obj);
-    console.log(this.taskModal.taskForm.autocompletePartnerList);
-    this.taskModal.taskForm.taskPartner.splice(this.taskModal.taskForm.taskPartner.indexOf(obj), 1);
-    console.log(this.taskModal.taskForm.taskPartner);
+    this.autocompletePartnerList.push(obj);
+    console.log(this.autocompletePartnerList);
+    this.taskPartner.splice(this.taskPartner.indexOf(obj), 1);
+    console.log(this.taskPartner);
 
     // this.taskModal.taskForm.taskPartnerList.splice(this.taskModal.taskForm.taskPartnerList.indexOf(obj), 1);
   }

@@ -9,7 +9,7 @@
                 class="form-control"
                 name="do-self-flag"
                 id="do-self-flag"
-                [(ngModel)]="taskModal.taskForm.doSelfFlag">
+                [(ngModel)]="doSelfFlag">
             </div>
         </div>
     </div>
@@ -18,17 +18,17 @@
             <label>สมาชิกโครงการ</label>
         </div>
         <div class="col-12 rounded bg-white text-dark scroll-auto">
-            <div id="member-list" *ngFor="let obj of taskModal.taskForm.taskMember">
+            <div id="member-list" *ngFor="let obj of taskMember">
                 <input type="checkbox" name="member-status" id="member-status" [(ngModel)]="obj.status"> {{obj.user.email}}
             </div>
         </div>
     </div>
-    <!--
-    <label>ผู้ร่วมงาน</label>
+
+    <!-- <label>ผู้ร่วมงาน</label>
      <div class="row">
         <div class=" col-12 scroll-auto bg-white rounded text-dark">
-            <div *ngIf="taskModal.taskForm.taskPartner">
-                <div id="partner-list" name="partner-list" *ngFor="let obj of taskModal.taskForm.taskPartner">
+            <div *ngIf="taskPartner">
+                <div id="partner-list" name="partner-list" *ngFor="let obj of taskPartner">
                     {{obj.email}}
                     <a (click)="deletePartner(obj)" class="fas fa-times-circle">
                     </a>
@@ -41,7 +41,7 @@
             <input class="form-control"
               id="autocompletePartner"
               [(ngModel)]="partner"
-              [typeahead]="taskModal.taskForm.autocompletePartnerList"
+              [typeahead]="autocompletePartnerList"
               typeaheadOptionField="email"
               [typeaheadItemTemplate]="customItemTemplate"
               [typeaheadScrollable]="true"

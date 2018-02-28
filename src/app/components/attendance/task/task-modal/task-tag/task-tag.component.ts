@@ -13,7 +13,6 @@ export class TaskTagComponent implements OnInit {
   tagList: any[] = [];
   autoCompleteTagList: any[] = [];
   constructor(
-    public taskModal: TaskModalComponent,
     private tagService: TagService
   ) { }
 
@@ -32,6 +31,6 @@ export class TaskTagComponent implements OnInit {
   }
 
   onSelected(event) {
-    this.taskModal.taskForm.taskTagList.push(event);
+    this.tagList.push(event);
   }
 }
