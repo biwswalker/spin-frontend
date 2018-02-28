@@ -37,6 +37,7 @@ export class TaskModalComponent {
     this.taskDetailChild.taskObj = new Task();
     this.taskService.currentTask.subscribe(
       (selectedTask: Task) => {
+        console.log(selectedTask)
         this.taskForm.task = selectedTask;
         this.taskDetailChild.taskObj = this.taskForm.task;
         this.taskDetailChild.projectObj = this.taskForm.taskProject;

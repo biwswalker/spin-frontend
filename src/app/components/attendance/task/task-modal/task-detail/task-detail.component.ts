@@ -41,6 +41,7 @@ export class TaskDetailComponent implements OnInit {
     private utilsService: UtilsService) { }
 
   ngOnInit() {
+    console.log('oninit')
     this.taskObj = new Task();
     this.projectObj = new Project();
     this.findProject();
@@ -48,7 +49,11 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail() {
+    console.log('initTaskDetail')
     // this.taskObj = new Task();
+    this.project = '';
+    this.activity = '';
+    this.topic = '';
     this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
@@ -63,7 +68,6 @@ export class TaskDetailComponent implements OnInit {
 
   validateData() {
     this.taskDetailFormGroup = new FormGroup({
-        // taskDetailStatusFlag: new FormControl((this.taskObj.statusFlag == 'A' ? true : false)),
         taskDetailStatusFlag: new FormControl(this.statusFlag),
         taskDetailWorkDate: new FormControl(this.workDate, Validators.required),
         taskDetailStartTime: new FormControl(this.workStartTime, Validators.required),

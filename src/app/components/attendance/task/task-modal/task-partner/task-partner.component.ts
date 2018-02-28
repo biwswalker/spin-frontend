@@ -12,13 +12,13 @@ declare var $: any;
 })
 export class TaskPartnerComponent implements OnInit {
 
-  selectPartner: any;
-  taskPartner: any[];
-  doSelfFlag: boolean = true;
-  owner: string = "";
-  taskMember: any[];
-  autocompletePartnerList: any[];
-  partner: any;
+  public selectPartner: any;
+  public taskPartner: any[];
+  public doSelfFlag: boolean = true;
+  public owner: string = "";
+  public taskMember: any[];
+  public autocompletePartnerList: any[];
+  public partner: any;
 
   constructor(
     private taskService: TaskService,

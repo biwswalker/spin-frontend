@@ -8,8 +8,7 @@
                            type="checkbox"
                            id="status-flag"
                            name="status-flag"
-                           formControlName="taskDetailStatusFlag"
-                           [(ngModel)]="statusFlag">
+                           formControlName="taskDetailStatusFlag">
                     <label for="status-flag">
                         <span></span>
                 </label>
@@ -20,35 +19,64 @@
     <div class="row">
         <div class="col-6">
             <label>วันที่ *</label>
-            <input type="text" class="form-control" name="datepicker" formControlName="taskDetailWorkDate" [(ngModel)]="workDate" id="datepicker">
+            <input class="form-control"
+              type="text"
+              name="datepicker"
+              formControlName="taskDetailWorkDate"
+              id="datepicker">
         </div>
         <div class=" col-3">
             <label>เวลา *</label>
-            <input class="form-control" id="work-start-time" name="work-start-time" formControlName="taskDetailStartTime" type="text" [(ngModel)]="workStartTime" maxlength="4">
+            <input class="form-control"
+              id="work-start-time"
+              name="work-start-time"
+              formControlName="taskDetailStartTime"
+              type="text">
         </div>
         <div class=" col-3">
             <label class="invisible">เวลา *</label>
-            <input class="form-control" id="work-end-time" name="work-end-time" formControlName="taskDetailEndTime" type="text" maxlength="4" [(ngModel)]="workEndTime" [min]="workStartTime">
+            <input class="form-control"
+              id="work-end-time"
+              name="work-end-time"
+              formControlName="taskDetailEndTime"
+              type="text"
+              [min]="workStartTime">
         </div>
     </div>
     <div class="row">
         <div class=" col-12">
             <label>หัวข้อ *</label>
-            <input class="form-control" type="text" name="topic" formControlName="taskDetailTopic" id="topic" [(ngModel)]="taskObj.topic">
+            <input class="form-control"
+              type="text"
+              name="topic"
+              formControlName="taskDetailTopic"
+              id="topic">
         </div>
     </div>
     <div class="row">
         <div class=" col-12">
             <label>กิจกรรม *</label>
-            <textarea class="form-control" rows="3" id="activity" name="activity" formControlName="taskDetailActivity" [(ngModel)]="taskObj.activity">
+            <textarea class="form-control"
+              rows="3"
+              id="activity"
+              name="activity"
+              formControlName="taskDetailActivity">
         </textarea>
         </div>
     </div>
     <div class="row">
         <div class=" col-12">
             <label>ชื่อโครงการ *</label>
-            <input class="form-control" id="project-id" name="project-id" formControlName="taskDetailProject" [(ngModel)]="project" [typeahead]="projectList" typeaheadOptionField="projectName" [typeaheadItemTemplate]="customItemTemplate" [typeaheadScrollable]="true"
-                [typeaheadOptionsInScrollableView]="5" (typeaheadOnSelect)="onChangeProject($event)">
+            <input class="form-control"
+              id="project-id"
+              name="project-id"
+              formControlName="taskDetailProject"
+              [typeahead]="projectList"
+              typeaheadOptionField="projectName"
+              [typeaheadItemTemplate]="customItemTemplate"
+              [typeaheadScrollable]="true"
+              [typeaheadOptionsInScrollableView]="5"
+              (typeaheadOnSelect)="onChangeProject($event)">
             <ng-template #customItemTemplate let-model="item" let-index="index">
                 <h6>{{model.projectName}}</h6>
             </ng-template>
