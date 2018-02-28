@@ -1,3 +1,4 @@
+import { CalcurationPipe } from './pipes/calcuration.pipe';
 // angular modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -95,6 +96,7 @@ import { ProjectNamePipe } from './pipes/project-name.pipe';
     PrjInfoSummaryComponent,
     ThaiDatePipe,
     ProjectNamePipe,
+    CalcurationPipe,
   ],
   imports: [
     BrowserModule,

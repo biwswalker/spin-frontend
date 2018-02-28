@@ -10,6 +10,8 @@ export class ExampleComponent implements OnInit {
 
   public exampleForm: FormGroup;
   public items = ['Pizza', 'Pasta', 'Parmesan'];
+
+  public mins = 4000;
   constructor() { }
 
   ngOnInit() {

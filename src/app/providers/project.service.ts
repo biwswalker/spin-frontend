@@ -35,7 +35,7 @@ export class ProjectService {
     return this.request.requestMethodGET('task-management/sums-each-user-id/project-id/'+projectId+'/phase-id/'+seqId);
   }
   findTagsSummary(projectId,seqId){
-    return this.request.requestMethodGET('task-management/sum-each-tags/project-id/'+projectId+'/phase-id/'+seqId);
+    return this.request.requestMethodGET('task-management/sums-each-tags/project-id/'+projectId+'/phase-id/'+seqId);
   }
   // End find for display action
 
