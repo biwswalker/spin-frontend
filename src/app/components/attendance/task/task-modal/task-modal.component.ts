@@ -10,6 +10,8 @@ import { Task } from '../../../../models/task';
 import { PartnerService } from '../../../../providers/partner.service';
 import { UtilsService } from '../../../../providers/utils/utils.service';
 import { EventMessagesService } from '../../../../providers/utils/event-messages.service';
+import { AuthenticationService } from '../../../../providers/authentication.service';
+import { User } from '../../../../models/user';
 declare var SpinModal: any;
 
 @Component({
@@ -23,7 +25,7 @@ export class TaskModalComponent {
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
   private modal = new SpinModal();
-
+  private user = new User();
   @ViewChild(TaskDetailComponent) taskDetailChild;
   @ViewChild(TaskPartnerComponent) taskPartnerChild;
   @ViewChild(TaskTagComponent) taskTagChild;
@@ -31,7 +33,12 @@ export class TaskModalComponent {
   constructor(private taskService: TaskService,
     private partnerService: PartnerService,
     private utilsService: UtilsService,
-    private eventMessageService: EventMessagesService) { }
+    private eventMessageService: EventMessagesService,
+    private auth: AuthenticationService) {
+    this.auth.crrUser.subscribe(user => {
+      this.user = user;
+    })
+  }
 
   onTimestampCommit() {
     this.taskDetailChild.projectObj = new Project();
@@ -54,7 +61,8 @@ export class TaskModalComponent {
       this.task.doSelfFlag = (this.taskPartnerChild.doSelfFlag == true ? 'Y' : 'N');
       this.task.topic = this.taskDetailChild.taskDetailFormGroup.value.taskDetailTopic;
       this.task.projectId = this.taskDetailChild.projectId;
-      this.task.ownerUserId = 'tiwakorn.ja';
+      this.task.ownerUserId = this.user.userId;
+      this.task.activeFlag = 'A';
       this.task.workDate = this.utilsService.convertDatePickerToThDate(this.taskDetailChild.taskDetailFormGroup.value.taskDetailWorkDate);
       this.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
@@ -72,6 +80,7 @@ export class TaskModalComponent {
       }
       console.log(this.task)
       this.createNewTask(this.task);
+      window.location.reload();
     }
   }
 
