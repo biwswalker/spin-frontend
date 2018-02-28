@@ -9,9 +9,9 @@ import { TagService } from '../../../../../providers/tag.service';
 })
 export class TaskTagComponent implements OnInit {
 
-  usedTagList: any[] = [];
-  tagList: any[] = [];
-  autoCompleteTagList: any[] = [];
+  public usedTagList: any[] = [];
+  public tagList: any[] = [];
+  public autoCompleteTagList: any[] = [];
   constructor(
     private tagService: TagService
   ) { }
