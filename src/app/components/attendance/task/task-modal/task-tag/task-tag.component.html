@@ -2,7 +2,7 @@
     <div class="row">
         <label for="">ป้ายกำกับ</label>
         <div class="col-12">
-            <tag-input class="form-control" theme='pink-theme' [(ngModel)]='taskModal.taskForm.taskTagList' id="tag-name" [removable]='true' [maxItems]='10' [onlyFromAutocomplete]="false">
+            <tag-input class="form-control" theme='pink-theme' [(ngModel)]='tagList' id="tag-name" [removable]='true' [maxItems]='10' [onlyFromAutocomplete]="false">
                 <tag-input-dropdown [showDropdownIfEmpty]="false" [autocompleteItems]="autoCompleteTagList">
                 </tag-input-dropdown>
             </tag-input>

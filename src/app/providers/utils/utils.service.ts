@@ -136,6 +136,15 @@ export class UtilsService {
     }
   }
 
+  convertTimeToDb(time) {
+    if (time) {
+      let t = time.split(':');
+      let h = t[0];
+      let m = t[1];
+      return h + m;
+    }
+  }
+
   convertDatePickerToThDate(pickerDate: string): string {
     let split = pickerDate.split('/', 3)
     return `${split[2]}${split[1]}${split[0]}`

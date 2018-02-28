@@ -1,4 +1,4 @@
-<div class="container">
+<form [formGroup]="taskDetailFormGroup">
     <div class="row">
         <div class="col d-flex">
             <div class="ml-auto">
@@ -8,10 +8,11 @@
                            type="checkbox"
                            id="status-flag"
                            name="status-flag"
+                           formControlName="taskDetailStatusFlag"
                            [(ngModel)]="statusFlag">
                     <label for="status-flag">
                         <span></span>
-                    </label>
+                </label>
                 </span>
             </div>
         </div>
@@ -19,116 +20,72 @@
     <div class="row">
         <div class="col-6">
             <label>วันที่ *</label>
-            <input type="text"
-                   class="form-control"
-                   [(ngModel)]="workDate"
-                   id="datepicker">
+            <input type="text" class="form-control" name="datepicker" formControlName="taskDetailWorkDate" [(ngModel)]="workDate" id="datepicker">
         </div>
         <div class=" col-3">
             <label>เวลา *</label>
-            <input class="form-control"
-                   id="work-start-time"
-                   name="work-start-time"
-                   type="text"
-                   [(ngModel)]="taskObj.workStartTime"
-                   maxlength="4">
+            <input class="form-control" id="work-start-time" name="work-start-time" formControlName="taskDetailStartTime" type="text" [(ngModel)]="workStartTime" maxlength="4">
         </div>
         <div class=" col-3">
             <label class="invisible">เวลา *</label>
-            <input class="form-control"
-                   id="work-end-time"
-                   name="work-end-time"
-                   type="text"
-                   maxlength="4"
-                   [(ngModel)]="taskObj.workEndTime"
-                   [min]="startTime">
+            <input class="form-control" id="work-end-time" name="work-end-time" formControlName="taskDetailEndTime" type="text" maxlength="4" [(ngModel)]="workEndTime" [min]="workStartTime">
         </div>
     </div>
     <div class="row">
         <div class=" col-12">
             <label>หัวข้อ *</label>
-            <input class="form-control"
-                   type="text"
-                   name="topic"
-                   id="topic"
-                   [(ngModel)]="topic">
+            <input class="form-control" type="text" name="topic" formControlName="taskDetailTopic" id="topic" [(ngModel)]="taskObj.topic">
         </div>
     </div>
     <div class="row">
         <div class=" col-12">
             <label>กิจกรรม *</label>
-            <textarea class="form-control"
-                      rows="3"
-                      id="activity"
-                      name="activity"
-                      [(ngModel)]="activity">
+            <textarea class="form-control" rows="3" id="activity" name="activity" formControlName="taskDetailActivity" [(ngModel)]="taskObj.activity">
         </textarea>
         </div>
     </div>
     <div class="row">
         <div class=" col-12">
-            <label>ชื่อโครงการ</label>
-            <input class="form-control"
-                  [(ngModel)]="project"
-                  [typeahead]="projectList"
-                  typeaheadOptionField="projectName"
-                  [typeaheadItemTemplate]="customItemTemplate"
-                  [typeaheadScrollable]="true"
-                  [typeaheadOptionsInScrollableView]="7"
-                  (typeaheadOnSelect)="onChangeProject($event)">
-            <ng-template #customItemTemplate
-                         let-model="item"
-                         let-index="index">
+            <label>ชื่อโครงการ *</label>
+            <input class="form-control" id="project-id" name="project-id" formControlName="taskDetailProject" [(ngModel)]="project" [typeahead]="projectList" typeaheadOptionField="projectName" [typeaheadItemTemplate]="customItemTemplate" [typeaheadScrollable]="true"
+                [typeaheadOptionsInScrollableView]="5" (typeaheadOnSelect)="onChangeProject($event)">
+            <ng-template #customItemTemplate let-model="item" let-index="index">
                 <h6>{{model.projectName}}</h6>
             </ng-template>
         </div>
     </div>
-
-    <div class="row">
-        <div class=" col-12">
+</form>
+<div class="row">
+    <div class=" col-12">
+        <div class="col">
+            <label>สีพื้นหลัง</label>
+        </div>
+        <div class="row">
             <div class="col">
-                <label>สีพื้นหลัง * </label>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <a class="btn btn-primary color-picker"
-                       (click)="onColorPick('primary')"
-                       id="corlor">
-                    </a>
-                    <a class="btn btn-success color-picker"
-                       (click)="onColorPick('success')"
-                       id="corlor">
-                    </a>
-                    <a class="btn btn-danger color-picker"
-                       (click)="onColorPick('danger')"
-                       id="corlor">
-                    </a>
-                    <a class="btn btn-orange color-picker"
-                       (click)="onColorPick('orange')"
-                       id="corlor">
-                    </a>
-                    <a class="btn btn-secondary color-picker"
-                       (click)="onColorPick('secondary')"
-                       id="corlor">
-                    </a>
-                    <a class="btn btn-info color-picker"
-                       (click)="onColorPick('info')"
-                       id="corlor">
-                    </a>
-                    <a class="btn btn-dark color-picker"
-                       (click)="onColorPick('dark')"
-                       id="corlor">
-                    </a>
-                </div>
+                <a class="btn btn-primary color-picker" (click)="onColorPick('primary')" id="corlor">
+                </a>
+                <a class="btn btn-success color-picker" (click)="onColorPick('success')" id="corlor">
+                </a>
+                <a class="btn btn-danger color-picker" (click)="onColorPick('danger')" id="corlor">
+                </a>
+                <a class="btn btn-orange color-picker" (click)="onColorPick('orange')" id="corlor">
+                </a>
+                <a class="btn btn-secondary color-picker" (click)="onColorPick('secondary')" id="corlor">
+                </a>
+                <a class="btn btn-info color-picker" (click)="onColorPick('info')" id="corlor">
+                </a>
+                <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor">
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="row row">
-        <div class=" col d-flex">
-            <div class="ml-auto">
-                <label>กำหนดเป็นค่าเริ่มต้น</label>
-                <span class="task-color-toggle">
+<div class="row row">
+    <div class=" col d-flex">
+        <div class="ml-auto">
+            <label>กำหนดเป็นค่าเริ่มต้น</label>
+            <span class="task-color-toggle">
                     <input class="switch"
                            type="checkbox"
                            id="task-color-toggle"
@@ -136,9 +93,8 @@
                            onselect="getColorStatus($event)">
                     <label for="task-color-toggle">
                         <span></span>
-                    </label>
-                </span>
-            </div>
+            </label>
+            </span>
         </div>
     </div>
 </div>

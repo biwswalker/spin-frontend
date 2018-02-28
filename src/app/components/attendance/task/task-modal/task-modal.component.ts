@@ -1,3 +1,4 @@
+import { Project } from './../../../../models/project';
 import { FormGroup } from '@angular/forms';
 import { TaskPartnerComponent } from './task-partner/task-partner.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
@@ -8,6 +9,8 @@ import { TaskService } from '../../../../providers/task.service';
 import { Task } from '../../../../models/task';
 import { PartnerService } from '../../../../providers/partner.service';
 import { UtilsService } from '../../../../providers/utils/utils.service';
+import { EventMessagesService } from '../../../../providers/utils/event-messages.service';
+declare var SpinModal: any;
 
 @Component({
   selector: 'app-task-modal',
@@ -18,75 +21,67 @@ export class TaskModalComponent {
 
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
+  private modal = new SpinModal();
 
   @ViewChild(TaskDetailComponent) taskDetailChild;
-  // @ViewChild(TaskMemberComponent) taskMemberComponent;
-  // @ViewChild(TaskTagComponent) taskTagComponent;
+  @ViewChild(TaskPartnerComponent) taskPartnerChild;
+  @ViewChild(TaskTagComponent) taskTagChild;
 
   constructor(private taskService: TaskService,
-    private partnerService: PartnerService) { }
+    private partnerService: PartnerService,
+    private utilsService: UtilsService,
+    private eventMessageService: EventMessagesService) { }
 
   onTimestampCommit() {
+    this.taskDetailChild.projectObj = new Project();
+    this.taskDetailChild.taskObj = new Task();
     this.taskService.currentTask.subscribe(
       (selectedTask: Task) => {
-        console.log(selectedTask)
-        this.taskForm.task = selectedTask
-        // Task Detail
+        this.taskForm.task = selectedTask;
         this.taskDetailChild.taskObj = this.taskForm.task;
         this.taskDetailChild.projectObj = this.taskForm.taskProject;
         this.taskDetailChild.initTaskDetail();
       })
   }
 
-  findAllUser() {
-    // this.partnerService.findAllUSer().subscribe(
-    //   data => {
-    //     if (data) {
-    //       console.log(data);
-    //       for (let obj of data) {
-    //         this.taskForm.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
-    //       }
-    //     }
-    //   }
-    // )
-  }
-
   onSubmit() {
-    this.taskForm.task.workDate = this.getDate(this.taskForm.task.workDate);
-    this.taskForm.task.workDate = '25610227';
-    // this.taskForm.task.projectId = this.taskForm.taskProject.projectId;
-    this.taskForm.task.workStartTime = this.gettime(this.taskForm.task.workStartTime);
-    this.taskForm.task.workEndTime = this.gettime(this.taskForm.task.workEndTime);
-    this.taskForm.task.activeFlag = this.getStatusFlag(this.taskForm.task.activeFlag);
-    this.taskForm.task.statusFlag = this.getStatusFlag(this.taskForm.statusFlag);
-    this.taskForm.task.ownerUserId = "tiwakorn.ja"
-    this.taskForm.task.taskPartnerList = [];
-    // if (this.taskForm.doSelfFlag == true) {
-    //   this.taskForm.task.doSelfFlag = 'Y';
-    //   this.taskForm.task.taskPartnerList.push({ id: { userId: 'tiwakorn.ja' } });
-    // } else {
-    //   this.taskForm.task.doSelfFlag = 'N';
-    //   this.taskForm.task.taskPartnerList.splice(this.taskForm.task.taskPartnerList.indexOf({ userId: 'tiwakorn.ja' }), 1)
-    // }
-    for (let obj of this.taskForm.taskMember) {
-      if (obj.status == true) {
-        this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
+    console.log('valid?')
+    console.log(this.taskDetailChild.taskDetailFormGroup)
+    console.log(this.taskDetailChild.taskDetailFormGroup.valid)
+    // if (this.taskDetailChild.taskDetailFormGroup.valid) {
+      console.log('valid');
+      this.taskForm.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
+      this.taskForm.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
+      this.taskForm.task.color = this.taskDetailChild.taskObj.color;
+      this.taskForm.task.doSelfFlag = (this.taskPartnerChild.doSelfFlag == true ? 'Y' : 'N');
+      this.taskForm.task.topic = this.taskDetailChild.taskDetailFormGroup.value.taskDetailTopic;
+      this.taskForm.task.projectId = this.taskDetailChild.projectId;
+      this.taskForm.task.ownerUserId = 'tiwakorn.ja';
+      this.taskForm.task.workDate = this.utilsService.convertDatePickerToThDate(this.taskDetailChild.taskDetailFormGroup.value.taskDetailWorkDate);
+      this.taskForm.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
+      this.taskForm.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
+
+      for (let obj of this.taskPartnerChild.taskMember) {
+        if (obj.status == true) {
+          this.taskForm.task.taskPartnerList.push({ id: { userId: obj.user.userId } });
+        }
       }
-    }
-    for (let obj of this.taskForm.taskPartner) {
-      this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
-    }
-    for (let obj of this.taskForm.taskTagList) {
-      this.taskForm.task.taskTagList.push({ tag: { tagName: obj['display'] } });
-    }
-    console.log(this.taskForm.task);
-    // this.insertTask(this.taskForm.task);
+      // for (let obj of this.taskForm.taskPartner) {
+      //   this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
+      // }
+      for (let obj of this.taskTagChild.tagList) {
+        this.taskForm.task.taskTagList.push({ tag: { tagName: obj['display'] } });
+      }
+      this.insertTask(this.taskForm.task);
+    // }
   }
 
   insertTask(task: Task) {
-    this.taskService.insertTask(this.taskForm.task).subscribe(
+    this.taskService.insertTask(task).subscribe(
       res => {
         console.log(res)
+        this.eventMessageService.onSuccess();
+        this.oncloseModal();
       },
       error => {
         console.log(error)
@@ -94,37 +89,9 @@ export class TaskModalComponent {
     );
   }
 
-  getStatusFlag(data) {
-    if (data == true) {
-      return 'A'
-    } else {
-      return 'I'
-    }
-  }
-  gettime(data: string) {
-    let time = data.split(':');
-    let h = time[0];
-    let m = time[1];
-    return h + m;
-  }
-
-  getDate(date) {
-    if (date) {
-      let d = date.substr(0, 2);
-      let m = date.substr(4, 6);
-      let y = date.substr(8, 11);
-      if (date['date'].month < 10) {
-        m = '0' + m;
-      }
-      return y + m + d;
-    }
-  }
-
-  setDate(date) {
-    // let d = date.subsste
-    // let d = new Date(date)
-    // console.log(d);
-    // return d;
+  oncloseModal(){
+    this.modal.close('#task-modal');
+    this.taskForm.task = new Task;
   }
 
   receiveMessage(event) {
