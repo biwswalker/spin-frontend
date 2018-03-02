@@ -1,3 +1,4 @@
+import { UtilsService } from './../../providers/utils/utils.service';
 import { ProjectModalComponent } from './project-modal/project-modal.component';
 import { ProjectSearchComponent } from './project-search/project-search.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -21,7 +22,8 @@ export class ProjectComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private eventService: EventService,
-    private authService: AuthenticationService) { }
+    private authService: AuthenticationService,
+    private utilsService: UtilsService) { }
 
   ngOnInit() {
 
@@ -87,7 +89,15 @@ export class ProjectComponent implements OnInit {
       data=>{
         console.log(data);
         if(data!){
-          this.projectInfo.projectSummary.memberSummary = data;
+          this.projectInfo.projectSummary.memberSpent = data.maxSpentTime;
+          this.projectInfo.projectSummary.memberSpent.hour = this.utilsService.calcurateHours(data.maxSpentTime.hour,data.maxSpentTime.minute);
+          this.projectInfo.projectSummary.memberSummary=[];
+          for(let mem of data.summary){
+            let memSum = {name:null,hour:0};
+            memSum.name = mem.name;
+            memSum.hour = this.utilsService.calcurateHours(mem.hour,mem.minute);
+            this.projectInfo.projectSummary.memberSummary = this.projectInfo.projectSummary.memberSummary.concat(memSum);
+          }
         }
       },err=>{
         console.log('Exception: ',err);
@@ -98,7 +108,8 @@ export class ProjectComponent implements OnInit {
       data=>{
         console.log(data);
         if(data!){
-          this.projectInfo.projectSummary.tagsSummary = data;
+          this.projectInfo.projectSummary.tagsSummary = data.summary;
+          this.projectInfo.projectSummary.tagsSpent = data.maxSpentTime;
         }
       },err=>{
         console.log('Exception: ',err);

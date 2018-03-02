@@ -9,14 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class PrjInfoSummaryComponent implements OnInit {
   public projectId:string;
   public projectPhases: ProjectPhase[]=[];
-  public memberSummary: any[]= [];
-  public tagsSummary: any[]=[];
+  public memberSpent:any;
+  public memberSummary: any[] = [];
+  public tagsSpent: any;
+  public tagsSummary: any[] = [];
   constructor() { }
 
   ngOnInit() {
-    this.projectPhases = [];
-    this.memberSummary = [];
-    this.tagsSummary = [];
+
   }
 
 
