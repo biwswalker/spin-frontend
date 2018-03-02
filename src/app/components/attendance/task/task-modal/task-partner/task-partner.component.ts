@@ -5,6 +5,7 @@ import { TaskPartner } from '../../../../../models/task-partner';
 import { TaskService } from '../../../../../providers/task.service';
 import { AuthenticationService } from '../../../../../providers/authentication.service';
 import { User } from '../../../../../models/user';
+import { Task } from '../../../../../models/task';
 declare var $: any;
 
 @Component({
@@ -17,12 +18,14 @@ export class TaskPartnerComponent implements OnInit {
   public user: User = new User();
   public selectPartner: any;
   public taskPartner: any[] = [];
+  public task: Task = new Task();
   public doSelfFlag: boolean = true;
   public owner: string = "";
   public userId: string = "";
   public taskMember: any[] = [];
   public autocompletePartnerList: any[] = [];
   public partner: any;
+  public mode: string;
 
   constructor(
     private taskService: TaskService,
@@ -36,6 +39,11 @@ export class TaskPartnerComponent implements OnInit {
       }
     });
 
+    this.taskService.currentTask.subscribe(
+      currentTask => {
+        this.task = currentTask;
+      });
+
     // this async
     this.taskService.currentProjectId.subscribe(projectId => {
       if (projectId) {
@@ -44,19 +52,24 @@ export class TaskPartnerComponent implements OnInit {
         this.autocompletePartnerList = [];
         this.getProjectMember(projectId);
         this.getautoCompletePartner(projectId);
+        if(this.mode == 'E'){
+          this.getTaskPartner(this.task.taskId);
+        }
       }
     });
     // End this async
 
+
+
   }
 
   ngOnInit() {
+    console.log('mode: ', this.mode);
   }
 
   getProjectMember(projectId) {
     this.partnerService.findByProjrctId(projectId).subscribe(
       member => {
-
         if (member) {
           for (let obj of member) {
             this.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
@@ -68,12 +81,22 @@ export class TaskPartnerComponent implements OnInit {
   getautoCompletePartner(projectId) {
     this.partnerService.findAllUSer(projectId).subscribe(
       partner => {
-
         if (partner) {
           for (let obj of partner) {
             this.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
           }
         }
+      }
+    )
+  }
+
+  getTaskPartner(taskId: number) {
+    this.partnerService.findByTaskId(taskId).subscribe(
+      partner => {
+        console.log(partner);
+        // for(let obj of partner){
+        //   this.taskPartner.push({})
+        // }
       }
     )
   }

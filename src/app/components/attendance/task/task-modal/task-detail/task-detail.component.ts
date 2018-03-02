@@ -37,6 +37,8 @@ export class TaskDetailComponent implements OnInit {
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
   public user: User;
+  public mode: string;
+
   constructor(
     private projectService: ProjectService,
     private taskService: TaskService,
@@ -65,25 +67,25 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail() {
-    if (this.user.userId == this.taskObj.ownerUserId) {
+    if (this.mode == 'E') {
+      console.log('edit');
       this.initialTaskForUpdate();
     } else {
-      this.initialTaskForCreate();
+      console.log('insert');
+      this.initialTime();
     }
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
   }
 
-  initialTaskForCreate() {
-    console.log('taskObj: ', this.taskObj);
+  initialTime() {
     this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
   }
 
   initialTaskForUpdate() {
-    console.log('initial Task For Update');
     this.topic = this.taskObj.topic;
     this.activity = this.taskObj.activity;
     this.statusFlag = (this.taskObj.statusFlag == 'I' ? true : false);
@@ -92,9 +94,11 @@ export class TaskDetailComponent implements OnInit {
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
     this.projectService.findProjectById(this.taskObj.projectId).subscribe(
       project => {
-        console.log(project);
+        this.project = project.projectName;
+        this.taskService.selectedProjectId.next(project.projectId);
       }
-    )
+    );
+    this.messageEvent.emit(this.taskObj.color);
   }
 
   onSelectCallBack(date: string) {

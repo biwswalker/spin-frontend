@@ -69,4 +69,8 @@ export class TaskService {
   findUnStamped(year, month) {
     return this.request.requestMethodGET(`task-management/un-stamp-task/${year}/${month}`)
   }
+
+  removeTask(taskId: number){
+    console.log(taskId);
+  }
 }

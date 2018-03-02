@@ -26,6 +26,7 @@ export class TaskModalComponent {
   public taskForm: TaskForm = new TaskForm();
   private modal = new SpinModal();
   private user = new User();
+
   @ViewChild(TaskDetailComponent) taskDetailChild;
   @ViewChild(TaskPartnerComponent) taskPartnerChild;
   @ViewChild(TaskTagComponent) taskTagChild;
@@ -45,10 +46,13 @@ export class TaskModalComponent {
     this.taskDetailChild.taskObj = new Task();
     this.taskService.currentTask.subscribe(
       (selectedTask: Task) => {
-        console.log(selectedTask)
+        this.taskForm.task = new Task();
+        if (this.user.userId == selectedTask.ownerUserId) {
+          this.taskDetailChild.mode = 'E';
+          this.taskPartnerChild.mode = 'E';
+          this.taskTagChild.mode = 'E';
+        }
         this.taskForm.task = selectedTask;
-        console.log(this.taskForm.task);
-        console.log(this.taskForm.taskProject)
         this.taskDetailChild.taskObj = this.taskForm.task;
         this.taskDetailChild.projectObj = this.taskForm.taskProject;
         this.taskDetailChild.initTaskDetail();
@@ -56,8 +60,6 @@ export class TaskModalComponent {
   }
 
   onSubmit() {
-    console.log(this.taskDetailChild.taskDetailFormGroup.value);
-    console.log(this.taskDetailChild.taskDetailFormGroup.valid);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
@@ -76,7 +78,7 @@ export class TaskModalComponent {
           this.task.taskPartnerList.push({ id: { userId: obj.userId } });
         }
       }
-      if(this.taskPartnerChild.taskPartner){
+      if (this.taskPartnerChild.taskPartner) {
         for (let obj of this.taskPartnerChild.taskPartner) {
           this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
         }
@@ -110,5 +112,9 @@ export class TaskModalComponent {
 
   receiveMessage(event) {
     this.bgColor = event;
+  }
+
+  deleteTask() {
+    this.taskService.removeTask(this.taskForm.task.taskId);
   }
 }
