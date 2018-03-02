@@ -4,10 +4,13 @@
           <div class="card-body">
             <div class="row">
               <div class="col-3">
-                  <img class="project-thumbnail float-left mr-2" src="{{projectSelected.projectThumbnail|| './assets/img/ico/startup.png'}}" width="100" height="100">
+                  <img class="project-thumbnail float-left"
+                  src="{{projectSelected.projectThumbnail|| './assets/img/ico/startup.png'}}"
+                  width="100" height="100">
               </div>
               <div class="col-9">
-                  <h2 class="project-abbr d-flex">{{projectSelected.projectAbbr}} <i class="{{projectSelected.isFavorite?'fas':'far'}} fa-heart ml-auto favorite"></i></h2>
+                  <i class="{{projectSelected.isFavorite?'fas':'far'}} fa-heart float-right favorite"></i>
+                  <h2 class="project-abbr d-flex pt-md-3">{{projectSelected.projectAbbr}} </h2>
                   <span class="customer-name">{{projectSelected.customerName}}</span>
               </div>
             </div>
