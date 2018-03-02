@@ -1,4 +1,3 @@
-import { CalcurationPipe } from './pipes/calcuration.pipe';
 // angular modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -64,6 +63,8 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 // Pipe
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
 import { ProjectNamePipe } from './pipes/project-name.pipe';
+import { TimePipe } from './pipes/time.pipe';
+import { CalcurationPipe } from './pipes/calcuration.pipe';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { ProjectNamePipe } from './pipes/project-name.pipe';
     ThaiDatePipe,
     ProjectNamePipe,
     CalcurationPipe,
+    TimePipe,
   ],
   imports: [
     BrowserModule,

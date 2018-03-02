@@ -56,9 +56,9 @@ export class TaskDetailComponent implements OnInit {
     this.workDate = '';
     this.workStartTime = '';
     this.workEndTime = '';
-    this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
-    this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
-    this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
+    this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime): '';
+    this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime): '';
+    this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate): '';
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
