@@ -4,16 +4,22 @@ $second-bg-color:rgba(0, 0, 0, 0.5);
 
 $border-color1: green;
 p{
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin:0 !important;
 }
 
 .project-highlight{
   background:$first-bg-color;
   color:$font-color;
+
+  .card-body{
+    padding: 0.5rem;
+  }
+
   .project-abbr{
     margin:0 !important;
   }
+
   .customer-name{
     opacity: 0.8;
     filter: opacity(80);
@@ -21,9 +27,9 @@ p{
   .project-name{
     clear:both;
     background-color:$second-bg-color;
-    margin: 2.5rem 0rem 1rem;
+    margin: 0rem 0.5rem 0.5rem;
     padding: 0.5rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .phase{
@@ -31,9 +37,9 @@ p{
     margin: 0rem 1rem;
 
     .phase-name{
-      padding: 0.5rem 1.5rem;
+      padding: 0.5rem 1rem;
       background-color: #ffc800;
-      font-size: 1.5rem;
+      font-size: 1rem;
       font-weight: 700;
     }
   }
