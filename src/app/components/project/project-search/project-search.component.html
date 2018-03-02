@@ -3,35 +3,37 @@
       <div class="card project-highlight">
           <div class="card-body">
             <div class="row">
-              <div class="col-3">
-                  <img class="project-thumbnail float-left"
-                  src="{{projectSelected.projectThumbnail|| './assets/img/ico/startup.png'}}"
-                  width="100" height="100">
-              </div>
-              <div class="col-9">
-                  <i class="{{projectSelected.isFavorite?'fas':'far'}} fa-heart float-right favorite"></i>
-                  <h2 class="project-abbr d-flex pt-md-3">{{projectSelected.projectAbbr}} </h2>
+              <div class="col-12">
+                  <img class="project-thumbnail float-left mr-4" src="{{projectSelected.projectThumbnail|| './assets/img/ico/startup.png'}}" width="100" height="100">
+                  <h1 class="project-abbr d-flex">{{projectSelected.projectAbbr}} <i class="{{projectSelected.isFavorite?'fas':'far'}} fa-heart ml-auto favorite"></i></h1>
                   <span class="customer-name">{{projectSelected.customerName}}</span>
               </div>
             </div>
-
-
-            <div class="project-name  d-flex justify-content-center">
-              {{projectSelected.projectName}}
+            <div class="row">
+              <div class="col-12">
+                  <div class="project-name  d-flex justify-content-center">
+                      {{projectSelected.projectName}}
+                    </div>
+              </div>
             </div>
-            <div class="phase d-flex justify-content-between">
-              <div class="phase-start">
-                <p>{{projectSelected.startDate | thaiDate:'short' || ''}}</p>
-                <span>เริ่มโครงการ</span>
-              </div>
-              <div class="phase-end">
-                  <p>{{projectSelected.endDate | thaiDate:'short' || ''}}</p>
-                  <span>สิ้นสุดโครงการ</span>
-              </div>
-              <div class="phase-name">
-                  {{projectSelected.phaseName || 'N/A'}}
-              </div>
-              </div>
+           <div class="row">
+             <div class="col-12">
+                <div class="phase d-flex justify-content-between">
+                    <div class="phase-start">
+                      <p>{{projectSelected.startDate | thaiDate:'short' || ''}}</p>
+                      <span>เริ่มโครงการ</span>
+                    </div>
+                    <div class="phase-end">
+                        <p>{{projectSelected.endDate | thaiDate:'short' || ''}}</p>
+                        <span>สิ้นสุดโครงการ</span>
+                    </div>
+                    <div class="phase-name">
+                        {{projectSelected.phaseName || 'N/A'}}
+                    </div>
+                    </div>
+             </div>
+           </div>
+
           </div>
         </div>
   </div>
