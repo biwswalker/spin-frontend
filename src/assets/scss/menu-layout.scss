@@ -71,29 +71,19 @@
     max-height: calc(100vh - 4rem);
     overflow-y: auto;
 
-    margin-top: 4rem;
+    margin-top: 5rem;
     padding-bottom: 3rem;
   }
 }
 
-#show-sidebar {
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
-}
-#hide-sidebar{
+#toggle-sidebar{
   padding: 0.25rem 0.75rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
   transition: all 0.3s;
-  cursor: pointer;
-  float: right;
-  margin-top: 1rem;
-  margin-right: 0.5rem;
-
-}
-#hide-sidebar, #show-sidebar {
+  margin-top: 0.5rem;
   font-size: 1.5rem;
   line-height: 1;
   color:#fff;
@@ -132,38 +122,19 @@
   }
 }
 
-@include media-breakpoint-up(md) {
-
-    .toggle-sidebar {
-      display: none;
-    }
-
+@include media-breakpoint-down(md) {
 
   .navbar{
-    .left-section{
-      visibility: hidden;
+    .nav-profile{
+      margin-left: 2.5rem;
     }
   }
 }
 
-@include media-breakpoint-down(md) {
-  #sidebar{
-    width: 200px;
-  }
-  .toggle-sidebar {
-    display: block;
-  }
-  #sidebar-brand{
-    background: transparent !important;
-  }
+@include media-breakpoint-down(sm){
+  .spin-link{
 
-  .navbar{
-    .left-section{
-      visibility: visible;
-    }
-    .nav-profile{
-      margin-left: 2.5rem;
-    }
+    margin-top: 8rem !important;
   }
 }
 
