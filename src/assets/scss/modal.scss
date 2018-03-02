@@ -4,7 +4,11 @@ $bghov: rgba(0, 0, 0, 0.2);
 $bgbody: rgb(217, 217, 217);
 $white: #FFFFFF;
 
+.modal-backdrop{
+  z-index: 90;
+}
 .modal{
+  z-index: 100;
   a {
     color: $white;
   }

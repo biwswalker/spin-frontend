@@ -14,7 +14,7 @@
   transition: all 0.3s;
   position: -webkit-fixed;
   position: fixed;
-  z-index: 500;
+  z-index: 70;
   top:0rem;
   height: calc(100vh) !important;
 
@@ -22,16 +22,12 @@
       color: #fff;
       padding: 10px;
     }
-
-    li.active > a, a[aria-expanded="true"] {
-      color: #fff;
-    }
     li {
       // padding-left: 1rem;
       text-align: center;
       a {
-        padding: 1rem;
-        font-size: 1.1em;
+        padding: 0.5rem;
+        font-size: 1rem;
         display: block;
         color: #fff;
         i.fas{
@@ -39,7 +35,7 @@
 
         }
         span.menu-title{
-          font-size: 1.3rem;
+          font-size: 1rem;
           font-weight: 200;
           display: block;
         }
@@ -94,7 +90,9 @@
   cursor: pointer;
 
 }
-
+.spin-navbar{
+  z-index: 80;
+}
 .navbar{
   min-height: 70px;
   .account-box{
@@ -138,15 +136,3 @@
   }
 }
 
-
-
-
-// @mixin modal-header-color($class,$color){
-//   .modal-header-#{$class}{
-//     background:$color;
-//   }
-// }
-
-
-// @include modal-header-color('project','#fff');
-// @include modal-header-color('task','#000');

@@ -1,3 +1,4 @@
+
 .container-fluid{
   padding-left:0 !important;
   padding-right: 0 !important;
@@ -6,12 +7,6 @@
 .row {
   margin-right: 0px !important;
   margin-left: 0px !important;
-}
-
-@include media-breakpoint-down(sm){
-  .menu-shadow-col{
-    display: none;
-  }
 }
 
 .row{
