@@ -13,6 +13,11 @@ export class HttpRequestService {
     return this.http.get(URL + path);
   }
 
+  requestMethodDelete(path: string): Observable<any>{
+    console.log(`GET URL => ${URL + path}`);
+    return this.http.get(URL + path);
+  }
+
   requestMethodPOST(path: string, param: any): Observable<any> {
     const headers = new HttpHeaders({
       "Content-Type": `application/json`

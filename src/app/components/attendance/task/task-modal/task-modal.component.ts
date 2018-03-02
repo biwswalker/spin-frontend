@@ -115,6 +115,15 @@ export class TaskModalComponent {
   }
 
   deleteTask() {
-    this.taskService.removeTask(this.taskForm.task.taskId);
+    this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
+      res => {
+        console.log(res);
+        this.oncloseModal();
+      }, error => {
+        console.log(error)
+      }, () => {
+
+      }
+    )
   }
 }
