@@ -12,6 +12,7 @@ export class TaskTagComponent implements OnInit {
   public usedTagList: any[] = [];
   public tagList: any[] = [];
   public autoCompleteTagList: any[] = [];
+  public mode: string;
   constructor(
     private tagService: TagService
   ) { }

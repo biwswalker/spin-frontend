@@ -37,6 +37,11 @@ export class ProjectService {
   findTagsSummary(projectId,seqId){
     return this.request.requestMethodGET('task-management/sums-each-tags/project-id/'+projectId+'/phase-id/'+seqId);
   }
+  findProjectAbbrById(projectId) {
+    return this.findProjectById(projectId).map(project => {
+      return project.projectAbbr;
+    });
+  }
   // End find for display action
 
 

@@ -8,7 +8,7 @@ import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
 import { Task } from '../../../../../models/task';
 import { UtilsService } from '../../../../../providers/utils/utils.service';
-import { Format } from '../../../../../config/properties';
+import { Format, Mode } from '../../../../../config/properties';
 import { TaskService } from '../../../../../providers/task.service';
 import { AuthenticationService } from '../../../../../providers/authentication.service';
 declare var $: any;
@@ -37,6 +37,8 @@ export class TaskDetailComponent implements OnInit {
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
   public user: User;
+  public mode: string;
+
   constructor(
     private projectService: ProjectService,
     private taskService: TaskService,
@@ -65,25 +67,26 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail() {
-    if (this.user.userId == this.taskObj.ownerUserId) {
+    if (this.mode == Mode.E) {
+      console.log('edit');
       this.initialTaskForUpdate();
+    } else if (this.mode == Mode.V) {
+      console.log('View');
     } else {
-      this.initialTaskForCreate();
+      this.initialTime();
     }
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
   }
 
-  initialTaskForCreate() {
-    console.log('taskObj: ', this.taskObj);
-    this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
-    this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
-    this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
+  initialTime() {
+    this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
+    this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
+    this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
   }
 
   initialTaskForUpdate() {
-    console.log('initial Task For Update');
     this.topic = this.taskObj.topic;
     this.activity = this.taskObj.activity;
     this.statusFlag = (this.taskObj.statusFlag == 'I' ? true : false);
@@ -92,9 +95,11 @@ export class TaskDetailComponent implements OnInit {
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
     this.projectService.findProjectById(this.taskObj.projectId).subscribe(
       project => {
-        console.log(project);
+        this.project = project.projectName;
+        this.taskService.selectedProjectId.next(project.projectId);
       }
-    )
+    );
+    this.messageEvent.emit(this.taskObj.color);
   }
 
   onSelectCallBack(date: string) {

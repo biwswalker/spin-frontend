@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TimetableDayComponent } from './timetable-day/timetable-day.component';
 import { UtilsService } from '../../../providers/utils/utils.service';
+import { TaskService } from '../../../providers/task.service';
 
 @Component({
   selector: 'timestamp',
@@ -28,7 +29,7 @@ export class TimestampComponent implements OnInit {
 
   @ViewChild(TimetableDayComponent) timetableDayChild;
 
-  constructor(private utilsService: UtilsService) { }
+  constructor(private utilsService: UtilsService, private taskService: TaskService) { }
 
   ngOnInit() {
   }
@@ -36,11 +37,11 @@ export class TimestampComponent implements OnInit {
   onChangeDate(control) {
     let oldEnDate = this.timetableDayChild.enDateStr;
     if (control === 'next') {
-      this.timetableDayChild.subjectDate.next(this.utilsService.getNextDay(oldEnDate));
+      this.taskService.changeTimetableDate(this.utilsService.getNextDay(oldEnDate));
     } else if (control === 'prev') {
-      this.timetableDayChild.subjectDate.next(this.utilsService.getPreviousDay(oldEnDate));
+      this.taskService.changeTimetableDate(this.utilsService.getPreviousDay(oldEnDate));
     } else {
-      this.timetableDayChild.subjectDate.next(this.utilsService.getCurrentEnDate());
+      this.taskService.changeTimetableDate(this.utilsService.getCurrentEnDate());
     }
   }
 

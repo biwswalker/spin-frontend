@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { TaskForm } from '../forms/task-form';
 import { ProjectService } from './project.service';
 import { Project } from '../models/project';
+import { UtilsService } from './utils/utils.service';
 
 @Injectable()
 export class TaskService {
@@ -14,24 +15,33 @@ export class TaskService {
   private selectedTask = new BehaviorSubject<Task>(new Task);
   public currentTask = this.selectedTask.asObservable();
 
+  private isSelectTask = new BehaviorSubject<number>(0);
+  public currentIsSelectTask = this.isSelectTask.asObservable();
+
+  private viewTask = new BehaviorSubject<Task>(new Task);
+  public currentViewTask = this.viewTask.asObservable();
+
   public selectedProjectId = new BehaviorSubject<number>(0);
   public currentProjectId = this.selectedProjectId.asObservable();
   public autocompletePartner = this.selectedProjectId.asObservable();
 
-  constructor(private request: HttpRequestService, private projectSerive: ProjectService) { }
+  private timetableDate = new BehaviorSubject<string>(this.utilsService.getCurrentEnDate());
+  public currentTimetableDate = this.timetableDate.asObservable();
+
+  constructor(private request: HttpRequestService, private projectSerive: ProjectService, private utilsService: UtilsService) { }
 
   chageSelectedTask(selected: Task) {
     if (this.task.taskId) {
       if (selected.taskId === this.task.taskId) {
-        this.selectedTask.next(new Task());
+        this.isSelectTask.next(0);
         this.task = new Task();
       } else {
         this.task = selected;
-        this.selectedTask.next(selected);
+        this.isSelectTask.next(this.task.taskId);
       }
     } else {
       this.task = selected;
-      this.selectedTask.next(selected);
+      this.isSelectTask.next(this.task.taskId);
     }
   }
 
@@ -40,6 +50,14 @@ export class TaskService {
     this.task.workStartTime = start;
     this.task.workEndTime = end;
     this.selectedTask.next(this.task);
+  }
+
+  onViewTask(task: Task) {
+    this.viewTask.next(task);
+  }
+
+  changeTimetableDate(date) {
+    this.timetableDate.next(date);
   }
 
   findWorkingTaskByDate(date) {
@@ -68,5 +86,9 @@ export class TaskService {
 
   findUnStamped(year, month) {
     return this.request.requestMethodGET(`task-management/un-stamp-task/${year}/${month}`)
+  }
+
+  removeTask(taskId: number){
+    console.log(taskId);
   }
 }
