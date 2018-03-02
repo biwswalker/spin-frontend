@@ -1,4 +1,6 @@
+import { ProjectMember } from './../../../../models/project-member';
 import { Component, OnInit } from '@angular/core';
+import { ProjectService } from '../../../../providers/project.service';
 
 @Component({
   selector: 'app-prj-info-member',
@@ -7,12 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrjInfoMemberComponent implements OnInit {
 
-  constructor() { }
+  public projectMemberList: ProjectMember[] = [];
+  public projectId:string;
+  constructor(private projectService:ProjectService) { }
 
   ngOnInit() {
   }
 
-  displayProjectMember(projectId){
 
-  }
 }

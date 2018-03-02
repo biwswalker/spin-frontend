@@ -23,8 +23,7 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
 import { ProjectModalDetailComponent } from './components/project/project-modal/detail/project-modal-detail.component';
 import { ProjectModalPhaseComponent } from './components/project/project-modal/phase/project-modal-phase.component';
 import { ProjectModalMemberComponent } from './components/project/project-modal/member/project-modal-member.component';
-import { ExampleComponent } from './components/index/example/example.component';
-import { ComponentExampleComponent } from './components/index/component-example/component-example.component';
+import { ExampleComponent } from './components/example/example.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { TimestampComponent } from './components/attendance/timestamp/timestamp.component';
 import { TaskComponent } from './components/attendance/task/task.component';
@@ -78,7 +77,6 @@ import { ProjectNamePipe } from './pipes/project-name.pipe';
     TaskComponent,
     TaskModalComponent,
     ExampleComponent,
-    ComponentExampleComponent,
     AttendanceComponent,
     TimetableDayComponent,
     TimetableWeekComponent,

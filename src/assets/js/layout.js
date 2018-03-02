@@ -12,6 +12,10 @@ $(document).ready(function () {
     inlineDatepicker();
   });
 
+  $('#toggle-sidebar').on('click',function(){
+    $('#sidebar').toggleClass('active');
+  });
+
   function layoutGapDisplay($width) {
     if ($width > 1199 && $width < 1440) {
       $('.menu-space').removeClass('col-xl-2');
@@ -29,24 +33,11 @@ $(document).ready(function () {
   function menuDisplay($width) {
     if ($width > 767) {
       $('#sidebar').removeClass('active');
-    } else {
-      $('#sidebar').removeClass('active');
-      $('#sidebar').addClass('active');
     }
 
   }
 
-  $('#show-sidebar').on('click', function () {
-    $('#sidebar').removeClass('active');
-
-  });
-
-  $('#hide-sidebar').on('click', function () {
-    $('#sidebar').addClass('active');
-  });
-
 });
-
 function inlineDatepicker() {
   var dpInlineWidth = $('.ui-datepicker-inline > .ui-datepicker-calendar').width();
   let marginx2 = ((dpInlineWidth / 7) / 2) - 18;

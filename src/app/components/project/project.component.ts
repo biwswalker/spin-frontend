@@ -5,6 +5,7 @@ import { ProjectInfoComponent } from './project-info/project-info.component';
 import { AuthenticationService } from '../../providers/authentication.service';
 import { ProjectService } from '../../providers/project.service';
 import { EventService } from '../../providers/utils/event.service';
+import { Project } from '../../models/project';
 
 
 @Component({
@@ -32,7 +33,77 @@ export class ProjectComponent implements OnInit {
 
   passKeyToProjectDetail(projectId){
     console.log('passKeyToProjectDetail: '+projectId);
+    this.projectInfo.projectDetail.ngOnInit();
+    this.projectInfo.projectMember.ngOnInit();
+    this.projectInfo.projectSummary.ngOnInit();
     this.projectInfo.sendKeyToChilds(projectId);
+    this.displayProjectDetail(projectId);
+    this.displayProjectMember(projectId);
+
+  }
+  displayProjectDetail(projectId){
+    console.log('displayProjectDetail.....');
+    this.projectInfo.projectDetail.project = new Project;
+    this.projectInfo.projectDetail.projectPhases = [];
+    this.projectService.findProjectById(projectId).subscribe(
+      data=>{
+        if(data!)
+        this.projectInfo.projectDetail.project = data;
+      },err=>{
+        console.log(err);
+      }
+    );
+    this.projectService.findProjectPhaseById(projectId).subscribe(
+      data=>{
+        console.log('phase list:',data);
+        if(data!){
+          this.projectInfo.projectDetail.projectPhases = data;
+          this.projectInfo.projectSummary.projectPhases = data;
+          this.displayProjectSummary(projectId,data[0].id.seqId);
+        }
+
+      },err=>{
+        console.log(err);
+      }
+    );
+
   }
 
+  displayProjectMember(projectId){
+    this.projectInfo.projectMember.projectMemberList = [];
+    this.projectService.findProjectMemberById(projectId).subscribe(
+      data=>{
+        console.log('memberList: ',data);
+        this.projectInfo.projectMember.projectMemberList = data;
+      },err=>{
+        console.log('Exception: ',err);
+      }
+    )
+  }
+
+  displayProjectSummary(projectId,seqId){
+    console.log('projectId: '+projectId+'    phaseId: '+seqId);
+    this.projectService.findMemberSummary(projectId,seqId).subscribe(
+      data=>{
+        console.log(data);
+        if(data!){
+          this.projectInfo.projectSummary.memberSummary = data;
+        }
+      },err=>{
+        console.log('Exception: ',err);
+      }
+    );
+
+    this.projectService.findTagsSummary(projectId,seqId).subscribe(
+      data=>{
+        console.log(data);
+        if(data!){
+          this.projectInfo.projectSummary.tagsSummary = data;
+        }
+      },err=>{
+        console.log('Exception: ',err);
+      }
+    )
+
+  }
 }

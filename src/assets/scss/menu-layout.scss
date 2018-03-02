@@ -3,16 +3,18 @@
   margin-left: -250px;
 }
 
-
+.spin-sidebar{
+  padding: 0 !important;
+}
 #sidebar {
   /* don't forget to add all the previously mentioned styles here too */
-  width: 250px;
+  // width: 250px;
   background: #bf0013;
   color: #fff;
   transition: all 0.3s;
   position: -webkit-fixed;
   position: fixed;
-  z-index: 1021;
+  z-index: 500;
   top:0rem;
   height: calc(100vh) !important;
 
@@ -25,23 +27,21 @@
       color: #fff;
     }
     li {
-      padding-left: 1rem;
+      // padding-left: 1rem;
+      text-align: center;
       a {
-        padding: 10px;
+        padding: 1rem;
         font-size: 1.1em;
         display: block;
         color: #fff;
         i.fas{
           font-size: 2.5rem;
-          width: 2.5rem;
+
         }
         span.menu-title{
-          padding-left: 15px;
-          vertical-align: middle;
           font-size: 1.3rem;
           font-weight: 200;
-          display: inline-block;
-          margin-top: -1.5rem;
+          display: block;
         }
       }
     }
@@ -71,29 +71,19 @@
     max-height: calc(100vh - 4rem);
     overflow-y: auto;
 
-    margin-top: 2rem;
-    padding-bottom: 1rem;
+    margin-top: 5rem;
+    padding-bottom: 3rem;
   }
 }
 
-#show-sidebar {
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
-}
-#hide-sidebar{
+#toggle-sidebar{
   padding: 0.25rem 0.75rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
   transition: all 0.3s;
-  cursor: pointer;
-  float: right;
-  margin-top: 1rem;
-  margin-right: 0.5rem;
-
-}
-#hide-sidebar, #show-sidebar {
+  margin-top: 0.5rem;
   font-size: 1.5rem;
   line-height: 1;
   color:#fff;
@@ -132,36 +122,19 @@
   }
 }
 
-@include media-breakpoint-up(sm) {
-
-    .toggle-sidebar {
-      display: none;
-    }
-
+@include media-breakpoint-down(md) {
 
   .navbar{
-    .left-section{
-      visibility: hidden;
+    .nav-profile{
+      margin-left: 2.5rem;
     }
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(sm){
+  .spin-link{
 
-  .toggle-sidebar {
-    display: block;
-  }
-  #sidebar-brand{
-    background: transparent !important;
-  }
-
-  .navbar{
-    .left-section{
-      visibility: visible;
-    }
-    .nav-profile{
-      margin-left: 2.5rem;
-    }
+    margin-top: 8rem !important;
   }
 }
 

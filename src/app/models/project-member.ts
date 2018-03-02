@@ -7,7 +7,7 @@ export class ProjectMember{
   public remark: string;
   public activeFlag: string;
   public versionId: number;
-
+  public respName:string;
   //use for store data
   public user:User;
   public responsibility: Responsibility;

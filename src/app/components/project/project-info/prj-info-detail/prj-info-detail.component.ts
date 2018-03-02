@@ -10,32 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrjInfoDetailComponent implements OnInit {
 
-  project:Project = new Project;
-  phases:ProjectPhase[] = [];
+  public project:Project = new Project;
+  public projectPhases:ProjectPhase[] = [];
+  public projectId:string;
   constructor(private projectService:ProjectService) { }
 
   ngOnInit() {
   }
 
-  displayProjectDetail(projectId){
-    console.log('displayProjectDetail.....');
-    this.projectService.findProjectById(projectId).subscribe(
-      data=>{
-        if(data!)
-        this.project = data;
-      },err=>{
-        console.log(err);
-      }
-    );
-    this.projectService.findProjectPhaseById(projectId).subscribe(
-      data=>{
-        if(data!)
-        this.phases = data;
-      },err=>{
-        console.log(err);
-      }
-    );
 
-  }
 
 }

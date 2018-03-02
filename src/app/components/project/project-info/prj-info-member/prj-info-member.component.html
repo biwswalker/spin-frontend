@@ -1,40 +1,15 @@
 <div class="row">
   <div class="col-12">
-    <span class="total-member">10</span><span> รายการ</span>
+    <span class="total-member">{{projectMemberList.length || 0}}</span><span> รายการ</span>
   </div>
 </div>
 <div class="row">
   <div class="col-12">
       <ul class="list-group list-group-flush member-list">
-          <li class="list-group-item member-item">
+          <li class="list-group-item member-item" *ngFor="let mem of projectMemberList">
             <img class="profile-img rounded-circle float-left mr-2" src="assets/img/profile/profile.jpg" width="50" height="50">
-            <span class="member-name d-block">ปริวัตร วิริยะพันธ์</span>
-            <span class="member-role d-block">Developer</span>
-          </li>
-          <li class="list-group-item member-item">
-              <img class="profile-img rounded-circle float-left mr-2" src="assets/img/profile/profile.jpg" width="50" height="50">
-              <span class="member-name d-block">ปริวัตร วิริยะพันธ์</span>
-              <span class="member-role d-block">Developer</span>
-          </li>
-          <li class="list-group-item member-item">
-              <img class="profile-img rounded-circle float-left mr-2" src="assets/img/profile/profile.jpg" width="50" height="50">
-              <span class="member-name d-block">ปริวัตร วิริยะพันธ์</span>
-              <span class="member-role d-block">Developer</span>
-          </li>
-          <li class="list-group-item member-item">
-              <img class="profile-img rounded-circle float-left mr-2" src="assets/img/profile/profile.jpg" width="50" height="50">
-              <span class="member-name d-block">ปริวัตร วิริยะพันธ์</span>
-              <span class="member-role d-block">Developer</span>
-          </li>
-          <li class="list-group-item member-item">
-              <img class="profile-img rounded-circle float-left mr-2" src="assets/img/profile/profile.jpg" width="50" height="50">
-              <span class="member-name d-block">ปริวัตร วิริยะพันธ์</span>
-              <span class="member-role d-block">Developer</span>
-          </li>
-          <li class="list-group-item member-item">
-              <img class="profile-img rounded-circle float-left mr-2" src="assets/img/profile/profile.jpg" width="50" height="50">
-              <span class="member-name d-block">ปริวัตร วิริยะพันธ์</span>
-              <span class="member-role d-block">Developer</span>
+            <span class="member-name d-block">{{mem.user.officer.firstNameTh}} {{mem.user.officer.lastNameTh}}</span>
+            <span class="member-role d-block">{{mem.respName}}</span>
           </li>
         </ul>
   </div>
