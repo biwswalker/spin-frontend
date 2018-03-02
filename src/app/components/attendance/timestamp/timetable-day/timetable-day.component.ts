@@ -1,6 +1,5 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { TaskService } from '../../../../providers/task.service';
-import { TaskModalComponent } from '../../task/task-modal/task-modal.component';
 import { Task } from '../../../../models/task';
 import { WorkingTime } from '../../../../config/properties';
 import { UtilsService } from '../../../../providers/utils/utils.service';
@@ -14,28 +13,27 @@ declare var $: any;
   templateUrl: './timetable-day.component.html',
   styleUrls: ['./timetable-day.component.scss']
 })
-export class TimetableDayComponent implements OnInit {
-
-  @ViewChild(TaskModalComponent) taskModalChild;
+export class TimetableDayComponent implements AfterViewInit {
 
   // Get time list
   public worktable = WorkingTime
   public enDateStr = '';
-  private subjectDate = new BehaviorSubject<string>(this.utilsService.getCurrentEnDate());
-  private crrEnDate = this.subjectDate.asObservable();
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
     // Async
-    this.crrEnDate.subscribe(enDate => {
+    this.taskService.currentTimetableDate.subscribe(enDate => {
       this.enDateStr = enDate;
       this.fecthWorkingTaskByDate(enDate)
     })
     // End Async
   }
 
-  ngOnInit() {
-    // Initial Timestamp
+  ngAfterViewInit(): void {
     this.spinTimestamp();
+
+    $('#timetable-task').on('click', '.child', function () {
+      console.log("click");
+    });
   }
 
   fecthWorkingTaskByDate(enDate: string) {
@@ -62,13 +60,14 @@ export class TimetableDayComponent implements OnInit {
           for (let i = startIndex; i <= endIndex; i++) {
             $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
           }
-          $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' (click)="onViewTask()" style='cursor: pointer;'></div>`);
+          $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
           $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
         <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
         <p class="text-truncate m-0 stamp-activity">${task.activity}</p>        
         <p class="text-truncate colla-display m-0"><i class="fas fa-users"></i></p>        
       </div>`);
           $(`.${overlayClass}`).addClass('stamp-box')
+          $(`.${overlapClass}`).click(() => this.onViewTask(task));
           index++;
         }
       }
@@ -138,28 +137,24 @@ export class TimetableDayComponent implements OnInit {
             startWorkingTime = convertTimeString(starttime);
             endWorkingTime = convertTimeString(endtime);
           }
-          // Call TS fucntion
-          self.taskService.updateCurrentTimeTask(this.utilsService.convertEnDateToTh(this.enDateStr), startWorkingTime, endWorkingTime)
-
-          // Call Modal
-          self.commitDataTaskModal();
           let modal = new SpinModal();
           modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
           $('#task-modal').on("hidden.bs.modal", function () {
             $('.timestamp .ui-selected').removeClass('ui-selected')
           })
+          // Call TS fucntion
+          self.taskService.updateCurrentTimeTask(this.utilsService.convertEnDateToTh(this.enDateStr), startWorkingTime, endWorkingTime)
         }
       },
     });
   }
 
-  commitDataTaskModal() {
-    this.taskModalChild.onTimestampCommit();
+  onViewTask(task) {
+    let modal = new SpinModal();
+    modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
+    $('#task-modal').on("hidden.bs.modal", function () {
+    })
+    this.taskService.onViewTask(task);
   }
-
-  onViewTask() {
-    console.log('onViewTask')
-  }
-
 
 }

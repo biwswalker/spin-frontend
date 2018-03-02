@@ -12,7 +12,9 @@ import { UtilsService } from '../../../../providers/utils/utils.service';
 import { EventMessagesService } from '../../../../providers/utils/event-messages.service';
 import { AuthenticationService } from '../../../../providers/authentication.service';
 import { User } from '../../../../models/user';
+import { Mode } from '../../../../config/properties';
 declare var SpinModal: any;
+declare var $: any;
 
 @Component({
   selector: 'app-task-modal',
@@ -36,27 +38,37 @@ export class TaskModalComponent {
     private utilsService: UtilsService,
     private eventMessageService: EventMessagesService,
     private auth: AuthenticationService) {
+    // Get User
     this.auth.crrUser.subscribe(user => {
       this.user = user;
     })
+
+    // Get task on stamp
+    this.taskService.currentTask.subscribe((task: Task) => {
+      if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
+        this.onTaskHasSelected(task, Mode.I);
+      }
+    })
+
+    // Get Task on View or Edit
+    this.taskService.currentViewTask.subscribe((task: Task) => {
+      if (task.taskId) {
+        this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
+      }
+    })
   }
 
-  onTimestampCommit() {
+  onTaskHasSelected(task: Task, mode: string) {
+    console.log(mode)
     this.taskDetailChild.projectObj = new Project();
     this.taskDetailChild.taskObj = new Task();
-    this.taskService.currentTask.subscribe(
-      (selectedTask: Task) => {
-        this.taskForm.task = new Task();
-        if (this.user.userId == selectedTask.ownerUserId) {
-          this.taskDetailChild.mode = 'E';
-          this.taskPartnerChild.mode = 'E';
-          this.taskTagChild.mode = 'E';
-        }
-        this.taskForm.task = selectedTask;
-        this.taskDetailChild.taskObj = this.taskForm.task;
-        this.taskDetailChild.projectObj = this.taskForm.taskProject;
-        this.taskDetailChild.initTaskDetail();
-      });
+    this.taskForm.task = task;
+    this.taskDetailChild.mode = mode;
+    this.taskPartnerChild.mode = mode;
+    this.taskTagChild.mode = mode;
+    this.taskDetailChild.taskObj = this.taskForm.task;
+    this.taskDetailChild.projectObj = this.taskForm.taskProject;
+    this.taskDetailChild.initTaskDetail();
   }
 
   onSubmit() {
@@ -88,7 +100,11 @@ export class TaskModalComponent {
       }
       console.log(this.task)
       this.createNewTask(this.task);
-      window.location.reload();
+      let self = this;
+      $('#task-modal').on("hidden.bs.modal", function () {
+        $('.timestamp .ui-selected').removeClass('ui-selected');
+        self.taskService.changeTimetableDate(self.utilsService.getCurrentEnDate());
+      })
     }
   }
 

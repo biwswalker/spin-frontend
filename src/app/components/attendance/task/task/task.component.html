@@ -1,12 +1,12 @@
 <div class="nav flex-column task-list"
-     (click)="onselectTask()">
+     >
   <li class="nav-item">
-    <div class="card task-card selection" [ngClass]="selected ? 'selected' : ''">
+    <div class="card task-card selection" [ngClass]="selected ? 'selected' : ''" (click)="onselectTask()">
       <div class="card-body">
-        <span>{{source.workDate | thaiDate:'calendar'}}</span>
+        <span>{{source.workStartTime | time}} - {{source.workEndTime | time}}</span>
         <button type="button"
                 (click)="onView()"
-                class="btn btn-outline-info float-right">
+                class="btn btn-outline-info float-right btn-view">
           <i class="fas fa-external-link-square-alt"></i> view</button>
         <h6 class="card-title text-truncate">{{source.topic}}</h6>
         <p class="card-text text-truncate">{{source.activity}}</p>
@@ -19,8 +19,8 @@
         </div>
       </div>
       <div class="card-footer" [ngClass]="source.color">
-        <div class="task-project float-left" *ngIf="source.prijectId!">
-          #{{source.prijectId | projectName}}
+        <div class="task-project float-left text-truncate" *ngIf="source.projectId!">
+          #{{source.projectId | projectName | async}}
         </div>
         <div class="task-tags">
           <span class="badge badge-pill badge-tags">Development</span>

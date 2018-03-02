@@ -62,6 +62,7 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 // Pipe
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
 import { ProjectNamePipe } from './pipes/project-name.pipe';
+import { TimePipe } from './pipes/time.pipe';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { ProjectNamePipe } from './pipes/project-name.pipe';
     PrjInfoSummaryComponent,
     ThaiDatePipe,
     ProjectNamePipe,
+    TimePipe,
   ],
   imports: [
     BrowserModule,
