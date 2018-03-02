@@ -208,5 +208,5 @@ $switch-transition: .2s all !default;
  @include custom-toggle('task-color-toggle','ไม่','ใช่');
  @include custom-toggle('status-flag','ไม่','ใช่');
  @include custom-toggle('switch','OFF','ON');
-
+ @include custom-toggle('do-self-flag','ไม่','ใช่');
 

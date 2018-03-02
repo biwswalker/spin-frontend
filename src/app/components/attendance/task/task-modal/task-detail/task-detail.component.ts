@@ -1,3 +1,4 @@
+import { User } from './../../../../../models/user';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TaskModalComponent } from './../task-modal.component';
@@ -7,8 +8,9 @@ import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
 import { Task } from '../../../../../models/task';
 import { UtilsService } from '../../../../../providers/utils/utils.service';
-import { Format } from '../../../../../config/properties';
+import { Format, Mode } from '../../../../../config/properties';
 import { TaskService } from '../../../../../providers/task.service';
+import { AuthenticationService } from '../../../../../providers/authentication.service';
 declare var $: any;
 
 @Component({
@@ -21,24 +23,31 @@ export class TaskDetailComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
 
-  public taskObj = new Task();
-  public projectObj = new Project();
-  public statusFlag = false;
-  public colorFlag = '';
-  public workStartTime = '';
-  public workEndTime = '';
-  public workDate = '';
-  public topic = '';
-  public activity = '';
-  public projectId: number;
+  public taskObj: Task = new Task();
+  public projectObj: Project = new Project();
+  public statusFlag: boolean = false;
+  public colorFlag: string = '';
+  public workStartTime: string = '';
+  public workEndTime: string = '';
+  public workDate: string = '';
+  public topic: string = '';
+  public activity: string = '';
+  public projectId: number = 0;
   public project = '';
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
+  public user: User;
+  public mode: string;
 
   constructor(
     private projectService: ProjectService,
     private taskService: TaskService,
-    private utilsService: UtilsService) { }
+    private utilsService: UtilsService,
+    private auth: AuthenticationService) {
+    this.auth.crrUser.subscribe(user => {
+      this.user = user;
+    })
+  }
 
   ngOnInit() {
     console.log('oninit')
@@ -48,37 +57,65 @@ export class TaskDetailComponent implements OnInit {
     this.validateData();
   }
 
+  findProject() {
+    this.projectService.fetchProjectAutocomplete().subscribe(
+      data => {
+        this.projectList = data;
+        console.log('projectList: ', this.projectList);
+      }
+    )
+  }
+
   initTaskDetail() {
-    this.taskObj.color = 'primary';
-    this.project = '';
-    this.activity = '';
-    this.topic = '';
-    this.workDate = '';
-    this.workStartTime = '';
-    this.workEndTime = '';
-    this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime): '';
-    this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime): '';
-    this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate): '';
+    if (this.mode == Mode.E) {
+      console.log('edit');
+      this.initialTaskForUpdate();
+    } else if (this.mode == Mode.V) {
+      console.log('View');
+    } else {
+      this.initialTime();
+    }
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
   }
 
+  initialTime() {
+    this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
+    this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
+    this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
+  }
+
+  initialTaskForUpdate() {
+    this.topic = this.taskObj.topic;
+    this.activity = this.taskObj.activity;
+    this.statusFlag = (this.taskObj.statusFlag == 'I' ? true : false);
+    this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
+    this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
+    this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
+    this.projectService.findProjectById(this.taskObj.projectId).subscribe(
+      project => {
+        this.project = project.projectName;
+        this.taskService.selectedProjectId.next(project.projectId);
+      }
+    );
+    this.messageEvent.emit(this.taskObj.color);
+  }
+
   onSelectCallBack(date: string) {
-    this.workDate = date;
-    console.log(date);
+    this.taskDetailFormGroup.setValue({ taskDetailWorkDate: date });
   }
 
   validateData() {
     this.taskDetailFormGroup = new FormGroup({
-        taskDetailStatusFlag: new FormControl(this.statusFlag),
-        taskDetailWorkDate: new FormControl(this.workDate, Validators.required),
-        taskDetailStartTime: new FormControl(this.workStartTime, Validators.required),
-        taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
-        taskDetailTopic: new FormControl(this.topic, Validators.required),
-        taskDetailActivity: new FormControl(this.activity, Validators.required),
-        taskDetailProject: new FormControl(this.project, Validators.required)
-      });
+      taskDetailStatusFlag: new FormControl(this.statusFlag),
+      taskDetailWorkDate: new FormControl(this.workDate, Validators.required),
+      taskDetailStartTime: new FormControl(this.workStartTime, Validators.required),
+      taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
+      taskDetailTopic: new FormControl(this.topic, Validators.required),
+      taskDetailActivity: new FormControl(this.activity, Validators.required),
+      taskDetailProject: new FormControl(this.project, Validators.required)
+    });
   }
 
   onColorPick(color) {
@@ -88,22 +125,16 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  findProject() {
-    this.projectService.fetchProjectAutocomplete().subscribe(
-      data => {
-        this.projectList = data;
-      }
-    )
-  }
-
   onChangeProject(event) {
-    this.projectId = event.item.projectId;
-    this.taskService.selectedProjectId.next(this.projectId);
+    if (this.projectId != event.item.projectId) {
+      this.projectId = event.item.projectId;
+      this.taskService.selectedProjectId.next(this.projectId);
+    }
   }
 
   getColorStatus(status) {
     console.log(status)
   }
-}
 
+}
 

@@ -1,15 +1,18 @@
 <div class="container">
-    <div class="header">
-        <div class="row">
-            <div class="col-11">
-                <p>{{owner}}</p>
-            </div>
-            <div class="col-1">
-              <input type="checkbox"
-                class="form-control"
-                name="do-self-flag"
-                id="do-self-flag"
-                [(ngModel)]="doSelfFlag">
+    <div class="row">
+        <div class="col d-flex">
+            <div class="ml-auto">
+                <label>{{owner}}</label>
+                <span class="do-self-flag">
+                <input class="switch"
+                       type="checkbox"
+                       id="do-self-flag"
+                       name="do-self-flag"
+                       [(ngModel)]="doSelfFlag">
+                <label for="do-self-flag">
+                    <span></span>
+                </label>
+                </span>
             </div>
         </div>
     </div>
@@ -19,18 +22,25 @@
         </div>
         <div class="col-12 rounded bg-white text-dark scroll-auto">
             <div id="member-list" *ngFor="let obj of taskMember">
-                <input type="checkbox" name="member-status" id="member-status" [(ngModel)]="obj.status"> {{obj.user.email}}
+                <input type="checkbox"
+                  name="member-status"
+                  id="member-status"
+                  [(ngModel)]="obj.status">
+                    {{obj.email}}
             </div>
         </div>
     </div>
 
-    <!-- <label>ผู้ร่วมงาน</label>
-     <div class="row">
+    <label>ผู้ร่วมงาน</label>
+    <div class="row">
         <div class=" col-12 scroll-auto bg-white rounded text-dark">
             <div *ngIf="taskPartner">
-                <div id="partner-list" name="partner-list" *ngFor="let obj of taskPartner">
+                <div id="partner-list"
+                  name="partner-list"
+                  *ngFor="let obj of taskPartner">
                     {{obj.email}}
-                    <a (click)="deletePartner(obj)" class="fas fa-times-circle">
+                    <a class="fas fa-times-circle"
+                      (click)="deletePartner(obj)" >
                     </a>
                 </div>
             </div>
@@ -38,15 +48,17 @@
     </div>
     <div class="row">
         <div class="col">
-            <input class="form-control"
+            <input
+              class="form-control"
               id="autocompletePartner"
               [(ngModel)]="partner"
               [typeahead]="autocompletePartnerList"
               typeaheadOptionField="email"
               [typeaheadItemTemplate]="customItemTemplate"
               [typeaheadScrollable]="true"
+              [typeaheadMinLength]="0"
               [typeaheadOptionsInScrollableView]="5"
-              (typeaheadOnSelect)="onSelect($event)">
+                (typeaheadOnSelect)="onSelect($event)">
             <ng-template #customItemTemplate let-model="item" let-index="index">
                 <h6>{{model.email}}</h6>
             </ng-template>
@@ -54,5 +66,5 @@
         <div class="col-2">
             <button type="button" class="btn btn-success" id="add-partner-btn" (click)="addPartner()">เพิ่ม</button>
         </div>
-    </div> -->
+    </div>
 </div>

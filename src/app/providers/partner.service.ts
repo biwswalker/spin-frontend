@@ -19,4 +19,8 @@ export class PartnerService {
     console.log(prjId)
       return this.request.requestMethodGET('user-management/users/project-id/'+ prjId);
   }
+
+  findByTaskId(taskId: number){
+    return this.request.requestMethodGET('taskpartner-management/taskpartner/' + taskId);
+  }
 }

@@ -175,9 +175,4 @@ export class UtilsService {
     return ` ${date} ${month} ${year}`
   }
 
-  displayHours(mins:number){
-    let hours = Math.floor(mins / 60);
-    return hours;
-  }
-
 }

@@ -8,6 +8,10 @@ export class TagService {
 
   findUsedTag(){
     console.log('findtag')
-    return this.request.requestMethodGET('/tag-management/tags');
+    return this.request.requestMethodGET('tag-management/tags');
+  }
+
+  findAll(){
+    return this.request.requestMethodGET('tag-management/tags/active-flag/A')
   }
 }

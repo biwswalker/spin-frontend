@@ -22,7 +22,6 @@
             <input class="form-control"
               type="text"
               name="datepicker"
-              [(ngModel)]="workDate"
               formControlName="taskDetailWorkDate"
               id="datepicker">
         </div>
@@ -50,6 +49,7 @@
             <input class="form-control"
               type="text"
               name="topic"
+              maxlength="500"
               formControlName="taskDetailTopic"
               id="topic">
         </div>
@@ -61,6 +61,7 @@
               rows="3"
               id="activity"
               name="activity"
+              maxlength="1000"
               formControlName="taskDetailActivity">
         </textarea>
         </div>
@@ -76,6 +77,7 @@
               typeaheadOptionField="projectName"
               [typeaheadItemTemplate]="customItemTemplate"
               [typeaheadScrollable]="true"
+              [typeaheadMinLength]="0"
               [typeaheadOptionsInScrollableView]="5"
               (typeaheadOnSelect)="onChangeProject($event)">
             <ng-template #customItemTemplate let-model="item" let-index="index">
@@ -84,33 +86,39 @@
         </div>
     </div>
 </form>
+
+<div class="fixed-bottom">
 <div class="row">
-    <div class=" col-12">
-        <div class="col">
-            <label>สีพื้นหลัง</label>
-        </div>
-        <div class="row">
-            <div class="col">
-                <a class="btn btn-primary color-picker" (click)="onColorPick('primary')" id="corlor">
-                </a>
-                <a class="btn btn-success color-picker" (click)="onColorPick('success')" id="corlor">
-                </a>
-                <a class="btn btn-danger color-picker" (click)="onColorPick('danger')" id="corlor">
-                </a>
-                <a class="btn btn-orange color-picker" (click)="onColorPick('orange')" id="corlor">
-                </a>
-                <a class="btn btn-secondary color-picker" (click)="onColorPick('secondary')" id="corlor">
-                </a>
-                <a class="btn btn-info color-picker" (click)="onColorPick('info')" id="corlor">
-                </a>
-                <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor">
-                </a>
-            </div>
-        </div>
-    </div>
+          <div class=" col-12">
+              <div class="col">
+                  <label>สีพื้นหลัง</label>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      <a class="btn btn-primary color-picker" (click)="onColorPick('primary')" id="corlor">
+                      </a>
+                      <a class="btn btn-success color-picker" (click)="onColorPick('success')" id="corlor">
+                      </a>
+                      <a class="btn btn-danger color-picker" (click)="onColorPick('danger')" id="corlor">
+                      </a>
+                      <a class="btn btn-orange color-picker" (click)="onColorPick('orange')" id="corlor">
+                      </a>
+                      <a class="btn btn-secondary color-picker" (click)="onColorPick('secondary')" id="corlor">
+                      </a>
+                      <a class="btn btn-info color-picker" (click)="onColorPick('info')" id="corlor">
+                      </a>
+                      <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor">
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
 </div>
 
-<div class="row row">
+
+
+
+<!-- <div class="row row">
     <div class=" col d-flex">
         <div class="ml-auto">
             <label>กำหนดเป็นค่าเริ่มต้น</label>
@@ -126,4 +134,4 @@
             </span>
         </div>
     </div>
-</div>
+</div> -->

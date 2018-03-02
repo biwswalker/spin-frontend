@@ -1,4 +1,4 @@
-
+$white: #fff;
 #sidebar.active {
   margin-left: -250px;
 }
@@ -7,48 +7,15 @@
   padding: 0 !important;
 }
 #sidebar {
-  /* don't forget to add all the previously mentioned styles here too */
-  // width: 250px;
   background: #bf0013;
-  color: #fff;
   transition: all 0.3s;
   position: -webkit-fixed;
   position: fixed;
-  z-index: 500;
+  z-index: 70;
   top:0rem;
   height: calc(100vh) !important;
 
-    p {
-      color: #fff;
-      padding: 10px;
-    }
 
-    li.active > a, a[aria-expanded="true"] {
-      color: #fff;
-    }
-    li {
-      // padding-left: 1rem;
-      text-align: center;
-      a {
-        padding: 1rem;
-        font-size: 1.1em;
-        display: block;
-        color: #fff;
-        i.fas{
-          font-size: 2.5rem;
-
-        }
-        span.menu-title{
-          font-size: 1.3rem;
-          font-weight: 200;
-          display: block;
-        }
-      }
-    }
-    li:hover{
-      background: rgba(0, 0, 0, 0.3);
-      transition: all 0.3s;
-    }
 
 
   .sidebar-header {
@@ -61,7 +28,7 @@
         display: inline-block;
         font-size: 2rem;
         font-weight: 700;
-        color:#fff !important;
+        color:$white !important;
       }
     }
   }
@@ -71,32 +38,61 @@
     max-height: calc(100vh - 4rem);
     overflow-y: auto;
 
-    margin-top: 4rem;
+    margin-top: 5rem;
     padding-bottom: 3rem;
+
+    p {
+      color: rgba(0, 0, 0, 0.6);;
+      padding: 10px;
+    }
+    li {
+      // padding-left: 1rem;
+      text-align: center;
+      transition: all 0.3s;
+      a {
+        padding: 0.5rem;
+        display: block;
+        color: rgba(0, 0, 0, 0.6);
+        i.fas{
+          font-size: 2.5rem;
+
+        }
+        span.menu-title{
+          font-size: 0.8rem;
+          font-weight: 200;
+          display: block;
+        }
+      }
+    }
+    li:hover{
+      background: rgba(0, 0, 0, 0.3);
+      transition: all 0.3s;
+      a{
+        color:$white !important;
+      }
+
+    }
+    li.active{
+      a{
+        color:$white !important;
+        font-weight: 400;
+      }
+
+    }
   }
 }
 
-#show-sidebar {
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
-}
-#hide-sidebar{
+#toggle-sidebar{
   padding: 0.25rem 0.75rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
   transition: all 0.3s;
-  cursor: pointer;
-  float: right;
-  margin-top: 1rem;
-  margin-right: 0.5rem;
-
-}
-#hide-sidebar, #show-sidebar {
+  margin-top: 0.5rem;
   font-size: 1.5rem;
   line-height: 1;
-  color:#fff;
+  color:$white;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
@@ -104,11 +100,13 @@
   cursor: pointer;
 
 }
-
+.spin-navbar{
+  z-index: 80;
+}
 .navbar{
   min-height: 70px;
   .account-box{
-    color:#fff;
+    color:$white;
     display: inline-block;
     .user-name{
       font-weight: 500;
@@ -128,54 +126,23 @@
 }
   .dropdown-toggle::after{
     vertical-align: 1.3em;
-    color:#fff;
+    color:$white;
   }
 }
 
-@include media-breakpoint-up(md) {
-
-    .toggle-sidebar {
-      display: none;
-    }
-
+@include media-breakpoint-down(sm) {
 
   .navbar{
-    .left-section{
-      visibility: hidden;
-    }
-  }
-}
-
-@include media-breakpoint-down(md) {
-  #sidebar{
-    width: 200px;
-  }
-  .toggle-sidebar {
-    display: block;
-  }
-  #sidebar-brand{
-    background: transparent !important;
-  }
-
-  .navbar{
-    .left-section{
-      visibility: visible;
-    }
     .nav-profile{
       margin-left: 2.5rem;
     }
   }
 }
 
+@include media-breakpoint-down(sm){
 
+  .spin-link{
+    margin-top: 8rem !important;
+  }
+}
 
-
-// @mixin modal-header-color($class,$color){
-//   .modal-header-#{$class}{
-//     background:$color;
-//   }
-// }
-
-
-// @include modal-header-color('project','#fff');
-// @include modal-header-color('task','#000');

@@ -28,6 +28,7 @@ export class TaskModalComponent {
   public taskForm: TaskForm = new TaskForm();
   private modal = new SpinModal();
   private user = new User();
+
   @ViewChild(TaskDetailComponent) taskDetailChild;
   @ViewChild(TaskPartnerComponent) taskPartnerChild;
   @ViewChild(TaskTagComponent) taskTagChild;
@@ -62,6 +63,9 @@ export class TaskModalComponent {
     this.taskDetailChild.projectObj = new Project();
     this.taskDetailChild.taskObj = new Task();
     this.taskForm.task = task;
+    this.taskDetailChild.mode = mode;
+    this.taskPartnerChild.mode = mode;
+    this.taskTagChild.mode = mode;
     this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.projectObj = this.taskForm.taskProject;
     this.taskDetailChild.initTaskDetail();
@@ -83,12 +87,14 @@ export class TaskModalComponent {
       this.task.taskPartnerList = [];
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
-          this.task.taskPartnerList.push({ id: { userId: obj.user.userId } });
+          this.task.taskPartnerList.push({ id: { userId: obj.userId } });
         }
       }
-      // for (let obj of this.taskForm.taskPartner) {
-      //   this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
-      // }
+      if (this.taskPartnerChild.taskPartner) {
+        for (let obj of this.taskPartnerChild.taskPartner) {
+          this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
+        }
+      }
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
@@ -122,5 +128,9 @@ export class TaskModalComponent {
 
   receiveMessage(event) {
     this.bgColor = event;
+  }
+
+  deleteTask() {
+    this.taskService.removeTask(this.taskForm.task.taskId);
   }
 }

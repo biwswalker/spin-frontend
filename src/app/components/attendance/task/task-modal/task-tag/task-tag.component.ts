@@ -12,12 +12,15 @@ export class TaskTagComponent implements OnInit {
   public usedTagList: any[] = [];
   public tagList: any[] = [];
   public autoCompleteTagList: any[] = [];
+  public mode: string;
   constructor(
     private tagService: TagService
   ) { }
 
   ngOnInit() {
+    this.tagList = [];
     this.findUsedTag();
+    this.initialAutocompleteTagList();
   }
 
   findUsedTag(){
@@ -26,6 +29,15 @@ export class TaskTagComponent implements OnInit {
         for(let obj of data){
           this.usedTagList.push({display: obj.tagName, value: obj.tagName});
         }
+      }
+    )
+  }
+
+  initialAutocompleteTagList(){
+    this.tagService.findAll().subscribe(
+      data=>{
+        console.log('tagList: ', data);
+        this.autoCompleteTagList = data;
       }
     )
   }
