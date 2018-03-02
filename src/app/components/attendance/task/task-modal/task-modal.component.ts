@@ -47,13 +47,17 @@ export class TaskModalComponent {
       (selectedTask: Task) => {
         console.log(selectedTask)
         this.taskForm.task = selectedTask;
+        console.log(this.taskForm.task);
+        console.log(this.taskForm.taskProject)
         this.taskDetailChild.taskObj = this.taskForm.task;
         this.taskDetailChild.projectObj = this.taskForm.taskProject;
         this.taskDetailChild.initTaskDetail();
-      })
+      });
   }
 
   onSubmit() {
+    console.log(this.taskDetailChild.taskDetailFormGroup.value);
+    console.log(this.taskDetailChild.taskDetailFormGroup.valid);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
@@ -69,12 +73,14 @@ export class TaskModalComponent {
       this.task.taskPartnerList = [];
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
-          this.task.taskPartnerList.push({ id: { userId: obj.user.userId } });
+          this.task.taskPartnerList.push({ id: { userId: obj.userId } });
         }
       }
-      // for (let obj of this.taskForm.taskPartner) {
-      //   this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
-      // }
+      if(this.taskPartnerChild.taskPartner){
+        for (let obj of this.taskPartnerChild.taskPartner) {
+          this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
+        }
+      }
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
