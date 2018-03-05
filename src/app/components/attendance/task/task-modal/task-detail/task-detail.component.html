@@ -1,25 +1,25 @@
 <form [formGroup]="taskDetailFormGroup">
-    <div class="row">
-        <div class="col d-flex">
-            <div class="ml-auto">
-                <label>สิ้นสุดการทำงาน</label>
-                <span class="status-flag">
-                    <input class="switch"
-                           type="checkbox"
-                           id="status-flag"
-                           name="status-flag"
-                           formControlName="taskDetailStatusFlag">
-                    <label for="status-flag">
-                        <span></span>
-                </label>
-                </span>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col d-flex">
+      <div class="ml-auto">
+        <label>สิ้นสุดการทำงาน</label>
+        <span class="status-flag">
+          <input class="switch"
+            type="checkbox"
+            id="status-flag"
+            name="status-flag"
+            formControlName="taskDetailStatusFlag">
+              <label for="status-flag">
+                <span></span>
+              </label>
+        </span>
+      </div>
     </div>
+  </div>
     <div class="row">
-        <div class="col-6">
-            <label>วันที่ *</label>
-            <input class="form-control"
+      <div class="col-6">
+        <label>วันที่ *</label>
+        <input class="form-control"
               type="text"
               name="datepicker"
               formControlName="taskDetailWorkDate"
@@ -87,34 +87,32 @@
     </div>
 </form>
 
-<div class="fixed-bottom">
 <div class="row">
-          <div class=" col-12">
-              <div class="col">
-                  <label>สีพื้นหลัง</label>
-              </div>
-              <div class="row">
-                  <div class="col">
-                      <a class="btn btn-primary color-picker" (click)="onColorPick('primary')" id="corlor">
-                      </a>
-                      <a class="btn btn-success color-picker" (click)="onColorPick('success')" id="corlor">
-                      </a>
-                      <a class="btn btn-danger color-picker" (click)="onColorPick('danger')" id="corlor">
-                      </a>
-                      <a class="btn btn-orange color-picker" (click)="onColorPick('orange')" id="corlor">
-                      </a>
-                      <a class="btn btn-secondary color-picker" (click)="onColorPick('secondary')" id="corlor">
-                      </a>
-                      <a class="btn btn-info color-picker" (click)="onColorPick('info')" id="corlor">
-                      </a>
-                      <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor">
-                      </a>
-                  </div>
-              </div>
-          </div>
-      </div>
+  <div class="col">
+      <nav class="nav">
+        <a href="" class="nav-link" *ngFor="let obj of favProjectList">
+          {{obj}}
+        </a>
+      </nav>
+  </div>
 </div>
 
+<div class="row">
+  <div class="col">
+    <label>สีพื้นหลัง</label>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <a class="btn btn-primary color-picker" (click)="onColorPick('primary')" id="corlor"></a>
+    <a class="btn btn-success color-picker" (click)="onColorPick('success')" id="corlor"></a>
+    <a class="btn btn-danger color-picker" (click)="onColorPick('danger')" id="corlor"></a>
+    <a class="btn btn-orange color-picker" (click)="onColorPick('orange')" id="corlor"></a>
+    <a class="btn btn-secondary color-picker" (click)="onColorPick('secondary')" id="corlor"></a>
+    <a class="btn btn-info color-picker" (click)="onColorPick('info')" id="corlor"></a>
+    <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor"></a>
+  </div>
+</div>
 
 
 

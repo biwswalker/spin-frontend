@@ -33,11 +33,12 @@ export class TaskDetailComponent implements OnInit {
   public topic: string = '';
   public activity: string = '';
   public projectId: number = 0;
-  public project = '';
+  public project: any = '';
   public projectList: Project[] = [];
   public taskDetailFormGroup: FormGroup;
   public user: User;
   public mode: string;
+  public favProjectList: any[] = ["project1", "project2", "project3"];
 
   constructor(
     private projectService: ProjectService,
@@ -50,34 +51,48 @@ export class TaskDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('oninit')
     this.taskObj = new Task();
     this.projectObj = new Project();
     this.findProject();
     this.validateData();
   }
 
+  setDefaultDate() {
+    this.colorFlag = '';
+    this.workStartTime = '';
+    this.workEndTime = '';
+    this.workDate = '';
+    this.topic = '';
+    this.activity = '';
+    this.projectId = 0;
+    this.project = '';
+  }
+
   findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
         this.projectList = data;
-        console.log('projectList: ', this.projectList);
       }
     )
   }
 
   initTaskDetail() {
     if (this.mode == Mode.E) {
-      console.log('edit');
       this.initialTaskForUpdate();
     } else if (this.mode == Mode.V) {
-      console.log('View');
+
     } else {
+      this.setDefaultDate();
       this.initialTime();
     }
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
+  }
+
+  onSelectCallBack(date: string) {
+    this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
+    console.log(this.taskDetailFormGroup.value);
   }
 
   initialTime() {
@@ -95,15 +110,14 @@ export class TaskDetailComponent implements OnInit {
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
     this.projectService.findProjectById(this.taskObj.projectId).subscribe(
       project => {
-        this.project = project.projectName;
-        this.taskService.selectedProjectId.next(project.projectId);
+        if (project) {
+          this.taskService.selectedProjectId.next(project.projectId);
+          this.project = project.projectName;
+          console.log('projectname: ', this.project);
+        }
       }
     );
     this.messageEvent.emit(this.taskObj.color);
-  }
-
-  onSelectCallBack(date: string) {
-    this.taskDetailFormGroup.setValue({ taskDetailWorkDate: date });
   }
 
   validateData() {

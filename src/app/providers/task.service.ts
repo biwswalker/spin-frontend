@@ -94,6 +94,7 @@ export class TaskService {
 
   removeTask(taskId: number){
     console.log(taskId);
+    return this.request.requestMethodDelete('task-management/tasks/' + taskId);
   }
 
   findAllTask(task,page,size) {

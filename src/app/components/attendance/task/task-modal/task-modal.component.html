@@ -1,4 +1,3 @@
-<form class="needs-validation" validate>
     <div class="modal fade" id="task-modal">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -11,18 +10,24 @@
                     <div class="text-center header-text">
                         New Task
                     </div>
-                    <button class="btn btn-link">
-                        <i class="far fa-trash-alt" (click)="deleteTask()"></i>
-                    </button>
-                    <button class="btn btn-link" (click)="onSubmit()">
+
+                    <div class="d-flex">
+                        <div class="ml-auto">
+                            <!-- Delete Button -->
+                            <button class="btn btn-link" *ngIf="mode == 'EDIT'">
+                                <i class="far fa-trash-alt" data-toggle="modal" href="#confirmDeleteTask"></i>
+                            </button>
+                            <!-- Save Button -->
+                            <button class="btn btn-link" (click)="onSubmit()">
                         <i class="fas fa-check fa-lg"></i>
                       </button>
-
+                        </div>
+                    </div>
                 </div>
 
-                 <!-- Tab -->
-                 <div>
-                    <ul class="nav nav-pills nav-fill" id="tap-info" role="tablist" >
+                <!-- Tab -->
+                <div>
+                    <ul class="nav nav-pills nav-fill" id="tap-info" role="tablist">
                         <li class="nav-item" [ngClass]="bgColor">
                             <a class="nav-link active" href="#tab-detail" role="tab" id="task-detail" data-toggle="tab">
                                 <i class="fas fa-info-circle fa-lg"></i>
@@ -69,4 +74,17 @@
             </div>
         </div>
     </div>
-</form>
+
+<div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteTask">ยืนยันการลบข้อมูล</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" (click)="deleteTask()" data-dismiss="modal">ลบงานที่สร้างไว้</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,4 @@
+import { UtilsService } from './../../providers/utils/utils.service';
 import { ProjectModalComponent } from './project-modal/project-modal.component';
 import { ProjectSearchComponent } from './project-search/project-search.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -21,7 +22,8 @@ export class ProjectComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private eventService: EventService,
-    private authService: AuthenticationService) { }
+    private authService: AuthenticationService,
+    private utilsService: UtilsService) { }
 
   ngOnInit() {
 
@@ -83,27 +85,6 @@ export class ProjectComponent implements OnInit {
 
   displayProjectSummary(projectId,seqId){
     console.log('projectId: '+projectId+'    phaseId: '+seqId);
-    this.projectService.findMemberSummary(projectId,seqId).subscribe(
-      data=>{
-        console.log(data);
-        if(data!){
-          this.projectInfo.projectSummary.memberSummary = data;
-        }
-      },err=>{
-        console.log('Exception: ',err);
-      }
-    );
-
-    this.projectService.findTagsSummary(projectId,seqId).subscribe(
-      data=>{
-        console.log(data);
-        if(data!){
-          this.projectInfo.projectSummary.tagsSummary = data;
-        }
-      },err=>{
-        console.log('Exception: ',err);
-      }
-    )
-
+    this.projectInfo.projectSummary.displayProjectSummary(projectId,seqId);
   }
 }
