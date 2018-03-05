@@ -175,4 +175,10 @@ export class UtilsService {
     return ` ${date} ${month} ${year}`
   }
 
+  calcurateHours(hour:number,mins:number):number{
+    let totalMins = (hour * 60)+mins;
+    let totalHours = Math.round(totalMins/60);
+    return totalHours;
+  }
+
 }
