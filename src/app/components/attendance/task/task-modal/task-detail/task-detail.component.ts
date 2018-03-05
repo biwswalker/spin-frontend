@@ -90,6 +90,11 @@ export class TaskDetailComponent implements OnInit {
     this.validateData();
   }
 
+  onSelectCallBack(date: string) {
+    this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
+    console.log(this.taskDetailFormGroup.value);
+  }
+
   initialTime() {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
@@ -113,10 +118,6 @@ export class TaskDetailComponent implements OnInit {
       }
     );
     this.messageEvent.emit(this.taskObj.color);
-  }
-
-  onSelectCallBack(date: string) {
-    this.taskDetailFormGroup.setValue({ taskDetailWorkDate: date });
   }
 
   validateData() {

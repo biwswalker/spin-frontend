@@ -99,7 +99,7 @@ export class TaskModalComponent {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
       console.log(this.task)
-      this.createNewTask(this.task);
+      // this.createNewTask(this.task);
       let self = this;
       $('#task-modal').on("hidden.bs.modal", function () {
         $('.timestamp .ui-selected').removeClass('ui-selected');
