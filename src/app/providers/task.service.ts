@@ -64,6 +64,10 @@ export class TaskService {
     return this.request.requestMethodGET(`task-management/working-tasks/date/${date}`);
   }
 
+  findWorkingTaskByWeek(beginDate, endDate) {
+    return this.request.requestMethodGET(`task-management/working-tasks/by-week/${beginDate}/${endDate}`);
+  }
+
   findTaskByDate(date): Observable<TaskForm[]> {
     return new Observable(observer => {
       return this.request.requestMethodGET(`task-management/tasks/date/${date}`).subscribe((tasks: Task[]) => {
@@ -90,5 +94,9 @@ export class TaskService {
 
   removeTask(taskId: number){
     console.log(taskId);
+  }
+
+  findAllTask(task,page,size) {
+    return this.request.requestMethodGET('projects-management/find-allow-project/'+task+'?p='+page+'&s='+size);
   }
 }

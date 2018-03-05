@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   <div class="col-12 col-md-6 col-lg-6 col-xl-7">
     <timestamp></timestamp>
   </div>
+  <app-task-modal></app-task-modal>
 </div>`,
 })
 export class AttendanceComponent implements OnInit {
