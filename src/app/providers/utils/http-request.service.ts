@@ -15,7 +15,7 @@ export class HttpRequestService {
 
   requestMethodDelete(path: string): Observable<any>{
     console.log(`GET URL => ${URL + path}`);
-    return this.http.get(URL + path);
+    return this.http.delete(URL + path);
   }
 
   requestMethodPOST(path: string, param: any): Observable<any> {

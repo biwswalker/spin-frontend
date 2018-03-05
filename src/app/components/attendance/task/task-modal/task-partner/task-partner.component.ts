@@ -6,6 +6,7 @@ import { TaskService } from '../../../../../providers/task.service';
 import { AuthenticationService } from '../../../../../providers/authentication.service';
 import { User } from '../../../../../models/user';
 import { Task } from '../../../../../models/task';
+import { Mode } from '../../../../../config/properties';
 declare var $: any;
 
 @Component({
@@ -47,13 +48,17 @@ export class TaskPartnerComponent implements OnInit {
     // this async
     this.taskService.currentProjectId.subscribe(projectId => {
       if (projectId) {
-        this.taskMember = [];
         this.taskPartner = [];
         this.autocompletePartnerList = [];
-        this.getProjectMember(projectId);
-        this.getautoCompletePartner(projectId);
-        if(this.mode == 'E'){
-          this.getTaskPartner(this.task.taskId);
+        if (this.mode == Mode.E) {
+          // this.partnerService.findMemberByProjectId(projectId).subscribe(
+          //   member => {
+          //     console.log(member);
+          //   }
+          // )
+        } else {
+          this.getProjectMember(projectId);
+          this.getautoCompletePartner(projectId);
         }
       }
     });
@@ -68,10 +73,14 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   getProjectMember(projectId) {
+
     this.partnerService.findByProjrctId(projectId).subscribe(
       member => {
         if (member) {
+          console.log(member);
+          this.taskMember = [];
           for (let obj of member) {
+            console.log(obj);
             this.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
           }
         }

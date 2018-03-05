@@ -28,7 +28,7 @@ export class TaskModalComponent {
   public taskForm: TaskForm = new TaskForm();
   private modal = new SpinModal();
   private user = new User();
-
+  public mode = '';
   @ViewChild(TaskDetailComponent) taskDetailChild;
   @ViewChild(TaskPartnerComponent) taskPartnerChild;
   @ViewChild(TaskTagComponent) taskTagChild;
@@ -59,13 +59,13 @@ export class TaskModalComponent {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log(mode)
+    this.mode = mode;
     this.taskDetailChild.projectObj = new Project();
     this.taskDetailChild.taskObj = new Task();
     this.taskForm.task = task;
-    this.taskDetailChild.mode = mode;
-    this.taskPartnerChild.mode = mode;
-    this.taskTagChild.mode = mode;
+    this.taskDetailChild.mode = this.mode;
+    this.taskPartnerChild.mode = this.mode;
+    this.taskTagChild.mode = this.mode;
     this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.projectObj = this.taskForm.taskProject;
     this.taskDetailChild.initTaskDetail();
@@ -131,15 +131,16 @@ export class TaskModalComponent {
   }
 
   deleteTask() {
-    this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
-      res => {
-        console.log(res);
-        this.oncloseModal();
-      }, error => {
-        console.log(error)
-      }, () => {
-
-      }
-    )
+    if(this.taskForm.task.taskId){
+      this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
+        res => {
+          console.log(res);
+        }, error => {
+          console.log(error)
+        }, () => {
+          this.oncloseModal();
+        }
+      )
+    }
   }
 }

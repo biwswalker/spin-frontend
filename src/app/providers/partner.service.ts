@@ -16,11 +16,18 @@ export class PartnerService {
   }
 
   findAllUSer(prjId: number){
-    console.log(prjId)
       return this.request.requestMethodGET('user-management/users/project-id/'+ prjId);
   }
 
   findByTaskId(taskId: number){
     return this.request.requestMethodGET('taskpartner-management/taskpartner/' + taskId);
+  }
+
+  findNotMemberByProjectId(prjId: number){
+    return this.request.requestMethodGET('taskpartner-management/taskpartners/non-project-member/' + prjId);
+  }
+
+  findMemberByProjectId(prjId: number){
+    return this.request.requestMethodGET('taskpartner-management/taskpartners/project-member/' + prjId);
   }
 }
