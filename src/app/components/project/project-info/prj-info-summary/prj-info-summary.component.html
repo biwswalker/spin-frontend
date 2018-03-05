@@ -14,14 +14,16 @@
         <div class="col-12">
           <label class="d-block">ระยะเวลา</label>
           <div class="tags-filter-list">
-              <button class="btn badge badge-danger" *ngFor="let phase of projectPhases">{{phase.phaseName}}</button>
+              <button class="btn badge badge-danger data-item" *ngFor="let phase of projectPhases"
+              (click)="displayProjectSummary(null,phase.id.seqId)"
+              >{{phase.phaseName}}</button>
           </div>
         </div>
       </div>
     </div>
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-member" role="tabpanel" aria-labelledby="nav-member-tab">
-        <div class="row">
+        <div class="row" *ngIf="memberSpent!">
           <div class="col-12">
               <div class="row header">
                   <div class="col-6 col-xl-5">
@@ -31,17 +33,15 @@
                   </div>
                   <div class="col-4 col-xl-6 d-flex">
                       <div>0</div>
-                      <div class="ml-auto max-hour" *ngIf="memberSpent">{{memberSpent.hour || '0'}}</div>
+                      <div class="ml-auto max-hour" >{{memberSpent.hour || '0'}}</div>
                   </div>
               </div>
               <ul class="list-group list-group-flush member-list">
                   <li class="list-group-item member-item" *ngFor="let sum of memberSummary">
                     <div class="row">
-                        <div class="d-none d-xl-block col-xl-1  my-auto">
-                            <img class="profile-img rounded-circle float-left mr-2" src="assets/img/profile/profile.png">
-                        </div>
-                        <div class="col-6 col-xl-4  my-auto">
-                          <span class="member-name d-block">{{sum.name}}</span>
+                        <div class="col-6 col-xl-5  my-auto">
+                            <i class="fas fa-child"></i>
+                          <span class="member-name d-inline-block pl-1">{{sum.name}}</span>
                         </div>
                         <div class="col-2 col-xl-1  my-auto hour">
                             {{sum.hour}}
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="nav-tags" role="tabpanel" aria-labelledby="nav-tags-tab">
-        <div class="row">
+        <div class="row" *ngIf="tagsSpent!">
           <div class="col-12">
               <div class="row header">
                   <div class="col-6 col-xl-5">
@@ -68,22 +68,22 @@
                   </div>
                   <div class="col-4 col-xl-6 d-flex">
                       <div>0</div>
-                      <div class="ml-auto max-hour">100</div>
+                      <div class="ml-auto max-hour">{{tagsSpent.hour || '0'}}</div>
                   </div>
               </div>
               <ul class="list-group list-group-flush tags-list">
-                  <li class="list-group-item tags-item">
+                  <li class="list-group-item tags-item" *ngFor="let sum of tagsSummary">
                     <div class="row">
                         <div class="col-6 col-xl-5  my-auto">
                           <i class="fas fa-tag"></i>
-                          <span class="tags-name d-inline-block">Development</span>
+                          <span class="tags-name d-inline-block pl-1">{{sum.name}}</span>
                         </div>
                         <div class="col-2 col-xl-1  my-auto hour">
-                          25
+                            {{sum.hour}}
                         </div>
                         <div class="col-4 col-xl-6 my-auto">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                <div class="progress-bar" role="progressbar" [style.width]="sum.hour/tagsSpent.hour|percent" aria-valuemin="0" aria-valuemax="100">{{sum.hour/tagsSpent.hour|percent}}</div>
                               </div>
                         </div>
                     </div>

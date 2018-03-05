@@ -85,36 +85,6 @@ export class ProjectComponent implements OnInit {
 
   displayProjectSummary(projectId,seqId){
     console.log('projectId: '+projectId+'    phaseId: '+seqId);
-    this.projectService.findMemberSummary(projectId,seqId).subscribe(
-      data=>{
-        console.log(data);
-        if(data!){
-          this.projectInfo.projectSummary.memberSpent = data.maxSpentTime;
-          this.projectInfo.projectSummary.memberSpent.hour = this.utilsService.calcurateHours(data.maxSpentTime.hour,data.maxSpentTime.minute);
-          this.projectInfo.projectSummary.memberSummary=[];
-          for(let mem of data.summary){
-            let memSum = {name:null,hour:0};
-            memSum.name = mem.name;
-            memSum.hour = this.utilsService.calcurateHours(mem.hour,mem.minute);
-            this.projectInfo.projectSummary.memberSummary = this.projectInfo.projectSummary.memberSummary.concat(memSum);
-          }
-        }
-      },err=>{
-        console.log('Exception: ',err);
-      }
-    );
-
-    this.projectService.findTagsSummary(projectId,seqId).subscribe(
-      data=>{
-        console.log(data);
-        if(data!){
-          this.projectInfo.projectSummary.tagsSummary = data.summary;
-          this.projectInfo.projectSummary.tagsSpent = data.maxSpentTime;
-        }
-      },err=>{
-        console.log('Exception: ',err);
-      }
-    )
-
+    this.projectInfo.projectSummary.displayProjectSummary(projectId,seqId);
   }
 }
