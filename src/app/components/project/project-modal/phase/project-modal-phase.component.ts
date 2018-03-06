@@ -27,8 +27,8 @@ export class ProjectModalPhaseComponent implements OnInit {
   validateForm(){
     this.projectPhaseGroup = new FormGroup({
       phaseName: new FormControl(this.projectPhase.phaseName, Validators.required),
-      startDate: new FormControl('',Validators.required),
-      endDate: new FormControl('',Validators.required),
+      startDate: new FormControl(this.projectPhase.startDate,Validators.required),
+      endDate: new FormControl(this.projectPhase.endDate,Validators.required),
 
 
     })
@@ -46,7 +46,7 @@ export class ProjectModalPhaseComponent implements OnInit {
       this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhaseGroup.value.endDate);
       this.projectPhases.push(this.projectPhase);
       this.projectPhase = new ProjectPhase;
-      this.validateForm();
+
       console.log(this.projectPhase);
     }
 
