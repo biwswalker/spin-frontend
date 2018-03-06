@@ -1,9 +1,9 @@
 <div class="row phase-list-row">
   <div class="col-12">
     <ul   class="list-group list-group-flush phase-list">
-      <li *ngFor="let phase of projectPhases" class="list-group-item">
+      <li *ngFor="let phase of projectPhases;let i = index" class="list-group-item">
         <div class="phase row">
-          <div class="phase-name col-4 text-center">{{phase.phaseName}}</div>
+          <div class="phase-name col-2 text-center">{{phase.phaseName}}</div>
           <div class="phase-start col-4">
             <p>{{phase.startDate | thaiDate:'short'}}</p>
             <span>เริ่มโครงการ</span>
@@ -12,6 +12,11 @@
             <p>{{phase.endDate | thaiDate:'short'}}</p>
             <span>สิ้นสุดโครงการ</span>
           </div>
+          <div class="phase-end col-2 my-auto mx-auto">
+            <button type="button" class="btn btn-link"
+            (click)="onDeletePhase(i)"
+            ><i class="fas fa-trash-alt fa-lg"></i></button>
+          </div>
         </div>
       </li>
     </ul>
@@ -19,7 +24,7 @@
 </div>
 
 
-<form [formGroup]="projectPhaseGroup" (ngSubmit)="onAddMember()">
+<form [formGroup]="projectPhaseGroup" (ngSubmit)="onAddPhase()" id="project-phase-insert">
 <div class="row">
   <div class="col-12 d-flex">
       <h4>ระยะโครงการ</h4>
@@ -40,18 +45,23 @@
   <div class="col-6">
       <div class="form-group">
           <label for="start-date">วันที่เริ่มโครงการ *</label>
-          <input type="text" class="form-control"
+          <input type="text"
+          class="form-control datepicker"
           id="start-date"
-          formControlName="startDate"
+          name="startDate"
+          summitDatePicker
           [(ngModel)]="projectPhase.startDate"
+          formControlName="startDate"
           >
       </div>
       <div class="form-group">
           <label for="end-date">วันที่สิ้นสุดโครงการ *</label>
           <input type="text" class="form-control"
           id="end-date"
-          formControlName="endDate"
+          name="endDate"
+          summitDatePicker
           [(ngModel)]="projectPhase.endDate"
+          formControlName="endDate"
           >
       </div>
   </div>

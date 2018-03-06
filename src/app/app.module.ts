@@ -1,6 +1,6 @@
 // angular modules
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Directive, Input, Output, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
@@ -63,9 +63,7 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
 import { ProjectNamePipe } from './pipes/project-name.pipe';
 import { TimePipe } from './pipes/time.pipe';
-import { HolidayComponent } from './components/admin/holiday/holiday.component';
-import { HolidayInfoComponent } from './components/admin/holiday/holiday-info/holiday-info.component';
-import { HolidayProcessComponent } from './components/admin/holiday/holiday-process/holiday-process.component';
+import { DatePickerDirective } from './directives/datepicker';
 
 @NgModule({
   declarations: [
@@ -98,9 +96,7 @@ import { HolidayProcessComponent } from './components/admin/holiday/holiday-proc
     ThaiDatePipe,
     ProjectNamePipe,
     TimePipe,
-    HolidayComponent,
-    HolidayInfoComponent,
-    HolidayProcessComponent,
+    DatePickerDirective
   ],
   imports: [
     BrowserModule,
@@ -115,6 +111,7 @@ import { HolidayProcessComponent } from './components/admin/holiday/holiday-proc
     InfiniteScrollModule,
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
+
   ],
   providers: [
     {
@@ -141,3 +138,4 @@ import { HolidayProcessComponent } from './components/admin/holiday/holiday-proc
 export class AppModule { }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
+

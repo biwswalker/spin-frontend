@@ -34,7 +34,6 @@ export class ProjectComponent implements OnInit {
   }
 
   passKeyToProjectDetail(projectId){
-    console.log('passKeyToProjectDetail: '+projectId);
     this.projectInfo.projectDetail.ngOnInit();
     this.projectInfo.projectMember.ngOnInit();
     this.projectInfo.projectSummary.ngOnInit();
@@ -44,7 +43,6 @@ export class ProjectComponent implements OnInit {
 
   }
   displayProjectDetail(projectId){
-    console.log('displayProjectDetail.....');
     this.projectInfo.projectDetail.project = new Project;
     this.projectInfo.projectDetail.projectPhases = [];
     this.projectService.findProjectById(projectId).subscribe(
@@ -57,11 +55,10 @@ export class ProjectComponent implements OnInit {
     );
     this.projectService.findProjectPhaseById(projectId).subscribe(
       data=>{
-        console.log('phase list:',data);
         if(data!){
           this.projectInfo.projectDetail.projectPhases = data;
           this.projectInfo.projectSummary.projectPhases = data;
-          this.displayProjectSummary(projectId,data[0].id.seqId);
+          this.projectInfo.projectSummary.displayProjectSummary(projectId,data[0].id.seqId);
         }
 
       },err=>{
@@ -75,7 +72,6 @@ export class ProjectComponent implements OnInit {
     this.projectInfo.projectMember.projectMemberList = [];
     this.projectService.findProjectMemberById(projectId).subscribe(
       data=>{
-        console.log('memberList: ',data);
         this.projectInfo.projectMember.projectMemberList = data;
       },err=>{
         console.log('Exception: ',err);
@@ -83,8 +79,4 @@ export class ProjectComponent implements OnInit {
     )
   }
 
-  displayProjectSummary(projectId,seqId){
-    console.log('projectId: '+projectId+'    phaseId: '+seqId);
-    this.projectInfo.projectSummary.displayProjectSummary(projectId,seqId);
-  }
 }

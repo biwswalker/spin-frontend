@@ -14,7 +14,9 @@
         <div class="col-12">
           <label class="d-block">ระยะเวลา</label>
           <div class="tags-filter-list">
-              <button class="btn badge badge-danger data-item" *ngFor="let phase of projectPhases"
+              <button class="btn data-item mx-1"
+              [ngClass]="(i == 0?'active':'')"
+              *ngFor="let phase of projectPhases;let i = index"
               (click)="displayProjectSummary(null,phase.id.seqId)"
               >{{phase.phaseName}}</button>
           </div>
