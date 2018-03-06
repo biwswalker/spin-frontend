@@ -1,6 +1,6 @@
 // angular modules
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Directive, Input, Output, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
@@ -63,6 +63,7 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
 import { ProjectNamePipe } from './pipes/project-name.pipe';
 import { TimePipe } from './pipes/time.pipe';
+import { DatePickerDirective } from './directives/datepicker';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { TimePipe } from './pipes/time.pipe';
     ThaiDatePipe,
     ProjectNamePipe,
     TimePipe,
+    DatePickerDirective
   ],
   imports: [
     BrowserModule,
@@ -109,6 +111,7 @@ import { TimePipe } from './pipes/time.pipe';
     InfiniteScrollModule,
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
+
   ],
   providers: [
     {
@@ -135,3 +138,4 @@ import { TimePipe } from './pipes/time.pipe';
 export class AppModule { }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
+
