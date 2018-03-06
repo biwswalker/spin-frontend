@@ -63,6 +63,9 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
 import { ProjectNamePipe } from './pipes/project-name.pipe';
 import { TimePipe } from './pipes/time.pipe';
+import { HolidayComponent } from './components/admin/holiday/holiday.component';
+import { HolidayInfoComponent } from './components/admin/holiday/holiday-info/holiday-info.component';
+import { HolidayProcessComponent } from './components/admin/holiday/holiday-process/holiday-process.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +98,9 @@ import { TimePipe } from './pipes/time.pipe';
     ThaiDatePipe,
     ProjectNamePipe,
     TimePipe,
+    HolidayComponent,
+    HolidayInfoComponent,
+    HolidayProcessComponent,
   ],
   imports: [
     BrowserModule,
