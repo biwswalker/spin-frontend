@@ -1,5 +1,5 @@
 import { ProjectPhase } from './../../../../models/project-phase';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UtilsService } from '../../../../providers/utils/utils.service';
 import { ProjectService } from '../../../../providers/project.service';
 declare var SpinCustomListUI: any;
@@ -10,6 +10,7 @@ declare var SpinCustomListUI: any;
 })
 export class PrjInfoSummaryComponent implements OnInit {
   public projectId:string;
+  public seqId:string;
   public projectPhases: ProjectPhase[]=[];
   public memberSpent:any;
   public memberSummary: any[] = [];

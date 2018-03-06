@@ -40,18 +40,23 @@
   <div class="col-6">
       <div class="form-group">
           <label for="start-date">วันที่เริ่มโครงการ *</label>
-          <input type="text" class="form-control"
+          <input type="text"
+          class="form-control datepicker"
           id="start-date"
-          formControlName="startDate"
+          name="startDate"
+          summitDatePicker
           [(ngModel)]="projectPhase.startDate"
+          formControlName="startDate"
           >
       </div>
       <div class="form-group">
           <label for="end-date">วันที่สิ้นสุดโครงการ *</label>
           <input type="text" class="form-control"
           id="end-date"
-          formControlName="endDate"
+          name="endDate"
+          summitDatePicker
           [(ngModel)]="projectPhase.endDate"
+          formControlName="endDate"
           >
       </div>
   </div>
