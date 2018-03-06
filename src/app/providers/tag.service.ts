@@ -7,11 +7,14 @@ export class TagService {
   constructor(private request: HttpRequestService) { }
 
   findUsedTag(){
-    console.log('findtag')
     return this.request.requestMethodGET('tag-management/tags');
   }
 
   findAll(){
-    return this.request.requestMethodGET('tag-management/tags/active-flag/A')
+    return this.request.requestMethodGET('tag-management/tags/active-flag/A');
+  }
+
+  findByTaskId(taskId: Number){
+    return this.request.requestMethodGET('tasktag-management/tasktags/' + taskId);
   }
 }

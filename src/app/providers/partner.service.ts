@@ -23,11 +23,11 @@ export class PartnerService {
     return this.request.requestMethodGET('taskpartner-management/taskpartner/' + taskId);
   }
 
-  findNotMemberByProjectId(prjId: number){
-    return this.request.requestMethodGET('taskpartner-management/taskpartners/non-project-member/' + prjId);
+  findNotMemberByProjectId(prjId: number, taskId: number){
+    return this.request.requestMethodGET('taskpartner-management/taskpartners/non-project-member/' + prjId + '/task-id/' + taskId);
   }
 
-  findMemberByProjectId(prjId: number){
-    return this.request.requestMethodGET('taskpartner-management/taskpartners/project-member/' + prjId);
+  findMemberByProjectId(prjId: number, taskId: number){
+    return this.request.requestMethodGET('taskpartner-management/taskpartners/project-member/' + prjId + '/task-id/' + taskId);
   }
 }
