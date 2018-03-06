@@ -34,7 +34,12 @@ export class ProjectModalPhaseComponent implements OnInit {
     })
   }
 
-  onAddMember(){
+  onDeletePhase(index){
+    this.projectPhases.splice(index, 1);
+  }
+
+
+  onAddPhase(){
     console.log('start date: ',this.projectPhase.startDate);
     console.log('end date: ',this.projectPhase.endDate);
     console.log('projectPhaseGroup: ',this.projectPhaseGroup.value);
