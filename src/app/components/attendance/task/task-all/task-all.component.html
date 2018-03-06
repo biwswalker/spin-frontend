@@ -10,22 +10,19 @@
            name="keyword"
            class="form-control input-sm"
            [(ngModel)]="keyword"
-           (ngModelChange)="onSearch()"
-           placeholder="ชื่อผู้ใช้งาน">
+           (ngModelChange)="onSearch()">
   </div>
 </div>
-<!-- <div *ngFor="let item of employees | groupBy:'department'">
-    Department {{ item.key }} has {{ item.value.length }} employees
-  </div> -->
-
-<div class="row">
-  <div class="search-results"
-       data-infinite-scroll
-       debounce
-       [infiniteScrollDistance]="1"
-       [infiniteScrollThrottle]="1000"
-       (scrolled)="onScrollDown()">
-    <task [source]="taskf.task"
-          *ngFor=" let taskf of taskForms | async"></task>
+<div class="tasks-list"
+     infiniteScroll
+     [infiniteScrollDistance]="1"
+     [infiniteScrollThrottle]="1000"
+     [scrollWindow]="false"
+     (scrolled)="onScrollDown()">
+  <div *ngFor="let atask of allTask | async" class="task-groups">
+    <div class="group-date">{{atask.date | thaiDate:'short'}}</div>
+    <task [source]="task"
+          *ngFor="let task of atask.tasks | async"></task>
   </div>
+
 </div>

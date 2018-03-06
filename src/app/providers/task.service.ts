@@ -92,12 +92,48 @@ export class TaskService {
     return this.request.requestMethodGET(`task-management/un-stamp-task/${year}/${month}`)
   }
 
-  removeTask(taskId: number){
+  removeTask(taskId: number) {
     console.log(taskId);
     return this.request.requestMethodDelete('task-management/tasks/' + taskId);
   }
 
-  findAllTask(task,page,size) {
-    return this.request.requestMethodGET('projects-management/find-allow-project/'+task+'?p='+page+'&s='+size);
+  findAllTask(page: number, size: number, reform: boolean): Observable<any> {
+    return this.request.requestMethodGET(`task-management/tasks?p=${page}?&s=${size}`).map(tasks => { return reform ? this.reformTasks(tasks) : tasks });
+  }
+
+  findCriteriaTask(cri: string, page: number, size: number, reform: boolean): Observable<any> {
+    return this.request.requestMethodGET(`task-management/tasks/${cri}?p=${page}?&s=${size}`).map(tasks => { return reform ? this.reformTasks(tasks) : tasks });
+  }
+
+  reformTasks(tasks: Task[]): TaskAll[] {
+    let taskAll: TaskAll[] = [];
+    let workDateTemp = '';
+    let allTask = new TaskAll();
+    for (let task of tasks) {
+      if (!workDateTemp) {
+        workDateTemp = task.workDate;
+        allTask = new TaskAll();
+        allTask.date = task.workDate;
+        allTask.tasks = Observable.of(tasks.filter(task => task.workDate === workDateTemp));
+        taskAll.push(allTask);
+      } else if (workDateTemp !== task.workDate) {
+        workDateTemp = task.workDate;
+        allTask = new TaskAll();
+        allTask.date = task.workDate;
+        allTask.tasks = Observable.of(tasks.filter(task => task.workDate === workDateTemp));
+        taskAll.push(allTask);
+      }
+    }
+    return taskAll;
+  }
+}
+
+export class TaskAll {
+  public tasks: any;
+  public date: string;
+
+  constructor() {
+    this.tasks = new Observable<TaskAll[]>();;
+    this.date = '';
   }
 }

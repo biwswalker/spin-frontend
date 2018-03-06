@@ -5,3 +5,17 @@ span.username.input-group-text {
 input#keyword{
     border-left: 0;
 }
+.tasks-list {
+    height:480px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.task-groups {
+    padding: 10px;
+}
+.group-date {
+    margin: 3px;
+    padding: 5px;
+    background: #ff973a8a;
+    font-weight: 500;
+}

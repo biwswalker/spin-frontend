@@ -53,10 +53,12 @@ export class AuthenticationService {
     console.log('refresh tok')
     var data = new FormData();
     data.append("grant_type", "refresh_token");
+    data.append("refresh_token", this.getRefreshToken());
     const headers = new HttpHeaders({
-      "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
+      "Authorization": `Basic ${this.getRefreshToken()}`
     })
     const options = { headers: headers }
+    console.log(options)
     return this.request.requestMethodPOSTWithHeader('oauth/token', data, options).toPromise()
       .then(token => {
         if (token) {
@@ -73,9 +75,7 @@ export class AuthenticationService {
       })
       .catch(error => {
         console.log(error)
-        sessionStorage.removeItem(Default.ACTOKN);
-        sessionStorage.removeItem(Default.TOKNTY);
-        sessionStorage.removeItem(Default.RFTOKN);
+        this.removeToken();
         this.isAccess.next(false)
         return Status.ERROR;
       })
@@ -108,9 +108,7 @@ export class AuthenticationService {
   logout() {
     let acces_token: any = sessionStorage.getItem(Default.ACTOKN);
     this.request.requestMethodGET(`logout/${acces_token}`).subscribe((response: Response) => console.log(response))
-    sessionStorage.removeItem(Default.ACTOKN)
-    sessionStorage.removeItem(Default.TOKNTY)
-    sessionStorage.removeItem(Default.RFTOKN)
+    this.removeToken();
     this.isAccess.next(false)
   }
 
@@ -128,5 +126,19 @@ export class AuthenticationService {
       return `${token_type} ${access_token}`;
     }
     return '';
+  }
+
+  getRefreshToken(): string {
+    let refresh_token: any = sessionStorage.getItem(Default.RFTOKN);
+    if (refresh_token) {
+      return `${refresh_token}`;
+    }
+    return '';
+  }
+
+  removeToken() {
+    sessionStorage.removeItem(Default.ACTOKN)
+    sessionStorage.removeItem(Default.TOKNTY)
+    sessionStorage.removeItem(Default.RFTOKN)
   }
 }
