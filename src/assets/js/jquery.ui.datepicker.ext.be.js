@@ -65,7 +65,7 @@
         _adjustInstDate: function (inst, offset, period) {
             var _isBE = (typeof (inst.settings.isBE) !== 'undefined' && inst.settings.isBE != null) ? inst.settings.isBE : false;
             if (_isBE == true) {
-                //Change drawYear back to CE after it got parse                               
+                //Change drawYear back to CE after it got parse
                 inst.drawYear = $.datepicker._convertToCe(inst.drawYear);
 
             }
@@ -246,4 +246,4 @@
 
     });
 
-})(jQuery); 
+})(jQuery);

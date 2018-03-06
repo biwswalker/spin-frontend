@@ -3,7 +3,7 @@ import { ProjectPhase } from './../../../../models/project-phase';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Format } from '../../../../config/properties';
-declare var $: any;
+
 @Component({
   selector: 'project-modal-phase',
   styleUrls: ['./project-modal-phase.component.scss'],
@@ -19,38 +19,43 @@ export class ProjectModalPhaseComponent implements OnInit {
     this.projectPhase = new ProjectPhase;
     this.projectPhases = [];
     this.validateForm();
-    let self = this;
-    // $('#start-date').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
-    // $('#end-date').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
-  }
-
-  onSelectCallBack(date: string) {
-    console.log('model: ',this.projectPhase);
-    console.log('form: ',this.projectPhaseGroup);
 
   }
+
+
 
   validateForm(){
     this.projectPhaseGroup = new FormGroup({
       phaseName: new FormControl(this.projectPhase.phaseName, Validators.required),
-      startDate: new FormControl(this.projectPhase.startDate, Validators.required),
-      endDate: new FormControl(this.projectPhase.endDate, Validators.required),
+      startDate: new FormControl(this.projectPhase.startDate,Validators.required),
+      endDate: new FormControl(this.projectPhase.endDate,Validators.required),
 
 
     })
   }
 
-  onAddMember(){
+  onDeletePhase(index){
+    this.projectPhases.splice(index, 1);
+  }
+
+
+  onAddPhase(){
     console.log('start date: ',this.projectPhase.startDate);
     console.log('end date: ',this.projectPhase.endDate);
     console.log('projectPhaseGroup: ',this.projectPhaseGroup.value);
+    console.log('projectPhaseGroup: ',this.projectPhaseGroup.valid);
     if(this.projectPhaseGroup.valid){
-      this.projectPhase.startDate = this.utilsService.convertDatePickerToThDate(this.projectPhase.startDate);
-      this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhase.endDate);
+
+      this.projectPhase.phaseName =  this.projectPhaseGroup.value.phaseName;
+      this.projectPhase.startDate = this.utilsService.convertDatePickerToThDate(this.projectPhaseGroup.value.startDate);
+      this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhaseGroup.value.endDate);
       this.projectPhases.push(this.projectPhase);
       this.projectPhase = new ProjectPhase;
+
+      console.log(this.projectPhase);
     }
 
   }
+
 
 }

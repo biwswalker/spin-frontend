@@ -1,10 +1,18 @@
 <div class="row phase-list-row">
     <div class="col-12">
-      <ul   class="list-group list-group-flush phase-list">
-        <li class="list-group-item" *ngFor="let data of projectMembers">
-          <div class="member">
-            <div class="member-name">{{data.user.officer.firstNameTh}} {{data.user.officer.lastNameTh}}</div>
-            <div class="member-reponsibility">{{data.responsibility.respName}}</div>
+      <ul   class="list-group list-group-flush member-list mb-4">
+        <li class="list-group-item" *ngFor="let data of projectMembers;let i = index">
+          <div class="member row">
+            <div class="col-10">
+                <div class="member-name">{{data.user.officer.firstNameTh}} {{data.user.officer.lastNameTh}}</div>
+                <div class="member-reponsibility">{{data.responsibility.respName}}</div>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-link"
+                (click)="onDeleteMember(i)"
+                ><i class="fas fa-trash-alt fa-lg"></i></button>
+            </div>
+
           </div>
         </li>
       </ul>

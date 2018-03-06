@@ -1,6 +1,6 @@
 // angular modules
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Directive, Input, Output, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
@@ -41,6 +41,9 @@ import { PrjInfoMemberComponent } from './components/project/project-info/prj-in
 import { TaskDirective } from './components/attendance/task/task/task.component';
 import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
 import { PrjInfoSummaryComponent } from './components/project/project-info/prj-info-summary/prj-info-summary.component';
+import { HolidayComponent } from './components/admin/holiday/holiday.component';
+import { HolidayInfoComponent } from './components/admin/holiday/holiday-info/holiday-info.component';
+import { HolidayProcessComponent } from './components/admin/holiday/holiday-process/holiday-process.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -63,6 +66,9 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
 import { ProjectNamePipe } from './pipes/project-name.pipe';
 import { TimePipe } from './pipes/time.pipe';
+
+// Directive
+import { DatePickerDirective } from './directives/datepicker';
 
 @NgModule({
   declarations: [
@@ -94,7 +100,11 @@ import { TimePipe } from './pipes/time.pipe';
     PrjInfoSummaryComponent,
     ThaiDatePipe,
     ProjectNamePipe,
-    TimePipe
+    TimePipe,
+    DatePickerDirective,
+    HolidayComponent,
+    HolidayInfoComponent,
+    HolidayProcessComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +119,7 @@ import { TimePipe } from './pipes/time.pipe';
     InfiniteScrollModule,
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
+
   ],
   providers: [
     {
@@ -135,3 +146,4 @@ import { TimePipe } from './pipes/time.pipe';
 export class AppModule { }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
+
