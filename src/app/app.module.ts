@@ -64,6 +64,9 @@ import { ThaiDatePipe } from './pipes/thai-date.pipe';
 import { ProjectNamePipe } from './pipes/project-name.pipe';
 import { TimePipe } from './pipes/time.pipe';
 import { DatePickerDirective } from './directives/datepicker';
+import { HolidayComponent } from './components/admin/holiday/holiday.component';
+import { HolidayInfoComponent } from './components/admin/holiday/holiday-info/holiday-info.component';
+import { HolidayProcessComponent } from './components/admin/holiday/holiday-process/holiday-process.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +99,10 @@ import { DatePickerDirective } from './directives/datepicker';
     ThaiDatePipe,
     ProjectNamePipe,
     TimePipe,
-    DatePickerDirective
+    DatePickerDirective,
+    HolidayComponent,
+    HolidayInfoComponent,
+    HolidayProcessComponent
   ],
   imports: [
     BrowserModule,
