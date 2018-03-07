@@ -1,7 +1,7 @@
 import { ResponsibilityService } from './../../../../providers/responsibility.service';
 import { Observable } from 'rxjs/Observable';
 import { Responsibility } from './../../../../models/responsibility';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-responsibility-search',
@@ -11,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class ResponsibilitySearchComponent implements OnInit {
 
   public responsibilities: Observable<Responsibility[]>;
+
+  @Output() respId = new EventEmitter<number>();
 
   constructor(protected responsibilityService: ResponsibilityService) {
 
@@ -22,7 +24,18 @@ export class ResponsibilitySearchComponent implements OnInit {
 
 
   getAllResponsibility() {
-    this.responsibilities = this.responsibilityService.findAll();
+    this.responsibilities = this.responsibilityService.findAll().do(
+      collection => {
+        console.log(collection[0]);
+        this.respId.emit(collection[0].respId);
+      }
+    );
   }
+
+  onChangeResp(resp) {
+    console.log(resp);
+    this.respId.emit(resp.respId);
+  }
+
 
 }

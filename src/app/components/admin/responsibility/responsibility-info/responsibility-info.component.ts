@@ -15,7 +15,7 @@ export class ResponsibilityInfoComponent implements OnInit {
 
   ngOnInit() {
     this.responsibility = new Responsibility();
-    this.findByRespId(1);
+    //  this.findByRespId(1);
   }
 
   findByRespId(key) {
