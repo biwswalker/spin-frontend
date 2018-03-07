@@ -62,9 +62,13 @@ export class TaskModalComponent {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
+    if (this.mode == Mode.E) {
+      this.selectedProject(this.taskForm.task.projectId);
+    }
     this.mode = mode;
     this.taskDetailChild.taskObj = new Task();
     this.taskForm.task = task;
+    this.taskDetailChild.taskObj.color = 'primary';
     this.taskDetailChild.mode = this.mode;
     this.taskPartnerChild.mode = this.mode;
     this.taskPartnerChild.task = this.taskForm.task;
@@ -72,7 +76,7 @@ export class TaskModalComponent {
     this.taskTagChild.mode = this.mode;
     this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.initTaskDetail();
-    this.selectedProject(this.taskForm.task.projectId);
+
   }
 
   selectedProject(prjId: number) {
@@ -115,7 +119,12 @@ export class TaskModalComponent {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
       console.log(this.task)
-      this.createNewTask(this.task);
+      if (this.mode == Mode.E) {
+        this.task.taskId = this.taskForm.task.taskId;
+        this.updateTask(this.task);
+      } else {
+        this.createNewTask(this.task);
+      }
       let self = this;
       $('#task-modal').on("hidden.bs.modal", function () {
         $('.timestamp .ui-selected').removeClass('ui-selected');
@@ -135,6 +144,18 @@ export class TaskModalComponent {
         console.log(error)
       }
     );
+  }
+
+  updateTask(task: Task) {
+    this.taskService.updateTask(task).subscribe(
+      res => {
+        console.log(res);
+        this.eventMessageService.onSuccess();
+        this.oncloseModal();
+      }, error => {
+        console.log(error);
+      }
+    )
   }
 
   oncloseModal() {

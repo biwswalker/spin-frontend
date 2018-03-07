@@ -77,7 +77,11 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail() {
+    this.setDefaultData();
+    this.initialTime();
+    this.initialFavoriteProject();
     if (this.mode == Mode.E) {
+      console.log('EDIT');
       // this.projectService.findProjectById(this.taskObj.projectId).subscribe(
       //   project => {
       //     if (project) {
@@ -91,8 +95,7 @@ export class TaskDetailComponent implements OnInit {
     } else if (this.mode == Mode.V) {
 
     } else {
-      this.setDefaultData();
-      this.initialTime();
+
     }
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
@@ -101,6 +104,10 @@ export class TaskDetailComponent implements OnInit {
 
   onSelectCallBack(date: string) {
     this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
+  }
+
+  initialFavoriteProject(){
+    // this.projectService.
   }
 
   initialTime() {
@@ -143,10 +150,6 @@ export class TaskDetailComponent implements OnInit {
       this.projectId = event.item.projectId;
       this.taskService.selectedProjectId.next(this.projectId);
     }
-  }
-
-  getColorStatus(status) {
-    console.log(status)
   }
 
 }

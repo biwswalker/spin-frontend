@@ -48,7 +48,13 @@ export class TaskPartnerComponent implements OnInit {
           );
           this.partnerService.findNotMemberByProjectId(projectId, this.task.taskId).subscribe(
             nonMember => {
-              console.log(nonMember);
+              console.log(nonMember)
+              if (nonMember) {
+                for (let obj of nonMember) {
+                  // this.taskPartner.push({ userId: obj.user-id, email: obj.email });
+                  // console.log(this.taskPartner)
+                }
+              }
             }
           )
         }
