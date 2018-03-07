@@ -91,9 +91,13 @@
 <div class="row">
   <div class="col">
       <nav class="nav">
-        <a href="" class="nav-link" *ngFor="let obj of favProjectList">
-          {{obj}}
-        </a>
+        <div *ngFor="let obj of favProjectList">
+          <div class="btn thumbnail-size">
+              <img
+              src="{{obj.projectThumbnail}}"
+              (click)="onFavoriteClick(obj)">
+          </div>
+        </div>
       </nav>
   </div>
 </div>

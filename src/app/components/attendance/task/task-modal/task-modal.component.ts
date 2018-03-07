@@ -62,9 +62,6 @@ export class TaskModalComponent {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    if (this.mode == Mode.E) {
-      this.selectedProject(this.taskForm.task.projectId);
-    }
     this.mode = mode;
     this.taskDetailChild.taskObj = new Task();
     this.taskForm.task = task;
@@ -73,6 +70,7 @@ export class TaskModalComponent {
     this.taskPartnerChild.mode = this.mode;
     this.taskPartnerChild.task = this.taskForm.task;
     this.taskPartnerChild.user = this.user;
+    this.task.projectId = this.taskForm.task.projectId;
     this.taskTagChild.mode = this.mode;
     this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.initTaskDetail();
@@ -85,7 +83,6 @@ export class TaskModalComponent {
         if (project) {
           this.taskService.selectedProjectId.next(prjId);
           this.taskDetailChild.project = project.projectName;
-          console.log(this.taskDetailChild.project);
         }
       }
     )
@@ -98,7 +95,7 @@ export class TaskModalComponent {
       this.task.color = this.taskDetailChild.taskObj.color;
       this.task.doSelfFlag = (this.taskPartnerChild.doSelfFlag == true ? 'Y' : 'N');
       this.task.topic = this.taskDetailChild.taskDetailFormGroup.value.taskDetailTopic;
-      this.task.projectId = this.taskDetailChild.projectId;
+      // this.task.projectId = this.taskDetailChild.projectId;
       this.task.ownerUserId = this.user.userId;
       this.task.activeFlag = 'A';
       this.task.workDate = this.utilsService.convertDatePickerToThDate(this.taskDetailChild.taskDetailFormGroup.value.taskDetailWorkDate);

@@ -44,8 +44,8 @@ export class ProjectService {
   }
   // End find for display action
 
-  findFavoriteProjectByUserId(userId: number){
-    return this.request.requestMethodGET('');
+  findFavoriteProjectByUserId(userId: string){
+    return this.request.requestMethodGET('favorite-project-management/find-autocomplete-project');
   }
 
   fetchProjectAutocomplete(){
