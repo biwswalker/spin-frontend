@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-12">
+    <form class="form-group">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-8 text-left">ชื่อหน้าที่</div>
+  <div class="col-sm-4 text-left">ชื่อย่อ</div>
+</div>
+
+
+<ul class="list-group list-group-flush" *ngFor="let resp of responsibilities | async">
+  <div>
+    <button type="button" class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="col-sm-8 text-left">
+          <p>{{resp.respName}}</p>
+        </div>
+        <div class="col-sm-4 text-left">
+          <p>{{resp.respAbbr}}</p>
+        </div>
+      </div>
+    </button>
+  </div>
+
+</ul>
+
+<!-- <div class="row" *ngFor="let resp of responsibilities | async">
+  <div class="col-sm-8 text-left">
+    <p>{{resp.respName}}</p>
+  </div>
+  <div class="col-sm-4 text-left">
+    <p>{{resp.respAbbr}}</p>
+  </div>
+</div> -->

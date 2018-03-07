@@ -44,6 +44,10 @@ import { PrjInfoSummaryComponent } from './components/project/project-info/prj-i
 import { HolidayComponent } from './components/admin/holiday/holiday.component';
 import { HolidayInfoComponent } from './components/admin/holiday/holiday-info/holiday-info.component';
 import { HolidayProcessComponent } from './components/admin/holiday/holiday-process/holiday-process.component';
+import { ResponsibilityComponent } from './components/admin/responsibility/responsibility.component';
+import { ResponsibilityInfoComponent } from './components/admin/responsibility/responsibility-info/responsibility-info.component';
+import { ResponsibilitySearchComponent } from './components/admin/responsibility/responsibility-search/responsibility-search.component';
+
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -104,7 +108,10 @@ import { DatePickerDirective } from './directives/datepicker';
     DatePickerDirective,
     HolidayComponent,
     HolidayInfoComponent,
-    HolidayProcessComponent
+    HolidayProcessComponent,
+    ResponsibilityComponent,
+    ResponsibilityInfoComponent,
+    ResponsibilitySearchComponent
   ],
   imports: [
     BrowserModule,

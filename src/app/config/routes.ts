@@ -7,6 +7,7 @@ import { IndexComponent } from "../components/index/index.component";
 import { AttendanceComponent } from '../components/attendance/attendance.component';
 import { TaskComponent } from '../components/attendance/task/task.component';
 import { HolidayComponent } from '../components/admin/holiday/holiday.component';
+import { ResponsibilityComponent } from '../components/admin/responsibility/responsibility.component';
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'task', component: TaskComponent },
   { path: 'example', component: ExampleComponent },
   { path: 'task-modal', component: TaskModalComponent },
-  { path: 'holiday', component: HolidayComponent }
+  { path: 'holiday', component: HolidayComponent },
+  { path: 'responsibility', component: ResponsibilityComponent }
 ]
 
 @NgModule({
