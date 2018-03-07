@@ -1,7 +1,7 @@
 <div class="nav flex-column task-list"
      >
   <li class="nav-item">
-    <div class="card task-card selection" [ngClass]="selected ? 'selected' : ''" (click)="onselectTask()">
+    <div class="card task-card selection" [ngClass]="[selected ? 'selected' : '', source.task_type === '1' ? 'assign':'']" (click)="onselectTask()">
       <div class="card-body">
         <span>{{source.workStartTime | time}} - {{source.workEndTime | time}}</span>
         <button type="button"

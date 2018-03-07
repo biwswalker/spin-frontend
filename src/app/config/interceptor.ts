@@ -22,11 +22,11 @@ export class Interceptor implements HttpInterceptor {
                 console.log(error)
                 if (error instanceof HttpErrorResponse) {
                     if (error.status === 401) {
-                        console.log('GGWP :: ' + error.status);
-                        auth.refreshToken().catch(err => {
-                            console.log(err);
-                            auth.logout();
-                        });
+                        // console.log('GGWP :: ' + error.status);
+                        // auth.refreshToken().catch(err => {
+                        //     console.log(err);
+                        //     auth.logout();
+                        // });
                     }
                 }
             });

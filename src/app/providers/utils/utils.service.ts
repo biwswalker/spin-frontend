@@ -84,6 +84,22 @@ export class UtilsService {
     return nextDay;
   }
 
+  getStartOfWeek(enDate, isBE): string {
+    var startWeek = moment(enDate, Format.DATE_DB).startOf('week').format(Format.DATE_DB);
+    if (isBE) {
+      return this.convertEnDateToTh(startWeek);
+    }
+    return startWeek;
+  }
+
+  getEndOfWeek(enDate, isBE): string {
+    var startWeek = moment(enDate, Format.DATE_DB).endOf('week').format(Format.DATE_DB);
+    if (isBE) {
+      return this.convertEnDateToTh(startWeek);
+    }
+    return startWeek;
+  }
+
   convertToThYear(year: number): number {
     return year + 543;
   }
@@ -180,9 +196,9 @@ export class UtilsService {
     return ` ${date} ${month} ${year}`
   }
 
-  calcurateHours(hour:number,mins:number):number{
-    let totalMins = (hour * 60)+mins;
-    let totalHours = Math.round(totalMins/60);
+  calcurateHours(hour: number, mins: number): number {
+    let totalMins = (hour * 60) + mins;
+    let totalHours = Math.round(totalMins / 60);
     return totalHours;
   }
 
