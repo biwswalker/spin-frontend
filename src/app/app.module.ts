@@ -41,6 +41,9 @@ import { PrjInfoMemberComponent } from './components/project/project-info/prj-in
 import { TaskDirective } from './components/attendance/task/task/task.component';
 import { ProjectInfoComponent } from './components/project/project-info/project-info.component';
 import { PrjInfoSummaryComponent } from './components/project/project-info/prj-info-summary/prj-info-summary.component';
+import { HolidayComponent } from './components/admin/holiday/holiday.component';
+import { HolidayInfoComponent } from './components/admin/holiday/holiday-info/holiday-info.component';
+import { HolidayProcessComponent } from './components/admin/holiday/holiday-process/holiday-process.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -63,10 +66,9 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
 import { ProjectNamePipe } from './pipes/project-name.pipe';
 import { TimePipe } from './pipes/time.pipe';
+
+// Directive
 import { DatePickerDirective } from './directives/datepicker';
-import { HolidayComponent } from './components/admin/holiday/holiday.component';
-import { HolidayInfoComponent } from './components/admin/holiday/holiday-info/holiday-info.component';
-import { HolidayProcessComponent } from './components/admin/holiday/holiday-process/holiday-process.component';
 
 @NgModule({
   declarations: [

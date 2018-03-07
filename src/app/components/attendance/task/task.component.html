@@ -1,1 +1,41 @@
-<task-day></task-day>
+<div class="row">
+    <div class="col-12">
+        <ul class="nav nav-pills nav-justified spin-nav project-tab"
+            id="myTab"
+            role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active"
+                   id="day-tab"
+                   data-toggle="tab"
+                   href="#day-tasks"
+                   role="tab"
+                   aria-controls="day-tasks"
+                   aria-selected="true">งานประจำวัน</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   id="week-tab"
+                   data-toggle="tab"
+                   href="#week-tasks"
+                   role="tab"
+                   aria-controls="week-tasks"
+                   aria-selected="false">งานทั้งหมด</a>
+            </li>
+        </ul>
+        <div class="tab-content"
+             id="myTabContent">
+            <div class="tab-pane fade show active"
+                 id="day-tasks"
+                 role="tabpanel"
+                 aria-labelledby="day-tab">
+                 <task-day></task-day>
+            </div>
+            <div class="tab-pane fade"
+                 id="week-tasks"
+                 role="tabpanel"
+                 aria-labelledby="week-tab">
+                <task-all></task-all>
+            </div>
+        </div>
+    </div>
+</div>

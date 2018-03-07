@@ -1,3 +1,28 @@
-<p>
-  task-all works!
-</p>
+<div class="row">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="username input-group-text">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+    <input type="text"
+           id="keyword"
+           name="keyword"
+           class="form-control input-sm"
+           [(ngModel)]="keyword"
+           (ngModelChange)="onSearch()">
+  </div>
+</div>
+<div class="tasks-list"
+     infiniteScroll
+     [infiniteScrollDistance]="1"
+     [infiniteScrollThrottle]="1000"
+     [scrollWindow]="false"
+     (scrolled)="onScrollDown()">
+  <div *ngFor="let atask of allTask | async" class="task-groups">
+    <div class="group-date">{{atask.date | thaiDate:'short'}}</div>
+    <task [source]="task"
+          *ngFor="let task of atask.tasks | async"></task>
+  </div>
+
+</div>

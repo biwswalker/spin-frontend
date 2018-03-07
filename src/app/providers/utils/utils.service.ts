@@ -71,7 +71,12 @@ export class UtilsService {
 
   getPreviousDay(enDate): string {
     var previousDay = moment(enDate, Format.DATE_DB).subtract(1, 'days').format(Format.DATE_DB);
-    return previousDay
+    return previousDay;
+  }
+
+  getPreviousWeekDate(enDate): string {
+    var previousWeekDay = moment(enDate, Format.DATE_DB).subtract(7, 'days').format(Format.DATE_DB);
+    return previousWeekDay;
   }
 
   getNextDay(enDate): string {
