@@ -9,4 +9,11 @@
     border-top-right-radius: 0px;
     height: 25px;
     padding-top: 0px;
+    margin-bottom: 5px;
+}
+
+.day-tasks-list {
+    height: 240px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }

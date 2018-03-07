@@ -49,9 +49,36 @@ export class AuthenticationService {
       })
   }
 
-  refreshToken(): Observable<string> {
-    let token: any = sessionStorage.getItem(Default.ACTOKN);
-    return Observable.of(token.refresh_token).delay(200);
+  refreshToken() {
+    console.log('refresh tok')
+    var data = new FormData();
+    data.append("grant_type", "refresh_token");
+    data.append("refresh_token", this.getRefreshToken());
+    const headers = new HttpHeaders({
+      "Authorization": `Basic ${this.getRefreshToken()}`
+    })
+    const options = { headers: headers }
+    console.log(options)
+    return this.request.requestMethodPOSTWithHeader('oauth/token', data, options).toPromise()
+      .then(token => {
+        if (token) {
+          sessionStorage.setItem(Default.ACTOKN, token.access_token)
+          sessionStorage.setItem(Default.TOKNTY, token.token_type)
+          sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
+          this.isAccess.next(true);
+          return this.accessUser();
+        } else {
+          console.log('error token')
+          this.isAccess.next(false)
+          return Status.ERROR;
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        this.removeToken();
+        this.isAccess.next(false)
+        return Status.ERROR;
+      })
   }
 
   accessUser(): Promise<string> {
@@ -81,9 +108,7 @@ export class AuthenticationService {
   logout() {
     let acces_token: any = sessionStorage.getItem(Default.ACTOKN);
     this.request.requestMethodGET(`logout/${acces_token}`).subscribe((response: Response) => console.log(response))
-    sessionStorage.removeItem(Default.ACTOKN)
-    sessionStorage.removeItem(Default.TOKNTY)
-    sessionStorage.removeItem(Default.RFTOKN)
+    this.removeToken();
     this.isAccess.next(false)
   }
 
@@ -92,5 +117,28 @@ export class AuthenticationService {
       return true;
     }
     return false;
+  }
+
+  getNowToken(): string {
+    let access_token: any = sessionStorage.getItem(Default.ACTOKN);
+    let token_type: any = sessionStorage.getItem(Default.TOKNTY);
+    if (access_token) {
+      return `${token_type} ${access_token}`;
+    }
+    return '';
+  }
+
+  getRefreshToken(): string {
+    let refresh_token: any = sessionStorage.getItem(Default.RFTOKN);
+    if (refresh_token) {
+      return `${refresh_token}`;
+    }
+    return '';
+  }
+
+  removeToken() {
+    sessionStorage.removeItem(Default.ACTOKN)
+    sessionStorage.removeItem(Default.TOKNTY)
+    sessionStorage.removeItem(Default.RFTOKN)
   }
 }

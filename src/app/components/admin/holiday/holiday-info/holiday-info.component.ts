@@ -1,38 +1,33 @@
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { TaskService } from '../../../../providers/task.service';
-import { Observable } from 'rxjs/Observable';
-import { TaskForm } from '../../../../forms/task-form';
-import { UtilsService } from '../../../../providers/utils/utils.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HolidayService } from '../../../../providers/holiday.service';
 import { Holiday } from '../../../../models/holiday';
-import { Leave } from '../../../../models/leave';
-import { LeaveService } from '../../../../providers/leave.service';
+import { UtilsService } from '../../../../providers/utils/utils.service';
+import { HolidayService } from '../../../../providers/holiday.service';
+import { HolidayProcessComponent } from '../holiday-process/holiday-process.component';
+
 declare var $: any;
 declare var inlineDatepicker: any;
 @Component({
-  selector: 'task-day',
-  templateUrl: './task-day.component.html',
-  styleUrls: ['./task-day.component.scss']
+  selector: 'app-holiday-info',
+  templateUrl: './holiday-info.component.html',
+  styleUrls: ['./holiday-info.component.scss']
 })
-export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked {
-
+export class HolidayInfoComponent implements OnInit {
 
   private subjectDate = new BehaviorSubject<string>(this.utilsService.getCurrentThDate());
   private crrDate = this.subjectDate.asObservable();
   private subjectYearMonth = new BehaviorSubject<{}>({ year: this.utilsService.getCuurentThYear(), month: this.utilsService.getCurrentThMonth() });
   private crrYearMonth = this.subjectYearMonth.asObservable();
 
-  public taskForms = new Observable<TaskForm[]>();
-  private unstamped = [];
   private holidays: Holiday[] = [];
-  private leaves: Leave[] = [];
 
-  constructor(private taskService: TaskService, private utilsService: UtilsService, private holidayService: HolidayService, private leaveService: LeaveService) {
+
+  @ViewChild(HolidayProcessComponent) holidayProcess;
+
+
+  constructor(private utilsService: UtilsService, private holidayService: HolidayService) {
+
     // Async
-    this.crrDate.subscribe(date => {
-      this.taskForms = this.taskService.findTaskByDate(date);
-    });
 
     this.crrYearMonth.subscribe((yearMonth: any) => {
       const year = yearMonth.year!;
@@ -45,40 +40,25 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
   ngOnInit() {
   }
 
+
   ngAfterViewInit(): void {
-    $("button.dp-btn-collapse").click(function () {
-      $("button.dp-btn-collapse > i").toggle();
-      if ($('#toggle-calendar').hasClass('collapsed')) {
-        $('.day-tasks-list').css({"height":"240px"});
-      } else {
-        $('.day-tasks-list').css({"height":"500px"});
-      }
-    });
+    console.log('ngAfterViewInit');
     // Call DatePicker
     let datepickerId = '#workingDatePicker'
     let self = this;
+    console.log('self =' + datepickerId);
     $(datepickerId).datepicker({
       isBE: true,
       onSelect: function (dateText, inst) {
+        console.log('dateText = ' + dateText);
         self.subjectDate.next(dateText);
       },
       beforeShowDay: function (date) {
         let monthDate = self.utilsService.convertEnDDMYYYYToThDate(date.getDate(), date.getMonth() + 1, date.getFullYear())
         for (let hol of self.holidays) {
           if (hol.holDate == monthDate) {
+            console.log('hol = {} ', hol);
             return [true, 'holiday', hol.holName];
-          }
-        }
-
-        for (let unstamp of self.unstamped) {
-          if (unstamp == monthDate) {
-            return [true, 'unstamped', 'คุณไม่ได้ลงเวลางาน'];
-          }
-        }
-
-        for (let leave of self.leaves) {
-          if (leave.leaveDate == monthDate) {
-            return [true, 'leave', 'ลา'];
           }
         }
         return [true];
@@ -103,13 +83,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
   }
 
   fetchSpecialDate(year, month) {
-    // Get Unstamped
-    this.taskService.findUnStamped(year, month).subscribe(unstampeds => {
-      this.unstamped = [];
-      this.unstamped = unstampeds;
-      $('#workingDatePicker').datepicker('refresh');
-    });
-
     // Get Holiday
     this.holidayService.findHolidayByMonth(year, month).subscribe((holidays: Holiday[]) => {
       this.holidays = [];
@@ -121,16 +94,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
       $('#workingDatePicker').datepicker('refresh');
     });
 
-    // Get Leave
-    this.leaveService.findLeaveByMonth(year, month).subscribe((leaves: Leave[]) => {
-      this.leaves = [];
-      for (let leave of leaves) {
-        if (leave.activeFlag == 'A') {
-          this.leaves.push(leave);
-        }
-      }
-      $('#workingDatePicker').datepicker('refresh');
-    });
-
   }
+
 }
