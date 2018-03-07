@@ -50,6 +50,9 @@ $stamped:rgb(44, 111, 246);
     position: relative;
     padding-right: 0px;
     padding-left: 0px;
+    border: 1px solid $cgraymid;
+    border-bottom: 0;
+    border-top: 0;
     .stamp {
         height: calc(524px / 26);
         position: relative;

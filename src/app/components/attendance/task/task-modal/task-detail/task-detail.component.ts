@@ -38,7 +38,7 @@ export class TaskDetailComponent implements OnInit {
   public taskDetailFormGroup: FormGroup;
   public user: User;
   public mode: string;
-  public favProjectList: any[] = ["project1", "project2", "project3"];
+  public favProjectList: any[];
 
   constructor(
     private projectService: ProjectService,
@@ -53,7 +53,6 @@ export class TaskDetailComponent implements OnInit {
   ngOnInit() {
     this.taskObj = new Task();
     this.projectObj = new Project();
-    this.findProject();
     this.validateData();
   }
 
@@ -68,10 +67,16 @@ export class TaskDetailComponent implements OnInit {
     this.project = '';
   }
 
-  findProject() {
+  findProject(projectId: number) {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
+        this.taskService.selectedProjectId.next(projectId);
         this.projectList = data;
+        for (let obj of data) {
+          if (obj.projectId == projectId) {
+            this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
+          }
+        }
       }
     )
   }
@@ -81,16 +86,7 @@ export class TaskDetailComponent implements OnInit {
     this.initialTime();
     this.initialFavoriteProject();
     if (this.mode == Mode.E) {
-      console.log('EDIT');
-      // this.projectService.findProjectById(this.taskObj.projectId).subscribe(
-      //   project => {
-      //     if (project) {
-      //       this.taskService.selectedProjectId.next(project.projectId);
-      //       this.project = project.projectName;
-      //     }
-      //   }
-      // );
-      console.log(this.project);
+      this.findProject(this.taskObj.projectId);
       this.initialTaskForUpdate();
     } else if (this.mode == Mode.V) {
 
@@ -106,8 +102,12 @@ export class TaskDetailComponent implements OnInit {
     this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
   }
 
-  initialFavoriteProject(){
-    // this.projectService.
+  initialFavoriteProject() {
+    this.projectService.findFavoriteProjectByUserId(this.user.userId).subscribe(
+      favPrjList => {
+        this.favProjectList = favPrjList;
+      }
+    )
   }
 
   initialTime() {
@@ -119,7 +119,7 @@ export class TaskDetailComponent implements OnInit {
   initialTaskForUpdate() {
     this.topic = this.taskObj.topic;
     this.activity = this.taskObj.activity;
-    this.statusFlag = (this.taskObj.statusFlag == 'I' ? true : false);
+    this.statusFlag = (this.taskObj.statusFlag == 'I' ? false : true);
     this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
@@ -150,6 +150,12 @@ export class TaskDetailComponent implements OnInit {
       this.projectId = event.item.projectId;
       this.taskService.selectedProjectId.next(this.projectId);
     }
+  }
+
+  onFavoriteClick(event){
+    this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
+    this.projectId = event.projectId;
+    this.taskService.selectedProjectId.next(event.projectId);
   }
 
 }

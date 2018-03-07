@@ -35,28 +35,45 @@ export class TaskPartnerComponent implements OnInit {
 
     // this async
     this.taskService.currentProjectId.subscribe(projectId => {
+      this.owner = this.user.email;
       if (projectId) {
-        this.taskPartner = [];
+
         this.autocompletePartnerList = [];
-        this.getProjectMember(projectId);
+
         this.getautoCompletePartner(projectId);
         if (this.mode == Mode.E) {
           this.partnerService.findMemberByProjectId(projectId, this.task.taskId).subscribe(
-            member => {
-              console.log(member);
-            }
-          );
-          this.partnerService.findNotMemberByProjectId(projectId, this.task.taskId).subscribe(
-            nonMember => {
-              console.log(nonMember)
-              if (nonMember) {
-                for (let obj of nonMember) {
-                  // this.taskPartner.push({ userId: obj.user-id, email: obj.email });
-                  // console.log(this.taskPartner)
+            members => {
+              if (members) {
+                // console.log(members);
+
+                this.taskMember = [];
+                for (let obj of members) {
+                  if (obj.isPartner == "Y") {
+                    this.taskMember.push({ userId: obj.userId, email: obj.email, status: true });
+                  } else {
+                    this.taskMember.push({ userId: obj.userId, email: obj.email, status: false });
+                  }
                 }
               }
             }
+          );
+          this.partnerService.findNotMemberByProjectId(projectId, this.task.taskId).subscribe(
+            nonMembers => {
+              if (nonMembers) {
+                this.taskPartner = [];
+                for (let obj of nonMembers) {
+                  this.taskPartner.push({ userId: obj.userId, email: obj.email });
+                }
+                console.log(this.taskPartner)
+              }
+            }
           )
+        } else if (this.mode == Mode.V) {
+          console.log('ViewMode');
+        } else {
+          console.log('InsertMode');
+          this.getProjectMember(projectId);
         }
       }
     });

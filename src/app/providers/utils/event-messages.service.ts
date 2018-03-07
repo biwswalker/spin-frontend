@@ -12,4 +12,7 @@ onSuccess(){
   this.notify.initialSuccess('บันทึกข้อมูลเรียบร้อย','.........');
 }
 
+notifySuccess(){
+  this.notify.initialSuccess('', '')
+}
 }
