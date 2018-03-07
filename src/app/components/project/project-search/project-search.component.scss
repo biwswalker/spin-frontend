@@ -1,56 +1,23 @@
-$font-color:#fff;
+$white:#fff;
 $first-bg-color:rgb(0, 108, 224);
 $second-bg-color:rgba(0, 0, 0, 0.5);
 
 $border-color1: green;
+
+
+
 p{
   font-size: 1rem;
   margin:0 !important;
 }
 
-.project-highlight{
-  background:$first-bg-color;
-  color:$font-color;
-
-  .card-body{
-    padding: 0.5rem;
-  }
-
-  .project-abbr{
-    margin:0 !important;
-  }
-
-  .customer-name{
-    opacity: 0.8;
-    filter: opacity(80);
-  }
-  .project-name{
-    clear:both;
-    background-color:$second-bg-color;
-    margin: 0rem 0.5rem 0.5rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-  }
-
-  .phase{
-    text-align: center;
-    margin: 0rem 1rem;
-
-    .phase-name{
-      padding: 0.5rem 1rem;
-      background-color: #ffc800;
-      font-size: 1rem;
-      font-weight: 700;
-    }
-  }
-
-}
-
 #project-list{
   li{
     margin-bottom:0.5rem;
+    max-height: 170px;
     cursor: pointer;
     .project-item{
+
       .card-body{
         padding: 0.5rem;
 
@@ -98,24 +65,32 @@ p{
     }
   }
   li.active> .project-item> .card-body .project-name{
-    border:0.1rem solid $font-color !important;
+    border:0.1rem solid $white!important;
   }
   li:hover> .project-item> .card-body .project-name{
-    border:0.1rem solid $font-color !important;
+    border:0.1rem solid #3e3e3e;
   }
 
 }
-
 
 
 .favorite{
-  cursor: pointer;
+  position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    z-index: 1;
+    font-size: 1.5rem;
+    cursor: pointer;
+    .far, .far::before{
+      color:grey;
+    }
+    .fas, .fas::before{
+      color:rgb(191, 0, 19) !important;
+    }
 }
-.favorite.fas{
-  color:rgb(191, 0, 19);
-}
-.favorite:hover{
-  color: #ff385b;
+
+.favorite:hover .fas::before{
+  color: #ff385b !important;
 }
 
 .search-results {

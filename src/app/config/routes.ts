@@ -6,10 +6,11 @@ import { ProjectComponent } from "../components/project/project.component";
 import { IndexComponent } from "../components/index/index.component";
 import { AttendanceComponent } from '../components/attendance/attendance.component';
 import { TaskComponent } from '../components/attendance/task/task.component';
+import { ProjectModalComponent } from '../components/project/project-modal/project-modal.component';
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
-  { path: 'project', component: ProjectComponent },
+  { path: 'project', component: ProjectComponent},
   { path: 'attendance', component: AttendanceComponent },
   { path: 'task', component: TaskComponent },
   { path: 'example', component: ExampleComponent },
