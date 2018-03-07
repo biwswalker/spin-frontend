@@ -1,3 +1,4 @@
+import { ProjectService } from './../../../../providers/project.service';
 import { Project } from './../../../../models/project';
 import { FormGroup } from '@angular/forms';
 import { TaskPartnerComponent } from './task-partner/task-partner.component';
@@ -29,6 +30,7 @@ export class TaskModalComponent {
   private modal = new SpinModal();
   private user = new User();
   public mode = '';
+
   @ViewChild(TaskDetailComponent) taskDetailChild;
   @ViewChild(TaskPartnerComponent) taskPartnerChild;
   @ViewChild(TaskTagComponent) taskTagChild;
@@ -37,38 +39,56 @@ export class TaskModalComponent {
     private partnerService: PartnerService,
     private utilsService: UtilsService,
     private eventMessageService: EventMessagesService,
-    private auth: AuthenticationService) {
+    private auth: AuthenticationService,
+    private projectService: ProjectService) {
     // Get User
     this.auth.crrUser.subscribe(user => {
       this.user = user;
-    })
+    });
 
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
         this.onTaskHasSelected(task, Mode.I);
       }
-    })
+    });
 
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
       if (task.taskId) {
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
-    })
+    });
   }
 
   onTaskHasSelected(task: Task, mode: string) {
+    if (this.mode == Mode.E) {
+      this.selectedProject(this.taskForm.task.projectId);
+    }
     this.mode = mode;
-    this.taskDetailChild.projectObj = new Project();
     this.taskDetailChild.taskObj = new Task();
     this.taskForm.task = task;
+    this.taskDetailChild.taskObj.color = 'primary';
     this.taskDetailChild.mode = this.mode;
     this.taskPartnerChild.mode = this.mode;
+    this.taskPartnerChild.task = this.taskForm.task;
+    this.taskPartnerChild.user = this.user;
     this.taskTagChild.mode = this.mode;
     this.taskDetailChild.taskObj = this.taskForm.task;
-    this.taskDetailChild.projectObj = this.taskForm.taskProject;
     this.taskDetailChild.initTaskDetail();
+
+  }
+
+  selectedProject(prjId: number) {
+    this.projectService.findProjectById(prjId).subscribe(
+      project => {
+        if (project) {
+          this.taskService.selectedProjectId.next(prjId);
+          this.taskDetailChild.project = project.projectName;
+          console.log(this.taskDetailChild.project);
+        }
+      }
+    )
   }
 
   onSubmit() {
@@ -92,14 +112,19 @@ export class TaskModalComponent {
       }
       if (this.taskPartnerChild.taskPartner) {
         for (let obj of this.taskPartnerChild.taskPartner) {
-          this.taskForm.task.taskPartnerList.push({ id: { userId: obj.userId } });
+          this.task.taskPartnerList.push({ id: { userId: obj.userId } });
         }
       }
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
       console.log(this.task)
-      // this.createNewTask(this.task);
+      if (this.mode == Mode.E) {
+        this.task.taskId = this.taskForm.task.taskId;
+        this.updateTask(this.task);
+      } else {
+        this.createNewTask(this.task);
+      }
       let self = this;
       $('#task-modal').on("hidden.bs.modal", function () {
         $('.timestamp .ui-selected').removeClass('ui-selected');
@@ -121,6 +146,18 @@ export class TaskModalComponent {
     );
   }
 
+  updateTask(task: Task) {
+    this.taskService.updateTask(task).subscribe(
+      res => {
+        console.log(res);
+        this.eventMessageService.onSuccess();
+        this.oncloseModal();
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+
   oncloseModal() {
     this.modal.close('#task-modal');
     this.task = new Task;
@@ -131,7 +168,7 @@ export class TaskModalComponent {
   }
 
   deleteTask() {
-    if(this.taskForm.task.taskId){
+    if (this.taskForm.task.taskId) {
       this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
         res => {
           console.log(res);

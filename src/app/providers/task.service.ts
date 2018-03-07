@@ -88,6 +88,9 @@ export class TaskService {
     return this.request.requestMethodPUT('task-management/tasks', task);
   }
 
+  updateTask(task: Task) {
+    return this.request.requestMethodPOST('task-management/tasks', task);
+  }
   findUnStamped(year, month) {
     return this.request.requestMethodGET(`task-management/un-stamp-task/${year}/${month}`)
   }

@@ -10,7 +10,7 @@ import { HolidayComponent } from '../components/admin/holiday/holiday.component'
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
-  { path: 'project', component: ProjectComponent },
+  { path: 'project', component: ProjectComponent},
   { path: 'attendance', component: AttendanceComponent },
   { path: 'task', component: TaskComponent },
   { path: 'example', component: ExampleComponent },
