@@ -57,7 +57,7 @@ export class TaskDetailComponent implements OnInit {
     this.validateData();
   }
 
-  setDefaultDate() {
+  setDefaultData() {
     this.colorFlag = '';
     this.workStartTime = '';
     this.workEndTime = '';
@@ -77,13 +77,25 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail() {
+    this.setDefaultData();
+    this.initialTime();
+    this.initialFavoriteProject();
     if (this.mode == Mode.E) {
+      console.log('EDIT');
+      // this.projectService.findProjectById(this.taskObj.projectId).subscribe(
+      //   project => {
+      //     if (project) {
+      //       this.taskService.selectedProjectId.next(project.projectId);
+      //       this.project = project.projectName;
+      //     }
+      //   }
+      // );
+      console.log(this.project);
       this.initialTaskForUpdate();
     } else if (this.mode == Mode.V) {
 
     } else {
-      this.setDefaultDate();
-      this.initialTime();
+
     }
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
@@ -92,7 +104,10 @@ export class TaskDetailComponent implements OnInit {
 
   onSelectCallBack(date: string) {
     this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
-    console.log(this.taskDetailFormGroup.value);
+  }
+
+  initialFavoriteProject(){
+    // this.projectService.
   }
 
   initialTime() {
@@ -108,15 +123,6 @@ export class TaskDetailComponent implements OnInit {
     this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
-    this.projectService.findProjectById(this.taskObj.projectId).subscribe(
-      project => {
-        if (project) {
-          this.taskService.selectedProjectId.next(project.projectId);
-          this.project = project.projectName;
-          console.log('projectname: ', this.project);
-        }
-      }
-    );
     this.messageEvent.emit(this.taskObj.color);
   }
 
@@ -144,10 +150,6 @@ export class TaskDetailComponent implements OnInit {
       this.projectId = event.item.projectId;
       this.taskService.selectedProjectId.next(this.projectId);
     }
-  }
-
-  getColorStatus(status) {
-    console.log(status)
   }
 
 }

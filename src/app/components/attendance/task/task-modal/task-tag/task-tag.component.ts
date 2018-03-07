@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 import { TagService } from '../../../../../providers/tag.service';
+import { Mode } from '../../../../../config/properties';
+import { Task } from '../../../../../models/task';
 
 @Component({
   selector: 'app-task-tag',
@@ -13,6 +15,8 @@ export class TaskTagComponent implements OnInit {
   public tagList: any[] = [];
   public autoCompleteTagList: any[] = [];
   public mode: string;
+  public task: Task = new Task();
+
   constructor(
     private tagService: TagService
   ) { }
@@ -21,9 +25,14 @@ export class TaskTagComponent implements OnInit {
     this.tagList = [];
     this.findUsedTag();
     this.initialAutocompleteTagList();
+    if(this.mode == Mode.E){
+      console.log('tag mode: ' + this.mode);
+      this.findTagByTaskId(this.task.taskId);
+    }
   }
 
   findUsedTag(){
+    console.log('findusedtag');
     this.tagService.findUsedTag().subscribe(
       data=>{
         for(let obj of data){
@@ -33,10 +42,20 @@ export class TaskTagComponent implements OnInit {
     )
   }
 
+  findTagByTaskId(taskId: number){
+    console.log('findTagByTaskId');
+    this.tagService.findByTaskId(taskId).subscribe(
+      tag=>{
+        console.log(tag);
+      }
+    )
+  }
+
+
   initialAutocompleteTagList(){
+    console.log('initialAutocompleteTagList');
     this.tagService.findAll().subscribe(
       data=>{
-        console.log('tagList: ', data);
         this.autoCompleteTagList = data;
       }
     )

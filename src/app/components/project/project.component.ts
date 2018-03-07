@@ -33,10 +33,11 @@ export class ProjectComponent implements OnInit {
     this.projectModal.newProject();
   }
 
-  passKeyToProjectDetail(projectId){
+  passKeyToChildrens(projectId){
     this.projectInfo.projectDetail.ngOnInit();
     this.projectInfo.projectMember.ngOnInit();
     this.projectInfo.projectSummary.ngOnInit();
+    this.projectModal.updateProject(projectId);
     this.projectInfo.sendKeyToChilds(projectId);
     this.displayProjectDetail(projectId);
     this.displayProjectMember(projectId);

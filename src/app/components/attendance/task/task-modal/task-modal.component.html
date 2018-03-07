@@ -1,84 +1,87 @@
-    <div class="modal fade" id="task-modal">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
+<div class="modal fade" id="task-modal">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
 
-                <!-- Header -->
-                <div class="modal-header" [ngClass]="bgColor">
-                    <a href="#" data-dismiss="modal">
-                        <i class="fas fa-times fa-lg"></i>
-                    </a>
-                    <div class="text-center header-text">
-                        New Task
-                    </div>
+            <!-- Header -->
+            <div class="modal-header" [ngClass]="bgColor">
+                <a href="#" data-dismiss="modal">
+                    <i class="fas fa-times fa-lg"></i>
+                </a>
+                <div class="text-center header-text">
+                    New Task
+                </div>
 
-                    <div class="d-flex">
-                        <div class="ml-auto">
-                            <!-- Delete Button -->
-                            <button class="btn btn-link" *ngIf="mode == 'EDIT'">
+                <div class="d-flex">
+                    <div class="ml-auto">
+                        <!-- Delete Button -->
+                        <button class="btn btn-link" *ngIf="mode == 'EDIT'">
                                 <i class="far fa-trash-alt" data-toggle="modal" href="#confirmDeleteTask"></i>
                             </button>
-                            <!-- Save Button -->
-                            <button class="btn btn-link" (click)="onSubmit()">
+                        <!-- Save Button -->
+                        <button class="btn btn-link" (click)="onSubmit()">
                         <i class="fas fa-check fa-lg"></i>
                       </button>
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Tab -->
-                <div>
-                    <ul class="nav nav-pills nav-fill" id="tap-info" role="tablist">
-                        <li class="nav-item" [ngClass]="bgColor">
-                            <a class="nav-link active" href="#tab-detail" role="tab" id="task-detail" data-toggle="tab">
-                                <i class="fas fa-info-circle fa-lg"></i>
-                                <br>รายละเอียด
-                            </a>
-                        </li>
+            <!-- Tab -->
+            <div>
+                <ul class="nav nav-pills nav-fill" id="tap-info" role="tablist">
+                    <li class="nav-item" [ngClass]="bgColor">
+                        <a class="nav-link active" href="#tab-detail" role="tab" id="task-detail" data-toggle="tab">
+                            <i class="fas fa-info-circle fa-lg"></i>
+                            <br>รายละเอียด
+                        </a>
+                    </li>
 
-                        <li class="nav-item" [ngClass]="bgColor">
-                            <a class="nav-link" href="#tab-member" role="tab" id="task-member" data-toggle="tab">
-                                <i class="fas fa-users fa-lg"></i>
-                                <br>ผู้ร่วมงาน
-                            </a>
-                        </li>
+                    <li class="nav-item" [ngClass]="bgColor">
+                        <a class="nav-link" href="#tab-member" role="tab" id="task-member" data-toggle="tab">
+                            <i class="fas fa-users fa-lg"></i>
+                            <br>ผู้ร่วมงาน
+                        </a>
+                    </li>
 
-                        <li class="nav-item" [ngClass]="bgColor">
-                            <a class="nav-link" href="#tab-tag" role="tab" id="task-tag" data-toggle="tab">
-                                <i class="fas fa-tag fa-lg"></i>
-                                <br>ป้ายกำกับ
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                    <li class="nav-item" [ngClass]="bgColor">
+                        <a class="nav-link" href="#tab-tag" role="tab" id="task-tag" data-toggle="tab">
+                            <i class="fas fa-tag fa-lg"></i>
+                            <br>ป้ายกำกับ
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-                <!-- Body -->
-                <div class="modal-body">
-                    <div class="tab-content">
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="tab-content">
 
-                        <!-- Detail -->
-                        <div role="tabpanel" class="tab-pane in active fixed-modal" id="tab-detail">
-                            <app-task-detail (messageEvent)="receiveMessage($event)"></app-task-detail>
-                        </div>
+                    <!-- Detail -->
+                    <div role="tabpanel" class="tab-pane in active fixed-modal" id="tab-detail">
+                        <app-task-detail (messageEvent)="receiveMessage($event)"></app-task-detail>
+                    </div>
 
-                        <!-- Member -->
-                        <div role="tabpanel" class="tab-pane fade fixed-modal" id="tab-member">
-                            <app-task-partner></app-task-partner>
-                        </div>
+                    <!-- Member -->
+                    <div role="tabpanel" class="tab-pane fade fixed-modal" id="tab-member">
+                        <app-task-partner></app-task-partner>
+                    </div>
 
-                        <!-- Tag -->
-                        <div role="tabpanel" class="tab-pane fade fixed-modal" id="tab-tag">
-                            <app-task-tag></app-task-tag>
-                        </div>
+                    <!-- Tag -->
+                    <div role="tabpanel" class="tab-pane fade fixed-modal" id="tab-tag">
+                        <app-task-tag></app-task-tag>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <i class="fas fa-trash-alt"></i> ยืนยันการลบงานหรือไม่ ?
+            </div>
+            <div class="modal-body">
                 <h5 class="modal-title" id="confirmDeleteTask">ยืนยันการลบข้อมูล</h5>
             </div>
             <div class="modal-footer">

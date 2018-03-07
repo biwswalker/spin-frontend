@@ -1,0 +1,71 @@
+$cheader: #bf0a13;
+$cgraylight: #dfe6e9;
+$cgraymid:#b2bec3;
+$cllightgray:#f5f7fa;
+$chlightgray:#e6e9ed;
+$white: #ffffff;
+$stamping:rgb(70, 120, 255);
+$stamped:rgb(44, 111, 246);
+.row {
+    padding: 0px;
+}
+
+.time-header {
+    background-color: $cheader;
+    height: 30px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 3px solid $cgraymid;
+    text-align: center;
+    color: $white;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.time-body {
+    display: table;
+    .col-fixed-100 {
+        -ms-flex: 0 0 100px;
+        flex: 0 0 100px;
+        background-color: $cgraylight;
+        height: 524px;
+        padding: 0px;
+        .time {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .time:nth-child(even) {
+            border-bottom: 1px solid $cgraymid;
+        }
+    }
+
+    .table{
+        display: table-cell;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+
+.timestamp-week1, .timestamp-week2, .timestamp-week3, .timestamp-week4, .timestamp-week5, .timestamp-week6, .timestamp-week7 {
+    position: relative;
+    padding-right: 0px;
+    padding-left: 0px;
+    .stamp {
+        height: calc(524px / 26);
+        position: relative;
+    }
+    .stamp:nth-child(even) {
+        background-color: $chlightgray;
+    }
+    .stamp:nth-child(odd) {
+        background-color: $cllightgray;
+    }
+}
+
+.ui-selecting {
+    background: $stamping !important;
+}
+
+.ui-selected {
+    background: $stamped !important;
+}

@@ -11,7 +11,7 @@ import { ResponsibilityComponent } from '../components/admin/responsibility/resp
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
-  { path: 'project', component: ProjectComponent },
+  { path: 'project', component: ProjectComponent},
   { path: 'attendance', component: AttendanceComponent },
   { path: 'task', component: TaskComponent },
   { path: 'example', component: ExampleComponent },

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpRequestService } from './utils/http-request.service';
 import { Method } from '../config/properties';
-
+declare var SpinModal: any;
 @Injectable()
 export class ProjectService {
-
+  private modal = new SpinModal();
   constructor(private request: HttpRequestService) { }
 
   // Begin Insert Update Delete Actions
@@ -44,10 +44,20 @@ export class ProjectService {
   }
   // End find for display action
 
-
+  findFavoriteProjectByUserId(userId: number){
+    return this.request.requestMethodGET('');
+  }
 
   fetchProjectAutocomplete(){
     return this.request.requestMethodGET('projects-management/find-autocomplete-project/N');
+  }
+
+  onOpenModal(){
+    this.modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
+  }
+
+  onCloseModal(){
+    this.modal.close('#project-modal');
   }
 
 }

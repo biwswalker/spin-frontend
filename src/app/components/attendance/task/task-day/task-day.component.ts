@@ -8,6 +8,7 @@ import { HolidayService } from '../../../../providers/holiday.service';
 import { Holiday } from '../../../../models/holiday';
 import { Leave } from '../../../../models/leave';
 import { LeaveService } from '../../../../providers/leave.service';
+import { AuthenticationService } from '../../../../providers/authentication.service';
 declare var $: any;
 declare var inlineDatepicker: any;
 @Component({
@@ -28,7 +29,7 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
   private holidays: Holiday[] = [];
   private leaves: Leave[] = [];
 
-  constructor(private taskService: TaskService, private utilsService: UtilsService, private holidayService: HolidayService, private leaveService: LeaveService) {
+  constructor(private taskService: TaskService, private utilsService: UtilsService, private holidayService: HolidayService, private leaveService: LeaveService, private auth: AuthenticationService) {
     // Async
     this.crrDate.subscribe(date => {
       this.taskForms = this.taskService.findTaskByDate(date);
