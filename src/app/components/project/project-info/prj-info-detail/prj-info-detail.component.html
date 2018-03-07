@@ -2,9 +2,16 @@
   <div class="col-3 project-thumbnail">
           <img src="{{project.projectThumbnail || './assets/img/ico/startup.png'}}">
   </div>
-  <div class="col-9">
+  <div class="col-7">
       <div class="project-abbr mt-md-3">{{project.projectAbbr}}</div>
       <div class="customer-name">{{project.customerName}}</div>
+  </div>
+  <div class="col-2">
+      <button type="button" class="btn btn-link float-right"
+      (click)="onEditClick()"
+      >
+          <i class="fas fa-edit fa-lg"></i>
+        แก้ไข</button>
   </div>
 </div>
 <div class="row">

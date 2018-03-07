@@ -7,7 +7,7 @@ import { ProjectModalDetailComponent } from './detail/project-modal-detail.compo
 import { EventService } from '../../../providers/utils/event.service';
 import { AuthenticationService } from '../../../providers/authentication.service';
 import { ProjectModalPhaseComponent } from './phase/project-modal-phase.component';
-declare var SpinModal: any;
+
 @Component({
   selector: 'project-modal',
   templateUrl: './project-modal.component.html',
@@ -18,7 +18,7 @@ export class ProjectModalComponent implements OnInit {
   @ViewChild(ProjectModalDetailComponent) projectModalDetail;
   @ViewChild(ProjectModalPhaseComponent) projectModalPhase;
   @ViewChild(ProjectModalMemberComponent) projectModalMember;
-  private modal = new SpinModal();
+
 
   constructor(private projectService: ProjectService,
     private eventService: EventService,
@@ -48,24 +48,24 @@ export class ProjectModalComponent implements OnInit {
       });
     }
   }
-
-  newProject(){
-    this.openModal();
+  initChildrens(){
     this.projectModalDetail.ngOnInit();
     this.projectModalPhase.ngOnInit();
     this.projectModalMember.ngOnInit();
   }
 
-  updateProject(){
-    this.openModal();
+  newProject(){
+    this.initChildrens();
+    this.projectService.onOpenModal();
+
   }
 
-  openModal(){
-    this.modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
+  updateProject(projectId){
+    this.initChildrens();
   }
 
   oncloseModal(){
-    this.modal.close('#project-modal');
+    this.projectService.onCloseModal();
     this.project = new Project;
   }
 

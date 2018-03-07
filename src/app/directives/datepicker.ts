@@ -22,17 +22,21 @@ export class DatePickerDirective implements ControlValueAccessor{
       dateFormat: Format.DATE_PIK, isBE: true,
     }).on('change', e => this.onModelChange(e.target.value));
   }
-  onModelChange: Function = () => {};
+  onModelChange: Function = () => {
+
+  };
 
 
   onModelTouched: Function = (e) => {
   };
 
   writeValue(val: string) : void {
+    console.log('writeValue');
       this.value = val;
   }
 
   registerOnChange(fn: Function): void {
+    console.log('registerOnChange');
       this.onModelChange = fn;
   }
 

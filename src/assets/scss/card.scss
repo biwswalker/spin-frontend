@@ -1,6 +1,6 @@
 @import 'task-card';
-$bg-list-hover: rgba(97,97, 97,1);
-$bg-list-active: rgb(64, 64, 64);
+$bg-list-hover: rgba(199, 199, 199, 0.5);
+$bg-list-active: rgb(108, 117, 125);
 $white:white;
 //For accordion panel
 #accordion{
@@ -16,11 +16,16 @@ $white:white;
 // For cards display as list
 .data-can-select-list{
 li:hover> .card{
-  background-color: $bg-list-hover;
-  color: $white;
+  background-color: rgba(199, 199, 199, 0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: #3e3e3e;
+  z-index: 5;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: all 0.2s;
 }
 li.active> .card{
   background-color: $bg-list-active;
+  transform: scale(1.01);
   color: $white;
 }
 }

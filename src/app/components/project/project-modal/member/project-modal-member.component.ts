@@ -73,6 +73,11 @@ export class ProjectModalMemberComponent implements OnInit {
     })
   }
 
+  onDeleteMember(index){
+    this.projectMembers.splice(index, 1);
+  }
+
+
   onSelectedMember(event){
     console.log('onSelectedMember...');
     this.projectMember.user = event.item;

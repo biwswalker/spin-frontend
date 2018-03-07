@@ -1,14 +1,19 @@
 <div class="row">
-  <div class="col-12 col-md-6 col-xl-5">
-    <div class="d-flex">
-        <button type="button" class="btn btn-link my-2" (click)="onNewProjectClick()">โครงการใหม่</button>
-    </div>
-    <app-project-search (messageEvent)="passKeyToProjectDetail($event)"></app-project-search>
+  <div class="col-12">
+        <h2 class="d-inline-block mt-2 mb-0">โครงการ</h2>
+          <button type="button" id="btn-new-project"
+          class="btn btn-link p-0 mb-1"
+          (click)="onNewProjectClick()">
+          <i class="fas fa-plus-circle"></i>
+          เพิ่มใหม่
+        </button>
   </div>
-  <div class="col-12 col-md-6 col-xl-5">
-      <div class="d-flex">
-          <button type="button" class="btn btn-link my-2 ml-auto">แก้ไขข้อมูลโครงการ</button>
-      </div>
+  <div class="col-12 col-md-6 col-xl-6">
+    <app-project-search
+    (messageEvent)="passKeyToChildrens($event)"
+    ></app-project-search>
+  </div>
+  <div class="col-12 col-md-6 col-xl-6">
       <app-project-info ></app-project-info>
     </div>
 </div>

@@ -27,14 +27,19 @@ export class ProjectModalPhaseComponent implements OnInit {
   validateForm(){
     this.projectPhaseGroup = new FormGroup({
       phaseName: new FormControl(this.projectPhase.phaseName, Validators.required),
-      startDate: new FormControl('',Validators.required),
-      endDate: new FormControl('',Validators.required),
+      startDate: new FormControl(this.projectPhase.startDate,Validators.required),
+      endDate: new FormControl(this.projectPhase.endDate,Validators.required),
 
 
     })
   }
 
-  onAddMember(){
+  onDeletePhase(index){
+    this.projectPhases.splice(index, 1);
+  }
+
+
+  onAddPhase(){
     console.log('start date: ',this.projectPhase.startDate);
     console.log('end date: ',this.projectPhase.endDate);
     console.log('projectPhaseGroup: ',this.projectPhaseGroup.value);
@@ -46,7 +51,7 @@ export class ProjectModalPhaseComponent implements OnInit {
       this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhaseGroup.value.endDate);
       this.projectPhases.push(this.projectPhase);
       this.projectPhase = new ProjectPhase;
-      this.validateForm();
+
       console.log(this.projectPhase);
     }
 

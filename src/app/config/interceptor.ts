@@ -1,26 +1,34 @@
-import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../providers/authentication.service';
-import { Default } from './properties';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-    constructor(private auth: AuthenticationService) { }
+    constructor(private injector: Injector) { }
 
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let access_token:any = sessionStorage.getItem(Default.ACTOKN);
-        let token_type:any = sessionStorage.getItem(Default.TOKNTY);
-        if (access_token) {
-            const headers = {
-                'Authorization': `${token_type} ${access_token}`
-            };
-            const request = req.clone({
-                headers: req.headers.set('Authorization', `${token_type} ${access_token}`)
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        const auth = this.injector.get(AuthenticationService);
+        let req = request;
+        if (auth.getNowToken()) {
+            req = request.clone({
+                headers: request.headers.set('Authorization', auth.getNowToken())
             });
-            return next.handle(request);
         }
-        return next.handle(req);
+        return next.handle(req).do(
+            () => { },
+            (error: any) => {
+                console.log(error)
+                if (error instanceof HttpErrorResponse) {
+                    if (error.status === 401) {
+                        console.log('GGWP :: ' + error.status);
+                        auth.refreshToken().catch(err => {
+                            console.log(err);
+                            auth.logout();
+                        });
+                    }
+                }
+            });
     }
 }

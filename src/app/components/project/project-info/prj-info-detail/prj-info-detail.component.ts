@@ -1,3 +1,4 @@
+import { ProjectModalComponent } from './../../project-modal/project-modal.component';
 import { ProjectService } from './../../../../providers/project.service';
 import { ProjectPhase } from './../../../../models/project-phase';
 import { Project } from './../../../../models/project';
@@ -18,6 +19,8 @@ export class PrjInfoDetailComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  onEditClick(){
+    this.projectService.onOpenModal();
+  }
 
 }
