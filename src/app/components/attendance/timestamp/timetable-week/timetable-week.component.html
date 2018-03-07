@@ -1,3 +1,66 @@
-<p>
-  timetable-week works!
-</p>
+<div class="row">
+  <div class="col-12 time-header">
+    {{ enDateStr | thaiDate:'stamptable' }}
+  </div>
+</div>
+<div class="row time-body">
+  <div class="col col-fixed-100 d-flex flex-column">
+    <div *ngFor="let item of ['06:00','&nbsp;','07:00','&nbsp;','08:00','&nbsp;','09:00','&nbsp;','10:00','&nbsp;','11:00','&nbsp;','12:00','&nbsp;','13:00','&nbsp;','14:00','&nbsp;','15:00','&nbsp;','16:00','&nbsp;','17:00','&nbsp;','18:00','&nbsp;']"
+  
+         class="time d-flex align-items-stretch">{{item}}</div>
+  </div>
+  <div class="col table">
+    <div class="row">
+      <div class="col timestamp-week1"
+           style="border:1px solid black">
+        <div *ngFor="let item of worktable ;let i = index"
+             class="stamp"
+             [attr.data-index]="i"
+             [attr.data-value]="item">&nbsp;</div>
+      </div>
+      <div class="col timestamp-week2"
+           style="border:1px solid black">
+        <div *ngFor="let item of worktable ;let i = index"
+             class="stamp"
+             [attr.data-index]="i"
+             [attr.data-value]="item">&nbsp;</div>
+      </div>
+      <div class="col timestamp-week3"
+           style="border:1px solid black">
+        <div *ngFor="let item of worktable ;let i = index"
+             class="stamp"
+             [attr.data-index]="i"
+             [attr.data-value]="item">&nbsp;</div>
+      </div>
+      <div class="col timestamp-week4"
+           style="border:1px solid black">
+        <div *ngFor="let item of worktable ;let i = index"
+             class="stamp"
+             [attr.data-index]="i"
+             [attr.data-value]="item">&nbsp;</div>
+      </div>
+      <div class="col timestamp-week5"
+           style="border:1px solid black">
+        <div *ngFor="let item of worktable ;let i = index"
+             class="stamp"
+             [attr.data-index]="i"
+             [attr.data-value]="item">&nbsp;</div>
+      </div>
+      <div class="col timestamp-week6"
+           style="border:1px solid black">
+        <div *ngFor="let item of worktable ;let i = index"
+             class="stamp"
+             [attr.data-index]="i"
+             [attr.data-value]="item">&nbsp;</div>
+      </div>
+      <div class="col timestamp-week7"
+           style="border:1px solid black">
+        <div *ngFor="let item of worktable ;let i = index"
+             class="stamp"
+             [attr.data-index]="i"
+             [attr.data-value]="item">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+
+</div>
