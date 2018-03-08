@@ -25,8 +25,6 @@ export class TaskTagComponent implements OnInit {
     this.tagList = [];
     this.findUsedTag();
     this.initialAutocompleteTagList();
-    if (this.mode == Mode.E) {
-    }
   }
 
   findUsedTag() {
@@ -40,16 +38,18 @@ export class TaskTagComponent implements OnInit {
   }
 
   initialTag(taskId: number) {
-    this.tagService.findByTaskId(taskId).subscribe(
-      tags => {
-        if(tags){
-          this.tagList = [];
-          for (let tag of tags) {
-            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
+    if(taskId){
+      this.tagService.findByTaskId(taskId).subscribe(
+        tags => {
+          if(tags){
+            this.tagList = [];
+            for (let tag of tags) {
+              this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
+            }
           }
         }
-      }
-    )
+      );
+    }
   }
 
 

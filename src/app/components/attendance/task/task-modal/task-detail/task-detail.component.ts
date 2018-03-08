@@ -65,7 +65,6 @@ export class TaskDetailComponent implements OnInit {
     this.activity = '';
     this.projectId = 0;
     this.project = '';
-    this.taskObj.color = 'primary';
   }
 
 
@@ -74,35 +73,36 @@ export class TaskDetailComponent implements OnInit {
     this.setDefaultData();
     this.initialTime();
     this.initialFavoriteProject();
-    this.findProject(this.taskObj.projectId);
-    if (this.mode == Mode.E) {
-      this.projectId = this.taskObj.projectId;
+    this.projectId = this.taskObj.projectId;
+    this.findProject();
 
-      this.initialTaskForUpdate();
-    } else if (this.mode == Mode.V) {
-
-    } else {
-
-    }
+    this.initialTaskForUpdate();
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
   }
 
-  findProject(projectId: number) {
+  findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
-        this.taskService.selectedProjectId.next(projectId);
         this.projectList = data;
-        if(projectId){
-          for (let obj of data) {
-            if (obj.projectId == projectId) {
-              this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
-            }
-          }
-        }
+        // if(this.taskObj.projectId){
+        //   this.getProjectName(this.taskObj.projectId);
+        // }
       }
     )
+  }
+
+  getProjectName(projectId: number){
+    console.log(projectId)
+    this.taskService.selectedProjectId.next(projectId);
+    console.log(this.projectList)
+    for (let obj of this.projectList) {
+      if (obj.projectId == projectId) {
+        console.log(obj.projectName);
+        this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
+      }
+    }
   }
 
   onSelectCallBack(date: string) {
@@ -159,7 +159,7 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  onFavoriteClick(event){
+  onFavoriteClick(event) {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
     this.taskService.selectedProjectId.next(event.projectId);

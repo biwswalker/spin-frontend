@@ -49,6 +49,7 @@ export class TaskModalComponent {
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
+        console.log('Insert');
         this.onTaskHasSelected(task, Mode.I);
       }
     });
@@ -56,6 +57,7 @@ export class TaskModalComponent {
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
       if (task.taskId) {
+        console.log('View / Edit');
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
     });
@@ -63,30 +65,31 @@ export class TaskModalComponent {
 
   onTaskHasSelected(task: Task, mode: string) {
     console.log(task);
+    this.taskForm.task = task;
     this.mode = mode;
     this.taskDetailChild.taskObj = new Task();
-    this.taskForm.task = task;
-    this.taskDetailChild.taskObj.color = 'primary';
+    this.taskDetailChild.taskObj = this.taskForm.task;
+    this.taskDetailChild.taskObj.color = this.taskForm.task.color;
+    this.taskPartnerChild.task = this.taskForm.task;
     this.taskDetailChild.mode = this.mode;
     this.taskPartnerChild.mode = this.mode;
-    this.taskPartnerChild.task = this.taskForm.task;
     this.taskPartnerChild.user = this.user;
     this.task.projectId = this.taskForm.task.projectId;
     this.taskTagChild.mode = this.mode;
-    this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.initTaskDetail();
-    if(this.mode == Mode.E){
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
-    this.selectedProject(this.taskForm.task.projectId);
-  }
+    if(this.taskForm.task.projectId){
+      this.selectedProject(this.taskForm.task.projectId);
+    }
   }
 
   selectedProject(prjId: number) {
+    console.log('selectedProject');
     this.projectService.findProjectById(prjId).subscribe(
       project => {
         if (project) {
           this.taskService.selectedProjectId.next(prjId);
-          this.taskDetailChild.project = project.projectName;
+          this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
         }
       }
     )
@@ -96,7 +99,7 @@ export class TaskModalComponent {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
-      this.task.color = this.taskDetailChild.taskObj.color;
+      this.task.color = this.taskDetailChild.color;
       this.task.doSelfFlag = (this.taskPartnerChild.doSelfFlag == true ? 'Y' : 'N');
       this.task.topic = this.taskDetailChild.taskDetailFormGroup.value.taskDetailTopic;
       this.task.projectId = this.taskDetailChild.projectId;
