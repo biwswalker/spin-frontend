@@ -25,8 +25,14 @@ export class TaskService {
   public currentProjectId = this.selectedProjectId.asObservable();
   public autocompletePartner = this.selectedProjectId.asObservable();
 
+  // Date
   private timetableDate = new BehaviorSubject<string>(this.utilsService.getCurrentEnDate());
   public currentTimetableDate = this.timetableDate.asObservable();
+
+  // Date of Week
+  private timetableDOW = new BehaviorSubject<any>({ start: this.utilsService.getStartOfWeek(this.utilsService.getCurrentEnDate(), false), end: this.utilsService.getEndOfWeek(this.utilsService.getCurrentEnDate(), false) });
+  public currentTimetableDOW = this.timetableDOW.asObservable();
+
 
   constructor(private request: HttpRequestService, private projectSerive: ProjectService, private utilsService: UtilsService) { }
 
@@ -62,6 +68,10 @@ export class TaskService {
 
   changeTimetableDate(date) {
     this.timetableDate.next(date);
+  }
+
+  changeTimetableDOW(dow) {
+    this.timetableDOW.next(dow);
   }
 
   findWorkingTaskByDate(date) {

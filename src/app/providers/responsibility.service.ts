@@ -12,11 +12,9 @@ export class ResponsibilityService {
   public modal = new SpinModal();
   public responsibility: EventEmitter<Responsibility> = new EventEmitter<Responsibility>();
 
-
   constructor(private request: HttpRequestService) {
 
   }
-
 
   emitResponsibility(value: Responsibility) {
     this.responsibility.emit(value);
@@ -44,6 +42,14 @@ export class ResponsibilityService {
 
   onCloseModal() {
     this.modal.close('#resp-modal');
+  }
+
+  createResponsibility(responsibility) {
+    return this.request.requestMethodPUT('responsibility-management', responsibility);
+  }
+
+  updateResponsibility(responsibility) {
+    return this.request.requestMethodPOST('responsibility-management', responsibility);
   }
 
 

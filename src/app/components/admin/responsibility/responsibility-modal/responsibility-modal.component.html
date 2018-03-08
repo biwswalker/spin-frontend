@@ -26,10 +26,22 @@
             <div class="col">
               ชื่อหน้าที่
             </div>
+            <div class="col d-flex">
+              <div class="ml-auto ">
+                <label class="mx-auto">ใช้งาน</label>
+                <span class="status-flag">
+                  <input class="switch" type="checkbox" checked="true" (change)="onChangeActiveFlag()" id="active" name="active">
+                  <label for="active">
+                    <span></span>
+                  </label>
+                  <input type="hidden" id="active-flag" name="active-flag" formControlName="activeFlag">
+                </span>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col">
-              <input class="form-control" [(ngModel)]="responsibility.respName" type="text" id="respName" name="respName" formControlName="respName">
+              <input class="form-control" [(ngModel)]="responsibility.respName" type="text" id="resp-name" name="resp-name" formControlName="respName">
             </div>
           </div>
           <div class="row">
@@ -39,7 +51,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <input class="form-control" [(ngModel)]="responsibility.respAbbr" type="text" id="respAbbr" name="respAbbr" formControlName="respAbbr">
+              <input class="form-control" [(ngModel)]="responsibility.respAbbr" type="text" id="resp-abbr" name="resp-abbr" formControlName="respAbbr">
             </div>
           </div>
           <div class="row">
@@ -49,7 +61,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <textarea class="form-control" [(ngModel)]="responsibility.respDesc" rows="4" cols="50" id="respDesc" name="respDesc" formControlName="respDesc"></textarea>
+              <textarea class="form-control" [(ngModel)]="responsibility.respDesc" rows="6" cols="50" id="resp-desc" name="resp-desc" formControlName="respDesc"></textarea>
             </div>
           </div>
         </div>
