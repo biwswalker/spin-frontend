@@ -20,7 +20,9 @@ export class PrjInfoDetailComponent implements OnInit {
   }
 
   onEditClick(){
-    this.projectService.onOpenModal();
+    this.projectService.onUpdateProject(this.project);
   }
+
+
 
 }

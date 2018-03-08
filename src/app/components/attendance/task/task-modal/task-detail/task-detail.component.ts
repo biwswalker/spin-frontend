@@ -24,9 +24,7 @@ export class TaskDetailComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
 
   public taskObj: Task = new Task();
-  public projectObj: Project = new Project();
   public statusFlag: boolean = false;
-  public colorFlag: string = '';
   public workStartTime: string = '';
   public workEndTime: string = '';
   public workDate: string = '';
@@ -52,12 +50,10 @@ export class TaskDetailComponent implements OnInit {
 
   ngOnInit() {
     this.taskObj = new Task();
-    this.projectObj = new Project();
     this.validateData();
   }
 
   setDefaultData() {
-    this.colorFlag = '';
     this.workStartTime = '';
     this.workEndTime = '';
     this.workDate = '';
@@ -65,43 +61,24 @@ export class TaskDetailComponent implements OnInit {
     this.activity = '';
     this.projectId = 0;
     this.project = '';
-    this.taskObj.color = 'primary';
   }
-
-
 
   initTaskDetail() {
     this.setDefaultData();
     this.initialTime();
     this.initialFavoriteProject();
-    if (this.mode == Mode.E) {
-      this.projectId = this.taskObj.projectId;
-      this.findProject(this.taskObj.projectId);
-      this.initialTaskForUpdate();
-    } else if (this.mode == Mode.V) {
-
-    } else {
-
-    }
+    this.projectId = this.taskObj.projectId;
+    this.findProject();
+    this.initialTaskForUpdate();
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
   }
 
-  findProject(projectId: number) {
-    console.log('findproject')
+  findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
-        this.taskService.selectedProjectId.next(projectId);
         this.projectList = data;
-        for (let obj of data) {
-          console.log(obj.projectId);
-          console.log(projectId);
-          if (obj.projectId == projectId) {
-            console.log(obj.projectName);
-            this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
-          }
-        }
       }
     )
   }
@@ -160,7 +137,7 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  onFavoriteClick(event){
+  onFavoriteClick(event) {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
     this.taskService.selectedProjectId.next(event.projectId);

@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ResponsibilityInfoComponent } from './responsibility-info/responsibility-info.component';
 import { ResponsibilityService } from '../../../providers/responsibility.service';
 import { ResponsibilitySearchComponent } from './responsibility-search/responsibility-search.component';
+import { ResponsibilityModalComponent } from './responsibility-modal/responsibility-modal.component';
+import { Responsibility } from '../../../models/responsibility';
+import { Mode } from '../../../config/properties';
 
 @Component({
   selector: 'app-responsibility',
@@ -10,16 +13,17 @@ import { ResponsibilitySearchComponent } from './responsibility-search/responsib
 })
 export class ResponsibilityComponent implements OnInit {
 
+
   @ViewChild(ResponsibilityInfoComponent) respinsibilityInfo;
   @ViewChild(ResponsibilitySearchComponent) respinsibilitySearch;
+  @ViewChild(ResponsibilityModalComponent) responsibilityModal;
 
   protected respId: number;
 
   constructor(protected responsibilityService: ResponsibilityService) { }
 
   ngOnInit() {
-    // console.log(this.respinsibilitySearch.respId);
-    // this.respinsibilitySearch.ngOnInit();
+
   }
 
   getRespId(key) {
@@ -35,5 +39,16 @@ export class ResponsibilityComponent implements OnInit {
       }
     );
   }
+
+  createResponsibility() {
+    console.log('open');
+    this.responsibilityModal.mode = Mode.I;
+    this.responsibilityModal.responsibility = new Responsibility();
+    this.responsibilityService.onOpenModal();
+  }
+
+
+
+
 
 }

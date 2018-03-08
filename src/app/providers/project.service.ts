@@ -1,15 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpRequestService } from './utils/http-request.service';
 import { Method } from '../config/properties';
-declare var SpinModal: any;
+import { BehaviorSubject } from 'rxjs';
+import { Project } from '../models/project';
+
 @Injectable()
 export class ProjectService {
-  private modal = new SpinModal();
+
+  public editProject = new BehaviorSubject<Project>(new Project);
+  public currentProjectAct = this.editProject.asObservable();
+
+  private isProjectHaveChanged = new BehaviorSubject<number>(0);
+  public projectHaveChanged = this.isProjectHaveChanged.asObservable();
+
   constructor(private request: HttpRequestService) { }
 
   // Begin Insert Update Delete Actions
   createProject(project) {
     return this.request.requestMethodPUT('projects-management', project);
+  }
+
+  updateProject(project) {
+    return this.request.requestMethodPOST('projects-management', project);
   }
 
   toggleFavorite(projectId){
@@ -52,12 +64,15 @@ export class ProjectService {
     return this.request.requestMethodGET('projects-management/find-autocomplete-project/N');
   }
 
-  onOpenModal(){
-    this.modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
+
+  onUpdateProject(project:Project){
+    console.log('onUpdateProject............');
+    this.editProject.next(project);
   }
 
-  onCloseModal(){
-    this.modal.close('#project-modal');
+  onProjectHaveChanged(){
+    console.log('onProjectHaveChanged......');
+    this.isProjectHaveChanged.next(1);
   }
 
 }

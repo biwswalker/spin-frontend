@@ -24,10 +24,19 @@ export class ProjectSearchComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private eventMessageService: EventMessagesService
-  ) { }
+    ) {
+
+   }
 
   ngOnInit() {
-    this.onScrollDown();
+    this.projectService.projectHaveChanged.subscribe(
+      ()=>{
+        this.projectList = [];
+        this.page = 1;
+        this.onScrollDown();
+      }
+    )
+
   }
 
   onScrollDown() {

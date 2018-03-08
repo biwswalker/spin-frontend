@@ -12,24 +12,29 @@ export class Interceptor implements HttpInterceptor {
         const auth = this.injector.get(AuthenticationService);
         let req = request;
         if (auth.getNowToken()) {
-            req = request.clone({
-                headers: request.headers.set('Authorization', auth.getNowToken())
-            });
+            if (!auth.isRefresh()) {
+                req = request.clone({
+                    headers: request.headers.set('Authorization', auth.getNowToken())
+                });
+            }
         }
         return next.handle(req)
-        // .do(
-        //     () => { },
-        //     (error: any) => {
-        //         console.log(error)
-        //         if (error instanceof HttpErrorResponse) {
-        //             if (error.status === 401) {
-        //                 // console.log('GGWP :: ' + error.status);
-        //                 // auth.refreshToken().catch(err => {
-        //                 //     console.log(err);
-        //                 //     auth.logout();
-        //                 // });
-        //             }
-        //         }
-        //     });
+            .do(
+                () => { },
+                (error: any) => {
+                    console.log(error)
+                    if (error instanceof HttpErrorResponse) {
+                        if (error.status === 401) {
+                            if (auth.getNowToken()) {
+                                auth.refreshToken().catch(err => {
+                                    console.log(err);
+                                    auth.logout();
+                                });
+                            } else {
+                                auth.logout();
+                            }
+                        }
+                    }
+                });
     }
 }

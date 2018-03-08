@@ -22,7 +22,8 @@ declare var $: any;
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.scss']
 })
-export class TaskModalComponent {
+export class TaskModalComponent implements AfterViewInit {
+
 
   public task: Task = new Task();
   public bgColor: string;
@@ -45,7 +46,9 @@ export class TaskModalComponent {
     this.auth.crrUser.subscribe(user => {
       this.user = user;
     });
+  }
 
+  ngAfterViewInit() {
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
@@ -63,31 +66,36 @@ export class TaskModalComponent {
 
   onTaskHasSelected(task: Task, mode: string) {
     console.log(task);
+    this.taskForm.task = task;
     this.mode = mode;
     this.taskDetailChild.taskObj = new Task();
-    this.taskForm.task = task;
-    this.taskDetailChild.taskObj.color = 'primary';
+    this.taskDetailChild.taskObj = this.taskForm.task;
+    this.taskDetailChild.taskObj.color = (this.taskForm.task.color ? this.taskForm.task.color : 'primary');
+    this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false);
+    console.log(this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false));
+    this.taskPartnerChild.task = this.taskForm.task;
     this.taskDetailChild.mode = this.mode;
     this.taskPartnerChild.mode = this.mode;
-    this.taskPartnerChild.task = this.taskForm.task;
-    this.taskPartnerChild.user = this.user;
+    this.taskPartnerChild.owner = this.user.email;
+    this.taskPartnerChild.taskMember = [];
+    this.taskPartnerChild.taskPartner = [];
+    this.taskTagChild.tagList = [];
     this.task.projectId = this.taskForm.task.projectId;
     this.taskTagChild.mode = this.mode;
-    this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.initTaskDetail();
-    if(this.mode == Mode.E){
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
-    this.selectedProject(this.taskForm.task.projectId);
-  }
+    if (this.taskForm.task.projectId) {
+      this.selectedProject(this.taskForm.task.projectId);
+      console.log(this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false));
+    }
   }
 
   selectedProject(prjId: number) {
-    console.log('selectprj')
     this.projectService.findProjectById(prjId).subscribe(
       project => {
         if (project) {
           this.taskService.selectedProjectId.next(prjId);
-          this.taskDetailChild.project = project.projectName;
+          this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
         }
       }
     )
@@ -120,11 +128,14 @@ export class TaskModalComponent {
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
-      console.log(this.task)
+
       if (this.mode == Mode.E) {
         this.task.taskId = this.taskForm.task.taskId;
+        this.task.versionId = this.taskForm.task.versionId;
+        console.log('updateTask: ', this.task);
         this.updateTask(this.task);
       } else {
+        console.log('insertTask: ', this.task);
         this.createNewTask(this.task);
       }
       let self = this;

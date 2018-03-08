@@ -47,6 +47,7 @@ import { HolidayProcessComponent } from './components/admin/holiday/holiday-proc
 import { ResponsibilityComponent } from './components/admin/responsibility/responsibility.component';
 import { ResponsibilityInfoComponent } from './components/admin/responsibility/responsibility-info/responsibility-info.component';
 import { ResponsibilitySearchComponent } from './components/admin/responsibility/responsibility-search/responsibility-search.component';
+import { ResponsibilityModalComponent } from './components/admin/responsibility/responsibility-modal/responsibility-modal.component';
 
 
 // service
@@ -119,7 +120,8 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
     ResponsibilitySearchComponent,
     UserRegisterComponent,
     UserRegisterInfoComponent,
-    UserRegisterSearchComponent
+    UserRegisterSearchComponent,
+    ResponsibilityModalComponent
   ],
   imports: [
     BrowserModule,

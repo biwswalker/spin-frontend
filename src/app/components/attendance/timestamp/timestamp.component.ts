@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TimetableDayComponent } from './timetable-day/timetable-day.component';
 import { UtilsService } from '../../../providers/utils/utils.service';
 import { TaskService } from '../../../providers/task.service';
 
@@ -15,6 +14,8 @@ import { TaskService } from '../../../providers/task.service';
 <button type="button"
   class="btn btn-sm btn-outline-secondary" (click)="onChangeDate('next')"><i class="fas fa-chevron-right"></i></button>
   </div>
+  <div class="nowdate text-truncate" *ngIf="nowView === 'day'">{{ enDateStr | thaiDate:'stamptable' }}</div>
+  <div class="nowdate text-truncate" *ngIf="nowView === 'week'">{{ firstDOW | thaiDate:'short' }} - {{ endDOW | thaiDate:'short' }}</div>
   <div class="btn-group" role="group" >
   <button type="button"
   class="btn btn-sm btn-outline-secondary" [ngClass]="nowView === 'day' ? 'active' : ''" (click)="onChangeView('day')">วัน</button>
@@ -25,32 +26,78 @@ import { TaskService } from '../../../providers/task.service';
   <timetable-day *ngIf="nowView === 'day'"></timetable-day>
   <timetable-week *ngIf="nowView === 'week'"></timetable-week>
   `,
-  styleUrls: ['./timestamp.component.scss']
+  styles: ['.nowdate { padding-top: 5px; }']
 })
 export class TimestampComponent implements OnInit {
 
-  @ViewChild(TimetableDayComponent) timetableDayChild;
-
   public nowView = 'day';
+  public enDateStr = '';
+  public firstDOW = '';
+  public endDOW = '';
 
   constructor(private utilsService: UtilsService, private taskService: TaskService) { }
 
   ngOnInit() {
+    this.enDateStr = this.utilsService.getCurrentEnDate();
+    if (this.nowView === 'week') {
+      this.firstDOW = this.utilsService.getStartOfWeek(this.enDateStr, true);
+      this.endDOW = this.utilsService.getEndOfWeek(this.enDateStr, true);
+    }
   }
 
   onChangeDate(control) {
-    let oldEnDate = this.timetableDayChild.enDateStr;
+    let oldEnDate = this.enDateStr;
+    let oldFirstDOW = this.firstDOW;
+    let oldEndDOW = this.endDOW;
     if (control === 'next') {
-      this.taskService.changeTimetableDate(this.utilsService.getNextDay(oldEnDate));
+      if (this.nowView === 'day') {
+        this.enDateStr = this.utilsService.getNextDay(oldEnDate);
+        this.taskService.changeTimetableDate(this.enDateStr);
+      }
+      if (this.nowView === 'week') {
+        let nxtWeek = this.utilsService.getNextDay(oldEndDOW);
+        let thNxtWeek = this.utilsService.convertThDateToEn(nxtWeek);
+        this.firstDOW = this.utilsService.getStartOfWeek(thNxtWeek, true);
+        this.endDOW = this.utilsService.getEndOfWeek(thNxtWeek, true);
+        this.taskService.changeTimetableDOW({ start: this.firstDOW, end: this.endDOW })
+      }
     } else if (control === 'prev') {
-      this.taskService.changeTimetableDate(this.utilsService.getPreviousDay(oldEnDate));
+      if (this.nowView === 'day') {
+        this.enDateStr = this.utilsService.getPreviousDay(oldEnDate);
+        this.taskService.changeTimetableDate(this.enDateStr);
+      }
+      if (this.nowView === 'week') {
+        let prevWeek = this.utilsService.getPreviousDay(oldFirstDOW);
+        let thPrevWeek = this.utilsService.convertThDateToEn(prevWeek);
+        this.firstDOW = this.utilsService.getStartOfWeek(thPrevWeek, true);
+        this.endDOW = this.utilsService.getEndOfWeek(thPrevWeek, true);
+        this.taskService.changeTimetableDOW({ start: this.firstDOW, end: this.endDOW })
+      }
     } else {
-      this.taskService.changeTimetableDate(this.utilsService.getCurrentEnDate());
+      this.enDateStr = this.utilsService.getCurrentEnDate();
+      this.taskService.changeTimetableDate(this.enDateStr);
+      if (this.nowView === 'week') {
+        this.firstDOW = this.utilsService.getStartOfWeek(this.enDateStr, true);
+        this.endDOW = this.utilsService.getEndOfWeek(this.enDateStr, true);
+        this.taskService.changeTimetableDOW({ start: this.firstDOW, end: this.endDOW })
+      }
     }
+    console.log(this.firstDOW)
+    console.log(this.endDOW)
   }
 
   onChangeView(control) {
     this.nowView = control;
+    this.enDateStr = this.utilsService.getCurrentEnDate();
+    if (this.nowView === 'day') {
+      this.taskService.changeTimetableDate(this.enDateStr);
+    }
+    if (this.nowView === 'week') {
+      this.firstDOW = this.utilsService.getStartOfWeek(this.enDateStr, true);
+      this.endDOW = this.utilsService.getEndOfWeek(this.enDateStr, true);
+      this.taskService.changeTimetableDOW({ start: this.firstDOW, end: this.endDOW })
+    }
   }
+
 
 }
