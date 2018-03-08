@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Responsibility } from './../../../../models/responsibility';
 import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ResponsibilityService } from '../../../../providers/responsibility.service';
@@ -10,30 +11,22 @@ import { ResponsibilityModalComponent } from '../responsibility-modal/responsibi
 })
 export class ResponsibilityInfoComponent implements OnInit {
 
-  public responsibility: Responsibility;
+  protected responsibility: Responsibility;
 
 
   constructor(protected responsibilityService: ResponsibilityService) { }
 
   ngOnInit() {
+    console.log('info init');
     this.responsibility = new Responsibility();
-    //  this.findByRespId(1);
   }
 
-  findByRespId(key) {
-    this.responsibilityService.findByRespId(key).subscribe(
-      data => {
-        console.log(data);
-        this.responsibility = data;
-      }
-    );
-  }
 
   editResponsibility(event) {
     console.log(this.responsibility);
     this.responsibilityService.emitResponsibility(this.responsibility);
+    console.log(this.responsibility);
     this.responsibilityService.onOpenModal();
-
   }
 
 }
