@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Project } from '../../../../models/project';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
@@ -9,7 +9,7 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./project-modal-detail.component.scss'],
   templateUrl: './project-modal-detail.component.html',
 })
-export class ProjectModalDetailComponent implements OnInit {
+export class ProjectModalDetailComponent implements OnInit{
 
   public projectDetailGroup: FormGroup;
   public project: Project = new Project();
@@ -21,10 +21,12 @@ export class ProjectModalDetailComponent implements OnInit {
     private sanitizer: DomSanitizer, private zone: NgZone) { }
 
   ngOnInit() {
+    console.log('ProjectModalDetailComponent.ngOnInit');
     this.project = new Project;
     this.project.isVisble = false;
     this.project.activeFlag = 'A';
     this.validateForm();
+    this.fileToUpload = null;
     this.resizedImage = './assets/img/ico/startup.png';
     this.resizedImageTrusted = this.sanitizer.bypassSecurityTrustUrl(this.resizedImage);
   }
@@ -76,6 +78,12 @@ export class ProjectModalDetailComponent implements OnInit {
 
     thmReader.readAsDataURL(thm);
     oriReader.readAsDataURL(ori);
+  }
+
+  prepareDataForEdit(project:Project){
+    this.project = project;
+    this.project.isVisble = (project.visibilityFlag == 'Y'?false:true);
+    this.resizedImageTrusted =  project.projectThumbnail;
   }
 
 
