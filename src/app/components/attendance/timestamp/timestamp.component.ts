@@ -15,6 +15,7 @@ import { TaskService } from '../../../providers/task.service';
 <button type="button"
   class="btn btn-sm btn-outline-secondary" (click)="onChangeDate('next')"><i class="fas fa-chevron-right"></i></button>
   </div>
+  <div class="nowdate">{{ enDateStr | thaiDate:'stamptable' }}</div>
   <div class="btn-group" role="group" >
   <button type="button"
   class="btn btn-sm btn-outline-secondary" [ngClass]="nowView === 'day' ? 'active' : ''" (click)="onChangeView('day')">วัน</button>
@@ -25,27 +26,32 @@ import { TaskService } from '../../../providers/task.service';
   <timetable-day *ngIf="nowView === 'day'"></timetable-day>
   <timetable-week *ngIf="nowView === 'week'"></timetable-week>
   `,
-  styleUrls: ['./timestamp.component.scss']
+  styles: ['.nowdate { padding-top: 5px; }']
 })
 export class TimestampComponent implements OnInit {
 
   @ViewChild(TimetableDayComponent) timetableDayChild;
 
   public nowView = 'day';
+  public enDateStr = '';
 
   constructor(private utilsService: UtilsService, private taskService: TaskService) { }
 
   ngOnInit() {
+    this.enDateStr = this.utilsService.getCurrentEnDate();
   }
 
   onChangeDate(control) {
     let oldEnDate = this.timetableDayChild.enDateStr;
     if (control === 'next') {
-      this.taskService.changeTimetableDate(this.utilsService.getNextDay(oldEnDate));
+      this.enDateStr = this.utilsService.getNextDay(oldEnDate);
+      this.taskService.changeTimetableDate(this.enDateStr);
     } else if (control === 'prev') {
-      this.taskService.changeTimetableDate(this.utilsService.getPreviousDay(oldEnDate));
+      this.enDateStr = this.utilsService.getPreviousDay(oldEnDate);
+      this.taskService.changeTimetableDate(this.enDateStr);
     } else {
-      this.taskService.changeTimetableDate(this.utilsService.getCurrentEnDate());
+      this.enDateStr = this.utilsService.getCurrentEnDate();
+      this.taskService.changeTimetableDate(this.enDateStr);
     }
   }
 

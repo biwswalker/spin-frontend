@@ -22,8 +22,9 @@ declare var $: any;
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.scss']
 })
-export class TaskModalComponent {
+export class TaskModalComponent implements AfterViewInit {
 
+  
   public task: Task = new Task();
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
@@ -45,7 +46,9 @@ export class TaskModalComponent {
     this.auth.crrUser.subscribe(user => {
       this.user = user;
     });
+  }
 
+  ngAfterViewInit() {
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {

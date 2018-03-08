@@ -1,0 +1,59 @@
+<!-- Modal -->
+<div class="modal fade" id="resp-modal" tabindex="-1" role="dialog" aria-labelledby="resp-modal" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <button type="button" class="btn btn-link" (click)="oncloseModal()">
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+
+        <div class="text-center header-text">
+          หน้าที่ความรับผิดชอบ
+        </div>
+
+        <button type="button" class="btn btn-link" [routerLink]="" (click)="onSubmit()">
+          <i class="fas fa-check fa-lg"></i>
+        </button>
+
+      </div>
+
+      <form [formGroup]="responsibilityGroup">
+        <!-- Body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              ชื่อหน้าที่
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input class="form-control" [(ngModel)]="responsibility.respName" type="text" id="respName" name="respName" formControlName="respName">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              ชื่อย่อ
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input class="form-control" [(ngModel)]="responsibility.respAbbr" type="text" id="respAbbr" name="respAbbr" formControlName="respAbbr">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              หมายเหตุ
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <textarea class="form-control" [(ngModel)]="responsibility.respDesc" rows="4" cols="50" id="respDesc" name="respDesc" formControlName="respDesc"></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
