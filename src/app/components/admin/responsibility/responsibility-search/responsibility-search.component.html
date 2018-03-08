@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <form class="form-group">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <input #key class="form-control mr-sm-2" type="search" (keyup)="onSearchByCriteria(key.value)" placeholder="Search" aria-label="Search">
     </form>
   </div>
 </div>
@@ -10,7 +10,6 @@
   <div class="col-sm-4 text-left">ชื่อย่อ</div>
 </div>
 
-
 <ul class="list-group list-group-flush" *ngFor="let resp of responsibilities | async">
   <div>
     <button type="button" (click)="onChangeResp(resp)" class="list-group-item list-group-item-action">
@@ -18,7 +17,10 @@
         <div class="col-sm-8 text-left">
           <p>{{resp.respName}}</p>
         </div>
-        <div class="col-sm-4 text-left">
+        <div class="col-sm-4 text-left media">
+          <!-- <span class="avatar avatar-md mr-2">
+            <span class="media-object rounded-circle text-circle d-flex mr-2 justify-content-center align-items-center bg-secondary">{{resp.respAbbr}}</span>
+          </span> -->
           <p>{{resp.respAbbr}}</p>
         </div>
       </div>

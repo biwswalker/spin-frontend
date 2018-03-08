@@ -23,4 +23,6 @@ export class PrjInfoDetailComponent implements OnInit {
     this.projectService.onUpdateProject(this.project);
   }
 
+
+
 }

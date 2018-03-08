@@ -54,7 +54,9 @@
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
               <div class="card-body">
-                {{project.detail}}
+                <p>
+                    {{project.detail}}
+                </p>
               </div>
             </div>
           </div>
@@ -62,13 +64,13 @@
             <div class="card-header" id="headingTwo">
               <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Hardware
+                  ฮาร์ดแวร์
                 </button>
               </h5>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
               <div class="card-body">
-                {{project.hardware}}
+                <p>{{project.hardware}}</p>
               </div>
             </div>
           </div>
@@ -76,13 +78,15 @@
             <div class="card-header" id="headingThree">
               <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  software
+                  ซอฟต์แวร์
                 </button>
               </h5>
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
               <div class="card-body">
-                {{project.software}}
+                <p>
+                    {{project.software}}
+                </p>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { Responsibility } from './../../../../models/responsibility';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ResponsibilityService } from '../../../../providers/responsibility.service';
+import { ResponsibilityModalComponent } from '../responsibility-modal/responsibility-modal.component';
 
 @Component({
   selector: 'app-responsibility-info',
@@ -10,6 +11,7 @@ import { ResponsibilityService } from '../../../../providers/responsibility.serv
 export class ResponsibilityInfoComponent implements OnInit {
 
   public responsibility: Responsibility;
+
 
   constructor(protected responsibilityService: ResponsibilityService) { }
 
@@ -25,6 +27,13 @@ export class ResponsibilityInfoComponent implements OnInit {
         this.responsibility = data;
       }
     );
+  }
+
+  editResponsibility(event) {
+    console.log(this.responsibility);
+    this.responsibilityService.emitResponsibility(this.responsibility);
+    this.responsibilityService.onOpenModal();
+
   }
 
 }
