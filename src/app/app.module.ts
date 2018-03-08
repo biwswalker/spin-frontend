@@ -65,6 +65,8 @@ import { ResponsibilityService } from './providers/responsibility.service';
 import { HolidayService } from './providers/holiday.service';
 import { LeaveService } from './providers/leave.service';
 import { EventMessagesService } from './providers/utils/event-messages.service';
+import { UserRegisterService } from './providers/userregister.service';
+
 
 // Pipe
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
@@ -73,6 +75,9 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
+import { UserRegisterComponent } from './components/admin/user-register/user-register.component';
+import { UserRegisterInfoComponent } from './components/admin/user-register/user-register-info/user-register-info.component';
+import { UserRegisterSearchComponent } from './components/admin/user-register/user-register-search/user-register-search.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +116,10 @@ import { DatePickerDirective } from './directives/datepicker';
     HolidayProcessComponent,
     ResponsibilityComponent,
     ResponsibilityInfoComponent,
-    ResponsibilitySearchComponent
+    ResponsibilitySearchComponent,
+    UserRegisterComponent,
+    UserRegisterInfoComponent,
+    UserRegisterSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -146,7 +154,8 @@ import { DatePickerDirective } from './directives/datepicker';
     ResponsibilityService,
     HolidayService,
     LeaveService,
-    EventMessagesService
+    EventMessagesService,
+    UserRegisterService,
   ],
   bootstrap: [AppComponent]
 })
