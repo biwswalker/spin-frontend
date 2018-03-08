@@ -85,7 +85,6 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   selectedProject(prjId: number) {
-    console.log('selectprj')
     this.projectService.findProjectById(prjId).subscribe(
       project => {
         if (project) {
@@ -123,11 +122,14 @@ export class TaskModalComponent implements AfterViewInit {
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
-      console.log(this.task)
+
       if (this.mode == Mode.E) {
         this.task.taskId = this.taskForm.task.taskId;
+        this.task.versionId = this.taskForm.task.versionId;
+        console.log('updateTask: ', this.task);
         this.updateTask(this.task);
       } else {
+        console.log('insertTask: ', this.task);
         this.createNewTask(this.task);
       }
       let self = this;

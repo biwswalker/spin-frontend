@@ -1,3 +1,4 @@
+import { ProjectService } from './../../../../providers/project.service';
 import { Responsibility } from './../../../../models/responsibility';
 import { User } from './../../../../models/user';
 import { Component, OnInit } from '@angular/core';
@@ -27,7 +28,8 @@ export class ProjectModalMemberComponent implements OnInit {
   public respName:string;
 
   constructor(private officerService: OfficerService,
-  private respService:ResponsibilityService) {
+  private respService:ResponsibilityService,
+  private projectService: ProjectService) {
   }
 
 
@@ -97,8 +99,15 @@ export class ProjectModalMemberComponent implements OnInit {
       this.userName = null;
       this.respName = null;
     }
+  }
 
-
+  prepareDataForEdit(projectId){
+    this.projectService.findProjectMemberById(projectId).subscribe(
+      data=>{
+        console.log('project member: ',data);
+        this.projectMembers = data;
+      }
+    )
   }
 
 }
