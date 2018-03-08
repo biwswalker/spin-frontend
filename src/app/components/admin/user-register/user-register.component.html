@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-12">
+        <h2 class="d-inline-block mt-2 mb-0">ผู้ใช้งาน</h2>
+          <button class="btn btn-link p-0 mb-1" id="btn-new-user-register" type="button">
+          <i class="fas fa-plus-circle"></i>
+          เพิ่มใหม่
+        </button>
+        <button class="btn btn-link" type="button">
+                <span>
+                  <i class="  fas fa-upload"></i>
+                  <label>อัพโหลด</label>
+                </span>
+     </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-md-6 col-xl-5">
+    <app-user-register-search (messageEvent)="passKeyToChildrens($event)"></app-user-register-search>
+  </div>
+  <div class="col-12 col-md-6 col-xl-5">
+    <app-user-register-info></app-user-register-info>
+  </div>
+</div>

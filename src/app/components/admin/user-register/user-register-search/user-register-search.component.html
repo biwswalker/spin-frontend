@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-12">
+     <div class="input-group">
+      <input class="form-control" name="search" type="text" placeholder="Search">
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row admin-table-header">
+    <div class="col-sm-6 text-center">ชื่อผู้ใช้งาน</div>
+    <div class="col-sm-6 text-center">ระดับการใช้งาน</div>
+</div>
+
+<div class="search-results" data-infinite-scroll debounce
+  [infiniteScrollDistance]="scrollDistance"
+  [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScrollDown()">
+<ul class="list-group list-group-flush" *ngFor="let user of userList;let i = index" >
+  <div>
+    <button class="list-group-item list-group-item-action" type="button" >
+      <div class="row">
+        <div class="col-sm-6 text-left">
+          <p>{{user.officer.firstNameTh}} {{user.officer.lastNameTh}}</p>
+        </div>
+        <div class="col-sm-6 text-center">
+          <p>{{user.userLevel=='A'?'Admin':user.userLevel=='P'?'Project Editor':'User'}}</p>
+        </div>
+      </div>
+    </button>
+  </div>
+
+</ul>
+</div>
+

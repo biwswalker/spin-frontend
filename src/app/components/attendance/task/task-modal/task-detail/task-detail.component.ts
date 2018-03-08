@@ -24,7 +24,6 @@ export class TaskDetailComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
 
   public taskObj: Task = new Task();
-  public projectObj: Project = new Project();
   public statusFlag: boolean = false;
   public workStartTime: string = '';
   public workEndTime: string = '';
@@ -51,7 +50,6 @@ export class TaskDetailComponent implements OnInit {
 
   ngOnInit() {
     this.taskObj = new Task();
-    this.projectObj = new Project();
     this.validateData();
   }
 
@@ -64,8 +62,6 @@ export class TaskDetailComponent implements OnInit {
     this.projectId = 0;
     this.project = '';
   }
-
-
 
   initTaskDetail() {
     this.setDefaultData();
@@ -85,18 +81,6 @@ export class TaskDetailComponent implements OnInit {
         this.projectList = data;
       }
     )
-  }
-
-  getProjectName(projectId: number){
-    console.log(projectId)
-    this.taskService.selectedProjectId.next(projectId);
-    console.log(this.projectList)
-    for (let obj of this.projectList) {
-      if (obj.projectId == projectId) {
-        console.log(obj.projectName);
-
-      }
-    }
   }
 
   onSelectCallBack(date: string) {

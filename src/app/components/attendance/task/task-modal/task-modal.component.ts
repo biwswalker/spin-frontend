@@ -52,7 +52,6 @@ export class TaskModalComponent implements AfterViewInit {
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
-        console.log('Insert');
         this.onTaskHasSelected(task, Mode.I);
       }
     });
@@ -60,7 +59,6 @@ export class TaskModalComponent implements AfterViewInit {
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
       if (task.taskId) {
-        console.log('View / Edit');
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
     });
@@ -73,11 +71,12 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskDetailChild.taskObj = new Task();
     this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.taskObj.color = (this.taskForm.task.color ? this.taskForm.task.color : 'primary');
-    console.log(this.taskDetailChild.taskObj.color)
+    this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false);
+    console.log(this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false));
     this.taskPartnerChild.task = this.taskForm.task;
     this.taskDetailChild.mode = this.mode;
     this.taskPartnerChild.mode = this.mode;
-    this.taskPartnerChild.user = this.user;
+    this.taskPartnerChild.owner = this.user.email;
     this.taskPartnerChild.taskMember = [];
     this.taskPartnerChild.taskPartner = [];
     this.taskTagChild.tagList = [];
@@ -87,6 +86,7 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
     if (this.taskForm.task.projectId) {
       this.selectedProject(this.taskForm.task.projectId);
+      console.log(this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false));
     }
   }
 
