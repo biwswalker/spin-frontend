@@ -7,14 +7,15 @@ import { ProjectModalDetailComponent } from './detail/project-modal-detail.compo
 import { EventService } from '../../../providers/utils/event.service';
 import { AuthenticationService } from '../../../providers/authentication.service';
 import { ProjectModalPhaseComponent } from './phase/project-modal-phase.component';
-
+declare var SpinModal: any;
 @Component({
   selector: 'project-modal',
   templateUrl: './project-modal.component.html',
   styleUrls: ['./project-modal.component.scss']
 })
-export class ProjectModalComponent implements OnInit {
+export class ProjectModalComponent{
   public project: Project = new Project;
+  public modal = new SpinModal();
   @ViewChild(ProjectModalDetailComponent) projectModalDetail;
   @ViewChild(ProjectModalPhaseComponent) projectModalPhase;
   @ViewChild(ProjectModalMemberComponent) projectModalMember;
@@ -23,14 +24,28 @@ export class ProjectModalComponent implements OnInit {
   constructor(private projectService: ProjectService,
     private eventService: EventService,
     private authService: AuthenticationService,
-    private eventMessageService: EventMessagesService) { }
+    private eventMessageService: EventMessagesService) {
+      this.projectService.currentProjectAct.subscribe((project:Project)=>{
+        console.log('do you want to update project');
+        if(project.projectId){
+          console.log('Yes, I am. ');
+          this.project = project;
+          this.updateProject(project);
+        }else{
+          console.log('No, I am not. ');
+        }
+      })
+    }
 
-  ngOnInit() {
-
-    // this.authService.authen()
+  onSubmit(){
+    if(this.project.projectId == null){
+      this.onSubmitInsert();
+    }else{
+      this.onSubmitUpdate();
+    }
   }
 
-  onSubmit() {
+  onSubmitInsert() {
     console.log(this.projectModalDetail.projectDetailGroup);
     if(this.projectModalDetail.projectDetailGroup.valid){
       this.project = new Project;
@@ -48,25 +63,57 @@ export class ProjectModalComponent implements OnInit {
       });
     }
   }
-  initChildrens(){
+
+  onSubmitUpdate() {
+    console.log('onSubmitUpdate......');
+    if(this.projectModalDetail.projectDetailGroup.valid){
+      this.project = new Project;
+      this.project = this.projectModalDetail.project;
+      this.project.projectPhaseList = this.projectModalPhase.projectPhases;
+      this.project.projectMemberList = this.projectModalMember.projectMembers;
+      this.project.visibilityFlag = (this.project.isVisble == true ? 'Y' : 'N');
+
+      // Call Provider
+      this.projectService.updateProject(this.project).subscribe(
+        data => {
+          console.log(data);
+          this.oncloseModal();
+          this.eventMessageService.onSuccess();
+      });
+    }
+  }
+
+  initChild(){
     this.projectModalDetail.ngOnInit();
     this.projectModalPhase.ngOnInit();
     this.projectModalMember.ngOnInit();
   }
 
   newProject(){
-    this.initChildrens();
-    this.projectService.onOpenModal();
+    this.onOpenModal();
+    this.project = new Project;
+    this.initChild();
 
   }
 
-  updateProject(projectId){
-    this.initChildrens();
+  updateProject(project:Project){
+    console.log('project: ',project);
+    this.onOpenModal();
+    this.initChild();
+    this.projectModalDetail.prepareDataForEdit(project);
+    this.projectModalPhase.prepareDataForEdit(project.projectId);
+    this.projectModalMember.prepareDataForEdit(project.projectId);
+
   }
 
   oncloseModal(){
-    this.projectService.onCloseModal();
-    this.project = new Project;
+    this.modal.close('#project-modal');
   }
+
+  onOpenModal(){
+    this.modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
+  }
+
+
 
 }

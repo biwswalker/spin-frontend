@@ -8,10 +8,9 @@
         <button type="button" class="btn btn-link" (click)="oncloseModal()"><i class="fas fa-times fa-lg"></i></button>
 
         <div class="text-center header-text">
-          New Project
+          {{project.projectId == null?'เพิ่มโครงการ':'แก้ไขโครงการ'}}
         </div>
-
-        <button type="button" class="btn btn-link" [routerLink]="" (click)="onSubmit()"><i class="fas fa-check fa-lg"></i></button>
+        <button type="button" class="btn btn-save" (click)="onSubmit()"><i class="fas fa-check mr-1"></i>บันทึก</button>
 
       </div>
 

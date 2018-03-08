@@ -3,6 +3,7 @@ import { ProjectPhase } from './../../../../models/project-phase';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Format } from '../../../../config/properties';
+import { ProjectService } from '../../../../providers/project.service';
 
 @Component({
   selector: 'project-modal-phase',
@@ -13,7 +14,8 @@ export class ProjectModalPhaseComponent implements OnInit {
   public projectPhaseGroup: FormGroup;
   public projectPhase: ProjectPhase = new ProjectPhase;
   public projectPhases: ProjectPhase[] = [];
-  constructor(private utilsService: UtilsService) { }
+  constructor(private utilsService: UtilsService,
+              private projectService:ProjectService) { }
 
   ngOnInit() {
     this.projectPhase = new ProjectPhase;
@@ -55,6 +57,15 @@ export class ProjectModalPhaseComponent implements OnInit {
       console.log(this.projectPhase);
     }
 
+  }
+
+  prepareDataForEdit(projectId){
+    this.projectService.findProjectPhaseById(projectId).subscribe(
+      data=>{
+        console.log('project phase: ',data);
+        this.projectPhases = data;
+      }
+    )
   }
 
 
