@@ -54,8 +54,7 @@
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
               <div class="card-body">
-                <p>
-                    {{project.detail}}
+                <p [innerText]="project.detail|| ''">
                 </p>
               </div>
             </div>
@@ -70,7 +69,7 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
               <div class="card-body">
-                <p>{{project.hardware}}</p>
+                <p [innerText]="project.hardware|| ''"></p>
               </div>
             </div>
           </div>
@@ -84,8 +83,7 @@
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
               <div class="card-body">
-                <p>
-                    {{project.software}}
+                <p [innerText]="project.software|| ''">
                 </p>
               </div>
             </div>
