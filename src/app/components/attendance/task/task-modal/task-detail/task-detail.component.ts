@@ -65,28 +65,19 @@ export class TaskDetailComponent implements OnInit {
     this.activity = '';
     this.projectId = 0;
     this.project = '';
+    this.taskObj.color = 'primary';
   }
 
-  findProject(projectId: number) {
-    this.projectService.fetchProjectAutocomplete().subscribe(
-      data => {
-        this.taskService.selectedProjectId.next(projectId);
-        this.projectList = data;
-        for (let obj of data) {
-          if (obj.projectId == projectId) {
-            this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
-          }
-        }
-      }
-    )
-  }
+
 
   initTaskDetail() {
     this.setDefaultData();
     this.initialTime();
     this.initialFavoriteProject();
+    this.findProject(this.taskObj.projectId);
     if (this.mode == Mode.E) {
-      this.findProject(this.taskObj.projectId);
+      this.projectId = this.taskObj.projectId;
+
       this.initialTaskForUpdate();
     } else if (this.mode == Mode.V) {
 
@@ -96,6 +87,22 @@ export class TaskDetailComponent implements OnInit {
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
+  }
+
+  findProject(projectId: number) {
+    this.projectService.fetchProjectAutocomplete().subscribe(
+      data => {
+        this.taskService.selectedProjectId.next(projectId);
+        this.projectList = data;
+        if(projectId){
+          for (let obj of data) {
+            if (obj.projectId == projectId) {
+              this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
+            }
+          }
+        }
+      }
+    )
   }
 
   onSelectCallBack(date: string) {

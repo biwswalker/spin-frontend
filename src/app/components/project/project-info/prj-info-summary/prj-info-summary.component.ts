@@ -12,9 +12,9 @@ export class PrjInfoSummaryComponent implements OnInit {
   public projectId:string;
   public seqId:string;
   public projectPhases: ProjectPhase[]=[];
-  public memberSpent:any;
+  public memberSpent:Summary = new Summary;
   public memberSummary: any[] = [];
-  public tagsSpent: any;
+  public tagsSpent: Summary = new Summary;
   public tagsSummary: any[] = [];
   private spinCustomList = new SpinCustomListUI;
   constructor(
@@ -31,13 +31,16 @@ export class PrjInfoSummaryComponent implements OnInit {
     console.log('projectId: '+projectId+'    phaseId: '+seqId);
     this.projectId = (projectId?projectId:this.projectId);
     console.log('this.projectId: ',this.projectId);
+    this.memberSpent = new Summary;
+    this.tagsSpent = new Summary;
+    this.memberSummary=[];
+    this.tagsSummary=[];
     this.projectService.findMemberSummary(this.projectId,seqId).subscribe(
       data=>{
         console.log(data);
         if(data!){
           this.memberSpent = data.maxSpentTime;
           this.memberSpent.hour = this.utilsService.calcurateHours(data.maxSpentTime.hour,data.maxSpentTime.minute);
-          this.memberSummary=[];
           for(let mem of data.summary){
             let memSum = {name:null,hour:0};
             memSum.name = mem.name;
@@ -58,7 +61,7 @@ export class PrjInfoSummaryComponent implements OnInit {
 
           console.log('max spent time: ',data.maxSpentTime);
           this.tagsSpent.hour = this.utilsService.calcurateHours(data.maxSpentTime.hour,data.maxSpentTime.minute);
-          this.tagsSummary=[];
+
           for(let mem of data.summary){
             let tagSum = {name:null,hour:0};
             tagSum.name = mem.name;
@@ -73,4 +76,13 @@ export class PrjInfoSummaryComponent implements OnInit {
 
   }
 
+}
+
+class Summary{
+  maxSpentTime:number = 0;
+  hour:number = 0;
+  constructor(){
+    this.maxSpentTime = 0;
+    this.hour = 0;
+  }
 }

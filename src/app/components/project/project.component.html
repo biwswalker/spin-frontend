@@ -1,12 +1,16 @@
 <div class="row">
   <div class="col-12">
-        <h2 class="d-inline-block mt-2 mb-0">โครงการ</h2>
-          <button type="button" id="btn-new-project"
-          class="btn btn-link p-0 mb-1"
-          (click)="onNewProjectClick()">
-          <i class="fas fa-plus-circle"></i>
-          เพิ่มใหม่
-        </button>
+        <div class="page-title d-flex">
+            <h2 class="d-inline-block">โครงการ</h2>
+            <button type="button" id="btn-new-project"
+            class="btn btn-link p-0"
+            (click)="onNewProjectClick()">
+            <i class="fas fa-plus-circle"></i>
+            เพิ่มใหม่
+          </button>
+        </div>
+
+
   </div>
   <div class="col-12 col-md-6 col-xl-6">
     <app-project-search

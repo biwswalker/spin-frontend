@@ -22,8 +22,9 @@ declare var $: any;
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.scss']
 })
-export class TaskModalComponent {
+export class TaskModalComponent implements AfterViewInit {
 
+  
   public task: Task = new Task();
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
@@ -45,7 +46,9 @@ export class TaskModalComponent {
     this.auth.crrUser.subscribe(user => {
       this.user = user;
     });
+  }
 
+  ngAfterViewInit() {
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
@@ -62,6 +65,7 @@ export class TaskModalComponent {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
+    console.log(task);
     this.mode = mode;
     this.taskDetailChild.taskObj = new Task();
     this.taskForm.task = task;
@@ -74,7 +78,10 @@ export class TaskModalComponent {
     this.taskTagChild.mode = this.mode;
     this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.initTaskDetail();
-
+    if(this.mode == Mode.E){
+    this.taskTagChild.initialTag(this.taskForm.task.taskId);
+    this.selectedProject(this.taskForm.task.projectId);
+  }
   }
 
   selectedProject(prjId: number) {
@@ -95,7 +102,7 @@ export class TaskModalComponent {
       this.task.color = this.taskDetailChild.taskObj.color;
       this.task.doSelfFlag = (this.taskPartnerChild.doSelfFlag == true ? 'Y' : 'N');
       this.task.topic = this.taskDetailChild.taskDetailFormGroup.value.taskDetailTopic;
-      // this.task.projectId = this.taskDetailChild.projectId;
+      this.task.projectId = this.taskDetailChild.projectId;
       this.task.ownerUserId = this.user.userId;
       this.task.activeFlag = 'A';
       this.task.workDate = this.utilsService.convertDatePickerToThDate(this.taskDetailChild.taskDetailFormGroup.value.taskDetailWorkDate);
@@ -115,11 +122,14 @@ export class TaskModalComponent {
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
-      console.log(this.task)
+
       if (this.mode == Mode.E) {
         this.task.taskId = this.taskForm.task.taskId;
+        this.task.versionId = this.taskForm.task.versionId;
+        console.log('updateTask: ', this.task);
         this.updateTask(this.task);
       } else {
+        console.log('insertTask: ', this.task);
         this.createNewTask(this.task);
       }
       let self = this;

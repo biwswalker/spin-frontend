@@ -28,9 +28,9 @@ export class AuthenticationService {
     return this.request.requestMethodPOSTWithHeader('oauth/token', data, options).toPromise()
       .then(token => {
         if (token) {
-          sessionStorage.setItem(Default.ACTOKN, token.access_token)
-          sessionStorage.setItem(Default.TOKNTY, token.token_type)
-          sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
+          localStorage.setItem(Default.ACTOKN, token.access_token)
+          localStorage.setItem(Default.TOKNTY, token.token_type)
+          localStorage.setItem(Default.RFTOKN, token.refresh_token)
           this.isAccess.next(true);
           return this.accessUser();
         } else {
@@ -41,9 +41,9 @@ export class AuthenticationService {
       })
       .catch(error => {
         console.log(error)
-        sessionStorage.removeItem(Default.ACTOKN);
-        sessionStorage.removeItem(Default.TOKNTY);
-        sessionStorage.removeItem(Default.RFTOKN);
+        localStorage.removeItem(Default.ACTOKN);
+        localStorage.removeItem(Default.TOKNTY);
+        localStorage.removeItem(Default.RFTOKN);
         this.isAccess.next(false)
         return Status.ERROR;
       })
@@ -63,9 +63,9 @@ export class AuthenticationService {
     return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).toPromise()
       .then(token => {
         if (token) {
-          sessionStorage.setItem(Default.ACTOKN, token.access_token)
-          sessionStorage.setItem(Default.TOKNTY, token.token_type)
-          sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
+          localStorage.setItem(Default.ACTOKN, token.access_token)
+          localStorage.setItem(Default.TOKNTY, token.token_type)
+          localStorage.setItem(Default.RFTOKN, token.refresh_token)
           this.isAccess.next(true);
           console.log('Get token');
           console.log(this.getNowToken());
@@ -109,22 +109,22 @@ export class AuthenticationService {
   }
 
   logout() {
-    let acces_token: any = sessionStorage.getItem(Default.ACTOKN);
+    let acces_token: any = localStorage.getItem(Default.ACTOKN);
     this.request.requestMethodGET(`logout/${acces_token}`).subscribe((response: Response) => console.log(response))
     this.removeToken();
     this.isAccess.next(false)
   }
 
   isInSession(): boolean {
-    if (sessionStorage.getItem(Default.ACTOKN)) {
+    if (localStorage.getItem(Default.ACTOKN)) {
       return true;
     }
     return false;
   }
 
   getNowToken(): string {
-    let access_token: any = sessionStorage.getItem(Default.ACTOKN);
-    let token_type: any = sessionStorage.getItem(Default.TOKNTY);
+    let access_token: any = localStorage.getItem(Default.ACTOKN);
+    let token_type: any = localStorage.getItem(Default.TOKNTY);
     if (access_token) {
       return `${token_type} ${access_token}`;
     }
@@ -132,7 +132,7 @@ export class AuthenticationService {
   }
 
   getRefreshToken(): string {
-    let refresh_token: any = sessionStorage.getItem(Default.RFTOKN);
+    let refresh_token: any = localStorage.getItem(Default.RFTOKN);
     if (refresh_token) {
       return `${refresh_token}`;
     }
@@ -140,8 +140,8 @@ export class AuthenticationService {
   }
 
   removeToken() {
-    sessionStorage.removeItem(Default.ACTOKN)
-    sessionStorage.removeItem(Default.TOKNTY)
-    sessionStorage.removeItem(Default.RFTOKN)
+    localStorage.removeItem(Default.ACTOKN)
+    localStorage.removeItem(Default.TOKNTY)
+    localStorage.removeItem(Default.RFTOKN)
   }
 }
