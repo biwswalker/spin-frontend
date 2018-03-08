@@ -16,19 +16,20 @@ export class Interceptor implements HttpInterceptor {
                 headers: request.headers.set('Authorization', auth.getNowToken())
             });
         }
-        return next.handle(req).do(
-            () => { },
-            (error: any) => {
-                console.log(error)
-                if (error instanceof HttpErrorResponse) {
-                    if (error.status === 401) {
-                        console.log('GGWP :: ' + error.status);
-                        auth.refreshToken().catch(err => {
-                            console.log(err);
-                            auth.logout();
-                        });
-                    }
-                }
-            });
+        return next.handle(req)
+        // .do(
+        //     () => { },
+        //     (error: any) => {
+        //         console.log(error)
+        //         if (error instanceof HttpErrorResponse) {
+        //             if (error.status === 401) {
+        //                 // console.log('GGWP :: ' + error.status);
+        //                 // auth.refreshToken().catch(err => {
+        //                 //     console.log(err);
+        //                 //     auth.logout();
+        //                 // });
+        //             }
+        //         }
+        //     });
     }
 }

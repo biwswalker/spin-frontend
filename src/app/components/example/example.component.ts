@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { EventMessagesService } from '../../providers/utils/event-messages.service';
 
 @Component({
   selector: 'app-example',
@@ -12,7 +13,7 @@ export class ExampleComponent implements OnInit {
   public items = ['Pizza', 'Pasta', 'Parmesan'];
 
   public mins = 4000;
-  constructor() { }
+  constructor(private eventMessageService: EventMessagesService) { }
 
   ngOnInit() {
     this.validateForm();
@@ -36,5 +37,9 @@ export class ExampleComponent implements OnInit {
         });
       }, false);
     })();
+  }
+
+  notifyClick(){
+    this.eventMessageService
   }
 }

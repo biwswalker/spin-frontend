@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 import { TagService } from '../../../../../providers/tag.service';
+import { Mode } from '../../../../../config/properties';
+import { Task } from '../../../../../models/task';
 
 @Component({
   selector: 'app-task-tag',
@@ -13,6 +15,8 @@ export class TaskTagComponent implements OnInit {
   public tagList: any[] = [];
   public autoCompleteTagList: any[] = [];
   public mode: string;
+  public task: Task = new Task();
+
   constructor(
     private tagService: TagService
   ) { }
@@ -21,22 +25,37 @@ export class TaskTagComponent implements OnInit {
     this.tagList = [];
     this.findUsedTag();
     this.initialAutocompleteTagList();
+    if (this.mode == Mode.E) {
+    }
   }
 
-  findUsedTag(){
+  findUsedTag() {
     this.tagService.findUsedTag().subscribe(
-      data=>{
-        for(let obj of data){
-          this.usedTagList.push({display: obj.tagName, value: obj.tagName});
+      data => {
+        for (let obj of data) {
+          this.usedTagList.push({ display: obj.tagName, value: obj.tagName });
         }
       }
     )
   }
 
-  initialAutocompleteTagList(){
+  initialTag(taskId: number) {
+    this.tagService.findByTaskId(taskId).subscribe(
+      tags => {
+        if(tags){
+          this.tagList = [];
+          for (let tag of tags) {
+            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
+          }
+        }
+      }
+    )
+  }
+
+
+  initialAutocompleteTagList() {
     this.tagService.findAll().subscribe(
-      data=>{
-        console.log('tagList: ', data);
+      data => {
         this.autoCompleteTagList = data;
       }
     )

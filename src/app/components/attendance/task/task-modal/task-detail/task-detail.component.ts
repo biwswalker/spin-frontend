@@ -38,7 +38,7 @@ export class TaskDetailComponent implements OnInit {
   public taskDetailFormGroup: FormGroup;
   public user: User;
   public mode: string;
-  public favProjectList: any[] = ["project1", "project2", "project3"];
+  public favProjectList: any[];
 
   constructor(
     private projectService: ProjectService,
@@ -53,11 +53,10 @@ export class TaskDetailComponent implements OnInit {
   ngOnInit() {
     this.taskObj = new Task();
     this.projectObj = new Project();
-    this.findProject();
     this.validateData();
   }
 
-  setDefaultDate() {
+  setDefaultData() {
     this.colorFlag = '';
     this.workStartTime = '';
     this.workEndTime = '';
@@ -66,33 +65,57 @@ export class TaskDetailComponent implements OnInit {
     this.activity = '';
     this.projectId = 0;
     this.project = '';
+    this.taskObj.color = 'primary';
   }
 
-  findProject() {
-    this.projectService.fetchProjectAutocomplete().subscribe(
-      data => {
-        this.projectList = data;
-      }
-    )
-  }
+
 
   initTaskDetail() {
+    this.setDefaultData();
+    this.initialTime();
+    this.initialFavoriteProject();
     if (this.mode == Mode.E) {
+      this.projectId = this.taskObj.projectId;
+      this.findProject(this.taskObj.projectId);
       this.initialTaskForUpdate();
     } else if (this.mode == Mode.V) {
 
     } else {
-      this.setDefaultDate();
-      this.initialTime();
+
     }
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
   }
 
+  findProject(projectId: number) {
+    console.log('findproject')
+    this.projectService.fetchProjectAutocomplete().subscribe(
+      data => {
+        this.taskService.selectedProjectId.next(projectId);
+        this.projectList = data;
+        for (let obj of data) {
+          console.log(obj.projectId);
+          console.log(projectId);
+          if (obj.projectId == projectId) {
+            console.log(obj.projectName);
+            this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
+          }
+        }
+      }
+    )
+  }
+
   onSelectCallBack(date: string) {
     this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
-    console.log(this.taskDetailFormGroup.value);
+  }
+
+  initialFavoriteProject() {
+    this.projectService.findFavoriteProjectByUserId(this.user.userId).subscribe(
+      favPrjList => {
+        this.favProjectList = favPrjList;
+      }
+    )
   }
 
   initialTime() {
@@ -104,19 +127,10 @@ export class TaskDetailComponent implements OnInit {
   initialTaskForUpdate() {
     this.topic = this.taskObj.topic;
     this.activity = this.taskObj.activity;
-    this.statusFlag = (this.taskObj.statusFlag == 'I' ? true : false);
+    this.statusFlag = (this.taskObj.statusFlag == 'I' ? false : true);
     this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
-    this.projectService.findProjectById(this.taskObj.projectId).subscribe(
-      project => {
-        if (project) {
-          this.taskService.selectedProjectId.next(project.projectId);
-          this.project = project.projectName;
-          console.log('projectname: ', this.project);
-        }
-      }
-    );
     this.messageEvent.emit(this.taskObj.color);
   }
 
@@ -146,8 +160,10 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  getColorStatus(status) {
-    console.log(status)
+  onFavoriteClick(event){
+    this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
+    this.projectId = event.projectId;
+    this.taskService.selectedProjectId.next(event.projectId);
   }
 
 }

@@ -17,17 +17,21 @@ import { TaskService } from '../../../providers/task.service';
   </div>
   <div class="btn-group" role="group" >
   <button type="button"
-  class="btn btn-sm btn-outline-secondary active" (click)="onChangeView('day')">วัน</button>
+  class="btn btn-sm btn-outline-secondary" [ngClass]="nowView === 'day' ? 'active' : ''" (click)="onChangeView('day')">วัน</button>
 <button type="button"
-  class="btn btn-sm btn-outline-secondary" (click)="onChangeView('week')">สัปดาห์</button>
+  class="btn btn-sm btn-outline-secondary" [ngClass]="nowView === 'week' ? 'active' : ''" (click)="onChangeView('week')">สัปดาห์</button>
   </div>
 </div>
-  <timetable-day></timetable-day>`,
+  <timetable-day *ngIf="nowView === 'day'"></timetable-day>
+  <timetable-week *ngIf="nowView === 'week'"></timetable-week>
+  `,
   styleUrls: ['./timestamp.component.scss']
 })
 export class TimestampComponent implements OnInit {
 
   @ViewChild(TimetableDayComponent) timetableDayChild;
+
+  public nowView = 'day';
 
   constructor(private utilsService: UtilsService, private taskService: TaskService) { }
 
@@ -45,8 +49,8 @@ export class TimestampComponent implements OnInit {
     }
   }
 
-  onChangeView(control){
-
+  onChangeView(control) {
+    this.nowView = control;
   }
 
 }

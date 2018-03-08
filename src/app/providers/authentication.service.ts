@@ -51,21 +51,24 @@ export class AuthenticationService {
 
   refreshToken() {
     console.log('refresh tok')
-    var data = new FormData();
-    data.append("grant_type", "refresh_token");
-    data.append("refresh_token", this.getRefreshToken());
+    // var data = new FormData();
+    // data.append("grant_type", "refresh_token");
+    // data.append("refresh_token", this.getRefreshToken());
+    console.log(this.getNowToken());
     const headers = new HttpHeaders({
-      "Authorization": `Basic ${this.getRefreshToken()}`
+      "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
     })
     const options = { headers: headers }
     console.log(options)
-    return this.request.requestMethodPOSTWithHeader('oauth/token', data, options).toPromise()
+    return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).toPromise()
       .then(token => {
         if (token) {
           sessionStorage.setItem(Default.ACTOKN, token.access_token)
           sessionStorage.setItem(Default.TOKNTY, token.token_type)
           sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
           this.isAccess.next(true);
+          console.log('Get token');
+          console.log(this.getNowToken());
           return this.accessUser();
         } else {
           console.log('error token')

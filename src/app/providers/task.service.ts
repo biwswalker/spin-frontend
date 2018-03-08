@@ -52,6 +52,10 @@ export class TaskService {
     this.selectedTask.next(this.task);
   }
 
+  clearCurrentTimeTask() {
+    this.selectedTask.next(new Task());
+  }
+
   onViewTask(task: Task) {
     this.viewTask.next(task);
   }
@@ -85,15 +89,21 @@ export class TaskService {
   }
 
   insertTask(task: Task) {
-    return this.request.requestMethodPUT('task-management/tasks', task);
+    return this.request.requestMethodPUT('task-management/tasks', task).do(task => {
+      return this.clearCurrentTimeTask();
+    });
   }
 
+  updateTask(task: Task) {
+    return this.request.requestMethodPOST('task-management/tasks', task).do(task => {
+      return this.clearCurrentTimeTask();
+    });
+  }
   findUnStamped(year, month) {
     return this.request.requestMethodGET(`task-management/un-stamp-task/${year}/${month}`)
   }
 
   removeTask(taskId: number) {
-    console.log(taskId);
     return this.request.requestMethodDelete('task-management/tasks/' + taskId);
   }
 
