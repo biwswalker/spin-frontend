@@ -74,9 +74,10 @@ export class TaskDetailComponent implements OnInit {
     this.setDefaultData();
     this.initialTime();
     this.initialFavoriteProject();
+    this.findProject(this.taskObj.projectId);
     if (this.mode == Mode.E) {
       this.projectId = this.taskObj.projectId;
-      this.findProject(this.taskObj.projectId);
+
       this.initialTaskForUpdate();
     } else if (this.mode == Mode.V) {
 
@@ -89,17 +90,15 @@ export class TaskDetailComponent implements OnInit {
   }
 
   findProject(projectId: number) {
-    console.log('findproject')
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
         this.taskService.selectedProjectId.next(projectId);
         this.projectList = data;
-        for (let obj of data) {
-          console.log(obj.projectId);
-          console.log(projectId);
-          if (obj.projectId == projectId) {
-            console.log(obj.projectName);
-            this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
+        if(projectId){
+          for (let obj of data) {
+            if (obj.projectId == projectId) {
+              this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
+            }
           }
         }
       }
