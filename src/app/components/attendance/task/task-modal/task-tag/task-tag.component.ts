@@ -25,37 +25,37 @@ export class TaskTagComponent implements OnInit {
     this.tagList = [];
     this.findUsedTag();
     this.initialAutocompleteTagList();
-    if(this.mode == Mode.E){
-      console.log('tag mode: ' + this.mode);
-      this.findTagByTaskId(this.task.taskId);
+    if (this.mode == Mode.E) {
     }
   }
 
-  findUsedTag(){
-    console.log('findusedtag');
+  findUsedTag() {
     this.tagService.findUsedTag().subscribe(
-      data=>{
-        for(let obj of data){
-          this.usedTagList.push({display: obj.tagName, value: obj.tagName});
+      data => {
+        for (let obj of data) {
+          this.usedTagList.push({ display: obj.tagName, value: obj.tagName });
         }
       }
     )
   }
 
-  findTagByTaskId(taskId: number){
-    console.log('findTagByTaskId');
+  initialTag(taskId: number) {
     this.tagService.findByTaskId(taskId).subscribe(
-      tag=>{
-        console.log(tag);
+      tags => {
+        if(tags){
+          this.tagList = [];
+          for (let tag of tags) {
+            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
+          }
+        }
       }
     )
   }
 
 
-  initialAutocompleteTagList(){
-    console.log('initialAutocompleteTagList');
+  initialAutocompleteTagList() {
     this.tagService.findAll().subscribe(
-      data=>{
+      data => {
         this.autoCompleteTagList = data;
       }
     )
