@@ -20,12 +20,8 @@ $stamped:rgb(44, 111, 246);
     color: $white;
     font-size: 18px;
     font-weight: 300;
-    display: table;
-
-    .col-fixed-100 {
-        -ms-flex: 0 0 100px;
-        flex: 0 0 100px;
-        padding: 0px;
+    .table-header{
+        padding-left: 60px;
     }
 }
 

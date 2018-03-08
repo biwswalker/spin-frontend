@@ -26,7 +26,6 @@ export class TaskDetailComponent implements OnInit {
   public taskObj: Task = new Task();
   public projectObj: Project = new Project();
   public statusFlag: boolean = false;
-  public colorFlag: string = '';
   public workStartTime: string = '';
   public workEndTime: string = '';
   public workDate: string = '';
@@ -57,7 +56,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   setDefaultData() {
-    this.colorFlag = '';
     this.workStartTime = '';
     this.workEndTime = '';
     this.workDate = '';
@@ -65,7 +63,6 @@ export class TaskDetailComponent implements OnInit {
     this.activity = '';
     this.projectId = 0;
     this.project = '';
-    this.taskObj.color = 'primary';
   }
 
 
@@ -74,35 +71,32 @@ export class TaskDetailComponent implements OnInit {
     this.setDefaultData();
     this.initialTime();
     this.initialFavoriteProject();
-    this.findProject(this.taskObj.projectId);
-    if (this.mode == Mode.E) {
-      this.projectId = this.taskObj.projectId;
-
-      this.initialTaskForUpdate();
-    } else if (this.mode == Mode.V) {
-
-    } else {
-
-    }
+    this.projectId = this.taskObj.projectId;
+    this.findProject();
+    this.initialTaskForUpdate();
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
   }
 
-  findProject(projectId: number) {
+  findProject() {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
-        this.taskService.selectedProjectId.next(projectId);
         this.projectList = data;
-        if(projectId){
-          for (let obj of data) {
-            if (obj.projectId == projectId) {
-              this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
-            }
-          }
-        }
       }
     )
+  }
+
+  getProjectName(projectId: number){
+    console.log(projectId)
+    this.taskService.selectedProjectId.next(projectId);
+    console.log(this.projectList)
+    for (let obj of this.projectList) {
+      if (obj.projectId == projectId) {
+        console.log(obj.projectName);
+
+      }
+    }
   }
 
   onSelectCallBack(date: string) {
@@ -159,7 +153,7 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  onFavoriteClick(event){
+  onFavoriteClick(event) {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
     this.taskService.selectedProjectId.next(event.projectId);

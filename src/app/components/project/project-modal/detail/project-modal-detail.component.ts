@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Project } from '../../../../models/project';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { ProjectService } from '../../../../providers/project.service';
 
 @Component({
   selector: 'project-modal-detail',
@@ -18,7 +19,9 @@ export class ProjectModalDetailComponent implements OnInit{
   resizedImage:string=null;
   resizedImageTrusted:SafeUrl=null;
   constructor(private ng2ImgToolsService: Ng2ImgToolsService,
-    private sanitizer: DomSanitizer, private zone: NgZone) { }
+              private sanitizer: DomSanitizer,
+              private zone: NgZone,
+              private projectService:ProjectService) { }
 
   ngOnInit() {
     console.log('ProjectModalDetailComponent.ngOnInit');
@@ -80,10 +83,17 @@ export class ProjectModalDetailComponent implements OnInit{
     oriReader.readAsDataURL(ori);
   }
 
-  prepareDataForEdit(project:Project){
-    this.project = project;
-    this.project.isVisble = (project.visibilityFlag == 'Y'?false:true);
-    this.resizedImageTrusted =  project.projectThumbnail;
+  prepareDataForEdit(projectId:string){
+    this.project = new Project;
+    this.projectService.findProjectById(projectId).subscribe(
+      data=>{
+        console.log('project member: ',data);
+        this.project = data;
+        this.project.isVisble = (this.project.visibilityFlag == 'Y'?false:true);
+        this.resizedImageTrusted =  this.project.projectThumbnail;
+      }
+    )
+
   }
 
 

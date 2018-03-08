@@ -15,13 +15,17 @@ export class TimetableWeekComponent implements OnInit {
 
   // Get time list
   public worktable = WorkingTime
-  public enDateStr = '';
+  public firstDOW = '';
+  public endDOW = '';
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
     // Async
-    this.taskService.currentTimetableDate.subscribe(enDate => {
-      this.enDateStr = enDate;
-      this.fecthWorkingTaskByWeek(enDate)
+    this.taskService.currentTimetableDOW.subscribe(dow => {
+      if(dow.start && dow.end){
+        this.firstDOW = dow.start;
+        this.endDOW = dow.end;
+        this.fecthWorkingTaskByWeek()
+      }
     })
     // End Async
   }
@@ -29,10 +33,8 @@ export class TimetableWeekComponent implements OnInit {
   ngOnInit() {
   }
 
-  fecthWorkingTaskByWeek(enDate) {
-    let firstDate = this.utilsService.getStartOfWeek(enDate, true);
-    let endDate = this.utilsService.getEndOfWeek(enDate, true);
-    let dataDate = firstDate
+  fecthWorkingTaskByWeek() {
+    let dataDate = this.firstDOW
     for (let i = 1; i <= 7; i++) {
       this.fecthWorkingTaskByDate(dataDate, i);
       dataDate = this.utilsService.getNextDay(dataDate)
@@ -56,7 +58,6 @@ export class TimetableWeekComponent implements OnInit {
             startIndex = this.worktable.findIndex(time => time === start)
             endIndex = this.worktable.findIndex(time => time === end)
           }
-          console.log(`Date Index : ${startIndex} - ${endIndex}`)
 
           let groupClass = `stamped${dateIndex}${index}`
           let overlapClass = `overlap${dateIndex}${index}`

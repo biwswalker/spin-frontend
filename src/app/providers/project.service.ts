@@ -10,6 +10,9 @@ export class ProjectService {
   public editProject = new BehaviorSubject<Project>(new Project);
   public currentProjectAct = this.editProject.asObservable();
 
+  private isProjectHaveChanged = new BehaviorSubject<number>(0);
+  public projectHaveChanged = this.isProjectHaveChanged.asObservable();
+
   constructor(private request: HttpRequestService) { }
 
   // Begin Insert Update Delete Actions
@@ -65,6 +68,11 @@ export class ProjectService {
   onUpdateProject(project:Project){
     console.log('onUpdateProject............');
     this.editProject.next(project);
+  }
+
+  onProjectHaveChanged(){
+    console.log('onProjectHaveChanged......');
+    this.isProjectHaveChanged.next(1);
   }
 
 }
