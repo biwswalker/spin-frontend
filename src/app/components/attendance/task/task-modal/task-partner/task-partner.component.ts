@@ -36,54 +36,53 @@ export class TaskPartnerComponent implements OnInit {
     // this async
     this.taskService.currentProjectId.subscribe(projectId => {
       this.owner = this.user.email;
-      if (projectId) {
-
+      this.getautoCompletePartner(projectId);
+      if (projectId && this.task.taskId) {
         this.autocompletePartnerList = [];
-
-        this.getautoCompletePartner(projectId);
-        if (this.mode == Mode.E) {
-          this.partnerService.findMemberByProjectId(projectId, this.task.taskId).subscribe(
-            members => {
-              if (members) {
-                // console.log(members);
-
-                this.taskMember = [];
-                for (let obj of members) {
-                  if (obj.isPartner == "Y") {
-                    this.taskMember.push({ userId: obj.userId, email: obj.email, status: true });
-                  } else {
-                    this.taskMember.push({ userId: obj.userId, email: obj.email, status: false });
-                  }
-                }
-              }
-            }
-          );
-          this.partnerService.findNotMemberByProjectId(projectId, this.task.taskId).subscribe(
-            nonMembers => {
-              if (nonMembers) {
-                this.taskPartner = [];
-                for (let obj of nonMembers) {
-                  this.taskPartner.push({ userId: obj.userId, email: obj.email });
-                }
-                console.log(this.taskPartner)
-              }
-            }
-          )
-        } else if (this.mode == Mode.V) {
-          console.log('ViewMode');
-        } else {
-          console.log('InsertMode');
-          this.getProjectMember(projectId);
-        }
+        this.initialMember(projectId, this.task.taskId);
+        this.initialPartner(projectId, this.task.taskId);
+      } else {
+        this.getProjectMember(projectId);
       }
-    });
+    }
+    );
     // End this async
-
-
-
   }
 
   ngOnInit() {
+    this.taskMember = [];
+    this.taskPartner = [];
+    this.autocompletePartnerList = [];
+  }
+
+  initialMember(projectId: number, taskId: number){
+    this.partnerService.findMemberByProjectId(projectId, this.task.taskId).subscribe(
+      members => {
+        if (members) {
+          this.taskMember = [];
+          for (let obj of members) {
+            if (obj.isPartner == "Y") {
+              this.taskMember.push({ userId: obj.userId, email: obj.email, status: true });
+            } else {
+              this.taskMember.push({ userId: obj.userId, email: obj.email, status: false });
+            }
+          }
+        }
+      }
+    );
+  }
+
+  initialPartner(projectId: number, taskId: number){
+    this.partnerService.findNotMemberByProjectId(projectId, taskId).subscribe(
+      nonMembers => {
+        if (nonMembers) {
+          this.taskPartner = [];
+          for (let obj of nonMembers) {
+            this.taskPartner.push({ userId: obj.userId, email: obj.email });
+          }
+        }
+      }
+    );
   }
 
   getProjectMember(projectId) {
@@ -92,7 +91,7 @@ export class TaskPartnerComponent implements OnInit {
         if (member) {
           this.taskMember = [];
           for (let obj of member) {
-            this.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: true });
+            this.taskMember.push({ userId: obj.id.userId, email: obj.user.email, status: false });
           }
         }
       })
@@ -102,21 +101,11 @@ export class TaskPartnerComponent implements OnInit {
     this.partnerService.findAllUSer(projectId).subscribe(
       partner => {
         if (partner) {
+          this.autocompletePartnerList = [];
           for (let obj of partner) {
             this.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
           }
         }
-      }
-    )
-  }
-
-  getTaskPartner(taskId: number) {
-    this.partnerService.findByTaskId(taskId).subscribe(
-      partner => {
-        console.log(partner);
-        // for(let obj of partner){
-        //   this.taskPartner.push({})
-        // }
       }
     )
   }
