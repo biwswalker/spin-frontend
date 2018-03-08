@@ -63,7 +63,7 @@ export class TimetableWeekComponent implements OnInit {
           let overlayClass = `overlay${dateIndex}${index}`
           // Step 1
           for (let i = startIndex; i <= endIndex; i++) {
-            $($(`.timestamp-week${dateIndex} > .stamp`)[i]).addClass(`unavailable ${groupClass}`);
+            $($($(`.timestamp-week${dateIndex}`).find('.stamp'))[i]).addClass(`unavailable ${groupClass}`);
           }
           // Step 2
           $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
