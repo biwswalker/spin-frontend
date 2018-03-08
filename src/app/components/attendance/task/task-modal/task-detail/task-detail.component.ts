@@ -26,7 +26,6 @@ export class TaskDetailComponent implements OnInit {
   public taskObj: Task = new Task();
   public projectObj: Project = new Project();
   public statusFlag: boolean = false;
-  public colorFlag: string = '';
   public workStartTime: string = '';
   public workEndTime: string = '';
   public workDate: string = '';
@@ -57,7 +56,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   setDefaultData() {
-    this.colorFlag = '';
     this.workStartTime = '';
     this.workEndTime = '';
     this.workDate = '';
@@ -75,7 +73,6 @@ export class TaskDetailComponent implements OnInit {
     this.initialFavoriteProject();
     this.projectId = this.taskObj.projectId;
     this.findProject();
-
     this.initialTaskForUpdate();
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
@@ -86,9 +83,6 @@ export class TaskDetailComponent implements OnInit {
     this.projectService.fetchProjectAutocomplete().subscribe(
       data => {
         this.projectList = data;
-        // if(this.taskObj.projectId){
-        //   this.getProjectName(this.taskObj.projectId);
-        // }
       }
     )
   }
@@ -100,7 +94,7 @@ export class TaskDetailComponent implements OnInit {
     for (let obj of this.projectList) {
       if (obj.projectId == projectId) {
         console.log(obj.projectName);
-        this.taskDetailFormGroup.patchValue({ taskDetailProject: obj.projectName });
+
       }
     }
   }

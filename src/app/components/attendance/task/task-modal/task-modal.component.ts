@@ -24,7 +24,7 @@ declare var $: any;
 })
 export class TaskModalComponent implements AfterViewInit {
 
-  
+
   public task: Task = new Task();
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
@@ -72,22 +72,25 @@ export class TaskModalComponent implements AfterViewInit {
     this.mode = mode;
     this.taskDetailChild.taskObj = new Task();
     this.taskDetailChild.taskObj = this.taskForm.task;
-    this.taskDetailChild.taskObj.color = this.taskForm.task.color;
+    this.taskDetailChild.taskObj.color = (this.taskForm.task.color ? this.taskForm.task.color : 'primary');
+    console.log(this.taskDetailChild.taskObj.color)
     this.taskPartnerChild.task = this.taskForm.task;
     this.taskDetailChild.mode = this.mode;
     this.taskPartnerChild.mode = this.mode;
     this.taskPartnerChild.user = this.user;
+    this.taskPartnerChild.taskMember = [];
+    this.taskPartnerChild.taskPartner = [];
+    this.taskTagChild.tagList = [];
     this.task.projectId = this.taskForm.task.projectId;
     this.taskTagChild.mode = this.mode;
     this.taskDetailChild.initTaskDetail();
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
-    if(this.taskForm.task.projectId){
+    if (this.taskForm.task.projectId) {
       this.selectedProject(this.taskForm.task.projectId);
     }
   }
 
   selectedProject(prjId: number) {
-    console.log('selectedProject');
     this.projectService.findProjectById(prjId).subscribe(
       project => {
         if (project) {
@@ -102,7 +105,7 @@ export class TaskModalComponent implements AfterViewInit {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
-      this.task.color = this.taskDetailChild.color;
+      this.task.color = this.taskDetailChild.taskObj.color;
       this.task.doSelfFlag = (this.taskPartnerChild.doSelfFlag == true ? 'Y' : 'N');
       this.task.topic = this.taskDetailChild.taskDetailFormGroup.value.taskDetailTopic;
       this.task.projectId = this.taskDetailChild.projectId;
