@@ -24,7 +24,7 @@ export class ResponsibilityInfoComponent implements OnInit {
 
   editResponsibility(event) {
     console.log(this.responsibility);
-    this.responsibilityService.emitResponsibility(this.responsibility);
+    this.responsibilityService.emitResponsibility(this.responsibility.respId);
     console.log(this.responsibility);
     this.responsibilityService.onOpenModal();
   }

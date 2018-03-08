@@ -10,14 +10,14 @@ export class ResponsibilityService {
 
 
   public modal = new SpinModal();
-  public responsibility: EventEmitter<Responsibility> = new EventEmitter<Responsibility>();
+  public key: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private request: HttpRequestService) {
 
   }
 
-  emitResponsibility(value: Responsibility) {
-    this.responsibility.emit(value);
+  emitResponsibility(value: number) {
+    this.key.emit(value);
   }
 
   fetchResponsibilityAutocomplete(activeFlag) {

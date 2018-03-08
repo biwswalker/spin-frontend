@@ -41,7 +41,8 @@
           </div>
           <div class="row">
             <div class="col">
-              <input class="form-control" [(ngModel)]="responsibility.respName" type="text" id="resp-name" name="resp-name" formControlName="respName">
+              <input class="form-control" [(ngModel)]="responsibility.respName" required #respName type="text" id="resp-name" name="resp-name"
+                formControlName="respName">
             </div>
           </div>
           <div class="row">
