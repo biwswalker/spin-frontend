@@ -13,7 +13,7 @@ export class AuthenticationService {
   public crrAccess = this.isAccess.asObservable();
   private user = new BehaviorSubject<User>(new User());
   public crrUser = this.user.asObservable();
-
+  public refreshTko = false;
   constructor(private request: HttpRequestService) { }
 
   authen(username: string, password: string) {
@@ -51,32 +51,27 @@ export class AuthenticationService {
 
   refreshToken() {
     console.log('refresh tok')
-    // var data = new FormData();
-    // data.append("grant_type", "refresh_token");
-    // data.append("refresh_token", this.getRefreshToken());
-    console.log(this.getNowToken());
+    this.refreshTko = true;
     const headers = new HttpHeaders({
       "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
     })
     const options = { headers: headers }
-    console.log(options)
     return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).toPromise()
       .then(token => {
+        this.refreshTko = false;
         if (token) {
           localStorage.setItem(Default.ACTOKN, token.access_token)
           localStorage.setItem(Default.TOKNTY, token.token_type)
           localStorage.setItem(Default.RFTOKN, token.refresh_token)
           this.isAccess.next(true);
-          console.log('Get token');
-          console.log(this.getNowToken());
           return this.accessUser();
         } else {
-          console.log('error token')
           this.isAccess.next(false)
           return Status.ERROR;
         }
       })
       .catch(error => {
+        this.refreshTko = false;
         console.log(error)
         this.removeToken();
         this.isAccess.next(false)
@@ -137,6 +132,10 @@ export class AuthenticationService {
       return `${refresh_token}`;
     }
     return '';
+  }
+
+  isRefresh() {
+    return this.refreshTko;
   }
 
   removeToken() {
