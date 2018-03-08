@@ -23,3 +23,13 @@
         height: auto;
     }
 }
+
+a:active{
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+a.active{
+  border: 2px solid black;
+  border-radius: 10px;
+}

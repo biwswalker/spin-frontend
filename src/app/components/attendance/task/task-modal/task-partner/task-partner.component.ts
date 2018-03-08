@@ -32,10 +32,9 @@ export class TaskPartnerComponent implements OnInit {
     private partnerService: PartnerService,
     private authService: AuthenticationService
   ) {
-
     // this async
     this.taskService.currentProjectId.subscribe(projectId => {
-      this.owner = this.user.email;
+
       this.getautoCompletePartner(projectId);
       if (projectId && this.task.taskId) {
         this.autocompletePartnerList = [];
