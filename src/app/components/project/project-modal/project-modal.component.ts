@@ -14,8 +14,8 @@ declare var SpinModal: any;
   styleUrls: ['./project-modal.component.scss']
 })
 export class ProjectModalComponent{
-  public project: Project = new Project;
-  public modal = new SpinModal();
+  private project: Project = new Project;
+  private modal = new SpinModal();
   @ViewChild(ProjectModalDetailComponent) projectModalDetail;
   @ViewChild(ProjectModalPhaseComponent) projectModalPhase;
   @ViewChild(ProjectModalMemberComponent) projectModalMember;
@@ -26,15 +26,23 @@ export class ProjectModalComponent{
     private authService: AuthenticationService,
     private eventMessageService: EventMessagesService) {
       this.projectService.currentProjectAct.subscribe((project:Project)=>{
-        console.log('do you want to update project');
+        console.log('do you want to update project',project);
         if(project.projectId){
           console.log('Yes, I am. ');
+          this.project = new Project;
           this.project = project;
-          this.updateProject(project);
+          this.updateProject(this.project);
         }else{
           console.log('No, I am not. ');
         }
-      })
+      },
+    err=>{
+      console.log("Error: ",err);
+    },
+    ()=>{
+
+    }
+    )
     }
 
   onSubmit(){
@@ -52,7 +60,7 @@ export class ProjectModalComponent{
       this.project = this.projectModalDetail.project;
       this.project.projectPhaseList = this.projectModalPhase.projectPhases;
       this.project.projectMemberList = this.projectModalMember.projectMembers;
-      this.project.visibilityFlag = (this.project.isVisble == true ? 'Y' : 'N');
+      this.project.visibilityFlag = (this.project.isVisble == false ? 'Y' : 'N');
 
       // Call Provider
       this.projectService.createProject(this.project).subscribe(
@@ -60,7 +68,14 @@ export class ProjectModalComponent{
           console.log(data);
           this.oncloseModal();
           this.eventMessageService.onSuccess();
-      });
+        },
+        err=>{
+          console.log("Exception: ",err);
+        },
+        ()=>{
+          this.projectService.onProjectHaveChanged();
+        }
+      );
     }
   }
 
@@ -71,7 +86,7 @@ export class ProjectModalComponent{
       this.project = this.projectModalDetail.project;
       this.project.projectPhaseList = this.projectModalPhase.projectPhases;
       this.project.projectMemberList = this.projectModalMember.projectMembers;
-      this.project.visibilityFlag = (this.project.isVisble == true ? 'Y' : 'N');
+      this.project.visibilityFlag = (this.project.isVisble == true ? 'N' : 'Y');
 
       // Call Provider
       this.projectService.updateProject(this.project).subscribe(
@@ -79,7 +94,13 @@ export class ProjectModalComponent{
           console.log(data);
           this.oncloseModal();
           this.eventMessageService.onSuccess();
-      });
+        },
+        err=>{
+          console.log("Exception: ",err);
+        },
+        ()=>{
+          this.projectService.onProjectHaveChanged();
+        });
     }
   }
 
@@ -100,7 +121,7 @@ export class ProjectModalComponent{
     console.log('project: ',project);
     this.onOpenModal();
     this.initChild();
-    this.projectModalDetail.prepareDataForEdit(project);
+    this.projectModalDetail.prepareDataForEdit(project.projectId);
     this.projectModalPhase.prepareDataForEdit(project.projectId);
     this.projectModalMember.prepareDataForEdit(project.projectId);
 
