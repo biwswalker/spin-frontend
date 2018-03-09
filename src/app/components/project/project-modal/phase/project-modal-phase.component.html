@@ -36,6 +36,7 @@
           <input type="text" class="form-control form-control-3xl text-center"
           id="phase-name"
           formControlName="phaseName"
+          maxlength="10"
           [(ngModel)]="projectPhase.phaseName">
           <div class="invalid-feedback">
               Please choose a username.
@@ -49,6 +50,7 @@
           class="form-control datepicker"
           id="start-date"
           name="startDate"
+          maxlength="10"
           data-provide="datepicker" data-date-language="th-th"
           summitDatePicker
           [(ngModel)]="projectPhase.startDate"
@@ -60,6 +62,7 @@
           <input type="text" class="form-control"
           id="end-date"
           name="endDate"
+          maxlength="10"
           data-provide="datepicker" data-date-language="th-th"
           summitDatePicker
           [(ngModel)]="projectPhase.endDate"

@@ -38,6 +38,7 @@
                    class="form-control"
                    id="project-abbr"
                    name="project-abbr"
+                   maxlength="50"
                    formControlName="projectAbbr"
                    [(ngModel)]="project.projectAbbr"
                    >
@@ -50,6 +51,7 @@
                    class="form-control"
                    id="project-name"
                    name="project-name"
+                   maxlength="200"
                    formControlName="projectName"
                    [(ngModel)]="project.projectName">
           </div>
@@ -66,6 +68,7 @@
                class="form-control"
                id="customer-name"
                name="customer-name"
+               maxlength="200"
                formControlName="customerName"
                [(ngModel)]="project.customerName">
       </div>
@@ -112,6 +115,7 @@
                         rows="5"
                         id="project-detail"
                         name="project-detail"
+                        maxlength="1000"
                         formControlName="projectDetail"
                         [(ngModel)]="project.detail"></textarea>
             </div>
@@ -126,6 +130,7 @@
                         rows="5"
                         id="hardware"
                         name="hardware"
+                        maxlength="1000"
                         formControlName="hardware"
                         [(ngModel)]="project.hardware"></textarea>
             </div>
@@ -140,6 +145,7 @@
                         rows="5"
                         id="software"
                         name="software"
+                        maxlength="1000"
                         formControlName="software"
                         [(ngModel)]="project.software"></textarea>
             </div>
