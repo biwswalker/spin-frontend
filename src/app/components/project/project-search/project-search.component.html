@@ -9,8 +9,19 @@
                 class="switch"
                 id="visibility-flag" [(ngModel)]="onlyMember"
                 (change)="onChangeProjectFilter()">
-                <label for="visibility-flag"><span></span></label>
+                <label for="visibility-flag"
+
+                ></label>
             </span>
+            <!--
+              [popper]="popper1Content"
+                [popperTrigger]="'hover'"
+                [popperShowOnStart]="true"
+                [popperPlacement]="'bottom'"
+
+              <popper-content #popper1Content>
+              <p class="bold">Popper on bottom</p>
+            </popper-content> -->
         </div>
     </div>
   <div class="col-12">

@@ -8,6 +8,7 @@ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
+import {NgxPopperModule} from 'ngx-popper';
 
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -128,7 +129,7 @@ import { DatePickerDirective } from './directives/datepicker';
     InfiniteScrollModule,
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
-
+    NgxPopperModule
   ],
   providers: [
     {
