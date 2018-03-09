@@ -37,6 +37,7 @@ export class TaskPartnerComponent {
     this.ownerEmail = usrEmail;
     this.taskService.currentProjectId.subscribe(projectId => {
       console.log('this.taskService.currentProjectId.subscribe')
+      console.log(projectId)
       if (projectId) {
         this.getautoCompletePartner(projectId);
         if (this.taskId) {

@@ -68,34 +68,32 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskForm.task = task;
     this.mode = mode;
     this.taskForm.task.color = task.color ? task.color : 'primary';
-    this.taskDetailChild.initTaskDetail(this.taskForm.task, this.mode);
+    const objTask = this.taskForm.task;
+    this.taskDetailChild.initTaskDetail(objTask, this.mode);
+    if (this.taskForm.task.projectId) {
+      console.log('GGQWPPP')
+      this.taskService.selectedProjectId.next(this.taskForm.task.projectId);
+    }
     this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
 
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
-    if (this.taskForm.task.projectId) {
-      this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailTopic: this.taskForm.task.topic });
-      this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailActivity: this.taskForm.task.activity });
-      this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag == 'I' ? false : true);
-      this.selectedProject(this.taskForm.task.projectId);
-      this.mode = Mode.E;
-    }
     if (this.mode == Mode.V) {
       console.log('View');
     }
   }
 
-  selectedProject(prjId: number) {
-    this.projectService.findProjectById(prjId).subscribe(
-      project => {
-        if (project) {
-          this.taskService.selectedProjectId.next(project.projectId);
-          this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
-        }
-      }
-    )
-  }
+  // selectedProject(prjId: number) {
+  //   this.projectService.findProjectById(prjId).subscribe(
+  //     project => {
+  //       if (project) {
+  //         this.taskService.selectedProjectId.next(project.projectId);
+  //         this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
+  //       }
+  //     }
+  //   )
+  // }
 
   onSubmit() {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
