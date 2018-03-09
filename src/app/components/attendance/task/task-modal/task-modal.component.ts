@@ -49,9 +49,10 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log('ngAfterViewInit')
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
-      console.log(task);
+      console.log('currentTask=> ', task);
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
         this.onTaskHasSelected(task, Mode.I);
       }
@@ -59,6 +60,7 @@ export class TaskModalComponent implements AfterViewInit {
 
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
+      console.log('currentViewTask=> ', task)
       if (task.taskId) {
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
@@ -66,19 +68,19 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    this.taskForm.task = task;
     this.mode = mode;
-    this.taskDetailChild.taskObj = new Task();
-    this.taskDetailChild.taskObj = this.taskForm.task;
-    this.taskDetailChild.taskObj.color = (this.taskForm.task.color ? this.taskForm.task.color : 'primary');
+    this.taskForm.task = task;
+    this.taskForm.task.color = task.color ? task.color : 'primary';
+    this.taskDetailChild.initTaskDetail(this.taskForm.task, this.mode);
+    // 
     this.taskPartnerChild.task = this.taskForm.task;
-    this.taskDetailChild.mode = this.mode;
     this.taskPartnerChild.mode = this.mode;
     this.taskPartnerChild.owner = this.user.email;
-    this.taskTagChild.tagList = [];
     this.task.projectId = this.taskForm.task.projectId;
+
+    this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
-    this.taskDetailChild.initTaskDetail();
+
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
 
     if (this.taskForm.task.projectId) {
