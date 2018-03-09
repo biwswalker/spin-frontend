@@ -40,7 +40,13 @@ export class ExampleComponent implements OnInit {
     })();
   }
 
-  notifyClick(){
-    this.eventMessageService
+  notifySuccessClick(){
+    this.eventMessageService.onSuccess('ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
+  }
+  notifyWarningClick(){
+    this.eventMessageService.onWarning('','ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
+  }
+  notifyErrorClick(){
+    this.eventMessageService.onSuccess('ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
   }
 }

@@ -67,7 +67,7 @@ export class ProjectModalComponent{
         data => {
           console.log(data);
           this.oncloseModal();
-          this.eventMessageService.onSuccess();
+          this.eventMessageService.onSuccess('');
         },
         err=>{
           console.log("Exception: ",err);
@@ -93,7 +93,7 @@ export class ProjectModalComponent{
         data => {
           console.log(data);
           this.oncloseModal();
-          this.eventMessageService.onSuccess();
+          this.eventMessageService.onSuccess('');
         },
         err=>{
           console.log("Exception: ",err);

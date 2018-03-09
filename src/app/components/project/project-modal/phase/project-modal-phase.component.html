@@ -3,8 +3,8 @@
     <ul   class="list-group list-group-flush phase-list">
       <li *ngFor="let phase of projectPhases;let i = index" class="list-group-item">
         <div class="phase row">
-          <div class="phase-name col-2 text-center">{{phase.phaseName}}</div>
-          <div class="phase-start col-4">
+          <div class="phase-name col-3 text-center">{{phase.phaseName}}</div>
+          <div class="phase-start col-3">
             <p>{{phase.startDate | thaiDate:'short'}}</p>
             <span>เริ่มโครงการ</span>
           </div>
@@ -12,7 +12,7 @@
             <p>{{phase.endDate | thaiDate:'short'}}</p>
             <span>สิ้นสุดโครงการ</span>
           </div>
-          <div class="phase-end col-2 my-auto mx-auto">
+          <div class="phase-end col-2 my-auto">
             <button type="button" class="btn btn-link"
             (click)="onDeletePhase(i)"
             ><i class="fas fa-trash-alt fa-lg"></i></button>
