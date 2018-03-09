@@ -90,6 +90,7 @@ export class ProjectModalMemberComponent implements OnInit {
   onSelectedResp(event){
     this.projectMember.responsibility = event.item;
     this.projectMember.respId = this.projectMember.responsibility.respId;
+    this.projectMember.respName = this.projectMember.responsibility.respName;
   }
 
   onSubmit($event){

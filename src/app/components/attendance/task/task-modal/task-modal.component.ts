@@ -51,6 +51,7 @@ export class TaskModalComponent implements AfterViewInit {
   ngAfterViewInit() {
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
+      console.log(task);
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
         this.onTaskHasSelected(task, Mode.I);
       }
@@ -66,13 +67,13 @@ export class TaskModalComponent implements AfterViewInit {
 
   onTaskHasSelected(task: Task, mode: string) {
     console.log(task);
+    console.log(mode);
     this.taskForm.task = task;
     this.mode = mode;
     this.taskDetailChild.taskObj = new Task();
     this.taskDetailChild.taskObj = this.taskForm.task;
     this.taskDetailChild.taskObj.color = (this.taskForm.task.color ? this.taskForm.task.color : 'primary');
     this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false);
-    console.log(this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false));
     this.taskPartnerChild.task = this.taskForm.task;
     this.taskDetailChild.mode = this.mode;
     this.taskPartnerChild.mode = this.mode;
@@ -86,7 +87,10 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
     if (this.taskForm.task.projectId) {
       this.selectedProject(this.taskForm.task.projectId);
-      console.log(this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false));
+      this.mode = Mode.E;
+    }
+    if (this.mode == Mode.V) {
+      console.log('View');
     }
   }
 
@@ -94,7 +98,7 @@ export class TaskModalComponent implements AfterViewInit {
     this.projectService.findProjectById(prjId).subscribe(
       project => {
         if (project) {
-          this.taskService.selectedProjectId.next(prjId);
+          this.taskService.selectedProjectId.next(project.projectId);
           this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
         }
       }
@@ -103,7 +107,6 @@ export class TaskModalComponent implements AfterViewInit {
 
   onSubmit() {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
-      
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
       this.task.color = this.taskDetailChild.taskObj.color;

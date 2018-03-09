@@ -14,8 +14,8 @@ declare var SpinModal: any;
   styleUrls: ['./project-modal.component.scss']
 })
 export class ProjectModalComponent{
-  private project: Project = new Project;
-  private modal = new SpinModal();
+  public project: Project = new Project;
+  public modal = new SpinModal();
   @ViewChild(ProjectModalDetailComponent) projectModalDetail;
   @ViewChild(ProjectModalPhaseComponent) projectModalPhase;
   @ViewChild(ProjectModalMemberComponent) projectModalMember;

@@ -34,10 +34,10 @@ export class TaskPartnerComponent implements OnInit {
   ) {
     // this async
     this.taskService.currentProjectId.subscribe(projectId => {
-
+      console.log('currentprojectId: ' , projectId)
       this.getautoCompletePartner(projectId);
       if (projectId && this.task.taskId) {
-        this.autocompletePartnerList = [];
+        // this.autocompletePartnerList = [];
         this.initialMember(projectId, this.task.taskId);
         this.initialPartner(projectId, this.task.taskId);
       } else {
@@ -49,12 +49,13 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.taskMember = [];
-    this.taskPartner = [];
-    this.autocompletePartnerList = [];
+    // this.taskMember = [];
+    // this.taskPartner = [];
+    // this.autocompletePartnerList = [];
   }
 
   initialMember(projectId: number, taskId: number){
+    console.log('initialMember')
     this.partnerService.findMemberByProjectId(projectId, this.task.taskId).subscribe(
       members => {
         if (members) {
@@ -65,6 +66,7 @@ export class TaskPartnerComponent implements OnInit {
             } else {
               this.taskMember.push({ userId: obj.userId, email: obj.email, status: false });
             }
+            console.log(this.taskMember);
           }
         }
       }
@@ -72,6 +74,7 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   initialPartner(projectId: number, taskId: number){
+    console.log('initialPartner');
     this.partnerService.findNotMemberByProjectId(projectId, taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
@@ -79,6 +82,7 @@ export class TaskPartnerComponent implements OnInit {
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email });
           }
+          console.log(this.taskPartner);
         }
       }
     );
