@@ -78,6 +78,7 @@ export class TaskDetailComponent implements OnInit {
     this.resetData();
     this.initialTime();
     this.initialData();
+    this.validateData();
   }
 
   onSelectCallBack(date: string) {
