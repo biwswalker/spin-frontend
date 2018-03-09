@@ -6,6 +6,7 @@ import { Task } from '../../../../models/task';
 
 declare var $: any;
 declare var SpinModal: any;
+declare var convertTimeString: any;
 @Component({
   selector: 'timetable-week',
   templateUrl: './timetable-week.component.html',
@@ -56,7 +57,7 @@ export class TimetableWeekComponent implements OnInit {
             endIndex = startIndex;
           } else {
             startIndex = this.worktable.findIndex(time => time === start)
-            let min = String(end).substr(1,1);
+            let min = convertTimeString(end).substr(2, 1);
             if (min === '7') {
               endIndex = this.worktable.findIndex(time => time === end - 40)
             } else {
@@ -75,7 +76,6 @@ export class TimetableWeekComponent implements OnInit {
           $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
           $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
         <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
-        <p class="text-truncate m-0 stamp-activity">${task.activity}</p>        
         <p class="text-truncate colla-display m-0"><i class="fas fa-users"></i></p>        
       </div>`);
           // Step 3
@@ -88,6 +88,7 @@ export class TimetableWeekComponent implements OnInit {
       console.log(err)
     })
   }
+  // <p class="text-truncate m-0 stamp-activity">${task.activity}</p>        
 
   refreshTimeTable() {
     // Move to top overlap
