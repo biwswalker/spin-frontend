@@ -55,19 +55,20 @@ $white: #fff;
         color: rgba(0, 0, 0, 0.6);
         i.fas{
           font-size: 2.5rem;
+          display: block;
 
         }
         span.menu-title{
           font-size: 0.8rem;
           font-weight: 200;
-          display: block;
+          display: inline-block;
         }
       }
     }
     li:hover{
       background: rgba(0, 0, 0, 0.3);
       transition: all 0.3s;
-      a{
+      >a{
         color:$white !important;
       }
 

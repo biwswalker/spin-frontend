@@ -32,7 +32,7 @@
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
          <ul class="nav flex-column data-can-select-list" id="project-list">
-            <li *ngFor="let prj of projectList.content ;let i = index" class="nav-item"  [ngClass]="(i==0?'active':'')">
+            <li *ngFor="let prj of projectList;let i = index" class="nav-item"  [ngClass]="(i==0?'active':'')">
 
                 <div class="card project-item">
                       <button type="button"
