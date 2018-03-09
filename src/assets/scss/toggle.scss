@@ -46,7 +46,7 @@ $switch-thumb-padding: 2px !default;
 $switch-focus-box-shadow: 0 0 0 $input-btn-focus-width rgba($active-color, .25);
 $switch-transition: .2s all !default;
 
-@mixin custom-toggle($class,$off-status,$on-status){
+@mixin custom-toggle($class){
   .#{$class} {
     font-size: $font-size-base;
     position: relative;
@@ -65,7 +65,7 @@ $switch-transition: .2s all !default;
       + label {
 
         position: relative;
-        min-width: calc(#{$switch-width} * 2);
+        width: 3rem;
         border-radius: $switch-border-radius;
         height: $switch-height;
         line-height: $switch-height;
@@ -74,23 +74,17 @@ $switch-transition: .2s all !default;
         outline: none;
         user-select: none;
         vertical-align: middle;
-        text-indent: calc(calc(#{$switch-width} * 2) + .5rem);
-        span::before{
-          position: absolute;
-          margin-left: -3rem;
-          content: $off-status;
-        }
 
       }
 
 
       + label::before,
       + label::after {
-        content: '';
+        content:'';
         position: absolute;
         top: 0;
         left: 0;
-        width: calc(#{$switch-width} * 2);
+        width: 3.5rem;
         bottom: 0;
         display: block;
 
@@ -104,13 +98,14 @@ $switch-transition: .2s all !default;
       }
 
       + label::after {
-        top: $switch-thumb-padding;
-        left: $switch-thumb-padding;
-        width: calc(#{$switch-height} - calc(#{$switch-thumb-padding} * 2));
-        height: calc(#{$switch-height} - calc(#{$switch-thumb-padding} * 2));
-        border-radius: $switch-thumb-border-radius;
-        background-color: $switch-thumb-bg;
-        transition: $switch-transition;
+        top: -1px;
+        left: 0px;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: 1px solid #cecece;
+        background-color: white;
+        transition: 0.2s all;
       }
 
       &:checked + label::before {
@@ -118,14 +113,12 @@ $switch-transition: .2s all !default;
       }
 
       &:checked + label::after {
-        // margin-left: $switch-width;
-        margin-left:calc(3.5rem * .8);
+        margin-left: 1.5rem;
+
       }
-      &:checked + label > span::before{
+      &:checked + label::before{
         position: absolute;
-        margin-left: -4.5rem;
         color:$white;
-        content: $on-status;
       }
 
       &:focus + label::before {
@@ -206,9 +199,9 @@ $switch-transition: .2s all !default;
 
 
 // custom-toggle([class name],[word show when false],[word show when true]);
- @include custom-toggle('project-filter','OFF','ON');
- @include custom-toggle('task-color-toggle','ไม่','ใช่');
- @include custom-toggle('status-flag','ไม่','ใช่');
- @include custom-toggle('switch','OFF','ON');
- @include custom-toggle('do-self-flag','ไม่','ใช่');
+ @include custom-toggle('project-filter');
+ @include custom-toggle('task-color-toggle');
+ @include custom-toggle('status-flag');
+ @include custom-toggle('switch');
+ @include custom-toggle('do-self-flag');
 

@@ -82,8 +82,6 @@ export class TimestampComponent implements OnInit {
         this.taskService.changeTimetableDOW({ start: this.firstDOW, end: this.endDOW })
       }
     }
-    console.log(this.firstDOW)
-    console.log(this.endDOW)
   }
 
   onChangeView(control) {

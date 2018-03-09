@@ -3,10 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 import { TaskPartner } from '../../../../../models/task-partner';
 import { TaskService } from '../../../../../providers/task.service';
-import { AuthenticationService } from '../../../../../providers/authentication.service';
-import { User } from '../../../../../models/user';
 import { Task } from '../../../../../models/task';
 import { Mode } from '../../../../../config/properties';
+import { Observable } from 'rxjs/Observable';
 declare var $: any;
 
 @Component({
@@ -14,48 +13,46 @@ declare var $: any;
   templateUrl: './task-partner.component.html',
   styleUrls: ['./task-partner.component.scss']
 })
-export class TaskPartnerComponent implements OnInit {
+export class TaskPartnerComponent {
 
-  public user: User = new User();
+  public taskId: number;
+  public ownerEmail = '';
   public selectPartner: any;
   public taskPartner: any[] = [];
-  public task: Task = new Task();
   public doSelfFlag: boolean = true;
-  public owner: string = "";
   public taskMember: any[] = [];
-  public autocompletePartnerList: any[] = [];
+  public autocompletePartnerList = new Observable<any[]>()
   public partner: any;
   public mode: string;
 
   constructor(
     private taskService: TaskService,
-    private partnerService: PartnerService,
-    private authService: AuthenticationService
+    private partnerService: PartnerService
   ) {
-    // this async
+  }
+
+  initTaskPartner(taskId: number, mode: string, usrEmail: string) {
+    this.taskId = taskId;
+    this.mode = mode;
+    this.ownerEmail = usrEmail;
     this.taskService.currentProjectId.subscribe(projectId => {
-
-      this.getautoCompletePartner(projectId);
-      if (projectId && this.task.taskId) {
-        this.autocompletePartnerList = [];
-        this.initialMember(projectId, this.task.taskId);
-        this.initialPartner(projectId, this.task.taskId);
-      } else {
-        this.getProjectMember(projectId);
+      console.log('this.taskService.currentProjectId.subscribe')
+      console.log(projectId)
+      if (projectId) {
+        this.getautoCompletePartner(projectId);
+        if (this.taskId) {
+          this.initialMember(projectId);
+          this.initialPartner(projectId);
+        } else {
+          this.getProjectMember(projectId);
+        }
       }
-    }
-    );
-    // End this async
+    });
   }
 
-  ngOnInit() {
-    this.taskMember = [];
-    this.taskPartner = [];
-    this.autocompletePartnerList = [];
-  }
-
-  initialMember(projectId: number, taskId: number){
-    this.partnerService.findMemberByProjectId(projectId, this.task.taskId).subscribe(
+  initialMember(projectId: number) {
+    console.log('initialMember')
+    this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
           this.taskMember = [];
@@ -65,20 +62,23 @@ export class TaskPartnerComponent implements OnInit {
             } else {
               this.taskMember.push({ userId: obj.userId, email: obj.email, status: false });
             }
+            console.log(this.taskMember);
           }
         }
       }
     );
   }
 
-  initialPartner(projectId: number, taskId: number){
-    this.partnerService.findNotMemberByProjectId(projectId, taskId).subscribe(
+  initialPartner(projectId: number) {
+    console.log('initialPartner');
+    this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
           this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email });
           }
+          console.log(this.taskPartner);
         }
       }
     );
@@ -97,27 +97,21 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   getautoCompletePartner(projectId) {
-    this.partnerService.findAllUSer(projectId).subscribe(
-      partner => {
-        if (partner) {
-          this.autocompletePartnerList = [];
-          for (let obj of partner) {
-            this.autocompletePartnerList.push({ userId: obj.userId, email: obj.email });
-          }
-        }
+    this.autocompletePartnerList = this.partnerService.findAllUser(projectId).map(atpPartner => {
+      for (let selecteds of this.taskPartner) {
+        atpPartner = atpPartner.filter(item => item.userId !== selecteds.userId)
       }
-    )
+      return atpPartner;
+    });
   }
 
   addPartner() {
     if (this.selectPartner != null) {
-      let partner = this.selectPartner;
-      if (this.taskMember.indexOf(partner) == -1) {
-        this.taskPartner.push(partner);
+      let sPartner = this.selectPartner;
+      if (this.taskMember.indexOf(sPartner) == -1) {
+        this.taskPartner.push(sPartner);
       }
-      this.autocompletePartnerList.splice(this.autocompletePartnerList.indexOf(partner), 1);
       this.partner = null;
-      partner = null;
       this.selectPartner = null;
     }
   }
@@ -127,7 +121,6 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   deletePartner(obj) {
-    this.autocompletePartnerList.push(obj);
     this.taskPartner.splice(this.taskPartner.indexOf(obj), 1);
   }
 }

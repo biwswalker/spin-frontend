@@ -42,22 +42,22 @@ export class TaskModalComponent implements AfterViewInit {
     private eventMessageService: EventMessagesService,
     private auth: AuthenticationService,
     private projectService: ProjectService) {
-    // Get User
-    this.auth.crrUser.subscribe(user => {
-      this.user = user;
-    });
+
   }
 
   ngAfterViewInit() {
+    // Get User
+    this.user = this.auth.getUser();
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
+      console.log('currentTask=> ', task);
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
         this.onTaskHasSelected(task, Mode.I);
       }
     });
-
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
+      console.log('currentViewTask=> ', task)
       if (task.taskId) {
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
@@ -65,41 +65,35 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log(task);
     this.taskForm.task = task;
     this.mode = mode;
-    this.taskDetailChild.taskObj = new Task();
-    this.taskDetailChild.taskObj = this.taskForm.task;
-    this.taskDetailChild.taskObj.color = (this.taskForm.task.color ? this.taskForm.task.color : 'primary');
-    this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false);
-    console.log(this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false));
-    this.taskPartnerChild.task = this.taskForm.task;
-    this.taskDetailChild.mode = this.mode;
-    this.taskPartnerChild.mode = this.mode;
-    this.taskPartnerChild.owner = this.user.email;
-    this.taskPartnerChild.taskMember = [];
-    this.taskPartnerChild.taskPartner = [];
-    this.taskTagChild.tagList = [];
-    this.task.projectId = this.taskForm.task.projectId;
-    this.taskTagChild.mode = this.mode;
-    this.taskDetailChild.initTaskDetail();
-    this.taskTagChild.initialTag(this.taskForm.task.taskId);
+    this.taskForm.task.color = task.color ? task.color : 'primary';
+    const objTask = this.taskForm.task;
+    this.taskDetailChild.initTaskDetail(objTask, this.mode);
     if (this.taskForm.task.projectId) {
-      this.selectedProject(this.taskForm.task.projectId);
-      console.log(this.taskDetailChild.statusFlag = (this.taskForm.task.statusFlag ? (this.taskForm.task.statusFlag == 'I' ? false : true) : false));
+      console.log('GGQWPPP')
+      this.taskService.selectedProjectId.next(this.taskForm.task.projectId);
+    }
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
+
+    this.taskTagChild.tagList = [];
+    this.taskTagChild.mode = this.mode;
+    this.taskTagChild.initialTag(this.taskForm.task.taskId);
+    if (this.mode == Mode.V) {
+      console.log('View');
     }
   }
 
-  selectedProject(prjId: number) {
-    this.projectService.findProjectById(prjId).subscribe(
-      project => {
-        if (project) {
-          this.taskService.selectedProjectId.next(prjId);
-          this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
-        }
-      }
-    )
-  }
+  // selectedProject(prjId: number) {
+  //   this.projectService.findProjectById(prjId).subscribe(
+  //     project => {
+  //       if (project) {
+  //         this.taskService.selectedProjectId.next(project.projectId);
+  //         this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
+  //       }
+  //     }
+  //   )
+  // }
 
   onSubmit() {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
@@ -115,6 +109,7 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
+      let stampDate = this.task.workDate;
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
           this.task.taskPartnerList.push({ id: { userId: obj.userId } });
@@ -141,7 +136,7 @@ export class TaskModalComponent implements AfterViewInit {
       let self = this;
       $('#task-modal').on("hidden.bs.modal", function () {
         $('.timestamp .ui-selected').removeClass('ui-selected');
-        self.taskService.changeTimetableDate(self.utilsService.getCurrentEnDate());
+        self.taskService.changeTimetableDate(self.utilsService.convertThDateToEn(stampDate));
       })
     }
   }

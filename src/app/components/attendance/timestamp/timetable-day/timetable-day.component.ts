@@ -43,7 +43,7 @@ export class TimetableDayComponent implements AfterViewInit {
       for (let task of tasks) {
         if (task.activeFlag === 'A') {
           const start = Number(task.workStartTime);
-          const end = Number(task.workEndTime) - 29;
+          const end = Number(task.workEndTime) - 30;
           let startIndex = -1;
           let endIndex = -1;
           if (start === end) {
@@ -51,7 +51,12 @@ export class TimetableDayComponent implements AfterViewInit {
             endIndex = startIndex;
           } else {
             startIndex = this.worktable.findIndex(time => time === start)
-            endIndex = this.worktable.findIndex(time => time === end)
+            let min = convertTimeString(end).substr(2, 1);
+            if (min === '7') {
+              endIndex = this.worktable.findIndex(time => time === end - 40)
+            } else {
+              endIndex = this.worktable.findIndex(time => time === end)
+            }
           }
 
           let groupClass = `stamped${index}`
@@ -63,8 +68,7 @@ export class TimetableDayComponent implements AfterViewInit {
           $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
           $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
         <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
-        <p class="text-truncate m-0 stamp-activity">${task.activity}</p>        
-        <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>':''}</p>        
+        <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
       </div>`);
           $(`.${overlayClass}`).addClass('stamp-box')
           $(`.${overlapClass}`).click(() => this.onViewTask(task));
@@ -75,6 +79,7 @@ export class TimetableDayComponent implements AfterViewInit {
       console.log(err)
     })
   }
+  // <p class="text-truncate m-0 stamp-activity">${task.activity}</p>   
 
   refreshTimeTable() {
     // Move to top overlap
@@ -128,12 +133,17 @@ export class TimetableDayComponent implements AfterViewInit {
 
           if (timeList.length == 1) {
             let starttime = Number(timeList[0])
-            let endtime = Number(timeList[0]) + 29
+            let endtime = Number(timeList[0]) + 30
             startWorkingTime = convertTimeString(starttime);
             endWorkingTime = convertTimeString(endtime);
           } else {
             let starttime = Number(timeList[0])
-            let endtime = Number(timeList[timeList.length - 1]) + 29
+            // +70 is => 0630+70=0700
+            let endtime = Number(timeList[timeList.length - 1]) + 30
+            let min = convertTimeString(endtime).substr(2, 1);
+            if (min === '6') {
+              endtime = endtime + 40;
+            }
             startWorkingTime = convertTimeString(starttime);
             endWorkingTime = convertTimeString(endtime);
           }

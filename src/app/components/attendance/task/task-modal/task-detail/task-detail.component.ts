@@ -11,6 +11,7 @@ import { UtilsService } from '../../../../../providers/utils/utils.service';
 import { Format, Mode } from '../../../../../config/properties';
 import { TaskService } from '../../../../../providers/task.service';
 import { AuthenticationService } from '../../../../../providers/authentication.service';
+import { Observable } from 'rxjs/Observable';
 declare var $: any;
 
 @Component({
@@ -32,28 +33,34 @@ export class TaskDetailComponent implements OnInit {
   public activity: string = '';
   public projectId: number = 0;
   public project: any = '';
-  public projectList: Project[] = [];
+  public projectList = new Observable<Project[]>();
   public taskDetailFormGroup: FormGroup;
   public user: User;
+  public color: string;
   public mode: string;
-  public favProjectList: any[];
+  public favProjectList = new Observable<Project[]>();
 
   constructor(
     private projectService: ProjectService,
     private taskService: TaskService,
     private utilsService: UtilsService,
     private auth: AuthenticationService) {
-    this.auth.crrUser.subscribe(user => {
-      this.user = user;
-    })
   }
 
   ngOnInit() {
+    // Get User
+    this.user = this.auth.getUser();
     this.taskObj = new Task();
     this.validateData();
+    // Initial Fav Project
+    this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
+    // Find project
+    this.projectList = this.projectService.fetchProjectAutocomplete();
   }
 
-  setDefaultData() {
+  resetData() {
+    console.log('onreset');
+    this.taskDetailFormGroup.reset();
     this.workStartTime = '';
     this.workEndTime = '';
     this.workDate = '';
@@ -61,38 +68,21 @@ export class TaskDetailComponent implements OnInit {
     this.activity = '';
     this.projectId = 0;
     this.project = '';
+    this.statusFlag = false;
   }
 
-  initTaskDetail() {
-    this.setDefaultData();
+  initTaskDetail(task: Task, mode: string) {
+    this.taskObj = new Task();
+    this.taskObj = task;
+    this.mode = mode;
+    this.resetData();
     this.initialTime();
-    this.initialFavoriteProject();
-    this.projectId = this.taskObj.projectId;
-    this.findProject();
-    this.initialTaskForUpdate();
-    let self = this;
-    $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
+    this.initialData();
     this.validateData();
-  }
-
-  findProject() {
-    this.projectService.fetchProjectAutocomplete().subscribe(
-      data => {
-        this.projectList = data;
-      }
-    )
   }
 
   onSelectCallBack(date: string) {
     this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
-  }
-
-  initialFavoriteProject() {
-    this.projectService.findFavoriteProjectByUserId(this.user.userId).subscribe(
-      favPrjList => {
-        this.favProjectList = favPrjList;
-      }
-    )
   }
 
   initialTime() {
@@ -101,19 +91,16 @@ export class TaskDetailComponent implements OnInit {
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
   }
 
-  initialTaskForUpdate() {
+  initialData() {
     this.topic = this.taskObj.topic;
     this.activity = this.taskObj.activity;
-    this.statusFlag = (this.taskObj.statusFlag == 'I' ? false : true);
-    this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
-    this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
-    this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
+    this.projectId = this.taskObj.projectId;
     this.messageEvent.emit(this.taskObj.color);
   }
 
   validateData() {
     this.taskDetailFormGroup = new FormGroup({
-      taskDetailStatusFlag: new FormControl(this.statusFlag),
+      taskDetailStatusFlag: new FormControl(this.taskObj.statusFlag == 'A' ? true : false),
       taskDetailWorkDate: new FormControl(this.workDate, Validators.required),
       taskDetailStartTime: new FormControl(this.workStartTime, Validators.required),
       taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
@@ -124,9 +111,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
-    if (color) {
-      this.taskObj.color = color;
-      this.messageEvent.emit(color);
+    this.color = color;
+    if (this.color) {
+      this.taskObj.color = this.color;
+      this.messageEvent.emit(this.color);
     }
   }
 
