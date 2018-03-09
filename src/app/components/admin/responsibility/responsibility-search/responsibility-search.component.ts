@@ -17,22 +17,19 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 export class ResponsibilitySearchComponent implements OnInit {
 
   public responsibilities: Observable<Responsibility[]>;
-  public oldResp: Observable<Responsibility[]>;
-  public resp: AsyncSubject<Responsibility[]>;
-  // public _responsibilities: BehaviorSubject<Responsibility[]>;
-  public _responsibilities: Observable<Responsibility[]>;
-  private loading: boolean = false;
+  public currentResp: Observable<Responsibility[]>;
+  // public _responsibilities: Observable<Responsibility[]>;
+  private _responsibilities: BehaviorSubject<Responsibility[]>;
 
   @Output() messageEvent = new EventEmitter<number>();
 
   public page = 1;
-  public size = 11;
+  public size = 20;
 
   public throttle = 1000;
   public scrollDistance = 1;
   protected hasCriteria: boolean = false;
   protected criteriaValue: string;
-  private searchField: FormControl;
 
   constructor(protected responsibilityService: ResponsibilityService) {
     this._responsibilities = new BehaviorSubject<Responsibility[]>([]);
@@ -40,11 +37,12 @@ export class ResponsibilitySearchComponent implements OnInit {
 
   ngOnInit() {
     this.getAllResponsibility();
-    //   this.getNext();
   }
 
 
+
   getAllResponsibility() {
+    this.page = 1;
     this.responsibilities = this.responsibilityService.findAllPageable(this.page, this.size).do(
       collection => {
         console.log(collection[0]);
@@ -88,25 +86,29 @@ export class ResponsibilitySearchComponent implements OnInit {
 
   onScrollDown() {
     console.log('onScrollDown');
-    this.oldResp = this.responsibilities;
-    console.log(this.oldResp);
-    this._responsibilities = this.getNext();
-    console.log(this._responsibilities);
-    //this.responsibilities = Observable.merge(this.oldResp, this._responsibilities);
-    if (this.oldResp) {
-      this.responsibilities = Observable.merge(this.oldResp, this._responsibilities);
-    }
+    this.page = this.page + 1;
+    this.getNext();
+    this.currentResp = this.responsibilities;
+    //   this.responsibilities = Observable.merge(this.currentResp, this._responsibilities);
+
+    // this.currentResp = this._responsibilities.asObservable();
+    this.responsibilities = Observable.merge(this.currentResp, this._responsibilities.asObservable()).do(
+      data => {
+        console.log('end data {}', data);
+      }
+    );
+    //  this.responsibilities = this.currentResp.merge(this._responsibilities);
+
 
   }
 
   getNext() {
-    let obs = this.responsibilityService.findAllPageable(this.page + 1, this.size);
-    obs.subscribe(
-      res => {
-        console.log(res);
-      });
-
-    return obs;
+    this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
+      data => {
+        console.log('data {}', data);
+        this._responsibilities.next(data);
+      }
+    );
   }
 
 }
