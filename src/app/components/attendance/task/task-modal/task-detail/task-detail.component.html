@@ -53,7 +53,7 @@
       <label>หัวข้อ *</label>
       <input class="form-control"
         type="text"
-        [disabled]="mode == 'View'"
+        [disabled]="mode === 'View'"
         name="topic"
         maxlength="500"
         formControlName="taskDetailTopic"
@@ -67,7 +67,7 @@
         rows="3"
         id="activity"
         name="activity"
-        [disabled]="mode == 'View'"
+        [disabled]="mode === 'View'"
         maxlength="1000"
         formControlName="taskDetailActivity">
       </textarea>
@@ -79,7 +79,7 @@
       <input class="form-control"
         id="project-id"
         name="project-id"
-        [disabled]="mode == 'View'"
+        [disabled]="mode === 'View'"
         formControlName="taskDetailProject"
         [typeahead]="projectList"
         typeaheadOptionField="projectName"
@@ -97,7 +97,7 @@
   <div class="row">
     <div class="col" >
       <nav class="nav" id="fav-project">
-        <div *ngFor="let obj of favProjectList">
+        <div *ngFor="let obj of favProjectList | async">
           <div class="btn thumbnail-size">
               <img
               src="{{obj.projectThumbnail}}"
