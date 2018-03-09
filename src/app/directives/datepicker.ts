@@ -18,12 +18,10 @@ export class DatePickerDirective implements ControlValueAccessor{
 
   }
   ngAfterViewInit(){
-    $(this.el.nativeElement).datepicker({
-      dateFormat: Format.DATE_PIK, isBE: true,
-    }).on('change', e => this.onModelChange(e.target.value));
-  }
-  onModelChange: Function = () => {
+    $(this.el.nativeElement).datepicker().on('change', e => this.onModelChange(e.target.value));
 
+  }
+  onModelChange: Function = (e) => {
   };
 
 
@@ -36,8 +34,8 @@ export class DatePickerDirective implements ControlValueAccessor{
   }
 
   registerOnChange(fn: Function): void {
-    console.log('registerOnChange');
       this.onModelChange = fn;
+
   }
 
   registerOnTouched(fn: Function): void {
