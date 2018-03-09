@@ -34,10 +34,8 @@ export class TaskPartnerComponent implements OnInit {
   ) {
     // this async
     this.taskService.currentProjectId.subscribe(projectId => {
-      console.log('currentprojectId: ' , projectId)
       this.getautoCompletePartner(projectId);
       if (projectId && this.task.taskId) {
-        // this.autocompletePartnerList = [];
         this.initialMember(projectId, this.task.taskId);
         this.initialPartner(projectId, this.task.taskId);
       } else {
@@ -49,9 +47,6 @@ export class TaskPartnerComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.taskMember = [];
-    // this.taskPartner = [];
-    // this.autocompletePartnerList = [];
   }
 
   initialMember(projectId: number, taskId: number){
