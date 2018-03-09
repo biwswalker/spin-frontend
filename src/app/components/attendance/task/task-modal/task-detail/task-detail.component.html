@@ -1,8 +1,9 @@
-<form [formGroup]="taskDetailFormGroup">
+<div class="container">
+<form [formGroup]="taskDetailFormGroup" id="task-detail-form">
   <div class="row">
     <div class="col d-flex">
       <div class="ml-auto ">
-        <label class="mx-auto">สิ้นสุดการทำงาน</label>
+        <label>สิ้นสุดการทำงาน</label>
         <span class="status-flag">
           <input class="switch"
             type="checkbox"
@@ -16,79 +17,82 @@
       </div>
     </div>
   </div>
-    <div class="row">
-      <div class="col-6">
-        <label>วันที่ *</label>
-        <input class="form-control"
-              type="text"
-              name="datepicker"
-              formControlName="taskDetailWorkDate"
-              id="datepicker">
-        </div>
-        <div class=" col-3">
-            <label>เวลา *</label>
-            <input class="form-control"
-              id="work-start-time"
-              name="work-start-time"
-              formControlName="taskDetailStartTime"
-              type="text">
-        </div>
-        <div class=" col-3">
-            <label class="invisible">เวลา *</label>
-            <input class="form-control"
-              id="work-end-time"
-              name="work-end-time"
-              formControlName="taskDetailEndTime"
-              type="text">
-        </div>
-    </div>
-    <div class="row">
-        <div class=" col-12">
-            <label>หัวข้อ *</label>
-            <input class="form-control"
-              type="text"
-              name="topic"
-              maxlength="500"
-              formControlName="taskDetailTopic"
-              id="topic">
-        </div>
-    </div>
-    <div class="row">
-        <div class=" col-12">
-            <label>กิจกรรม *</label>
-            <textarea class="form-control"
-              rows="3"
-              id="activity"
-              name="activity"
-              maxlength="1000"
-              formControlName="taskDetailActivity">
-        </textarea>
-        </div>
-    </div>
-    <div class="row">
-        <div class=" col-12">
-            <label>ชื่อโครงการ *</label>
-            <input class="form-control"
-              id="project-id"
-              name="project-id"
-              formControlName="taskDetailProject"
-              [typeahead]="projectList"
-              typeaheadOptionField="projectName"
-              [typeaheadItemTemplate]="customItemTemplate"
-              [typeaheadScrollable]="true"
-              [typeaheadMinLength]="0"
-              [typeaheadOptionsInScrollableView]="5"
-              (typeaheadOnSelect)="onChangeProject($event)">
-            <ng-template #customItemTemplate let-model="item" let-index="index">
-                <h6>{{model.projectName}}</h6>
-            </ng-template>
-        </div>
-    </div>
-</form>
 
-<div class="row">
-  <div class="col">
-      <nav class="nav">
+  <div class="row">
+    <div class="col-6">
+      <label>วันที่ *</label>
+      <input class="form-control"
+        type="text"
+        name="datepicker"
+        formControlName="taskDetailWorkDate"
+        id="datepicker">
+      </div>
+      <div class="col-3">
+        <label>เวลา *</label>
+        <input class="form-control"
+          id="work-start-time"
+          name="work-start-time"
+          formControlName="taskDetailStartTime"
+          type="text">
+      </div>
+      <div class=" col-3">
+        <label class="invisible">เวลา *</label>
+        <input class="form-control"
+          id="work-end-time"
+          name="work-end-time"
+          formControlName="taskDetailEndTime"
+          type="text">
+      </div>
+    </div>
+  <div class="row">
+    <div class=" col-12">
+      <label>หัวข้อ *</label>
+      <input class="form-control"
+        type="text"
+        [disabled]="mode == 'View'"
+        name="topic"
+        maxlength="500"
+        formControlName="taskDetailTopic"
+        id="topic">
+    </div>
+  </div>
+  <div class="row">
+    <div class=" col-12">
+      <label>กิจกรรม *</label>
+      <textarea class="form-control"
+        rows="3"
+        id="activity"
+        name="activity"
+        [disabled]="mode == 'View'"
+        maxlength="1000"
+        formControlName="taskDetailActivity">
+      </textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class=" col-12">
+      <label>ชื่อโครงการ *</label>
+      <input class="form-control"
+        id="project-id"
+        name="project-id"
+        [disabled]="mode == 'View'"
+        formControlName="taskDetailProject"
+        [typeahead]="projectList"
+        typeaheadOptionField="projectName"
+        [typeaheadItemTemplate]="customItemTemplate"
+        [typeaheadScrollable]="true"
+        [typeaheadMinLength]="0"
+        [typeaheadOptionsInScrollableView]="5"
+        (typeaheadOnSelect)="onChangeProject($event)">
+        <ng-template #customItemTemplate let-model="item" let-index="index">
+          <h6>{{model.projectName}}</h6>
+        </ng-template>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col" >
+      <nav class="nav" id="fav-project">
         <div *ngFor="let obj of favProjectList">
           <div class="btn thumbnail-size">
               <img
@@ -97,8 +101,9 @@
           </div>
         </div>
       </nav>
+    </div>
   </div>
-</div>
+</form>
 
 <div class="row">
   <div class="col">
@@ -116,7 +121,7 @@
     <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor"></a>
   </div>
 </div>
-
+</div>
 
 
 <!-- <div class="row row">
