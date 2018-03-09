@@ -60,6 +60,8 @@ export class TaskDetailComponent implements OnInit {
   }
 
   resetData() {
+    console.log('onreset');
+    this.taskDetailFormGroup.reset();
     this.workStartTime = '';
     this.workEndTime = '';
     this.workDate = '';
@@ -77,10 +79,6 @@ export class TaskDetailComponent implements OnInit {
     this.resetData();
     this.initialTime();
     this.initialData();
-
-    // let self = this;
-    // $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
-    // this.validateData();
   }
 
   onSelectCallBack(date: string) {
@@ -91,8 +89,6 @@ export class TaskDetailComponent implements OnInit {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
-    // this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: this.utilsService.displayCalendarDate(this.taskObj.workDate )});
-    // console.log(this.taskDetailFormGroup.value.taskDetailWorkDate);
   }
 
   initialData() {
@@ -125,7 +121,6 @@ export class TaskDetailComponent implements OnInit {
   onChangeProject(event) {
     if (this.projectId != event.item.projectId) {
       this.projectId = event.item.projectId;
-      //
       this.taskService.selectedProjectId.next(this.projectId);
     }
   }

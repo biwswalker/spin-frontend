@@ -25,7 +25,7 @@ export class DatePickerDirective implements ControlValueAccessor{
 
   }
   onModelChange: Function = (e) => {
-    console.log(this.controlContainer);
+    // console.log(this.controlContainer);
   };
 
 
@@ -33,8 +33,8 @@ export class DatePickerDirective implements ControlValueAccessor{
   };
 
   writeValue(val: string) : void {
-    console.log('this.el.nativeElement:',this.el.nativeElement);
-    console.log(this.model);
+    // console.log('this.el.nativeElement:',this.el.nativeElement);
+    // console.log(this.model);
     if(this.model){
       this.el.nativeElement.value = this.model;
     }else{
