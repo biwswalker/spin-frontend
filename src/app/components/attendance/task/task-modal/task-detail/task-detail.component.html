@@ -1,8 +1,9 @@
+<div class="container">
 <form [formGroup]="taskDetailFormGroup" id="task-detail-form">
   <div class="row">
     <div class="col d-flex">
       <div class="ml-auto ">
-        <label class="mx-auto">สิ้นสุดการทำงาน</label>
+        <label>สิ้นสุดการทำงาน</label>
         <span class="status-flag">
           <input class="switch"
             type="checkbox"
@@ -26,7 +27,7 @@
         formControlName="taskDetailWorkDate"
         id="datepicker">
       </div>
-      <div class=" col-3">
+      <div class="col-3">
         <label>เวลา *</label>
         <input class="form-control"
           id="work-start-time"
@@ -120,7 +121,7 @@
     <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor"></a>
   </div>
 </div>
-
+</div>
 
 
 <!-- <div class="row row">

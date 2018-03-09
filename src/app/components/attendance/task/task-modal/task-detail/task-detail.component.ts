@@ -61,6 +61,7 @@ export class TaskDetailComponent implements OnInit {
     this.activity = '';
     this.projectId = 0;
     this.project = '';
+    this.statusFlag = false;
   }
 
   initTaskDetail() {
@@ -69,7 +70,9 @@ export class TaskDetailComponent implements OnInit {
     this.initialFavoriteProject();
     this.projectId = this.taskObj.projectId;
     this.findProject();
-    this.initialTaskForUpdate();
+    if(this.mode == Mode.E){
+      this.initialTaskForUpdate();
+    }
     let self = this;
     $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
     this.validateData();
@@ -104,7 +107,6 @@ export class TaskDetailComponent implements OnInit {
   initialTaskForUpdate() {
     this.topic = this.taskObj.topic;
     this.activity = this.taskObj.activity;
-    this.statusFlag = (this.taskObj.statusFlag == 'I' ? false : true);
     this.workStartTime = this.utilsService.convertDisplayTime(this.taskObj.workStartTime);
     this.workEndTime = this.utilsService.convertDisplayTime(this.taskObj.workEndTime);
     this.workDate = this.utilsService.displayCalendarDate(this.taskObj.workDate);
