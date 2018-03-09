@@ -51,7 +51,7 @@ export class TaskModalComponent implements AfterViewInit {
   ngAfterViewInit() {
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
-      console.log(task);
+      console.log('currentTask=> ', task);
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
         this.onTaskHasSelected(task, Mode.I);
       }
@@ -59,6 +59,7 @@ export class TaskModalComponent implements AfterViewInit {
 
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
+      console.log('currentViewTask=> ', task)
       if (task.taskId) {
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
