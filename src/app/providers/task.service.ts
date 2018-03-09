@@ -7,21 +7,22 @@ import { TaskForm } from '../forms/task-form';
 import { ProjectService } from './project.service';
 import { Project } from '../models/project';
 import { UtilsService } from './utils/utils.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class TaskService {
 
   private task = new Task();
-  private selectedTask = new BehaviorSubject<Task>(new Task);
+  private selectedTask =  new Subject();
   public currentTask = this.selectedTask.asObservable();
 
-  private isSelectTask = new BehaviorSubject<number>(0);
+  private isSelectTask =  new Subject();
   public currentIsSelectTask = this.isSelectTask.asObservable();
 
-  private viewTask = new BehaviorSubject<Task>(new Task);
+  private viewTask = new Subject();
   public currentViewTask = this.viewTask.asObservable();
 
-  public selectedProjectId = new BehaviorSubject<number>(0);
+  public selectedProjectId = new Subject();
   public currentProjectId = this.selectedProjectId.asObservable();
 
   // Date

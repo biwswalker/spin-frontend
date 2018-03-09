@@ -5,13 +5,14 @@ import { Status, Default } from '../config/properties';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
 
-  private isAccess = new BehaviorSubject<boolean>(false);
+  private isAccess = new Subject<boolean>();
   public crrAccess = this.isAccess.asObservable();
-  private userSubject = new BehaviorSubject<User>(new User());
+  private userSubject = new Subject<User>();
   public crrUser = this.userSubject.asObservable();
   public user = new User();
   public refreshTko = false;
