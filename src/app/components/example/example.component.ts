@@ -10,6 +10,7 @@ import { EventMessagesService } from '../../providers/utils/event-messages.servi
 export class ExampleComponent implements OnInit {
 
   public exampleForm: FormGroup;
+  public exampleDate:string = '09/03/2561';
   public items = ['Pizza', 'Pasta', 'Parmesan'];
 
   public mins = 4000;

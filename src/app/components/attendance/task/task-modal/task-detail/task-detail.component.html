@@ -116,13 +116,13 @@
 </div>
 <div class="row">
   <div class="col">
-    <a class="btn btn-primary color-picker" (click)="onColorPick('primary')" id="corlor"></a>
-    <a class="btn btn-success color-picker" (click)="onColorPick('success')" id="corlor"></a>
-    <a class="btn btn-danger color-picker" (click)="onColorPick('danger')" id="corlor"></a>
-    <a class="btn btn-orange color-picker" (click)="onColorPick('orange')" id="corlor"></a>
-    <a class="btn btn-secondary color-picker" (click)="onColorPick('secondary')" id="corlor"></a>
-    <a class="btn btn-info color-picker" (click)="onColorPick('info')" id="corlor"></a>
-    <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor"></a>
+    <a class="btn btn-primary color-picker" (click)="onColorPick('primary')" id="corlor" [class.btn-primary]="true"></a>
+    <a class="btn btn-success color-picker" (click)="onColorPick('success')" id="corlor" ng-class="color ? 'active' : ''"></a>
+    <a class="btn btn-danger color-picker" (click)="onColorPick('danger')" id="corlor" ng-class="color ? 'active' : ''"></a>
+    <a class="btn btn-orange color-picker" (click)="onColorPick('orange')" id="corlor" ng-class="color ? 'active' : ''"></a>
+    <a class="btn btn-secondary color-picker" (click)="onColorPick('secondary')" id="corlor" ng-class="color ? 'active' : ''"></a>
+    <a class="btn btn-info color-picker" (click)="onColorPick('info')" id="corlor" ng-class="color ? 'active' : ''"></a>
+    <a class="btn btn-dark color-picker" (click)="onColorPick('dark')" id="corlor" ng-class="color ? 'active' : ''"></a>
   </div>
 </div>
 </div>
