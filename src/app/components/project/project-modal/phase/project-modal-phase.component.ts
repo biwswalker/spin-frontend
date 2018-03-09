@@ -21,7 +21,6 @@ export class ProjectModalPhaseComponent implements OnInit {
     this.projectPhase = new ProjectPhase;
     this.projectPhases = [];
     this.validateForm();
-
   }
 
 
