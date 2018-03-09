@@ -61,9 +61,11 @@ export class TaskPartnerComponent implements OnInit {
             } else {
               this.taskMember.push({ userId: obj.userId, email: obj.email, status: false });
             }
-            console.log(this.taskMember);
           }
         }
+        // else{
+        //   this.getProjectMember(projectId);
+        // }
       }
     );
   }
@@ -77,7 +79,6 @@ export class TaskPartnerComponent implements OnInit {
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email });
           }
-          console.log(this.taskPartner);
         }
       }
     );

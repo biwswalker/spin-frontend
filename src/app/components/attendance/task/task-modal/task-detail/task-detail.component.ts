@@ -60,7 +60,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   resetData() {
-    console.log('onreset');
     this.taskDetailFormGroup.reset();
     this.workStartTime = '';
     this.workEndTime = '';
@@ -70,7 +69,7 @@ export class TaskDetailComponent implements OnInit {
     this.projectId = 0;
     this.project = '';
     this.statusFlag = false;
-    }
+  }
 
   initTaskDetail(task: Task, mode: string) {
     this.taskObj = new Task();
@@ -87,7 +86,9 @@ export class TaskDetailComponent implements OnInit {
 
   initialTime() {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
+    // this.taskDetailFormGroup.patchValue({ taskDetailStartTime: this.workStartTime });
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
+    // this.taskDetailFormGroup.patchValue({ taskDetailEndTime: this.workEndTime });
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
   }
 
@@ -128,7 +129,6 @@ export class TaskDetailComponent implements OnInit {
   onFavoriteClick(event) {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
-    //
     this.taskService.selectedProjectId.next(event.projectId);
   }
 
