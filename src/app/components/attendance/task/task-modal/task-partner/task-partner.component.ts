@@ -35,7 +35,7 @@ export class TaskPartnerComponent {
     this.taskId = taskId;
     this.mode = mode;
     this.ownerEmail = usrEmail;
-    this.taskService.currentProjectId.subscribe(projectId => {
+    this.taskService.currentProjectId.subscribe((projectId: number) => {
       console.log('this.taskService.currentProjectId.subscribe')
       console.log(projectId)
       if (projectId) {
