@@ -63,7 +63,7 @@ export class TaskDetailComponent implements OnInit {
     this.projectId = 0;
     this.project = '';
     this.statusFlag = false;
-  }
+    }
 
   initTaskDetail() {
     this.setDefaultData();
@@ -74,9 +74,9 @@ export class TaskDetailComponent implements OnInit {
     if(this.mode == Mode.E){
       this.initialTaskForUpdate();
     }
-    let self = this;
-    $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
-    this.validateData();
+    // let self = this;
+    // $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
+    // this.validateData();
   }
 
   findProject() {
