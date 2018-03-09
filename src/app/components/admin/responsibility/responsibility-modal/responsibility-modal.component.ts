@@ -20,13 +20,13 @@ export class ResponsibilityModalComponent implements OnInit {
   constructor(protected responsibilityService: ResponsibilityService) {
     this.responsibility = new Responsibility();
 
-    this.responsibilityService.responsibility.subscribe(
+    this.responsibilityService.key.subscribe(
       res => {
-        this.responsibility = res;
+        this.getRespInfo(res);
         console.log(this.responsibility);
         this.mode = Mode.E;
-
         this.validateForm();
+
       }
     );
   }
@@ -42,6 +42,13 @@ export class ResponsibilityModalComponent implements OnInit {
     }
   }
 
+  getRespInfo(respId) {
+    this.responsibilityService.findByRespId(respId).subscribe(
+      res => {
+        this.responsibility = res;
+      }
+    );
+  }
 
 
 
@@ -68,7 +75,6 @@ export class ResponsibilityModalComponent implements OnInit {
   }
 
   oncloseModal() {
-    this.responsibilityService.responsibility.unsubscribe();
     this.responsibilityService.onCloseModal();
   }
 

@@ -95,6 +95,7 @@ export class AuthenticationService {
           return Status.SUCCESS;
         } else {
           console.log('error user')
+          this.isAccess.next(false)
           return Status.ERROR;
         }
       }).catch(error => {

@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-12">
+      <div class="admin-info-header">
+          <div class="row">
+              <div class="col-9">
+              <h5 class="mb-0">
+                <label>รายละเอียดผู้ใช้งาน</label>
+              </h5>
+              </div>
+              <div class="col-3">
+               <button class="btn btn-link" type="button">
+                <span>
+                  <i class="fas fa-pencil-alt"></i>
+                  <label>แก้ไข</label>
+                </span>
+              </button>
+            </div>
+          </div>
+
+  </div>
+  <div class="container" *ngIf="found==='Y'">
+  <div class="row">
+
+                <div class="col-3 admin-info-body-bold">
+                  รหัสผู้ใช้งาน  {{found}}
+                </div>
+                <div class="col-3 admin-info-body">
+                  {{user.userId}}
+                </div>
+                <div class="col-3 admin-info-body-bold">
+                  สถานะ
+                </div>
+                <div class="col-3 admin-info-body">
+                  {{user.activeFlag=='A'?'Active':'In Active'}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 admin-info-body-bold">
+                  <label>ชื่อผู้ใช้งาน</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 admin-info-body">
+                  <label>{{user.officer.firstNameTh}} {{user.officer.lastNameTh}}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 admin-info-body-bold">
+                  <label>Email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 admin-info-body">
+                  <label>{{user.email}}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 admin-info-body-bold">
+                  <label>ระดับการใช้งาน</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 admin-info-body">
+                  <label>{{user.userLevel=='A'?'Admin':user.userLevel=='P'?'Project Editor':'User'}}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 admin-info-body-bold">
+                  <label>หมายเหตุ</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 admin-info-body">
+                  <label>{{user.remark}}</label>
+                </div>
+              </div>
+  </div>
+</div>
