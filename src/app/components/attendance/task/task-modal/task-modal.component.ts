@@ -42,14 +42,12 @@ export class TaskModalComponent implements AfterViewInit {
     private eventMessageService: EventMessagesService,
     private auth: AuthenticationService,
     private projectService: ProjectService) {
-    // Get User
-    this.auth.crrUser.subscribe(user => {
-      this.user = user;
-    });
+
   }
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit')
+    // Get User
+    this.user = this.auth.getUser();
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       console.log('currentTask=> ', task);
@@ -57,7 +55,6 @@ export class TaskModalComponent implements AfterViewInit {
         this.onTaskHasSelected(task, Mode.I);
       }
     });
-
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
       console.log('currentViewTask=> ', task)
@@ -68,16 +65,15 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    this.mode = mode;
     this.taskForm.task = task;
+    this.mode = mode;
     this.taskForm.task.color = task.color ? task.color : 'primary';
     this.taskDetailChild.initTaskDetail(this.taskForm.task, this.mode);
     this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
-    
+
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
-
     if (this.taskForm.task.projectId) {
       this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailTopic: this.taskForm.task.topic });
       this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailActivity: this.taskForm.task.activity });

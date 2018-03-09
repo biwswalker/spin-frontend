@@ -45,12 +45,11 @@ export class TaskDetailComponent implements OnInit {
     private taskService: TaskService,
     private utilsService: UtilsService,
     private auth: AuthenticationService) {
-    this.auth.crrUser.subscribe(user => {
-      this.user = user;
-    })
   }
 
   ngOnInit() {
+    // Get User
+    this.user = this.auth.getUser();
     this.taskObj = new Task();
     this.validateData();
     // Initial Fav Project
@@ -60,6 +59,8 @@ export class TaskDetailComponent implements OnInit {
   }
 
   resetData() {
+    console.log('onreset');
+    this.taskDetailFormGroup.reset();
     this.workStartTime = '';
     this.workEndTime = '';
     this.workDate = '';
@@ -77,22 +78,16 @@ export class TaskDetailComponent implements OnInit {
     this.resetData();
     this.initialTime();
     this.initialData();
-    
-    let self = this;
-    $('#datepicker').datepicker({ dateFormat: Format.DATE_PIK, isBE: true, onSelect: (date) => self.onSelectCallBack(date) });
-    this.validateData();
   }
 
   onSelectCallBack(date: string) {
     this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
   }
-  
+
   initialTime() {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
-    // this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: this.utilsService.displayCalendarDate(this.taskObj.workDate )});
-    // console.log(this.taskDetailFormGroup.value.taskDetailWorkDate);
   }
 
   initialData() {

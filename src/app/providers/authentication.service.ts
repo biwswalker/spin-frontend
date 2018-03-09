@@ -11,8 +11,9 @@ export class AuthenticationService {
 
   private isAccess = new BehaviorSubject<boolean>(false);
   public crrAccess = this.isAccess.asObservable();
-  private user = new BehaviorSubject<User>(new User());
-  public crrUser = this.user.asObservable();
+  private userSubject = new BehaviorSubject<User>(new User());
+  public crrUser = this.userSubject.asObservable();
+  public user = new User();
   public refreshTko = false;
   constructor(private request: HttpRequestService) { }
 
@@ -91,7 +92,8 @@ export class AuthenticationService {
           if (user.Department) {
             accessesUser.department = user.Department;
           }
-          this.user.next(accessesUser);
+          this.user = user;
+          this.userSubject.next(accessesUser);
           return Status.SUCCESS;
         } else {
           this.refreshToken()
@@ -102,6 +104,10 @@ export class AuthenticationService {
         console.log(error)
         return Status.ERROR;
       });
+  }
+
+  getUser(): User {
+    return this.user;
   }
 
   logout() {
