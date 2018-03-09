@@ -1,33 +1,43 @@
 
 import { Injectable } from '@angular/core';
 import { HttpRequestService } from './utils/http-request.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class PartnerService {
 
   constructor(private request: HttpRequestService) { }
 
-  findByProjrctId(prjId: number){
+  findByProjrctId(prjId: number) {
     return this.request.requestMethodGET('project-member-management/' + prjId);
   }
 
-  findUserNonProjectMember(){
+  findUserNonProjectMember() {
     return this.request.requestMethodGET('user-management/users/' + 'Y');
   }
 
-  findAllUSer(prjId: number){
-      return this.request.requestMethodGET('user-management/users/project-id/'+ prjId);
+  findAllUser(prjId: number): Observable<any[]> {
+    return new Observable(observer => {
+      return this.request.requestMethodGET('user-management/users/project-id/' + prjId).subscribe(partner => {
+        let atpPartners = []
+        for (let obj of partner) {
+          atpPartners.push({ userId: obj.userId, email: obj.email });
+        }
+        observer.next(atpPartners);
+        return observer;
+      });
+    });
   }
 
-  findByTaskId(taskId: number){
+  findByTaskId(taskId: number) {
     return this.request.requestMethodGET('taskpartner-management/taskpartner/' + taskId);
   }
 
-  findNotMemberByProjectId(prjId: number, taskId: number){
+  findNotMemberByProjectId(prjId: number, taskId: number) {
     return this.request.requestMethodGET('taskpartner-management/taskpartners/non-project-member/' + prjId + '/task-id/' + taskId);
   }
 
-  findMemberByProjectId(prjId: number, taskId: number){
+  findMemberByProjectId(prjId: number, taskId: number) {
     return this.request.requestMethodGET('taskpartner-management/taskpartners/project-member/' + prjId + '/task-id/' + taskId);
   }
 }

@@ -45,12 +45,11 @@ export class TaskDetailComponent implements OnInit {
     private taskService: TaskService,
     private utilsService: UtilsService,
     private auth: AuthenticationService) {
-    this.auth.crrUser.subscribe(user => {
-      this.user = user;
-    })
   }
 
   ngOnInit() {
+    // Get User
+    this.user = this.auth.getUser();
     this.taskObj = new Task();
     this.validateData();
     // Initial Fav Project
@@ -78,6 +77,7 @@ export class TaskDetailComponent implements OnInit {
     this.resetData();
     this.initialTime();
     this.initialData();
+    this.validateData();
   }
 
   onSelectCallBack(date: string) {
@@ -101,7 +101,7 @@ export class TaskDetailComponent implements OnInit {
 
   validateData() {
     this.taskDetailFormGroup = new FormGroup({
-      taskDetailStatusFlag: new FormControl(this.statusFlag),
+      taskDetailStatusFlag: new FormControl(this.taskObj.statusFlag == 'A' ? true : false),
       taskDetailWorkDate: new FormControl(this.workDate, Validators.required),
       taskDetailStartTime: new FormControl(this.workStartTime, Validators.required),
       taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
