@@ -72,15 +72,10 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskForm.task = task;
     this.taskForm.task.color = task.color ? task.color : 'primary';
     this.taskDetailChild.initTaskDetail(this.taskForm.task, this.mode);
-    // 
-    this.taskPartnerChild.task = this.taskForm.task;
-    this.taskPartnerChild.mode = this.mode;
-    this.taskPartnerChild.owner = this.user.email;
-    this.task.projectId = this.taskForm.task.projectId;
-
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
+    
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
-
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
 
     if (this.taskForm.task.projectId) {

@@ -23,7 +23,6 @@ export class TaskService {
 
   public selectedProjectId = new BehaviorSubject<number>(0);
   public currentProjectId = this.selectedProjectId.asObservable();
-  public autocompletePartner = this.selectedProjectId.asObservable();
 
   // Date
   private timetableDate = new BehaviorSubject<string>(this.utilsService.getCurrentEnDate());
