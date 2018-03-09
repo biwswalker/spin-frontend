@@ -52,7 +52,7 @@ export class TimetableDayComponent implements AfterViewInit {
             endIndex = startIndex;
           } else {
             startIndex = this.worktable.findIndex(time => time === start)
-            let min = String(end).substr(1,1);
+            let min = convertTimeString(end).substr(2, 1);
             if (min === '7') {
               endIndex = this.worktable.findIndex(time => time === end - 40)
             } else {
@@ -141,9 +141,9 @@ export class TimetableDayComponent implements AfterViewInit {
             let starttime = Number(timeList[0])
             // +70 is => 0630+70=0700
             let endtime = Number(timeList[timeList.length - 1]) + 30
-            let min = String(endtime).substr(1, 1);
+            let min = convertTimeString(endtime).substr(2, 1);
             if (min === '6') {
-              endtime += 40;
+              endtime = endtime+40;
             }
             startWorkingTime = convertTimeString(starttime);
             endWorkingTime = convertTimeString(endtime);
