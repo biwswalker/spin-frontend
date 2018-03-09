@@ -18,7 +18,7 @@ declare var SpinModal: any;
 declare var $: any;
 
 @Component({
-  selector: 'app-task-modal',
+  selector: 'task-modal',
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.scss']
 })
@@ -139,6 +139,12 @@ export class TaskModalComponent implements AfterViewInit {
         self.taskService.changeTimetableDate(self.utilsService.convertThDateToEn(stampDate));
       })
     }
+  }
+
+  onClose() {
+    $('#task-modal').on("hidden.bs.modal", function () {
+      $('.timestamp .ui-selected').removeClass('ui-selected')
+    })
   }
 
   createNewTask(task: Task) {

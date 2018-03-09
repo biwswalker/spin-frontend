@@ -13,8 +13,8 @@ import { Component, OnInit } from '@angular/core';
     <timestamp></timestamp>
     </div>
   </div>
-  <app-task-modal></app-task-modal>
-</div>`,
+</div>
+<task-modal></task-modal>`,
   styles: ['.box { background-color: #fff; padding: 1rem; border-radius: 5px; webkit-box-shadow: 2px 1px 3px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); box-shadow: 2px 1px 3px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); } .exbox {padding-left:5px;padding-right:5px;}']
 })
 export class AttendanceComponent implements OnInit {
