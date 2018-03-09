@@ -103,6 +103,7 @@ export class TaskModalComponent implements AfterViewInit {
 
   onSubmit() {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
+      
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
       this.task.color = this.taskDetailChild.taskObj.color;
@@ -115,6 +116,7 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
+      let stampDate = this.task.workDate;
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
           this.task.taskPartnerList.push({ id: { userId: obj.userId } });
@@ -141,7 +143,7 @@ export class TaskModalComponent implements AfterViewInit {
       let self = this;
       $('#task-modal').on("hidden.bs.modal", function () {
         $('.timestamp .ui-selected').removeClass('ui-selected');
-        self.taskService.changeTimetableDate(self.utilsService.getCurrentEnDate());
+        self.taskService.changeTimetableDate(self.utilsService.convertThDateToEn(stampDate));
       })
     }
   }
