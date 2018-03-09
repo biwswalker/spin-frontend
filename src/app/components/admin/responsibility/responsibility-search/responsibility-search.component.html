@@ -5,6 +5,7 @@
     </form>
   </div>
 </div>
+
 <div class="row">
   <div class="col-sm-8 text-left">ชื่อหน้าที่</div>
   <div class="col-sm-4 text-left">ชื่อย่อ</div>
@@ -28,7 +29,8 @@
   </div>
 
 </ul>
-
+<div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScrollDown()"></div>
 <!-- <div class="row" *ngFor="let resp of responsibilities | async">
   <div class="col-sm-8 text-left">
     <p>{{resp.respName}}</p>
