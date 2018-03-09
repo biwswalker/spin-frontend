@@ -41,9 +41,10 @@ export class TimetableDayComponent implements AfterViewInit {
     this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(enDate)).subscribe((tasks: Task[]) => {
       let index = 0;
       for (let task of tasks) {
+        console.log(task.workDate)
         if (task.activeFlag === 'A') {
           const start = Number(task.workStartTime);
-          const end = Number(task.workEndTime) - 29;
+          const end = Number(task.workEndTime) - 30;
           let startIndex = -1;
           let endIndex = -1;
           if (start === end) {
@@ -51,7 +52,12 @@ export class TimetableDayComponent implements AfterViewInit {
             endIndex = startIndex;
           } else {
             startIndex = this.worktable.findIndex(time => time === start)
-            endIndex = this.worktable.findIndex(time => time === end)
+            let min = String(end).substr(1,1);
+            if (min === '7') {
+              endIndex = this.worktable.findIndex(time => time === end - 40)
+            } else {
+              endIndex = this.worktable.findIndex(time => time === end)
+            }
           }
 
           let groupClass = `stamped${index}`
@@ -64,7 +70,7 @@ export class TimetableDayComponent implements AfterViewInit {
           $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
         <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
         <p class="text-truncate m-0 stamp-activity">${task.activity}</p>        
-        <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>':''}</p>        
+        <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
       </div>`);
           $(`.${overlayClass}`).addClass('stamp-box')
           $(`.${overlapClass}`).click(() => this.onViewTask(task));
@@ -128,12 +134,17 @@ export class TimetableDayComponent implements AfterViewInit {
 
           if (timeList.length == 1) {
             let starttime = Number(timeList[0])
-            let endtime = Number(timeList[0]) + 29
+            let endtime = Number(timeList[0]) + 30
             startWorkingTime = convertTimeString(starttime);
             endWorkingTime = convertTimeString(endtime);
           } else {
             let starttime = Number(timeList[0])
-            let endtime = Number(timeList[timeList.length - 1]) + 29
+            // +70 is => 0630+70=0700
+            let endtime = Number(timeList[timeList.length - 1]) + 30
+            let min = String(endtime).substr(1, 1);
+            if (min === '6') {
+              endtime += 40;
+            }
             startWorkingTime = convertTimeString(starttime);
             endWorkingTime = convertTimeString(endtime);
           }

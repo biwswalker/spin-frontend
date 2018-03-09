@@ -94,8 +94,8 @@ export class AuthenticationService {
           this.user.next(accessesUser);
           return Status.SUCCESS;
         } else {
+          this.refreshToken()
           console.log('error user')
-          this.isAccess.next(false)
           return Status.ERROR;
         }
       }).catch(error => {

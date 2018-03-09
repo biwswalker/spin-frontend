@@ -48,7 +48,7 @@ export class TimetableWeekComponent implements OnInit {
       for (let task of tasks) {
         if (task.activeFlag === 'A') {
           const start = Number(task.workStartTime);
-          const end = Number(task.workEndTime) - 29;
+          const end = Number(task.workEndTime) - 30;
           let startIndex = -1;
           let endIndex = -1;
           if (start === end) {
@@ -56,7 +56,12 @@ export class TimetableWeekComponent implements OnInit {
             endIndex = startIndex;
           } else {
             startIndex = this.worktable.findIndex(time => time === start)
-            endIndex = this.worktable.findIndex(time => time === end)
+            let min = String(end).substr(1,1);
+            if (min === '7') {
+              endIndex = this.worktable.findIndex(time => time === end - 40)
+            } else {
+              endIndex = this.worktable.findIndex(time => time === end)
+            }
           }
 
           let groupClass = `stamped${dateIndex}${index}`
