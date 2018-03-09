@@ -102,6 +102,9 @@ export class TaskDetailComponent implements OnInit {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
+
+    // this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: this.utilsService.displayCalendarDate(this.taskObj.workDate )});
+    // console.log(this.taskDetailFormGroup.value.taskDetailWorkDate);
   }
 
   initialTaskForUpdate() {
