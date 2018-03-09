@@ -14,7 +14,11 @@ export class AppComponent {
     this.authService.crrAccess.subscribe(accesses => {
       if(this.authService.isInSession()){
         this.authService.accessUser();
-        this.isAccess = true;
+        if(accesses){
+          this.isAccess = true;
+        }else{
+          this.isAccess = false;
+        }
       }else{
         this.isAccess = false;
       }
