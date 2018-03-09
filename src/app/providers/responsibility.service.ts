@@ -32,8 +32,12 @@ export class ResponsibilityService {
     return this.request.requestMethodGET('responsibility-management/' + respId);
   }
 
-  findByCriteria(key) {
-    return this.request.requestMethodGET('responsibility-management/find-by-criteria/' + key);
+
+  findAllPageable(page, size) {
+    return this.request.requestMethodGET('responsibility-management/?p=' + page + '&s=' + size);
+  }
+  findByCriteria(key, page, size) {
+    return this.request.requestMethodGET('responsibility-management/find-by-criteria/' + key + '?p=' + page + '&s=' + size);
   }
 
   onOpenModal() {

@@ -25,7 +25,7 @@ export class DatePickerDirective implements ControlValueAccessor{
 
   }
   onModelChange: Function = (e) => {
-    console.log(this.controlContainer);
+    // console.log(this.controlContainer);
   };
 
 

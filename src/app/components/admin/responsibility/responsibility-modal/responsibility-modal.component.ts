@@ -26,6 +26,7 @@ export class ResponsibilityModalComponent implements OnInit {
         console.log(this.responsibility);
         this.mode = Mode.E;
         this.validateForm();
+        console.log(this.responsibility.respId);
 
       }
     );
@@ -89,6 +90,8 @@ export class ResponsibilityModalComponent implements OnInit {
           }
         );
       } else {
+        this.responsibilityGroup.controls['respId'].setValue(this.responsibility.respId);
+        this.responsibilityGroup.controls['versionId'].setValue(this.responsibility.versionId);
         this.responsibilityService.updateResponsibility(this.responsibilityGroup.value).subscribe(
           res => {
             console.log(res);
