@@ -62,6 +62,7 @@ export class TaskTagComponent implements OnInit {
   }
 
   onSelected(event) {
+    console.log(event)
     this.tagList.push(event);
   }
 }

@@ -101,6 +101,7 @@ export class TaskPartnerComponent {
 
   getautoCompletePartner(projectId) {
     this.autocompletePartnerList = this.partnerService.findAllUser(projectId).map(atpPartner => {
+      console.log(atpPartner)
       for (let selecteds of this.taskPartner) {
         atpPartner = atpPartner.filter(item => item.userId !== selecteds.userId)
       }

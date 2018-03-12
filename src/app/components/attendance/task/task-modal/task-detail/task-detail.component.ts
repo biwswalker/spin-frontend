@@ -57,6 +57,7 @@ export class TaskDetailComponent implements OnInit {
     // Initial Fav Project
     this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
     // Find project
+    console.log(this.projectService.fetchProjectAutocomplete());
     this.projectList = this.projectService.fetchProjectAutocomplete();
   }
 
@@ -70,8 +71,6 @@ export class TaskDetailComponent implements OnInit {
     this.projectId = 0;
     this.project = '';
     this.statusFlag = false;
-    this.timeList = this.utilsService.getTimeList();
-    this.endTimeList = this.utilsService.getTimeList();
   }
 
   initTaskDetail(task: Task, mode: string) {
@@ -82,6 +81,7 @@ export class TaskDetailComponent implements OnInit {
     this.initialTime();
     this.initialData();
     this.validateData();
+    this.timeList = this.utilsService.getTimeList();
   }
 
   onSelectCallBack(date: string) {
@@ -92,6 +92,7 @@ export class TaskDetailComponent implements OnInit {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
+    this.endTimeList = this.utilsService.getEndTimeList(this.workStartTime);
   }
 
   initialData() {
@@ -134,22 +135,23 @@ export class TaskDetailComponent implements OnInit {
     this.taskService.changeProjectId(event.projectId);
   }
 
-  onChangeTime(time: any) {
+  onChangeTime() {
+
+    let startTime = this.taskDetailFormGroup.value.taskDetailStartTime;
+    let endTime = this.taskDetailFormGroup.value.taskDetailEndTime;
+
     this.endTimeList = this.utilsService.getTimeList();
-    this.endTimeList.splice(0, this.endTimeList.indexOf(time) + 1);
-    this.workStartTime = time;
-    if ((this.timeList.indexOf(this.workStartTime) - this.timeList.indexOf(this.workEndTime)) >= 0) {
-      this.workEndTime = this.endTimeList[0];
+    this.endTimeList.splice(0, this.endTimeList.indexOf(startTime) + 1);
+    this.workStartTime = startTime;
+
+    if ((this.timeList.indexOf(startTime) - this.timeList.indexOf(endTime)) >= 0) {
+      this.taskDetailFormGroup.patchValue({ taskDetailEndTime: this.endTimeList[0] });
     }
   }
 
-  initialEndTimeList(){
+  initialEndTimeList() {
     this.endTimeList = this.utilsService.getTimeList();
     return this.endTimeList.splice(0, this.endTimeList.indexOf(this.workStartTime) + 1);
-  }
-
-  onChangeEndTime(time: any) {
-    this.workEndTime = time;
   }
 }
 
