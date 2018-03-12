@@ -4,31 +4,31 @@ declare var MessageNotify:any;
 export class EventMessagesService {
 
   private notify = new MessageNotify;
-constructor(){
+  constructor(){
 
-}
+  }
 
-onSuccess(detail){
-  this.notify.initialSuccess('บันทึกข้อมูลเรียบร้อย');
-}
+  onInsertSuccess(detail){
+    this.notify.initialSuccess('บันทึกข้อมูลเรียบร้อย',detail);
+  }
 
-onInsertSuccess(detail){
-  // this.notify.initialSuccess('บันทึกข้อมูลเรียบร้อย',detail);
-}
+  onUpdateSuccess(detail){
+    this.notify.initialSuccess('แก้ไขข้อมูลเรียบร้อย',detail);
+  }
 
-onUpdateSuccess(detail){
-  // this.notify.initialSuccess('บันทึกข้อมูลเรียบร้อย',detail);
-}
+  onDeleteSuccess(detail){
+    this.notify.initialSuccess('ลบข้อมูลเรียบร้อย',detail);
+  }
 
-onDeleteSuccess(detail){
-  // this.notify.initialSuccess('บันทึกข้อมูลเรียบร้อย',detail);
-}
+  onWarning(detail){
+    this.notify.initialWarning('แจ้งเตืน',detail);
+  }
 
-onWarning(topic,detail){
-  this.notify.initialSuccess(topic,detail);
-}
+  onInsertError(detail){
+    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.details);
+  }
+  onUpdateError(detail){
+    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.details);
+  }
 
-notifySuccess(){
-  this.notify.initialSuccess('', '')
-}
 }
