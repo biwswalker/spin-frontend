@@ -9,6 +9,7 @@ $white: #fff;
 #sidebar {
   background: #bf0013;
   transition: all 0.3s;
+  min-width: 85px;
   z-index: 70;
   position: sticky;
   top:0rem;

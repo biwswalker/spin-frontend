@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 import { UtilsService } from './../../providers/utils/utils.service';
 import { ProjectModalComponent } from './project-modal/project-modal.component';
 import { ProjectSearchComponent } from './project-search/project-search.component';
@@ -15,7 +16,8 @@ import { Project } from '../../models/project';
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
-
+  public user: User = new User;
+  public renderPage:boolean = false;
   @ViewChild(ProjectSearchComponent) projectSearch;
   @ViewChild(ProjectInfoComponent) projectInfo;
   @ViewChild(ProjectModalComponent) projectModal;
@@ -26,6 +28,13 @@ export class ProjectComponent implements OnInit {
     private utilsService: UtilsService) { }
 
   ngOnInit() {
+    this.authService.crrUser.subscribe(user=>{
+      this.user = user;
+      console.log('me: ',this.user);
+      this.renderPage = true;
+    });
+
+
 
   }
 
@@ -43,7 +52,7 @@ export class ProjectComponent implements OnInit {
 
   }
   displayProjectDetail(projectId){
-    this.projectInfo.projectDetail.project = new Project;
+    this.projectInfo.projectDetail.user = this.user;
     this.projectInfo.projectDetail.projectPhases = [];
     this.projectService.findProjectById(projectId).subscribe(
       data=>{
@@ -55,10 +64,10 @@ export class ProjectComponent implements OnInit {
     );
     this.projectService.findProjectPhaseById(projectId).subscribe(
       data=>{
-        if(data!){
+        if(data.length != 0){
           this.projectInfo.projectDetail.projectPhases = data;
           this.projectInfo.projectSummary.projectPhases = data;
-          this.projectInfo.projectSummary.displayProjectSummary(projectId,data[0].id.seqId);
+          this.projectInfo.projectSummary.displayProjectSummary(projectId,(data[0].id.seqId));
         }
 
       },err=>{

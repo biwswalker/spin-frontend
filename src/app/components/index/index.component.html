@@ -104,16 +104,18 @@
                         </a>
                     </li>
                     <li class="nav-item dropright">
-                      <a class="nav-link dropdown-toggle" id="admin-menu-dropdown"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-cogs"></i>
-                          <span class="menu-title">Admin</span>
-                      </a>
-                      <div class="dropdown-menu"   aria-labelledby="admin-menu-dropdown">
+                          <a class="nav-link dropdown-toggle" id="admin-menu-dropdown"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-cogs"></i>
+                              <span class="menu-title">Admin</span>
 
-                          <!-- <div class="dropdown-divider"></div> -->
-                          <a class="dropdown-item"  href="#">Log Out</a>
-                    </div>
+                          </a>
+                          <div class="dropdown-menu"   aria-labelledby="admin-menu-dropdown">
+                              <!-- <div class="dropdown-divider"></div> -->
+                              <a class="dropdown-item"  [routerLink]="['/user-register']">ผู้ใช้งาน</a>
+                              <a class="dropdown-item"  [routerLink]="['/responsibility']">หน้าที่ความรับผิดชอบ</a>
+                        </div>
+
                   </li>
                 </ul>
             </nav>
