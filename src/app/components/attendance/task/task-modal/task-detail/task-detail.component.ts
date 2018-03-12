@@ -135,26 +135,21 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onChangeTime(time: any) {
-    console.log(time);
     this.endTimeList = this.utilsService.getTimeList();
-    console.log(this.endTimeList);
-    console.log(this.timeList.indexOf(time));
     this.endTimeList.splice(0, this.endTimeList.indexOf(time) + 1);
-    console.log(this.endTimeList);
-    this.workEndTime = this.endTimeList[0];
     this.workStartTime = time;
+    if ((this.timeList.indexOf(this.workStartTime) - this.timeList.indexOf(this.workEndTime)) >= 0) {
+      this.workEndTime = this.endTimeList[0];
+    }
   }
 
-  // onChangeTime(time: any) {
-  //   console.log(time);
-  //   this.workStartTime = time.label;
-  //   this.endTimeList = this.utilsService.getTimeList();
-  // }
+  initialEndTimeList(){
+    this.endTimeList = this.utilsService.getTimeList();
+    return this.endTimeList.splice(0, this.endTimeList.indexOf(this.workStartTime) + 1);
+  }
 
   onChangeEndTime(time: any) {
-    console.log(time);
     this.workEndTime = time;
   }
-
 }
 

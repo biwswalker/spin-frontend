@@ -41,12 +41,15 @@ export class TaskModalComponent implements AfterViewInit {
     private eventMessageService: EventMessagesService,
     private auth: AuthenticationService,
     private projectService: ProjectService) {
+    this.auth.crrUser.subscribe((user: User) => {
+      this.user = user;
+    });
+
   }
 
   ngAfterViewInit() {
     // Get User
     this.user = this.auth.getUser();
-    console.log();
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       console.log('currentTask=> ', task);
@@ -64,16 +67,25 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
+    console.log(task);
     this.taskForm.task = task;
     this.mode = mode;
-    this.taskForm.task.color = task.color ? task.color : 'primary';
+    this.taskDetailChild.color = task.color ? task.color : 'primary';
+    this.bgColor = task.color ? task.color : 'primary';
     const objTask = this.taskForm.task;
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     if (this.taskForm.task.projectId) {
-      console.log('GGQWPPP')
-      this.taskService.changeProjectId(this.taskForm.task.projectId);
+      console.log('GGQWPPP');
+      // this.taskService.changeProjectId(this.taskForm.task.projectId);
+      this.projectService.findProjectById(this.taskForm.task.projectId).subscribe(
+        project => {
+          this.taskService.changeProjectId(project.projectId);
+          this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
+        }
+      )
     }
     this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
+    this.taskPartnerChild.owner = this.user.email;
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);

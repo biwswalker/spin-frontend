@@ -35,12 +35,12 @@
         <label>เวลา *</label>
             <div class="btn-group" dropdown placement="top">
               <button type="button" class="btn btn-light">{{workStartTime}}</button>
-              <button type="button" dropdownToggle class="btn btn-light dropdown-toggle dropdown-toggle-split">
+              <button type="button" dropdownToggle class="btn btn-light dropdown-toggle dropdown-toggle-split ">
                   <span class="caret" ></span>
                   <span class="sr-only">Split button!</span>
               </button>
               <div >
-                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <ul *dropdownMenu class="dropdown-menu time-dropdown" role="menu">
                   <li role="menuitem" *ngFor="let time of timeList">
                     <a class="dropdown-item" (click)="onChangeTime(time)">{{time}}</a>
                   </li>
