@@ -108,6 +108,8 @@ export class AuthenticationService {
   }
 
   getUser(): User {
+    console.log('getUser')
+    console.log(this.user)
     return this.user;
   }
 

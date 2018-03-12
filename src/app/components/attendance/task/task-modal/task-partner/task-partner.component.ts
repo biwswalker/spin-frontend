@@ -35,16 +35,20 @@ export class TaskPartnerComponent {
     this.taskId = taskId;
     this.mode = mode;
     this.ownerEmail = usrEmail;
+    let isRepeat: number[] = []
     this.taskService.currentProjectId.subscribe((projectId: number) => {
-      console.log('this.taskService.currentProjectId.subscribe')
-      console.log(projectId)
       if (projectId) {
-        this.getautoCompletePartner(projectId);
-        if (this.taskId) {
-          this.initialMember(projectId);
-          this.initialPartner(projectId);
-        } else {
-          this.getProjectMember(projectId);
+        // Check Report loop Subject
+        let repeated = isRepeat.find(id => id === projectId);
+        if (!repeated) {
+          this.getautoCompletePartner(projectId);
+          if (this.taskId) {
+            this.initialMember(projectId);
+            this.initialPartner(projectId);
+          } else {
+            this.getProjectMember(projectId);
+          }
+          isRepeat.push(projectId);
         }
       }
     });
@@ -63,7 +67,7 @@ export class TaskPartnerComponent {
             }
           }
         }
-        else{
+        else {
           this.getProjectMember(projectId);
         }
       }

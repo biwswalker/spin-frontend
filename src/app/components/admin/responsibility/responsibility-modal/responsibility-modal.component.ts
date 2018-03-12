@@ -17,6 +17,9 @@ export class ResponsibilityModalComponent implements OnInit {
   protected mode: string;
   protected isActive: boolean = true;
 
+  public headerTxt: string = '';
+  public iconName: string = '';
+
   constructor(protected responsibilityService: ResponsibilityService) {
     this.responsibility = new Responsibility();
 
@@ -33,13 +36,15 @@ export class ResponsibilityModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    if (this.responsibility) {
+    console.log('ngOnInit');
+    if (this.mode === Mode.E) {
       this.validateForm();
       this.mode = Mode.E;
+      this.headerTxt = 'แก้ไข';
     } else {
       this.createForm();
       this.mode = Mode.I;
+      this.headerTxt = 'เพิ่ม';
     }
   }
 
