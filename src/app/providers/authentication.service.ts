@@ -93,7 +93,7 @@ export class AuthenticationService {
           if (user.Department) {
             accessesUser.department = user.Department;
           }
-          this.user = user;
+          this.user = accessesUser;
           this.userSubject.next(accessesUser);
           return Status.SUCCESS;
         } else {

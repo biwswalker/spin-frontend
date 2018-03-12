@@ -71,7 +71,7 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     if (this.taskForm.task.projectId) {
       console.log('GGQWPPP')
-      this.taskService.selectedProjectId.next(this.taskForm.task.projectId);
+      this.taskService.changeProjectId(this.taskForm.task.projectId);
     }
     this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
     this.taskTagChild.tagList = [];

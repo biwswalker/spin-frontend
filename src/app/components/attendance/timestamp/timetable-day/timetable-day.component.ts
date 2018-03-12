@@ -37,9 +37,9 @@ export class TimetableDayComponent implements AfterViewInit {
   }
 
   fecthWorkingTaskByDate(enDate: string) {
-    this.refreshTimeTable();
     this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(enDate)).subscribe((tasks: Task[]) => {
       let index = 0;
+      this.refreshTimeTable();
       for (let task of tasks) {
         if (task.activeFlag === 'A') {
           const start = Number(task.workStartTime);
@@ -65,16 +65,18 @@ export class TimetableDayComponent implements AfterViewInit {
           for (let i = startIndex; i <= endIndex; i++) {
             $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
           }
-          $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
-          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
-        <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
-        <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
-      </div>`);
-          $(`.${overlayClass}`).addClass('stamp-box')
-          $(`.${overlapClass}`).click(() => this.onViewTask(task));
+      //     $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
+      //     $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
+      //   <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
+      //   <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
+      // </div>`);
+      //     $(`.${overlayClass}`).addClass('stamp-box')
+      //     $(`.${overlapClass}`).click(() => this.onViewTask(task));
+          console.log('BIWSWALKER')
           index++;
         }
       }
+      console.log('GGWP BIWSWALKER')
     }, err => {
       console.log(err)
     })
@@ -160,6 +162,7 @@ export class TimetableDayComponent implements AfterViewInit {
   }
 
   onViewTask(task) {
+    console.log('onViewTask(task) BIWSWALKER')
     let modal = new SpinModal();
     modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
     $('#task-modal').on("hidden.bs.modal", function () {

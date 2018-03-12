@@ -124,14 +124,14 @@ export class TaskDetailComponent implements OnInit {
   onChangeProject(event) {
     if (this.projectId != event.item.projectId) {
       this.projectId = event.item.projectId;
-      this.taskService.selectedProjectId.next(this.projectId);
+      this.taskService.changeProjectId(this.projectId);
     }
   }
 
   onFavoriteClick(event) {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
-    this.taskService.selectedProjectId.next(event.projectId);
+    this.taskService.changeProjectId(event.projectId);
   }
 
   onChangeTime(time: any) {
