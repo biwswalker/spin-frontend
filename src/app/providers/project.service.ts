@@ -32,16 +32,16 @@ export class ProjectService {
 
   // Begin find for display action
   findProjects(isMember,page,size) {
-    return this.request.requestMethodGET('projects-management/find-allow-project/'+isMember+'?p='+page+'&s='+size);
+    return this.request.requestMethodGET('project-management/projects/find-allow-project/'+isMember+'?p='+page+'&s='+size);
   }
   findProjectById(projectId) {
-    return this.request.requestMethodGET('projects-management/'+projectId);
+    return this.request.requestMethodGET('project-management/projects/'+projectId);
   }
   findProjectPhaseById(projectId) {
-    return this.request.requestMethodGET('project-phase-management/'+projectId);
+    return this.request.requestMethodGET('project-phase-management/project-phases/'+projectId);
   }
   findProjectMemberById(projectId){
-    return this.request.requestMethodGET('project-member-management/'+projectId);
+    return this.request.requestMethodGET('project-member-management/project-members/'+projectId);
   }
   findMemberSummary(projectId,seqId){
     return this.request.requestMethodGET('task-management/sums-each-user-id/project-id/'+projectId+'/phase-id/'+seqId);
@@ -57,11 +57,11 @@ export class ProjectService {
   // End find for display action
 
   findFavoriteProjectByUserId(userId: string){
-    return this.request.requestMethodGET('favorite-project-management/find-autocomplete-project');
+    return this.request.requestMethodGET('favorite-project-management/favorite-projects/find-autocomplete-project');
   }
 
   fetchProjectAutocomplete(){
-    return this.request.requestMethodGET('projects-management/find-autocomplete-project/N');
+    return this.request.requestMethodGET('project-management/projects/find-autocomplete-project/N');
   }
 
 
