@@ -4,16 +4,17 @@ $white: #fff;
 }
 
 .spin-sidebar{
-  padding: 0 !important;
+  padding: 0 1rem 0 0 !important;
 }
 #sidebar {
   background: #bf0013;
   transition: all 0.3s;
-  position: -webkit-fixed;
-  position: fixed;
   z-index: 70;
+  position: sticky;
   top:0rem;
-  height: calc(100vh) !important;
+  margin-top: -5rem;
+  padding-top: 5rem;
+  height: calc(100vh + 5rem) !important;
 
 
 
@@ -35,11 +36,9 @@ $white: #fff;
 
   .spin-link{
     display: block!important;
-    max-height: calc(100vh - 4rem);
+    max-height: calc(100vh - 5rem);
     overflow-y: auto;
-
-    margin-top: 5rem;
-    padding-bottom: 3rem;
+    // padding-bottom: 3rem;
 
     p {
       color: rgba(0, 0, 0, 0.6);;
@@ -144,6 +143,14 @@ $white: #fff;
 
   .spin-link{
     margin-top: 8rem !important;
+    max-height: calc(100vh - 8rem) !important;
+  }
+}
+@include media-breakpoint-down(sm){
+
+  #sidebar{
+    position: -webkit-fixed;
+    position: fixed;
   }
 }
 

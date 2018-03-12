@@ -25,25 +25,28 @@ export class ProjectModalComponent{
     private eventService: EventService,
     private authService: AuthenticationService,
     private eventMessageService: EventMessagesService) {
-      this.projectService.currentProjectAct.subscribe((project:Project)=>{
-        console.log('do you want to update project',project);
-        if(project.projectId){
-          console.log('Yes, I am. ');
-          this.project = new Project;
-          this.project = project;
-          this.updateProject(this.project);
-        }else{
-          console.log('No, I am not. ');
-        }
-      },
-    err=>{
-      console.log("Error: ",err);
-    },
-    ()=>{
 
     }
-    )
-    }
+  ngAfterViewInit(){
+    this.projectService.currentProjectAct.subscribe((project:Project)=>{
+      console.log('do you want to update project',project);
+      if(project.projectId){
+        console.log('Yes, I am. ');
+        this.project = new Project;
+        this.project = project;
+        this.updateProject(this.project);
+      }else{
+        console.log('No, I am not. ');
+      }
+    },
+  err=>{
+    console.log("Error: ",err);
+  },
+  ()=>{
+
+  }
+  )
+  }
 
   onSubmit(){
     if(this.project.projectId == null){
@@ -67,7 +70,7 @@ export class ProjectModalComponent{
         data => {
           console.log(data);
           this.oncloseModal();
-          this.eventMessageService.onSuccess();
+          this.eventMessageService.onSuccess('');
         },
         err=>{
           console.log("Exception: ",err);
@@ -93,7 +96,7 @@ export class ProjectModalComponent{
         data => {
           console.log(data);
           this.oncloseModal();
-          this.eventMessageService.onSuccess();
+          this.eventMessageService.onSuccess('');
         },
         err=>{
           console.log("Exception: ",err);

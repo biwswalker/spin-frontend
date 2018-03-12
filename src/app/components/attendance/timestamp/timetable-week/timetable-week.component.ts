@@ -12,7 +12,7 @@ declare var convertTimeString: any;
   templateUrl: './timetable-week.component.html',
   styleUrls: ['./timetable-week.component.scss']
 })
-export class TimetableWeekComponent implements OnInit {
+export class TimetableWeekComponent {
 
   // Get time list
   public worktable = WorkingTime
@@ -21,7 +21,7 @@ export class TimetableWeekComponent implements OnInit {
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
     // Async
-    this.taskService.currentTimetableDOW.subscribe(dow => {
+    this.taskService.currentTimetableDOW.subscribe((dow: any) => {
       if(dow.start && dow.end){
         this.firstDOW = dow.start;
         this.endDOW = dow.end;
@@ -29,9 +29,6 @@ export class TimetableWeekComponent implements OnInit {
       }
     })
     // End Async
-  }
-
-  ngOnInit() {
   }
 
   fecthWorkingTaskByWeek() {
