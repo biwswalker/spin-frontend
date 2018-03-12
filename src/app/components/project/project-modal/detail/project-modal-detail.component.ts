@@ -24,8 +24,6 @@ export class ProjectModalDetailComponent implements OnInit{
               private projectService:ProjectService) { }
 
   ngOnInit() {
-    console.log('ProjectModalDetailComponent.ngOnInit');
-    this.project = new Project;
     this.project.isVisble = false;
     this.project.activeFlag = 'A';
     this.validateForm();

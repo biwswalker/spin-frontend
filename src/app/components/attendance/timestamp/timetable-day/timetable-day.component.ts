@@ -45,7 +45,6 @@ export class TimetableDayComponent implements AfterViewInit {
         // Check Report loop Subject
         let repeated = isRepeat.find(id => id === task.taskId);
         if (!repeated) {
-          console.log(task)
           if (task.activeFlag === 'A') {
             const start = Number(task.workStartTime);
             const end = Number(task.workEndTime) - 30;
@@ -141,6 +140,10 @@ export class TimetableDayComponent implements AfterViewInit {
           if (timeList.length == 1) {
             let starttime = Number(timeList[0])
             let endtime = Number(timeList[0]) + 30
+            let min = convertTimeString(endtime).substr(2, 1);
+            if (min === '6') {
+              endtime = endtime + 40;
+            }
             startWorkingTime = convertTimeString(starttime);
             endWorkingTime = convertTimeString(endtime);
           } else {
