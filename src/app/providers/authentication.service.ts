@@ -108,11 +108,6 @@ export class AuthenticationService {
   }
 
   getUser(): User {
-<<<<<<< HEAD
-=======
-    console.log('getUser')
->>>>>>> ab31430fef08d227da28608b652d23725d767df8
-    console.log(this.user)
     return this.user;
   }
 
