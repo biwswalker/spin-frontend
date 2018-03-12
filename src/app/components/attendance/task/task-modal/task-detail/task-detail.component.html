@@ -33,50 +33,37 @@
       </div>
       <div class="col-3">
         <label>เวลา *</label>
-        <input class="form-control"
-          id="work-start-time"
-          name="work-start-time"
-          formControlName="taskDetailStartTime"
-          type="text">
-          <!-- <input class="form-control"
-            id="work-start-time"
-            name="work-start-time"
-            formControlName="taskDetailStartTime"
-            [typeahead]="timeList"
-            [typeaheadScrollable]="true"
-            [typeaheadMinLength]="0"
-            (typeaheadOnSelect)="onChangeTime($event)"
-            [typeaheadOptionsInScrollableView]="10"> -->
-            <!-- <div class="btn-group" dropdown placement="top">
-              <button type="button" class="form-control">{{workStartTime}}</button>
-              <button type="button" dropdownToggle class="form-control dropdown-toggle dropdown-toggle-split">
+            <div class="btn-group" dropdown placement="top">
+              <button type="button" class="btn btn-light">{{workStartTime}}</button>
+              <button type="button" dropdownToggle class="btn btn-light dropdown-toggle dropdown-toggle-split ">
+                  <span class="caret" ></span>
+                  <span class="sr-only">Split button!</span>
+              </button>
+              <div >
+                <ul *dropdownMenu class="dropdown-menu time-dropdown" role="menu">
+                  <li role="menuitem" *ngFor="let time of timeList">
+                    <a class="dropdown-item" (click)="onChangeTime(time)">{{time}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+      </div>
+      <div class=" col-3">
+        <label class="invisible">เวลา *</label>
+            <div class="btn-group" dropdown placement="top">
+              <button type="button" class="btn btn-light">{{workEndTime}}</button>
+              <button type="button" dropdownToggle class="btn btn-light dropdown-toggle dropdown-toggle-split">
                   <span class="caret" ></span>
                   <span class="sr-only">Split button!</span>
               </button>
               <div >
                 <ul *dropdownMenu class="dropdown-menu" role="menu">
-                  <li role="menuitem" *ngFor="let time of timeList">
-                    <a class="dropdown-item" (click)="onChangeTime($event)">{{time}}</a>
+                  <li role="menuitem" *ngFor="let time of endTimeList">
+                    <a class="dropdown-item" (click)="onChangeEndTime(time)">{{time}}</a>
                   </li>
                 </ul>
               </div>
-            </div> -->
-      </div>
-      <div class=" col-3">
-        <label class="invisible">เวลา *</label>
-        <input class="form-control"
-          id="work-end-time"
-          name="work-end-time"
-          formControlName="taskDetailEndTime"
-          type="text">
-          <!-- <input class="form-control"
-            id="work-end-time"
-            name="work-end-time"
-            formControlName="taskDetailEndTime"
-            [typeahead]="timeList"
-            [typeaheadScrollable]="true"
-            [typeaheadMinLength]="0"
-            [typeaheadOptionsInScrollableView]="10"> -->
+            </div>
       </div>
     </div>
   <div class="row">
