@@ -4,7 +4,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ResponsibilityService } from '../../../../providers/responsibility.service';
 import { ResponsibilityInfoComponent } from '../responsibility-info/responsibility-info.component';
+import { error } from 'protractor';
+import { EventMessagesService } from '../../../../providers/utils/event-messages.service';
 
+declare var $: any;
 @Component({
   selector: 'app-responsibility-modal',
   templateUrl: './responsibility-modal.component.html',
@@ -18,9 +21,9 @@ export class ResponsibilityModalComponent implements OnInit {
   protected isActive: boolean = true;
 
   public headerTxt: string = '';
-  public iconName: string = '';
+  @Output() changeState = new EventEmitter<boolean>();
 
-  constructor(protected responsibilityService: ResponsibilityService) {
+  constructor(protected responsibilityService: ResponsibilityService, protected eventMessagesService: EventMessagesService) {
     this.responsibility = new Responsibility();
 
     this.responsibilityService.key.subscribe(
@@ -28,6 +31,7 @@ export class ResponsibilityModalComponent implements OnInit {
         this.getRespInfo(res);
         console.log(this.responsibility);
         this.mode = Mode.E;
+        this.headerTxt = 'แก้ไข';
         this.validateForm();
         console.log(this.responsibility.respId);
 
@@ -36,13 +40,13 @@ export class ResponsibilityModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
     if (this.mode === Mode.E) {
       this.validateForm();
       this.mode = Mode.E;
       this.headerTxt = 'แก้ไข';
     } else {
-      this.createForm();
+      this.responsibility = new Responsibility();
+      this.validateForm();
       this.mode = Mode.I;
       this.headerTxt = 'เพิ่ม';
     }
@@ -58,16 +62,16 @@ export class ResponsibilityModalComponent implements OnInit {
 
 
 
-  createForm() {
-    this.responsibilityGroup = new FormGroup({
-      respName: new FormControl(null, Validators.required),
-      respAbbr: new FormControl(null, Validators.required),
-      respDesc: new FormControl('', Validators.required),
-      activeFlag: new FormControl(''),
-      respId: new FormControl(null),
-      versionId: new FormControl(null)
-    })
-  }
+  // createForm() {
+  //   this.responsibilityGroup = new FormGroup({
+  //     respName: new FormControl(null, Validators.required),
+  //     respAbbr: new FormControl(null, Validators.required),
+  //     respDesc: new FormControl('', Validators.required),
+  //     activeFlag: new FormControl(''),
+  //     respId: new FormControl(null),
+  //     versionId: new FormControl(null)
+  //   })
+  // }
 
   validateForm() {
     this.responsibilityGroup = new FormGroup({
@@ -92,6 +96,12 @@ export class ResponsibilityModalComponent implements OnInit {
         this.responsibilityService.createResponsibility(this.responsibilityGroup.value).subscribe(
           res => {
             console.log(res);
+            this.changeState.emit(true);
+            this.eventMessagesService.onInsertSuccess(res.respId);
+          },
+          error => {
+            console.log(error);
+            this.eventMessagesService.onInsertError(error);
           }
         );
       } else {
@@ -100,13 +110,21 @@ export class ResponsibilityModalComponent implements OnInit {
         this.responsibilityService.updateResponsibility(this.responsibilityGroup.value).subscribe(
           res => {
             console.log(res);
+            this.changeState.emit(true);
+            this.eventMessagesService.onUpdateSuccess(res.respId);
+          },
+          error => {
+            console.log(error);
+            this.eventMessagesService.onUpdateError(error);
           }
         );
       }
 
       this.oncloseModal();
     } else {
+      console.log('else {}', this.responsibilityGroup);
     }
+
   }
 
   onChangeActiveFlag() {
