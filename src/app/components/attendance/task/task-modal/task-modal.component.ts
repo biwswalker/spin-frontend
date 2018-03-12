@@ -151,7 +151,7 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskService.insertTask(task).subscribe(
       res => {
         console.log(res)
-        this.eventMessageService.onSuccess();
+        // this.eventMessageService.onSuccess();
         this.oncloseModal();
       },
       error => {
@@ -164,7 +164,7 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskService.updateTask(task).subscribe(
       res => {
         console.log(res);
-        this.eventMessageService.onSuccess();
+        // this.eventMessageService.onSuccess();
         this.oncloseModal();
       }, error => {
         console.log(error);

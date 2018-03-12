@@ -71,6 +71,7 @@ export class TaskDetailComponent implements OnInit {
     this.project = '';
     this.statusFlag = false;
     this.timeList = this.utilsService.getTimeList();
+    this.endTimeList = this.utilsService.getTimeList();
   }
 
   initTaskDetail(task: Task, mode: string) {
@@ -89,9 +90,7 @@ export class TaskDetailComponent implements OnInit {
 
   initialTime() {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
-    // this.taskDetailFormGroup.patchValue({ taskDetailStartTime: this.workStartTime });
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
-    // this.taskDetailFormGroup.patchValue({ taskDetailEndTime: this.workEndTime });
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
   }
 
@@ -135,12 +134,20 @@ export class TaskDetailComponent implements OnInit {
     this.taskService.selectedProjectId.next(event.projectId);
   }
 
-  onChangeTime(event){
-    console.log(event);
-    let startTime: number;
-    startTime = Number(this.utilsService.convertTimeToDb(event.value));
-    console.log(startTime);
-    this.workStartTime = event.value;
+  onChangeTime(time: string) {
+    console.log(time);
+    this.endTimeList = this.utilsService.getTimeList();
+    console.log(this.endTimeList);
+    console.log(this.timeList.indexOf(time));
+    this.endTimeList.splice(0, this.endTimeList.indexOf(time) + 1);
+    console.log(this.endTimeList);
+    this.workEndTime = this.endTimeList[0];
+    this.workStartTime = time;
+  }
+
+  onChangeEndTime(time: string) {
+    console.log(time);
+    this.workEndTime = time;
   }
 
 }
