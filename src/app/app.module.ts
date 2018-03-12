@@ -133,7 +133,6 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
     ReactiveFormsModule,
     BrowserAnimationsModule,
     TagInputModule,
-    BrowserAnimationsModule,
     NguiAutoCompleteModule,
     InfiniteScrollModule,
     TypeaheadModule.forRoot(),

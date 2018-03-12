@@ -2,53 +2,48 @@ $red: #e41313;
 $gray: #afafaf;
 $white: #fff;
 $yellow: #dede1e;
+$black: #212529;
 
-.inline-picker {
-    // table.ui-datepicker-calendar{
-    //     width: 350px;
-    //     margin: auto;
+table {
+border-collapse:separate;
+}
+.table-condensed {
+  // Header
+    // .ui-widget-header {
+    //     background: transparent !important;
+    //     border: 0px !important;
     // }
-    .ui-widget {
-        font-family: "Kanit", sans-serif !important;
-    } // Header
-    .ui-widget-header {
-        background: transparent !important;
-        border: 0px !important;
-    } // Table
-    .ui-datepicker td {
-        width: 35px !important;
-        height: 35px !important;
-        display: inline-block;
-        padding: 0px !important;
-        span,a {
-            text-align: center !important;
-        }
-    }
-    .ui-datepicker th {
-        width: 35px !important;
-        height: 35px !important;
-        display: inline-block;
-        span,a {
-            text-align: center !important;
-        }
-    }
-    // .ui-datepicker td span,
-    // .ui-datepicker td a {
-    //     text-align: center !important;
+     // Table
+    // .ui-datepicker td {
+    //     width: 35px !important;
+    //     height: 35px !important;
+    //     display: inline-block;
+    //     padding: 0px !important;
+    //     span,a {
+    //         text-align: center !important;
+    //     }
     // }
-    .ui-state-default,
-    .ui-widget-content .ui-state-default,
-    .ui-widget-header .ui-state-default {
-        background: transparent !important;
-        border: 0px !important;
-    }
-    .ui-state-highlight,
-    .ui-widget-content .ui-state-highlight,
-    .ui-widget-header .ui-state-highlight {
-        color: $red;
-    }
+    // .ui-datepicker th {
+    //     width: 35px !important;
+    //     height: 35px !important;
+    //     display: inline-block;
+    //     span,a {
+    //         text-align: center !important;
+    //     }
+    // }
+    // .ui-state-default,
+    // .ui-widget-content .ui-state-default,
+    // .ui-widget-header .ui-state-default {
+    //     background: transparent !important;
+    //     border: 0px !important;
+    // }
+    // .ui-state-highlight,
+    // .ui-widget-content .ui-state-highlight,
+    // .ui-widget-header .ui-state-highlight {
+    //     color: $red;
+    // }
 
-    .holiday a {
+    .holiday {
             color: $red;
     }
 
@@ -71,12 +66,9 @@ $yellow: #dede1e;
 
 
     .leave {
-        border-radius: 50%;
-        text-align: center;
-        background: $gray;
-        a.ui-state-default{
-            color: white !important;
-        }
+      background-image: none !important;
+      background-color: $gray !important;
+      color: white !important;
     }
 
     // Select day
@@ -91,14 +83,21 @@ $yellow: #dede1e;
         }
     }
 
+    .active{
+        // border-radius: 50%;
+        // text-align: center;
+        background-image: none !important;
+        background-color: transparent !important;
+        border: 1px solid $red !important;
+        border-radius: 4px !important;
+        color: $black !important;
+    }
+
     // Now day
-    .ui-datepicker-today{
-        border-radius: 50%;
-        text-align: center;
-        background: $red;
-        a {
-            color: $white !important;
-        }
+    .today {
+      background-image: none !important;
+      background-color: $red !important;
+      color: white !important;
     }
 
     // Week end

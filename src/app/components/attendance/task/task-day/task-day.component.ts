@@ -60,27 +60,27 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     let datepickerId = '#workingDatePicker'
     let self = this;
     $(datepickerId).datepicker({
+      todayHighlight: true,
       beforeShowDay: function (date) {
-        // console.log(date)
-        // let monthDate = self.utilsService.convertEnDDMYYYYToThDate(date.getDate(), date.getMonth() + 1, date.getFullYear())
-        // for (let hol of self.holidays) {
-        //   if (hol.holDate == monthDate) {
-        //     return [true, 'holiday', hol.holName];
-        //   }
-        // }
-
-        // for (let unstamp of self.unstamped) {
-        //   if (unstamp == monthDate) {
-        //     return [true, 'unstamped', 'คุณไม่ได้ลงเวลางาน'];
-        //   }
-        // }
-
-        // for (let leave of self.leaves) {
-        //   if (leave.leaveDate == monthDate) {
-        //     return [true, 'leave', 'ลา'];
-        //   }
-        // }
-        // return [true];
+        let dates = new Date(date);
+        let monthDate = self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(dates));
+        for (let hol of self.holidays) {
+          if (hol.holDate == monthDate) {
+            return { enabled: true, classes: 'holiday', tooltip: hol.holName };
+          }
+        }
+        for (let unstamp of self.unstamped) {
+          if (unstamp == monthDate) {
+            console.log('unstamp' + monthDate)
+            return { enabled: true, classes: 'unstamped', tooltip: 'คุณไม่ได้ลงเวลางาน' };
+          }
+        }
+        for (let leave of self.leaves) {
+          if (leave.leaveDate == monthDate) {
+            return { enabled: true, classes: 'leave', tooltip: 'ลา' };
+          }
+        }
+        return { enabled: true, tooltip: '' };
       }
       // onChangeMonthYear: function (year, month, inst) {
       //   let thYear = self.utilsService.convertToThYearStr(year);
@@ -94,6 +94,13 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     $(datepickerId).datepicker().on('changeDate', function (dateText) {
       let pickerdate = new Date(dateText.date);
       self.subjectDate.next(self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(pickerdate)));
+    });
+    $(datepickerId).datepicker().on('changeMonth', function (dateText) {
+      console.log(dateText)
+      // let thYear = self.utilsService.convertToThYearStr(year);
+      //   let thMoth = self.utilsService.convertNumberTo2Deci(month);
+      //   // Get SpecialDate
+      //   self.subjectYearMonth.next({ year: thYear, month: thMoth })
     });
     // Sets stye
     $(datepickerId).addClass('w-100');
