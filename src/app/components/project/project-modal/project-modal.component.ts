@@ -16,6 +16,7 @@ declare var SpinModal: any;
 export class ProjectModalComponent{
   public project: Project = new Project;
   public modal = new SpinModal();
+  public currentAct:any;
   @ViewChild(ProjectModalDetailComponent) projectModalDetail;
   @ViewChild(ProjectModalPhaseComponent) projectModalPhase;
   @ViewChild(ProjectModalMemberComponent) projectModalMember;
@@ -27,8 +28,8 @@ export class ProjectModalComponent{
     private eventMessageService: EventMessagesService) {
 
     }
-  ngAfterViewInit(){
-    this.projectService.currentProjectAct.subscribe((project:Project)=>{
+    ngOnInit(){
+    this.currentAct = this.projectService.currentProjectAct.subscribe((project:Project)=>{
       if(project.projectId){
         this.project = new Project;
         this.project = project;
@@ -46,6 +47,8 @@ export class ProjectModalComponent{
 
   ngOnDestroy(){
     console.log('modal ngOnDestroy');
+    this.projectService.onUpdateProject(new Project);
+    this.currentAct.unsubscribe();
   }
 
 

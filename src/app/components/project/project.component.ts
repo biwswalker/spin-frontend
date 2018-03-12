@@ -29,7 +29,7 @@ export class ProjectComponent{
 
      }
 
-  ngAfterViewInit() {
+    ngAfterContentInit() {
     console.log('ProjectComponent start')
     this.authService.crrUser.subscribe(user=>{
       console.log('this.user: ',this.user)
@@ -41,6 +41,10 @@ export class ProjectComponent{
       }
     );
 
+  }
+
+  ngOnDestroy(){
+      console.log('ngOnDestroy.......');
   }
 
 
