@@ -21,23 +21,23 @@ export class ResponsibilityService {
   }
 
   fetchResponsibilityAutocomplete(activeFlag) {
-    return this.request.requestMethodGET('/responsibility-management');
+    return this.request.requestMethodGET('/responsibility-management/responsibilities');
   }
 
   findAll() {
-    return this.request.requestMethodGET('responsibility-management');
+    return this.request.requestMethodGET('responsibility-management/responsibilities');
   }
 
   findByRespId(respId) {
-    return this.request.requestMethodGET('responsibility-management/' + respId);
+    return this.request.requestMethodGET('responsibility-management/responsibilities/' + respId);
   }
 
 
   findAllPageable(page, size) {
-    return this.request.requestMethodGET('responsibility-management/?p=' + page + '&s=' + size);
+    return this.request.requestMethodGET('responsibility-management/responsibilities/?p=' + page + '&s=' + size);
   }
   findByCriteria(key, page, size) {
-    return this.request.requestMethodGET('responsibility-management/find-by-criteria/' + key + '?p=' + page + '&s=' + size);
+    return this.request.requestMethodGET('responsibility-management/responsibilities/find-by-criteria/' + key + '?p=' + page + '&s=' + size);
   }
 
   onOpenModal() {
@@ -49,11 +49,11 @@ export class ResponsibilityService {
   }
 
   createResponsibility(responsibility) {
-    return this.request.requestMethodPUT('responsibility-management', responsibility);
+    return this.request.requestMethodPUT('responsibility-management/responsibilities', responsibility);
   }
 
   updateResponsibility(responsibility) {
-    return this.request.requestMethodPOST('responsibility-management', responsibility);
+    return this.request.requestMethodPOST('responsibility-management/responsibilities', responsibility);
   }
 
 

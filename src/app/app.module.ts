@@ -81,6 +81,10 @@ import { DatePickerDirective } from './directives/datepicker';
 import { UserRegisterComponent } from './components/admin/user-register/user-register.component';
 import { UserRegisterInfoComponent } from './components/admin/user-register/user-register-info/user-register-info.component';
 import { UserRegisterSearchComponent } from './components/admin/user-register/user-register-search/user-register-search.component';
+import { OfficerComponent } from './components/admin/officer/officer.component';
+import { OfficerSearchComponent } from './components/admin/officer/officer-search/officer-search.component';
+import { OfficerInfoComponent } from './components/admin/officer/officer-info/officer-info.component';
+import { OfficerModalComponent } from './components/admin/officer/officer-modal/officer-modal.component';
 
 @NgModule({
   declarations: [
@@ -123,7 +127,11 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
     UserRegisterComponent,
     UserRegisterInfoComponent,
     UserRegisterSearchComponent,
-    ResponsibilityModalComponent
+    ResponsibilityModalComponent,
+    OfficerComponent,
+    OfficerSearchComponent,
+    OfficerInfoComponent,
+    OfficerModalComponent
   ],
   imports: [
     BrowserModule,

@@ -25,7 +25,6 @@ export class ResponsibilitySearchComponent implements OnInit {
 
   public throttle = 1000;
   public scrollDistance = 1;
-  protected hasCriteria: boolean = false;
   protected criteriaValue: string;
 
   constructor(protected responsibilityService: ResponsibilityService) {
@@ -77,7 +76,7 @@ export class ResponsibilitySearchComponent implements OnInit {
   }
 
   onScrollDown() {
-    console.log('onScrollDown');
+    console.log('onScrollDown' + this.criteriaValue);
     this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
       collection => {
         if (collection) {
@@ -87,6 +86,31 @@ export class ResponsibilitySearchComponent implements OnInit {
       }
     );
   }
+
+  // onScrollDown() {
+  //   console.log('onScrollDown' + this.criteriaValue);
+  //   if (this.criteriaValue) {
+  //     this.responsibilityService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
+  //       collection => {
+  //         this.responsibilities = this.responsibilities.concat(collection);
+  //         if (collection.length > 0) {
+  //           this.messageEvent.emit(collection[0].respId);
+  //         }
+  //         this.page += 1;
+  //       }
+  //     );
+  //   } else {
+  //     this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
+  //       collection => {
+  //         if (collection) {
+  //           this.page += 1;
+  //           this.responsibilities = this.responsibilities.concat(collection);
+  //         }
+  //       }
+  //     );
+  //   }
+
+  // }
 
 
 }
