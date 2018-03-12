@@ -165,5 +165,3 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-

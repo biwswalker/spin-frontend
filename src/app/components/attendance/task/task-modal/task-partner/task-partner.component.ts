@@ -106,6 +106,7 @@ export class TaskPartnerComponent {
       }
       return atpPartner;
     });
+    console.log(this.autocompletePartnerList);
   }
 
   addPartner() {
