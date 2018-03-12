@@ -35,14 +35,20 @@
                     <span></span>
                   </label>
                   <input type="hidden" id="active-flag" name="active-flag" formControlName="activeFlag">
+
                 </span>
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row form-group">
             <div class="col">
-              <input class="form-control" [(ngModel)]="responsibility.respName" required #respName type="text" id="resp-name" name="resp-name"
-                formControlName="respName">
+              <input class="form-control" [(ngModel)]="responsibility.respName" type="text" id="resp-name" name="resp-name" formControlName="respName">
+              <div *ngIf="responsibilityGroup.controls['respName'].invalid && (responsibilityGroup.controls['respName'].dirty || responsibilityGroup.controls['respName'].touched)"
+                class="error-message">
+                <div *ngIf="responsibilityGroup.controls['respName'].errors.required">
+                  <label class="text-danger">กรุณากรอกชื่อหน้าที่</label>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -53,6 +59,11 @@
           <div class="row">
             <div class="col">
               <input class="form-control" [(ngModel)]="responsibility.respAbbr" type="text" id="resp-abbr" name="resp-abbr" formControlName="respAbbr">
+              <div *ngIf="responsibilityGroup.controls['respAbbr'].invalid && (responsibilityGroup.controls['respAbbr'].dirty || responsibilityGroup.controls['respAbbr'].touched)">
+                <div *ngIf="responsibilityGroup.controls['respAbbr'].errors.required">
+                  <label class="text-danger">กรุณากรอกชื่อย่อ</label>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -63,6 +74,11 @@
           <div class="row">
             <div class="col">
               <textarea class="form-control" [(ngModel)]="responsibility.respDesc" rows="6" cols="50" id="resp-desc" name="resp-desc" formControlName="respDesc"></textarea>
+              <div *ngIf="responsibilityGroup.controls['respDesc'].invalid && (responsibilityGroup.controls['respDesc'].dirty || responsibilityGroup.controls['respDesc'].touched)">
+                <div *ngIf="responsibilityGroup.controls['respDesc'].errors.required">
+                  <label class="text-danger">กรุณากรอกหมายเหตุ</label>
+                </div>
+              </div>
             </div>
           </div>
         </div>

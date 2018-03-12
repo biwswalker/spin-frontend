@@ -103,8 +103,10 @@ export class ResponsibilityModalComponent implements OnInit {
           }
         );
       }
+
+      this.oncloseModal();
+    } else {
     }
-    this.oncloseModal();
   }
 
   onChangeActiveFlag() {
