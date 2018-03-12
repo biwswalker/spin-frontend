@@ -28,16 +28,13 @@ export class PrjInfoSummaryComponent implements OnInit {
 
 
   displayProjectSummary(projectId,seqId){
-    console.log('projectId: '+projectId+'    phaseId: '+seqId);
     this.projectId = (projectId?projectId:this.projectId);
-    console.log('this.projectId: ',this.projectId);
     this.memberSpent = new Summary;
     this.tagsSpent = new Summary;
     this.memberSummary=[];
     this.tagsSummary=[];
     this.projectService.findMemberSummary(this.projectId,seqId).subscribe(
       data=>{
-        console.log(data);
         if(data!){
           this.memberSpent = data.maxSpentTime;
           this.memberSpent.hour = this.utilsService.calcurateHours(data.maxSpentTime.hour,data.maxSpentTime.minute);
@@ -55,11 +52,9 @@ export class PrjInfoSummaryComponent implements OnInit {
 
     this.projectService.findTagsSummary(this.projectId,seqId).subscribe(
       data=>{
-        console.log(data);
         if(data!){
           this.tagsSpent = data.maxSpentTime;
 
-          console.log('max spent time: ',data.maxSpentTime);
           this.tagsSpent.hour = this.utilsService.calcurateHours(data.maxSpentTime.hour,data.maxSpentTime.minute);
 
           for(let mem of data.summary){
