@@ -134,7 +134,7 @@ export class TaskDetailComponent implements OnInit {
     this.taskService.selectedProjectId.next(event.projectId);
   }
 
-  onChangeTime(time: string) {
+  onChangeTime(time: any) {
     console.log(time);
     this.endTimeList = this.utilsService.getTimeList();
     console.log(this.endTimeList);
@@ -145,7 +145,13 @@ export class TaskDetailComponent implements OnInit {
     this.workStartTime = time;
   }
 
-  onChangeEndTime(time: string) {
+  // onChangeTime(time: any) {
+  //   console.log(time);
+  //   this.workStartTime = time.label;
+  //   this.endTimeList = this.utilsService.getTimeList();
+  // }
+
+  onChangeEndTime(time: any) {
     console.log(time);
     this.workEndTime = time;
   }

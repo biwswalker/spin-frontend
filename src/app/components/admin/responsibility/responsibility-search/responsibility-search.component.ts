@@ -16,15 +16,12 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 })
 export class ResponsibilitySearchComponent implements OnInit {
 
-  public responsibilities: Observable<Responsibility[]>;
-  public currentResp: Observable<Responsibility[]>;
-  // public _responsibilities: Observable<Responsibility[]>;
-  private _responsibilities: BehaviorSubject<Responsibility[]>;
+  public responsibilities: Responsibility[];
 
   @Output() messageEvent = new EventEmitter<number>();
 
   public page = 1;
-  public size = 20;
+  public size = 11;
 
   public throttle = 1000;
   public scrollDistance = 1;
@@ -32,7 +29,6 @@ export class ResponsibilitySearchComponent implements OnInit {
   protected criteriaValue: string;
 
   constructor(protected responsibilityService: ResponsibilityService) {
-    this._responsibilities = new BehaviorSubject<Responsibility[]>([]);
   }
 
   ngOnInit() {
@@ -42,11 +38,14 @@ export class ResponsibilitySearchComponent implements OnInit {
 
 
   getAllResponsibility() {
+    console.log('getAllResponsibility');
     this.page = 1;
-    this.responsibilities = this.responsibilityService.findAllPageable(this.page, this.size).do(
+    this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
       collection => {
-        console.log(collection[0]);
+        this.responsibilities = collection;
         this.messageEvent.emit(collection[0].respId);
+
+        this.page += 1;
       }
     );
   }
@@ -60,12 +59,13 @@ export class ResponsibilitySearchComponent implements OnInit {
     console.log(criteria);
     if (criteria) {
       this.criteriaValue = criteria;
-      this.responsibilities = this.responsibilityService.findByCriteria(criteria, this.page, this.size).do(
+      this.responsibilityService.findByCriteria(criteria, this.page, this.size).subscribe(
         collection => {
-          console.log(collection);
+          this.responsibilities = collection;
           if (collection.length > 0) {
             this.messageEvent.emit(collection[0].respId);
           }
+          this.page += 1;
         }
       );
     } else {
@@ -74,41 +74,17 @@ export class ResponsibilitySearchComponent implements OnInit {
     }
   }
 
-  // onScrollDown() {
-  //   console.log('onScrollDown');
-  //   this.responsibilityService.findAllPageable(this.page, this.size).do(
-  //     collection => {
-  //     }
-  //   );
-  //   this.page += 1;
-  // }
-
-
   onScrollDown() {
     console.log('onScrollDown');
-    this.page = this.page + 1;
-    this.getNext();
-    this.currentResp = this.responsibilities;
-    //   this.responsibilities = Observable.merge(this.currentResp, this._responsibilities);
-
-    // this.currentResp = this._responsibilities.asObservable();
-    this.responsibilities = Observable.merge(this.currentResp, this._responsibilities.asObservable()).do(
-      data => {
-        console.log('end data {}', data);
-      }
-    );
-    //  this.responsibilities = this.currentResp.merge(this._responsibilities);
-
-
-  }
-
-  getNext() {
     this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
-      data => {
-        console.log('data {}', data);
-        this._responsibilities.next(data);
+      collection => {
+        if (collection) {
+          this.page += 1;
+          this.responsibilities = this.responsibilities.concat(collection);
+        }
       }
     );
   }
+
 
 }

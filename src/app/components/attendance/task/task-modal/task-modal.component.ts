@@ -24,12 +24,11 @@ declare var $: any;
 })
 export class TaskModalComponent implements AfterViewInit {
 
-
   public task: Task = new Task();
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
   private modal = new SpinModal();
-  private user = new User();
+  private user: User = new User();
   public mode = '';
 
   @ViewChild(TaskDetailComponent) taskDetailChild;
@@ -42,13 +41,12 @@ export class TaskModalComponent implements AfterViewInit {
     private eventMessageService: EventMessagesService,
     private auth: AuthenticationService,
     private projectService: ProjectService) {
-
   }
 
   ngAfterViewInit() {
     // Get User
     this.user = this.auth.getUser();
-    console.log(this.user);
+    console.log();
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       console.log('currentTask=> ', task);
@@ -151,10 +149,11 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskService.insertTask(task).subscribe(
       res => {
         console.log(res)
-        // this.eventMessageService.onSuccess();
+        this.eventMessageService.onInsertSuccess('');
         this.oncloseModal();
       },
       error => {
+        this.eventMessageService.onInsertError(error);
         console.log(error)
       }
     );
@@ -164,9 +163,10 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskService.updateTask(task).subscribe(
       res => {
         console.log(res);
-        // this.eventMessageService.onSuccess();
+        this.eventMessageService.onUpdateSuccess('');
         this.oncloseModal();
       }, error => {
+        this.eventMessageService.onUpdateError(error);
         console.log(error);
       }
     )
