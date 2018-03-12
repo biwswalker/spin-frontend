@@ -44,6 +44,11 @@ export class ProjectModalComponent{
   )
   }
 
+  ngOnDestroy(){
+    console.log('modal ngOnDestroy');
+  }
+
+
   onSubmit(){
     if(this.project.projectId == null){
       this.onSubmitInsert();

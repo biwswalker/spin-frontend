@@ -15,7 +15,7 @@ import { Project } from '../../models/project';
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent{
   public user: User = new User;
   public renderPage:boolean = false;
   @ViewChild(ProjectSearchComponent) projectSearch;
@@ -25,18 +25,25 @@ export class ProjectComponent implements OnInit {
     private projectService: ProjectService,
     private eventService: EventService,
     private authService: AuthenticationService,
-    private utilsService: UtilsService) { }
+    private utilsService: UtilsService) {
 
-  ngOnInit() {
+     }
+
+  ngAfterViewInit() {
+    console.log('ProjectComponent start')
     this.authService.crrUser.subscribe(user=>{
+      console.log('this.user: ',this.user)
       this.user = user;
-      console.log('me: ',this.user);
       this.renderPage = true;
-    });
-
-
+      },
+      err=>{
+        console.log(err);
+      }
+    );
 
   }
+
+
 
   onNewProjectClick(){
     this.projectModal.newProject();

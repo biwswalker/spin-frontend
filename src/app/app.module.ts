@@ -166,5 +166,4 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
 })
 export class AppModule { }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
 
