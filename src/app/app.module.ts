@@ -4,7 +4,7 @@ import { NgModule, Directive, Input, Output, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
-import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+// import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
@@ -134,7 +134,7 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
     BrowserAnimationsModule,
     TagInputModule,
     BrowserAnimationsModule,
-    NguiAutoCompleteModule,
+    // NguiAutoCompleteModule,
     InfiniteScrollModule,
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
