@@ -12,7 +12,7 @@ export class AuthenticationService {
 
   private isAccess = new BehaviorSubject<boolean>(false);
   public crrAccess = this.isAccess.asObservable();
-  private userSubject = new Subject<User>();
+  private userSubject = new BehaviorSubject<User>(new User());
   public crrUser = this.userSubject.asObservable();
   public user = new User();
   public refreshTko = false;
@@ -108,8 +108,11 @@ export class AuthenticationService {
   }
 
   getUser(): User {
+<<<<<<< HEAD
     console.log('getUser')
     console.log(this.user)
+=======
+>>>>>>> 9ef8cfa0bf72f2fcb457b99ef6dc5dbcd1673575
     return this.user;
   }
 

@@ -32,6 +32,7 @@ export class ResponsibilitySearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.responsibilities = [];
     this.getAllResponsibility();
   }
 

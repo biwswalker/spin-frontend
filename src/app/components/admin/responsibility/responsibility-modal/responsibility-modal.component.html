@@ -13,13 +13,13 @@
           {{headerTxt}}หน้าที่ความรับผิดชอบ
         </div>
 
-        <button type="button" class="btn btn-link" [routerLink]="" (click)="onSubmit()">
+        <button type="submit" class="btn btn-link" [routerLink]="" (click)="onSubmit()">
           <i class="fas {{mode === 'INSERT' ? 'fa-plus-circle' : 'fa-pencil-alt'}}"> {{headerTxt}}</i>
         </button>
 
       </div>
 
-      <form [formGroup]="responsibilityGroup">
+      <form [formGroup]="responsibilityGroup" novalidate>
         <!-- Body -->
         <div class="modal-body">
           <div class="row">
@@ -35,14 +35,15 @@
                     <span></span>
                   </label>
                   <input type="hidden" id="active-flag" name="active-flag" formControlName="activeFlag">
+
                 </span>
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row form-group">
             <div class="col">
-              <input class="form-control" [(ngModel)]="responsibility.respName" required #respName type="text" id="resp-name" name="resp-name"
-                formControlName="respName">
+              <input class="form-control" [(ngModel)]="responsibility.respName" type="text" id="resp-name" name="resp-name" formControlName="respName">
+
             </div>
           </div>
           <div class="row">
@@ -53,6 +54,7 @@
           <div class="row">
             <div class="col">
               <input class="form-control" [(ngModel)]="responsibility.respAbbr" type="text" id="resp-abbr" name="resp-abbr" formControlName="respAbbr">
+
             </div>
           </div>
           <div class="row">
@@ -63,6 +65,7 @@
           <div class="row">
             <div class="col">
               <textarea class="form-control" [(ngModel)]="responsibility.respDesc" rows="6" cols="50" id="resp-desc" name="resp-desc" formControlName="respDesc"></textarea>
+
             </div>
           </div>
         </div>

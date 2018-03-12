@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Format } from '../../config/properties';
 import { Observable } from 'rxjs/Observable';
+import { FormGroup } from '@angular/forms';
 declare var moment: any;
 
 @Injectable()
@@ -130,8 +131,8 @@ export class UtilsService {
     return `${yearTh}${monthDate}`;
   }
 
-  convertNumberTo2Deci(numMonth: number): string {
-    return numMonth > 9 ? `${numMonth}` : `0${numMonth}`;
+  convertNumberTo2Deci(month: number): string {
+    return month > 9 ? `${month}` : `0${month}`;
   }
 
   convertEnDDMYYYYToThDate(day, month, year) {
@@ -171,6 +172,13 @@ export class UtilsService {
     return `${split[2]}${split[1]}${split[0]}`
   }
 
+  convertDateToEnStringDate(date: Date): string {
+    let dateStr = this.convertNumberTo2Deci(date.getDate());
+    let monthStr = this.convertNumberTo2Deci(date.getUTCMonth() + 1);
+    let yearStr = date.getUTCFullYear();
+    return `${yearStr}${monthStr}${dateStr}`;
+  }
+
   displayTimestampDate(enDate: string): string {
     return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`
   }
@@ -204,10 +212,15 @@ export class UtilsService {
 
   getTimeList() {
     let time = [
+<<<<<<< HEAD
       "06:00", "06:30",
       "07:00", "07:30",
       "08:00", "08:30",
       "09:00", "09:30",
+=======
+      "8:00", "8:30",
+      "9:00", "9:30",
+>>>>>>> 9ef8cfa0bf72f2fcb457b99ef6dc5dbcd1673575
       "10:00", "10:30",
       "11:00", "11:30",
       "12:00", "12:30",
@@ -227,9 +240,19 @@ export class UtilsService {
     return time;
   }
 
+<<<<<<< HEAD
   getEndTimeList(startTime: string) {
     let endTimeList = this.getTimeList();
     endTimeList.splice(0, endTimeList.indexOf(startTime) + 1);
     return endTimeList;
+=======
+  findInvalidControls(formGroup: FormGroup) {
+    const controls = formGroup.controls;
+    for (const name in controls) {
+      if (!controls[name].valid) {
+        controls[name].markAsDirty();
+      }
+    }
+>>>>>>> 9ef8cfa0bf72f2fcb457b99ef6dc5dbcd1673575
   }
 }
