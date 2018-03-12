@@ -27,16 +27,16 @@ module.exports = {
   ]
 };
 
-module.exports = {
-  context: __dirname,
-  entry: './src/assets/js/scripts.js',
-  output: {
-    path: path.join(__dirname, 'src/assets/themes'),
-    filename: 'scripts.min.js'
-  },
-   plugins: [
-    new ExtractTextPlugin({
-      filename: "scripts.min.js"
-    }),
-  ],
-};
+// module.exports = {
+//   context: __dirname,
+//   entry: './src/assets/js/scripts.js',
+//   output: {
+//     path: path.join(__dirname, 'src/assets/themes'),
+//     filename: 'scripts.min.js'
+//   },
+//    plugins: [
+//     new ExtractTextPlugin({
+//       filename: "scripts.min.js"
+//     }),
+//   ],
+// };

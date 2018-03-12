@@ -1,5 +1,6 @@
 @import '~assets/scss/modal.scss';
 @import '~assets/scss/toggle.scss';
+
 .color-picker {
     height: 2rem;
     width: 2rem;
@@ -24,14 +25,8 @@
     }
 }
 
-a:active {
-    border: 2px solid black;
-    border-radius: 10px;
-}
-
 a.active {
-    border: 2px solid black;
-    border-radius: 10px;
+    border: 2px solid white;
 }
 
 .time-dropdown {

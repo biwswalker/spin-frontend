@@ -49,6 +49,7 @@ $white: #fff;
       // padding-left: 1rem;
       text-align: center;
       transition: all 0.3s;
+      cursor: pointer;
       a {
         padding: 0.5rem;
         display: block;
@@ -64,14 +65,29 @@ $white: #fff;
           display: inline-block;
         }
       }
+      #admin-menu-dropdown+.dropdown-menu{
+        left:4.2rem !important;
+        top: 70px !important;
+        a {
+          color: #000 !important;
+        }
+      }
     }
-    li:hover{
+    li:hover:not(.disabled){
       background: rgba(0, 0, 0, 0.3);
       transition: all 0.3s;
       >a{
         color:$white !important;
       }
 
+    }
+    li.disabled{
+      background: transparent !important;
+      transition: none;
+      cursor:default;
+      >a{
+        color:rgba(0,0,0,0.4) !important;
+      }
     }
     li.active{
       a{

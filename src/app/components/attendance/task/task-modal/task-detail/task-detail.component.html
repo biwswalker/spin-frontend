@@ -33,37 +33,32 @@
       </div>
       <div class="col-3">
         <label>เวลา *</label>
-            <div class="btn-group" dropdown placement="top">
-              <button type="button" class="btn btn-light">{{workStartTime}}</button>
-              <button type="button" dropdownToggle class="btn btn-light dropdown-toggle dropdown-toggle-split ">
-                  <span class="caret" ></span>
-                  <span class="sr-only">Split button!</span>
-              </button>
-              <div >
-                <ul *dropdownMenu class="dropdown-menu time-dropdown" role="menu">
-                  <li role="menuitem" *ngFor="let time of timeList">
-                    <a class="dropdown-item" (click)="onChangeTime(time)">{{time}}</a>
-                  </li>
-                </ul>
+            <div class="input-group">
+                <select class="form-control"
+                        id="workStartTime"
+                        name="workStartTime"
+                        (change)="onChangeTime()"
+                        formControlName="taskDetailStartTime">
+                  <option *ngFor="let time of timeList"
+                          [value]="time">
+                            {{time}}
+                  </option>
+                </select>
               </div>
-            </div>
       </div>
-      <div class=" col-3">
+      <div class="col-3">
         <label class="invisible">เวลา *</label>
-            <div class="btn-group" dropdown placement="top">
-              <button type="button" class="btn btn-light">{{workEndTime}}</button>
-              <button type="button" dropdownToggle class="btn btn-light dropdown-toggle dropdown-toggle-split">
-                  <span class="caret" ></span>
-                  <span class="sr-only">Split button!</span>
-              </button>
-              <div >
-                <ul *dropdownMenu class="dropdown-menu" role="menu">
-                  <li role="menuitem" *ngFor="let time of endTimeList">
-                    <a class="dropdown-item" (click)="onChangeEndTime(time)">{{time}}</a>
-                  </li>
-                </ul>
+            <div class="input-group">
+                <select class="form-control"
+                        id="workEndTime"
+                        name="workEndTime"
+                        formControlName="taskDetailEndTime">
+                  <option *ngFor="let time of endTimeList"
+                          [value]="time">
+                            {{time}}
+                  </option>
+                </select>
               </div>
-            </div>
       </div>
     </div>
   <div class="row">

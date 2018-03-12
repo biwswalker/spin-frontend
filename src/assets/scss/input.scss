@@ -18,3 +18,8 @@
 .ng2-dropdown-menu{
   z-index: 1000 !important;
 }
+
+input.ng-dirty.ng-invalid{
+  border: 1px solid #dc3545;
+  box-shadow: 1px 1px 2px 1px rgba(255, 0, 0, 0.3);
+}

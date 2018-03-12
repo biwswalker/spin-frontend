@@ -41,6 +41,7 @@ export class ProjectModalPhaseComponent implements OnInit {
 
 
   onAddPhase(){
+    this.utilsService.findInvalidControls(this.projectPhaseGroup);
     if(this.projectPhaseGroup.valid){
 
       this.projectPhase.phaseName =  this.projectPhaseGroup.value.phaseName;
