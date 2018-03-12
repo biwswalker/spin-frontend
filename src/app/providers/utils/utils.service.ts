@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Format } from '../../config/properties';
 import { Observable } from 'rxjs/Observable';
+import { FormGroup } from '@angular/forms';
 declare var moment: any;
 
 @Injectable()
@@ -230,5 +231,14 @@ export class UtilsService {
       "24:00"
     ]
     return time;
+  }
+
+  findInvalidControls(formGroup: FormGroup) {
+    const controls = formGroup.controls;
+    for (const name in controls) {
+      if (!controls[name].valid) {
+        controls[name].markAsDirty();
+      }
+    }
   }
 }

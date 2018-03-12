@@ -1,3 +1,4 @@
+import { UtilsService } from './../../../providers/utils/utils.service';
 import { EventMessagesService } from './../../../providers/utils/event-messages.service';
 import { ProjectModalMemberComponent } from './member/project-modal-member.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
@@ -23,9 +24,10 @@ export class ProjectModalComponent{
 
 
   constructor(private projectService: ProjectService,
-    private eventService: EventService,
     private authService: AuthenticationService,
-    private eventMessageService: EventMessagesService) {
+    private eventMessageService: EventMessagesService,
+    private utilsService: UtilsService
+  ) {
 
     }
     ngOnInit(){
@@ -61,6 +63,7 @@ export class ProjectModalComponent{
   }
 
   onSubmitInsert() {
+    this.utilsService.findInvalidControls(this.projectModalDetail.projectDetailGroup);
     if(this.projectModalDetail.projectDetailGroup.valid){
       this.project = new Project;
       this.project = this.projectModalDetail.project;
@@ -86,6 +89,7 @@ export class ProjectModalComponent{
 
   onSubmitUpdate() {
     console.log('onSubmitUpdate......');
+    this.utilsService.findInvalidControls(this.projectModalDetail.projectDetailGroup);
     if(this.projectModalDetail.projectDetailGroup.valid){
       this.project = new Project;
       this.project = this.projectModalDetail.project;
