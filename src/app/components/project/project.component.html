@@ -1,9 +1,10 @@
-<div class="row">
+<div class="row" *ngIf="renderPage">
   <div class="col-12">
         <div class="page-title d-flex">
             <h2 class="d-inline-block">โครงการ</h2>
             <button type="button" id="btn-new-project"
             class="btn btn-link p-0"
+            *ngIf="user.userLevel == 'A' || user.userLevel == 'P'"
             (click)="onNewProjectClick()">
             <i class="fas fa-plus-circle"></i>
             เพิ่มใหม่

@@ -44,6 +44,7 @@ export class ResponsibilityComponent implements OnInit {
     console.log('open');
     this.responsibilityModal.mode = Mode.I;
     this.responsibilityModal.responsibility = new Responsibility();
+    this.responsibilityModal.ngOnInit();
     this.responsibilityService.onOpenModal();
   }
 

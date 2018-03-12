@@ -43,7 +43,6 @@ export class ProjectModalMemberComponent implements OnInit {
     this.officerService.fetchAllAutocomplete('A').subscribe(
 
       users=>{
-        console.log('user: ',users);
         this.users = [];
         for (let user of users.content){
           user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;

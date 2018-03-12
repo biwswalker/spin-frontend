@@ -29,14 +29,10 @@ export class ProjectModalComponent{
     }
   ngAfterViewInit(){
     this.projectService.currentProjectAct.subscribe((project:Project)=>{
-      console.log('do you want to update project',project);
       if(project.projectId){
-        console.log('Yes, I am. ');
         this.project = new Project;
         this.project = project;
         this.updateProject(this.project);
-      }else{
-        console.log('No, I am not. ');
       }
     },
   err=>{
@@ -57,7 +53,6 @@ export class ProjectModalComponent{
   }
 
   onSubmitInsert() {
-    console.log(this.projectModalDetail.projectDetailGroup);
     if(this.projectModalDetail.projectDetailGroup.valid){
       this.project = new Project;
       this.project = this.projectModalDetail.project;
@@ -67,7 +62,6 @@ export class ProjectModalComponent{
       // Call Provider
       this.projectService.createProject(this.project).subscribe(
         data => {
-          console.log(data);
           this.oncloseModal();
           this.eventMessageService.onInsertSuccess('');
         },
@@ -95,7 +89,6 @@ export class ProjectModalComponent{
       // Call Provider
       this.projectService.updateProject(this.project).subscribe(
         data => {
-          console.log(data);
           this.oncloseModal();
           this.eventMessageService.onUpdateSuccess('');
         },
@@ -123,7 +116,6 @@ export class ProjectModalComponent{
   }
 
   updateProject(project:Project){
-    console.log('project: ',project);
     this.onOpenModal();
     this.initChild();
     this.projectModalDetail.prepareDataForEdit(project.projectId);

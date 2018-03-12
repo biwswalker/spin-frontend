@@ -40,11 +40,9 @@ export class ProjectSearchComponent implements OnInit {
   }
 
   onScrollDown() {
-    console.log('scrolled!!');
     this.projectService.findProjects((this.onlyMember?'Y':'N'),this.page,this.size).subscribe(
       data=>{
         if(data!){
-          console.log(data);
           this.projectList = this.projectList.concat(data);
 
           if(this.projectList.length != 0 && this.page == 1){
@@ -75,7 +73,6 @@ export class ProjectSearchComponent implements OnInit {
 
     this.projectService.toggleFavorite(projectId).subscribe(
       data=>{
-        console.log(data);
         for(let prj of this.projectList){
           if(projectId == prj.projectId){
             prj.isFavorite = data;
