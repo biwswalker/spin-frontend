@@ -134,7 +134,6 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
     BrowserAnimationsModule,
     TagInputModule,
     BrowserAnimationsModule,
-    // NguiAutoCompleteModule,
     InfiniteScrollModule,
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
