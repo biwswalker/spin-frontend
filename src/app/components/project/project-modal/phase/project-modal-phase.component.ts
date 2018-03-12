@@ -41,10 +41,6 @@ export class ProjectModalPhaseComponent implements OnInit {
 
 
   onAddPhase(){
-    console.log('start date: ',this.projectPhase.startDate);
-    console.log('end date: ',this.projectPhase.endDate);
-    console.log('projectPhaseGroup: ',this.projectPhaseGroup.value);
-    console.log('projectPhaseGroup: ',this.projectPhaseGroup.valid);
     if(this.projectPhaseGroup.valid){
 
       this.projectPhase.phaseName =  this.projectPhaseGroup.value.phaseName;
@@ -53,7 +49,6 @@ export class ProjectModalPhaseComponent implements OnInit {
       this.projectPhases.push(this.projectPhase);
       this.projectPhase = new ProjectPhase;
 
-      console.log(this.projectPhase);
     }
 
   }
@@ -61,7 +56,6 @@ export class ProjectModalPhaseComponent implements OnInit {
   prepareDataForEdit(projectId){
     this.projectService.findProjectPhaseById(projectId).subscribe(
       data=>{
-        console.log('project phase: ',data);
         this.projectPhases = data;
       }
     )
