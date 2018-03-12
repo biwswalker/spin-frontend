@@ -39,6 +39,8 @@ export class TaskDetailComponent implements OnInit {
   public color: string;
   public mode: string;
   public favProjectList = new Observable<Project[]>();
+  public timeList: any[];
+  public endTimeList: any[];
 
   constructor(
     private projectService: ProjectService,
@@ -59,7 +61,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   resetData() {
-    console.log('onreset');
     this.taskDetailFormGroup.reset();
     this.workStartTime = '';
     this.workEndTime = '';
@@ -69,6 +70,7 @@ export class TaskDetailComponent implements OnInit {
     this.projectId = 0;
     this.project = '';
     this.statusFlag = false;
+    this.timeList = this.utilsService.getTimeList();
   }
 
   initTaskDetail(task: Task, mode: string) {
@@ -87,7 +89,9 @@ export class TaskDetailComponent implements OnInit {
 
   initialTime() {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
+    // this.taskDetailFormGroup.patchValue({ taskDetailStartTime: this.workStartTime });
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
+    // this.taskDetailFormGroup.patchValue({ taskDetailEndTime: this.workEndTime });
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
   }
 
@@ -129,6 +133,14 @@ export class TaskDetailComponent implements OnInit {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
     this.taskService.selectedProjectId.next(event.projectId);
+  }
+
+  onChangeTime(event){
+    console.log(event);
+    let startTime: number;
+    startTime = Number(this.utilsService.convertTimeToDb(event.value));
+    console.log(startTime);
+    this.workStartTime = event.value;
   }
 
 }

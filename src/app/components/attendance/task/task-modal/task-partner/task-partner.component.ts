@@ -51,7 +51,6 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
-    console.log('initialMember')
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
@@ -62,15 +61,16 @@ export class TaskPartnerComponent {
             } else {
               this.taskMember.push({ userId: obj.userId, email: obj.email, status: false });
             }
-            console.log(this.taskMember);
           }
+        }
+        else{
+          this.getProjectMember(projectId);
         }
       }
     );
   }
 
   initialPartner(projectId: number) {
-    console.log('initialPartner');
     this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
@@ -78,7 +78,6 @@ export class TaskPartnerComponent {
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email });
           }
-          console.log(this.taskPartner);
         }
       }
     );

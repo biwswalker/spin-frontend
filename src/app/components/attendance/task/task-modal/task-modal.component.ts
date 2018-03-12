@@ -48,6 +48,7 @@ export class TaskModalComponent implements AfterViewInit {
   ngAfterViewInit() {
     // Get User
     this.user = this.auth.getUser();
+    console.log(this.user);
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       console.log('currentTask=> ', task);
@@ -75,7 +76,6 @@ export class TaskModalComponent implements AfterViewInit {
       this.taskService.selectedProjectId.next(this.taskForm.task.projectId);
     }
     this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
-
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
