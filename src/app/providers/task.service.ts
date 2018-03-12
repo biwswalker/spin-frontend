@@ -22,7 +22,7 @@ export class TaskService {
   private viewTask = new Subject();
   public currentViewTask = this.viewTask.asObservable();
 
-  public selectedProjectId = new Subject();
+  private selectedProjectId = new Subject();
   public currentProjectId = this.selectedProjectId.asObservable();
 
   // Date
@@ -63,6 +63,7 @@ export class TaskService {
   }
 
   onViewTask(task: Task) {
+    console.log('onViewTask BIWSWALKER')
     this.viewTask.next(task);
   }
 
@@ -72,6 +73,10 @@ export class TaskService {
 
   changeTimetableDOW(dow) {
     this.timetableDOW.next(dow);
+  }
+
+  changeProjectId(projectId){
+    this.selectedProjectId.next(projectId);
   }
 
   findWorkingTaskByDate(date) {
