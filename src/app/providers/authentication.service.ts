@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class AuthenticationService {
 
-  private isAccess = new Subject<boolean>();
+  private isAccess = new BehaviorSubject<boolean>(false);
   public crrAccess = this.isAccess.asObservable();
   private userSubject = new Subject<User>();
   public crrUser = this.userSubject.asObservable();
