@@ -212,15 +212,10 @@ export class UtilsService {
 
   getTimeList() {
     let time = [
-<<<<<<< HEAD
       "06:00", "06:30",
       "07:00", "07:30",
       "08:00", "08:30",
       "09:00", "09:30",
-=======
-      "8:00", "8:30",
-      "9:00", "9:30",
->>>>>>> 9ef8cfa0bf72f2fcb457b99ef6dc5dbcd1673575
       "10:00", "10:30",
       "11:00", "11:30",
       "12:00", "12:30",
@@ -240,12 +235,12 @@ export class UtilsService {
     return time;
   }
 
-<<<<<<< HEAD
   getEndTimeList(startTime: string) {
     let endTimeList = this.getTimeList();
     endTimeList.splice(0, endTimeList.indexOf(startTime) + 1);
     return endTimeList;
-=======
+  }
+
   findInvalidControls(formGroup: FormGroup) {
     const controls = formGroup.controls;
     for (const name in controls) {
@@ -253,6 +248,5 @@ export class UtilsService {
         controls[name].markAsDirty();
       }
     }
->>>>>>> 9ef8cfa0bf72f2fcb457b99ef6dc5dbcd1673575
   }
 }
