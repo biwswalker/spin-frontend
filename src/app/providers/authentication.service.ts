@@ -12,7 +12,7 @@ export class AuthenticationService {
 
   private isAccess = new BehaviorSubject<boolean>(false);
   public crrAccess = this.isAccess.asObservable();
-  private userSubject = new Subject<User>();
+  private userSubject = new BehaviorSubject<User>(new User());
   public crrUser = this.userSubject.asObservable();
   public user = new User();
   public refreshTko = false;
