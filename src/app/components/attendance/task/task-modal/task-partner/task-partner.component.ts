@@ -36,8 +36,6 @@ export class TaskPartnerComponent {
     this.mode = mode;
     this.ownerEmail = usrEmail;
     this.taskService.currentProjectId.subscribe(projectId => {
-      console.log('this.taskService.currentProjectId.subscribe')
-      console.log(projectId)
       if (projectId) {
         this.getautoCompletePartner(projectId);
         if (this.taskId) {
@@ -51,7 +49,6 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
-    console.log('initialMember')
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
@@ -64,15 +61,14 @@ export class TaskPartnerComponent {
             }
           }
         }
-        // else{
-        //   this.getProjectMember(projectId);
-        // }
+        else{
+          this.getProjectMember(projectId);
+        }
       }
     );
   }
 
   initialPartner(projectId: number) {
-    console.log('initialPartner');
     this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
       nonMembers => {
         if (nonMembers) {

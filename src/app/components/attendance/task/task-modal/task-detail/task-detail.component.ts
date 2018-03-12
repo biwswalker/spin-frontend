@@ -39,6 +39,8 @@ export class TaskDetailComponent implements OnInit {
   public color: string;
   public mode: string;
   public favProjectList = new Observable<Project[]>();
+  public timeList: any[];
+  public endTimeList: any[];
 
   constructor(
     private projectService: ProjectService,
@@ -68,6 +70,7 @@ export class TaskDetailComponent implements OnInit {
     this.projectId = 0;
     this.project = '';
     this.statusFlag = false;
+    this.timeList = this.utilsService.getTimeList();
   }
 
   initTaskDetail(task: Task, mode: string) {
@@ -130,6 +133,14 @@ export class TaskDetailComponent implements OnInit {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
     this.taskService.selectedProjectId.next(event.projectId);
+  }
+
+  onChangeTime(event){
+    console.log(event);
+    let startTime: number;
+    startTime = Number(this.utilsService.convertTimeToDb(event.value));
+    console.log(startTime);
+    this.workStartTime = event.value;
   }
 
 }
