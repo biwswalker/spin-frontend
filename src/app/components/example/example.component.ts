@@ -41,12 +41,12 @@ export class ExampleComponent implements OnInit {
   }
 
   notifySuccessClick(){
-    this.eventMessageService.onSuccess('ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
+    this.eventMessageService.onInsertSuccess('ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
   }
   notifyWarningClick(){
-    this.eventMessageService.onWarning('','ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
+    this.eventMessageService.onWarning('ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
   }
   notifyErrorClick(){
-    this.eventMessageService.onSuccess('ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
+    this.eventMessageService.onWarning('ฮัลโลวีน โนติสเทควันโดคอลเล็กชั่น โฮป');
   }
 }

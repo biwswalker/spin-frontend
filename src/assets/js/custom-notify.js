@@ -1,32 +1,25 @@
-class MessageNotify{
-  example(){
-    $.notify({
-      title: '<strong>Data</strong>',
-      message: 'detail'
-    },{
-      type: 'success',
-      template: ''+
-      '<div data-notify="container" class="col-11 col-lg-2 alert alert-{0}" role="alert">' +
-      '{0}'+
-      '</div>'
-    });
 
-  }
+$.notifyDefaults({
+	type: 'success',
+	allow_dismiss: true
+});
+
+class MessageNotify{
   initialSuccess(title){
     $.notify({
       title: '<strong>'+title+'</strong>',
     },{
       type: 'success',
       template:''+
-      '<div data-notify="container" class="col-8 col-md-4 col-xl-2 alert text-center alert-{0}" role="alert">' +
+      '<div data-notify="container" class="col-8 col-md-4 col-xl-2 alert alert-{0}" role="alert">' +
+
       '{1}'+
       '</div>',
-      delay: 3000,
+      delay: 2000,
       animate: {
         enter: 'animated fadeInDown',
         exit: 'animated fadeOutRight'
       },
-
     });
   }
 
@@ -37,7 +30,8 @@ class MessageNotify{
     },{
       type: 'warning',
       template:''+
-      '<div data-notify="container" class="alert alert-{0}" role="alert">' +
+      '<div data-notify="container" class="col-8 col-md-4 col-xl-2 alert alert-{0}" role="alert">' +
+      '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>'+
       '{1} {2}'+
       '</div>',
       delay: 5000,
@@ -59,10 +53,11 @@ class MessageNotify{
     },{
       type: 'danger',
       template:''+
-      '<div data-notify="container" class="alert alert-{0}" role="alert">' +
+      '<div data-notify="container" class="col-8 col-md-4 col-xl-2 alert alert-{0}" role="alert">' +
+      '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>'+
       '{1} {2}'+
       '</div>',
-      delay: 5000,
+      delay: 10000,
       animate: {
         enter: 'animated fadeInDown',
         exit: 'animated fadeOut'
