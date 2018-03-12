@@ -1,3 +1,25 @@
 .modal .modal-body {
   background-color: #fffbfb;
 }
+
+textarea {
+  resize: none;
+}
+
+.modal-header {
+  background-color: #BF0013;
+  color: #FFFFFF;
+  border-bottom: none;
+  .header-text {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 300;
+  }
+  button>i {
+    color: #FFFFFF !important;
+  }
+  button:hover {
+    opacity: 0.8;
+    filter: opacity(80);
+  }
+}

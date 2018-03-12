@@ -10,11 +10,11 @@
         </button>
 
         <div class="text-center header-text">
-          หน้าที่ความรับผิดชอบ
+          {{headerTxt}}หน้าที่ความรับผิดชอบ
         </div>
 
         <button type="button" class="btn btn-link" [routerLink]="" (click)="onSubmit()">
-          <i class="fas fa-check fa-lg"></i>
+          <i class="fas {{mode === 'INSERT' ? 'fa-plus-circle' : 'fa-pencil-alt'}}"> {{headerTxt}}</i>
         </button>
 
       </div>

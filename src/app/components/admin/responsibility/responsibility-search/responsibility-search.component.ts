@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 @Component({
   selector: 'app-responsibility-search',
   templateUrl: './responsibility-search.component.html',
-  styleUrls: ['./responsibility-search.component.scss']
+  styleUrls: ['./responsibility-search.component.scss', '../responsibility.component.scss']
 })
 export class ResponsibilitySearchComponent implements OnInit {
 
@@ -21,7 +21,7 @@ export class ResponsibilitySearchComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<number>();
 
   public page = 1;
-  public size = 11;
+  public size = 15;
 
   public throttle = 1000;
   public scrollDistance = 1;
@@ -57,6 +57,7 @@ export class ResponsibilitySearchComponent implements OnInit {
 
   onSearchByCriteria(criteria) {
     console.log(criteria);
+    this.page = 1;
     if (criteria) {
       this.criteriaValue = criteria;
       this.responsibilityService.findByCriteria(criteria, this.page, this.size).subscribe(

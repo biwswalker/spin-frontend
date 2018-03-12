@@ -7,3 +7,25 @@
     box-shadow: 2px 1px 3px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 }
+
+.info-header {
+  font-weight: bold;
+  border-bottom: 5px solid #BF0013;
+}
+
+.info-body-bold {
+  font-weight: bold;
+}
+
+.info-body {
+  color: #A4A4A4
+}
+
+.table-header {
+  background: #BF0013;
+  color: #FFFFFF;
+}
+
+.list-group-item {
+  padding: 0.25rem 1.25rem;
+}
