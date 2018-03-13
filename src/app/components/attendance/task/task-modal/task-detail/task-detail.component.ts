@@ -33,7 +33,7 @@ export class TaskDetailComponent implements OnInit {
   public activity: string = '';
   public projectId: number = 0;
   public project: any = '';
-  public projectList = new Observable<Project[]>();
+  public projectList: Project[];
   public taskDetailFormGroup: FormGroup;
   public user: User;
   public color: string;
@@ -57,8 +57,11 @@ export class TaskDetailComponent implements OnInit {
     // Initial Fav Project
     this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
     // Find project
-    console.log(this.projectService.fetchProjectAutocomplete());
-    this.projectList = this.projectService.fetchProjectAutocomplete();
+    this.projectService.fetchProjectAutocomplete().subscribe(
+      projects=>{
+        this.projectList = projects;
+      }
+    )
   }
 
   resetData() {
