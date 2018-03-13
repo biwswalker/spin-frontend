@@ -8,36 +8,38 @@ import { UserRegisterComponent } from '../user-register.component';
 import { EventEmitter } from "@angular/core";
 
 @Component({
-  selector: 'app-user-register-search',
-  templateUrl: './user-register-search.component.html',
-  styleUrls: ['./user-register-search.component.scss']
+  selector: "app-user-register-search",
+  templateUrl: "./user-register-search.component.html",
+  styleUrls: ["./user-register-search.component.scss"]
 })
 export class UserRegisterSearchComponent implements OnInit {
-  public userSelected: User = new User;
+  public userSelected: User = new User();
   public userList: any = [];
   public page = 1;
   public size = 6;
 
   public throttle = 1000;
   public scrollDistance = 1;
+  public keyword = "";
 
   @Output() messageEvent = new EventEmitter<string>();
 
   constructor(
     private userRegisterService: UserRegisterService,
-    private eventMessagesService: EventMessagesService,
+    private eventMessagesService: EventMessagesService
   ) {}
 
   ngOnInit() {
-   this.onScrollDown();
+    this.onScrollDownWithKeyword();
   }
 
   onScrollDown() {
-    console.log('onScrollDown...');
-    this.userRegisterService.findAll('A', this.page, this.size).subscribe(
+    console.log("onScrollDown...");
+    this.userRegisterService.findAll("A", this.page, this.size).subscribe(
       data => {
         if (data) {
           this.userList = this.userList.concat(data.content);
+          console.log("userlist: " + this.userList.length);
           if (this.userList.length !== 0 && this.page === 1) {
             this.onUserSelected(this.userList[0]);
           }
@@ -50,9 +52,48 @@ export class UserRegisterSearchComponent implements OnInit {
     );
   }
 
+  onScrollDownWithKeyword() {
+    console.log("keywork:", this.keyword);
+    if (this.keyword) {
+      this.userRegisterService
+        .findAllByCriteria(this.keyword, this.page, this.size)
+        .subscribe(
+          data => {
+            if (data) {
+              this.userList = this.userList.concat(data);
+              console.log(
+                "userlistonScrollDownWithKeyword: " + this.userList.length
+              );
+              if (this.userList.length !== 0 && this.page === 1) {
+                this.onUserSelected(this.userList[0]);
+              }
+              this.page += 1;
+            }
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    } else {
+      this.onScrollDown();
+    }
+  }
+
   onUserSelected(user) {
-    console.log('selected user');
+    console.log("selected user");
     this.userSelected = user;
     this.messageEvent.emit(user.userId);
+  }
+
+  onTermChange(event) {
+    this.page = 1;
+    this.userList = [];
+    this.onScrollDownWithKeyword();
+  }
+
+  onItemSelected(userSelected) {
+    console.log(userSelected.userId);
+    this.userSelected = userSelected;
+    this.messageEvent.emit(userSelected.userId);
   }
 }

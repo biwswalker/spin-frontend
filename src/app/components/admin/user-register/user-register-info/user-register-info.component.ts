@@ -1,3 +1,4 @@
+import { Officer } from './../../../../models/officer';
 import { User } from './../../../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { UserRegisterService } from '../../../../providers/userregister.service';
@@ -9,6 +10,7 @@ import { UserRegisterService } from '../../../../providers/userregister.service'
 })
 export class UserRegisterInfoComponent implements OnInit {
   public user: User = new User();
+  public officer: Officer = new Officer();
   public userId: string;
   public found: string;
   constructor(
@@ -16,5 +18,8 @@ export class UserRegisterInfoComponent implements OnInit {
   ){}
 
   ngOnInit() {
+  }
+  test(){
+    console.log("test");
   }
 }

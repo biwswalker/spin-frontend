@@ -50,6 +50,9 @@ import { ResponsibilityComponent } from './components/admin/responsibility/respo
 import { ResponsibilityInfoComponent } from './components/admin/responsibility/responsibility-info/responsibility-info.component';
 import { ResponsibilitySearchComponent } from './components/admin/responsibility/responsibility-search/responsibility-search.component';
 import { ResponsibilityModalComponent } from './components/admin/responsibility/responsibility-modal/responsibility-modal.component';
+import { UserRegisterComponent } from "./components/admin/user-register/user-register.component";
+import { UserRegisterInfoComponent } from "./components/admin/user-register/user-register-info/user-register-info.component";
+import { UserRegisterSearchComponent } from "./components/admin/user-register/user-register-search/user-register-search.component";
 
 
 // service
@@ -78,9 +81,7 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
-import { UserRegisterComponent } from './components/admin/user-register/user-register.component';
-import { UserRegisterInfoComponent } from './components/admin/user-register/user-register-info/user-register-info.component';
-import { UserRegisterSearchComponent } from './components/admin/user-register/user-register-search/user-register-search.component';
+import { UserRegisterModalComponent } from './components/admin/user-register/user-register-modal/user-register-modal.component';
 
 @NgModule({
   declarations: [
@@ -120,11 +121,12 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
     ResponsibilityComponent,
     ResponsibilityInfoComponent,
     ResponsibilitySearchComponent,
+    ResponsibilityModalComponent,
     UserRegisterComponent,
     UserRegisterInfoComponent,
     UserRegisterSearchComponent,
-    ResponsibilityModalComponent
-  ],
+    UserRegisterModalComponent,
+    ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -160,11 +162,11 @@ import { UserRegisterSearchComponent } from './components/admin/user-register/us
     HolidayService,
     LeaveService,
     EventMessagesService,
-    UserRegisterService,
+    UserRegisterService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 
