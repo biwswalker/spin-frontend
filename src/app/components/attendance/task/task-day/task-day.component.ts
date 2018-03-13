@@ -62,7 +62,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     $(datepickerId).datepicker({
       todayHighlight: true,
       beforeShowDay: function (date) {
-        // console.log(date)
         let dates = new Date(date);
         let monthDate = self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(dates));
         for (let hol of self.holidays) {
@@ -70,10 +69,8 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
             return { enabled: true, classes: 'holiday', tooltip: hol.holName };
           }
         }
-        // console.log('unstamp' + self.unstamped)
         for (let unstamp of self.unstamped) {
           if (unstamp == monthDate) {
-            console.log('unstamp' + monthDate)
             return { enabled: true, classes: 'unstamped', tooltip: 'คุณไม่ได้ลงเวลางาน' };
           }
         }
@@ -138,7 +135,7 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
       }
     });
     Observable.forkJoin(unstampedFetch, holidaysFetch, leavesFetch).subscribe(successes => {}, err => {}, () => {
-      // console.log('Complete');
+      $('#workingDatePicker').datepicker('refresh');
     })
   }
 }

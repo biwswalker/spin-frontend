@@ -392,6 +392,11 @@
 			this.fill();
 		},
 
+		refresh: function(){
+			// Custom by jannarong.sa 
+			this.fill();
+		},
+
 		fillDow: function(){
 			var dowCnt = this.o.weekStart,
 			html = '<tr>';
