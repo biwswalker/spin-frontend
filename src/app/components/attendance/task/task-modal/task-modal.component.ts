@@ -70,9 +70,10 @@ export class TaskModalComponent implements AfterViewInit {
     console.log(task);
     this.taskForm.task = task;
     this.mode = mode;
-    this.taskDetailChild.color = task.color ? task.color : 'primary';
+    this.taskDetailChild.color = (task.color ? task.color : 'primary');
     this.bgColor = task.color ? task.color : 'primary';
     const objTask = this.taskForm.task;
+    objTask.color = (task.color ? task.color : 'primary');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     if (this.taskForm.task.projectId) {
       console.log('GGQWPPP');
@@ -93,18 +94,9 @@ export class TaskModalComponent implements AfterViewInit {
     }
   }
 
-  // selectedProject(prjId: number) {
-  //   this.projectService.findProjectById(prjId).subscribe(
-  //     project => {
-  //       if (project) {
-  //         this.taskService.selectedProjectId.next(project.projectId);
-  //         this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
-  //       }
-  //     }
-  //   )
-  // }
-
   onSubmit() {
+    console.log(this.taskDetailChild.taskObj.color)
+    this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;

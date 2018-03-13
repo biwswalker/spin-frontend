@@ -33,7 +33,7 @@ export class TaskDetailComponent implements OnInit {
   public activity: string = '';
   public projectId: number = 0;
   public project: any = '';
-  public projectList = new Observable<Project[]>();
+  public projectList: Project[];
   public taskDetailFormGroup: FormGroup;
   public user: User;
   public color: string;
@@ -57,8 +57,11 @@ export class TaskDetailComponent implements OnInit {
     // Initial Fav Project
     this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
     // Find project
-    console.log(this.projectService.fetchProjectAutocomplete());
-    this.projectList = this.projectService.fetchProjectAutocomplete();
+    this.projectService.fetchProjectAutocomplete().subscribe(
+      projects=>{
+        this.projectList = projects;
+      }
+    )
   }
 
   resetData() {
@@ -74,6 +77,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
+    console.log(task)
     this.taskObj = new Task();
     this.taskObj = task;
     this.mode = mode;
@@ -115,10 +119,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
-    this.color = color;
-    if (this.color) {
-      this.taskObj.color = this.color;
-      this.messageEvent.emit(this.color);
+    this.taskObj.color = color;
+    if (this.taskObj.color) {
+      // this.taskObj.color = this.color;
+      this.messageEvent.emit(this.taskObj.color);
     }
   }
 
@@ -136,14 +140,11 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onChangeTime() {
-
     let startTime = this.taskDetailFormGroup.value.taskDetailStartTime;
     let endTime = this.taskDetailFormGroup.value.taskDetailEndTime;
-
     this.endTimeList = this.utilsService.getTimeList();
     this.endTimeList.splice(0, this.endTimeList.indexOf(startTime) + 1);
     this.workStartTime = startTime;
-
     if ((this.timeList.indexOf(startTime) - this.timeList.indexOf(endTime)) >= 0) {
       this.taskDetailFormGroup.patchValue({ taskDetailEndTime: this.endTimeList[0] });
     }

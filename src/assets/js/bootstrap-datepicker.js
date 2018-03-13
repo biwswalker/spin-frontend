@@ -1258,6 +1258,10 @@
 	);
 	$(function(){
 		$('[data-provide="datepicker-inline"]').datepicker();
-	});
+  });
+
+  $(document).on('click','.datepicker + .input-group-append',function(){
+    $(this).parent().children('input').trigger('focus');
+  })
 
 }( window.jQuery ));
