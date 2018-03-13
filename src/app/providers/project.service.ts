@@ -18,15 +18,15 @@ export class ProjectService {
   // Begin Insert Update Delete Actions
   createProject(project) {
 
-    return this.request.requestMethodPUT('projects-management', project);
+    return this.request.requestMethodPUT('project-management/projects', project);
   }
 
   updateProject(project) {
-    return this.request.requestMethodPOST('projects-management', project);
+    return this.request.requestMethodPOST('project-management/projects', project);
   }
 
   toggleFavorite(projectId) {
-    return this.request.requestMethodGET('favorite-project-management/' + projectId);
+    return this.request.requestMethodGET('favorite-project-management/favorite-projects/' + projectId);
   }
   // End Insert Update Delete Actions
 
