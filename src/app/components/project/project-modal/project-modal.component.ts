@@ -28,22 +28,24 @@ export class ProjectModalComponent{
     private eventMessageService: EventMessagesService,
     private utilsService: UtilsService
   ) {
-        this.currentAct = this.projectService.currentProjectAct.subscribe((project:Project)=>{
-          if(project.projectId){
-            this.project = new Project;
-            this.project = project;
-            this.updateProject(this.project);
-          }
-        },
-      err=>{
-        console.log("Error: ",err);
-      },
-      ()=>{
 
-      }
-      )
     }
+    ngOnInit(){
+    this.currentAct = this.projectService.currentProjectAct.subscribe((project:Project)=>{
+      if(project.projectId){
+        this.project = new Project;
+        this.project = project;
+        this.updateProject(this.project);
+      }
+    },
+  err=>{
+    console.log("Error: ",err);
+  },
+  ()=>{
 
+  }
+  )
+  }
 
   ngOnDestroy(){
     console.log('modal ngOnDestroy');
