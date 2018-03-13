@@ -75,7 +75,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog dialog-confirm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -90,26 +90,21 @@
             </div>
         </div>
     </div>
-</div>
-<!-- <div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialo" role="document">
-      <div class="modal-content dialog-confirm">
-          <div class="modal-header">
-              <i class="fas fa-trash-alt"></i> ยืนยันการลบงานหรือไม่ ?
-          </div>
-          <div class="modal-body">
-              <h5 class="modal-title" id="confirmDeleteTask">ยืนยันการลบข้อมูล</h5>
-          </div>
-          <div class="modal-footer">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-dismiss="modal">ยกเลิก</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" (click)="deleteTask()" data-dismiss="modal">ลบงานที่สร้างไว้</a>
-                </li>
-              </ul>
-          </div>
-      </div>
-  </div>
 </div> -->
+<div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header danger">
+                <i class="fas fa-trash-alt"></i> ยืนยันการลบงานหรือไม่ ?
+            </div>
+            <div class="modal-footer">
+                <div class="col-6">
+                    <a class="btn btn-danger" data-dismiss="modal">ยกเลิก</a>
+                </div>
+                <div class="col-6">
+                    <a class="btn btn-success" (click)="deleteTask()" data-dismiss="modal">ลบงานที่สร้างไว้</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

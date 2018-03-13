@@ -36,7 +36,7 @@ export class TaskDetailComponent implements OnInit {
   public projectList: Project[];
   public taskDetailFormGroup: FormGroup;
   public user: User;
-  public color: string;
+  // public color: string;
   public mode: string;
   public favProjectList = new Observable<Project[]>();
   public timeList: any[];
@@ -119,9 +119,9 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
+    console.log(color);
     this.taskObj.color = color;
     if (this.taskObj.color) {
-      // this.taskObj.color = this.color;
       this.messageEvent.emit(this.taskObj.color);
     }
   }
