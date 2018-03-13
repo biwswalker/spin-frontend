@@ -55,8 +55,8 @@
 
 		if (this.o.rtl){
 			this.picker.addClass('datepicker-rtl');
-			this.picker.find('.prev i, .next i')
-						.toggleClass('icon-arrow-left icon-arrow-right');
+      this.picker.find('.prev i, .next i')
+						.toggleClass('fa-arrow-alt-circle-left fa-arrow-alt-circle-right');
 		}
 
 
@@ -1196,9 +1196,9 @@
 		},
 		headTemplate: '<thead>'+
 							'<tr>'+
-								'<th class="prev"><i class="icon-arrow-left"/></th>'+
+								'<th class="prev"><i class="far fa-arrow-alt-circle-left"/></th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th class="next"><i class="icon-arrow-right"/></th>'+
+								'<th class="next"><i class="far fa-arrow-alt-circle-right"/></th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
@@ -1256,6 +1256,10 @@
 	);
 	$(function(){
 		$('[data-provide="datepicker-inline"]').datepicker();
-	});
+  });
+
+  $(document).on('click','.datepicker + .input-group-append',function(){
+    $(this).parent().children('input').trigger('focus');
+  })
 
 }( window.jQuery ));

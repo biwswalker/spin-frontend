@@ -57,6 +57,7 @@ export class TaskDetailComponent implements OnInit {
     // Initial Fav Project
     this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
     // Find project
+    console.log(this.projectService.fetchProjectAutocomplete());
     this.projectList = this.projectService.fetchProjectAutocomplete();
   }
 
@@ -70,7 +71,6 @@ export class TaskDetailComponent implements OnInit {
     this.projectId = 0;
     this.project = '';
     this.statusFlag = false;
-    this.timeList = this.utilsService.getTimeList();
   }
 
   initTaskDetail(task: Task, mode: string) {
@@ -81,6 +81,7 @@ export class TaskDetailComponent implements OnInit {
     this.initialTime();
     this.initialData();
     this.validateData();
+    this.timeList = this.utilsService.getTimeList();
   }
 
   onSelectCallBack(date: string) {
@@ -89,10 +90,9 @@ export class TaskDetailComponent implements OnInit {
 
   initialTime() {
     this.workStartTime = this.taskObj.workStartTime ? this.utilsService.convertDisplayTime(this.taskObj.workStartTime) : '';
-    // this.taskDetailFormGroup.patchValue({ taskDetailStartTime: this.workStartTime });
     this.workEndTime = this.taskObj.workEndTime ? this.utilsService.convertDisplayTime(this.taskObj.workEndTime) : '';
-    // this.taskDetailFormGroup.patchValue({ taskDetailEndTime: this.workEndTime });
     this.workDate = this.taskObj.workDate ? this.utilsService.displayCalendarDate(this.taskObj.workDate) : '';
+    this.endTimeList = this.utilsService.getEndTimeList(this.workStartTime);
   }
 
   initialData() {
@@ -125,23 +125,33 @@ export class TaskDetailComponent implements OnInit {
   onChangeProject(event) {
     if (this.projectId != event.item.projectId) {
       this.projectId = event.item.projectId;
-      this.taskService.selectedProjectId.next(this.projectId);
+      this.taskService.changeProjectId(this.projectId);
     }
   }
 
   onFavoriteClick(event) {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
-    this.taskService.selectedProjectId.next(event.projectId);
+    this.taskService.changeProjectId(event.projectId);
   }
 
-  onChangeTime(event){
-    console.log(event);
-    let startTime: number;
-    startTime = Number(this.utilsService.convertTimeToDb(event.value));
-    console.log(startTime);
-    this.workStartTime = event.value;
+  onChangeTime() {
+
+    let startTime = this.taskDetailFormGroup.value.taskDetailStartTime;
+    let endTime = this.taskDetailFormGroup.value.taskDetailEndTime;
+
+    this.endTimeList = this.utilsService.getTimeList();
+    this.endTimeList.splice(0, this.endTimeList.indexOf(startTime) + 1);
+    this.workStartTime = startTime;
+
+    if ((this.timeList.indexOf(startTime) - this.timeList.indexOf(endTime)) >= 0) {
+      this.taskDetailFormGroup.patchValue({ taskDetailEndTime: this.endTimeList[0] });
+    }
   }
 
+  initialEndTimeList() {
+    this.endTimeList = this.utilsService.getTimeList();
+    return this.endTimeList.splice(0, this.endTimeList.indexOf(this.workStartTime) + 1);
+  }
 }
 

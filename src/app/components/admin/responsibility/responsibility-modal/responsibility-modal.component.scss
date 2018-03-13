@@ -1,3 +1,38 @@
 .modal .modal-body {
   background-color: #fffbfb;
 }
+
+textarea {
+  resize: none;
+}
+
+.modal-header {
+  background-color: #BF0013;
+  color: #FFFFFF;
+  border-bottom: none;
+  .header-text {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 300;
+  }
+  button>i {
+    color: #FFFFFF !important;
+  }
+  button:hover {
+    opacity: 0.8;
+    filter: opacity(80);
+  }
+}
+
+// .ng-valid[required],
+// .ng-valid.required {
+//   border-left: 5px solid #42A948;
+//   /* green */
+// }
+// .ng-invalid:not(form) {
+//   border: 1px solid #a94442;
+//   /* red */
+// }
+.form-control.ng-touched.ng-pristine.ng-invalid {
+  border: 1px solid #a94442;
+}

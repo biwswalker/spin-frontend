@@ -1,3 +1,4 @@
+import { User } from './../../../../models/user';
 import { ProjectModalComponent } from './../../project-modal/project-modal.component';
 import { ProjectService } from './../../../../providers/project.service';
 import { ProjectPhase } from './../../../../models/project-phase';
@@ -14,6 +15,7 @@ export class PrjInfoDetailComponent implements OnInit {
   public project:Project = new Project;
   public projectPhases:ProjectPhase[] = [];
   public projectId:string;
+  public user :User = new User;
   constructor(private projectService:ProjectService) { }
 
   ngOnInit() {

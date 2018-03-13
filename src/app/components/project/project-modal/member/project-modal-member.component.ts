@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { ResponsibilityService } from '../../../../providers/responsibility.service';
+import { UtilsService } from '../../../../providers/utils/utils.service';
 
 
 
@@ -29,6 +30,7 @@ export class ProjectModalMemberComponent implements OnInit {
 
   constructor(private officerService: OfficerService,
   private respService:ResponsibilityService,
+  private utilsService: UtilsService,
   private projectService: ProjectService) {
   }
 
@@ -43,7 +45,6 @@ export class ProjectModalMemberComponent implements OnInit {
     this.officerService.fetchAllAutocomplete('A').subscribe(
 
       users=>{
-        console.log('user: ',users);
         this.users = [];
         for (let user of users.content){
           user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
@@ -96,6 +97,7 @@ export class ProjectModalMemberComponent implements OnInit {
   }
 
   onSubmit($event){
+    this.utilsService.findInvalidControls(this.projectMemberGroup);
     if(this.projectMemberGroup.valid){
       this.projectMembers = this.projectMembers.concat(this.projectMember);
       this.projectMember = new ProjectMember;

@@ -1,0 +1,54 @@
+<div id="resp-info">
+  <div class="row info-header">
+    <div class="col-9 text-left">
+      <h5 class="mb-0">
+        <label>รายละเอียดพนักงาน</label>
+      </h5>
+    </div>
+    <div class="col-3 text-right">
+      <button type="button" class="btn btn-link" (click)="editOfficer($event)">
+        <i class="fas fa-pencil-alt"> แก้ไข</i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <label class="info-body-bold">รหัสพนักงาน</label>
+      <p class="info-body">{{officer.officeId}}</p>
+    </div>
+    <div class="col-3">
+      <label class="info-body-bold">สถานะ</label>
+      <p class="info-body">{{officer.activeFlag === 'A' ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">ชื่อ(ไทย)</label>
+      <p class="info-body">{{officer.titleTh}} {{officer.firstNameTh}} {{officer.lastNameTh}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">ชื่อ(ENG)</label>
+      <p class="info-body">{{officer.titleEn}} {{officer.firstNameEn}} {{officer.lastNameEn}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">แผนก</label>
+      <p class="info-body">{{officer.department.deptName}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">ตำแหน่ง</label>
+      <p class="info-body">{{officer.position.positionName}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">วันที่เริ่มทำงาน</label>
+      <p class="info-body">{{officer.startDate | thaiDate:'short' || '' }}</p>
+    </div>
+  </div>
+</div>

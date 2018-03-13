@@ -4,6 +4,7 @@ export class Project {
 
   // For insrt and update
     public projectId: number;
+    public ownerUserId:string;
     public projectName: string;
     public projectAbbr: string;
     public customerName: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, DoCheck, OnDestroy, AfterViewChecked, AfterContentInit } from '@angular/core';
 import { ResponsibilityInfoComponent } from './responsibility-info/responsibility-info.component';
 import { ResponsibilityService } from '../../../providers/responsibility.service';
 import { ResponsibilitySearchComponent } from './responsibility-search/responsibility-search.component';
@@ -23,11 +23,11 @@ export class ResponsibilityComponent implements OnInit {
   constructor(protected responsibilityService: ResponsibilityService) { }
 
   ngOnInit() {
-
   }
 
-  getRespId(key) {
-    console.log(key);
+
+  getData(key) {
+    console.log('key = ' + key);
     this.respId = key;
     this.getRespInfo();
   }
@@ -41,13 +41,18 @@ export class ResponsibilityComponent implements OnInit {
   }
 
   createResponsibility() {
-    console.log('open');
     this.responsibilityModal.mode = Mode.I;
     this.responsibilityModal.responsibility = new Responsibility();
+    this.responsibilityModal.ngOnInit();
     this.responsibilityService.onOpenModal();
   }
 
-
+  onCheckState(key) {
+    console.log('onCheckState = ' + key);
+    if (key) {
+      this.respinsibilitySearch.ngOnInit();
+    }
+  }
 
 
 

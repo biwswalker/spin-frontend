@@ -10,7 +10,6 @@ import { Leave } from '../../../../models/leave';
 import { LeaveService } from '../../../../providers/leave.service';
 import { AuthenticationService } from '../../../../providers/authentication.service';
 declare var $: any;
-declare var inlineDatepicker: any;
 @Component({
   selector: 'task-day',
   templateUrl: './task-day.component.html',
@@ -47,60 +46,71 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
   }
 
   ngAfterViewInit(): void {
+    // Toggle
     $("button.dp-btn-collapse").click(function () {
       $("button.dp-btn-collapse > i").toggle();
       if ($('#toggle-calendar').hasClass('collapsed')) {
-        $('.day-tasks-list').css({"height":"240px"});
+        $('.day-tasks-list').css({ "height": "240px" });
       } else {
-        $('.day-tasks-list').css({"height":"500px"});
+        $('.day-tasks-list').css({ "height": "500px" });
       }
     });
+
     // Call DatePicker
     let datepickerId = '#workingDatePicker'
     let self = this;
     $(datepickerId).datepicker({
-      isBE: true,
-      onSelect: function (dateText, inst) {
-        self.subjectDate.next(dateText);
-      },
+      todayHighlight: true,
       beforeShowDay: function (date) {
-        let monthDate = self.utilsService.convertEnDDMYYYYToThDate(date.getDate(), date.getMonth() + 1, date.getFullYear())
+        let dates = new Date(date);
+        let monthDate = self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(dates));
         for (let hol of self.holidays) {
           if (hol.holDate == monthDate) {
-            return [true, 'holiday', hol.holName];
+            return { enabled: true, classes: 'holiday', tooltip: hol.holName };
           }
         }
-
         for (let unstamp of self.unstamped) {
           if (unstamp == monthDate) {
-            return [true, 'unstamped', 'คุณไม่ได้ลงเวลางาน'];
+            console.log('unstamp' + monthDate)
+            return { enabled: true, classes: 'unstamped', tooltip: 'คุณไม่ได้ลงเวลางาน' };
           }
         }
-
         for (let leave of self.leaves) {
           if (leave.leaveDate == monthDate) {
-            return [true, 'leave', 'ลา'];
+            return { enabled: true, classes: 'leave', tooltip: 'ลา' };
           }
         }
-        return [true];
-      },
-      onChangeMonthYear: function (year, month, inst) {
-        let thYear = self.utilsService.convertToThYearStr(year);
-        let thMoth = self.utilsService.convertNumberTo2Deci(month);
-        // Get SpecialDate
-        self.subjectYearMonth.next({ year: thYear, month: thMoth })
+        return { enabled: true, tooltip: '' };
       }
+      // onChangeMonthYear: function (year, month, inst) {
+      //   let thYear = self.utilsService.convertToThYearStr(year);
+      //   let thMoth = self.utilsService.convertNumberTo2Deci(month);
+      //   // Get SpecialDate
+      //   self.subjectYearMonth.next({ year: thYear, month: thMoth })
+      // }
+    });
+
+
+    $(datepickerId).datepicker().on('changeDate', function (dateText) {
+      let pickerdate = new Date(dateText.date);
+      self.subjectDate.next(self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(pickerdate)));
+    });
+    $(datepickerId).datepicker().on('changeMonth', function (dateText) {
+      console.log(dateText)
+      // let thYear = self.utilsService.convertToThYearStr(year);
+      //   let thMoth = self.utilsService.convertNumberTo2Deci(month);
+      //   // Get SpecialDate
+      //   self.subjectYearMonth.next({ year: thYear, month: thMoth })
     });
     // Sets stye
     $(datepickerId).addClass('w-100');
-    $($(datepickerId).find('.ui-datepicker-inline')).addClass('w-100');
-    $($(datepickerId).find('.ui-datepicker-inline')).css({ 'margin-left': 'auto', 'margin-right': 'auto' });
-    inlineDatepicker()
+    $($(datepickerId).find('.datepicker-inline')).addClass('w-100');
+    $($(datepickerId).find('.datepicker-inline table')).addClass('w-100');
+    $($(datepickerId).find('.datepicker-inline')).css({ 'margin-left': 'auto', 'margin-right': 'auto' });
     // End Call DatePicker
   }
 
   ngAfterViewChecked() {
-    inlineDatepicker()
   }
 
   fetchSpecialDate(year, month) {
@@ -108,7 +118,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     this.taskService.findUnStamped(year, month).subscribe(unstampeds => {
       this.unstamped = [];
       this.unstamped = unstampeds;
-      $('#workingDatePicker').datepicker('refresh');
     });
 
     // Get Holiday
@@ -119,7 +128,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
           this.holidays.push(hol);
         }
       }
-      $('#workingDatePicker').datepicker('refresh');
     });
 
     // Get Leave
@@ -130,7 +138,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
           this.leaves.push(leave);
         }
       }
-      $('#workingDatePicker').datepicker('refresh');
     });
 
   }

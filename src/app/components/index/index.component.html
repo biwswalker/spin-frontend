@@ -1,127 +1,106 @@
-
 <!-- Sidebar -->
 
 
 <!-- Page Content -->
 <div class="container-fluid">
 
-    <nav class="navbar navbar-expand-xs navbar-light position-sticky sticky-top spin-navbar"
-         style=" background: #90000e;">
-        <ul class="nav left-section">
-            <li class="nav-item d-inline-block d-md-none">
-                <a class="btn"
-                        id="toggle-sidebar">
-                    <i class="fas fa-bars"></i>
-            </a>
-            </li>
-            <li class="nav-item">
-                <a class="navbar-brand"
-                   href="#">
-                    <img src="./assets/img/brand/logo_L_white.png"
-                         width="100"
-                         class="d-inline-block align-top"
-                         alt="">
-                </a>
-            </li>
-        </ul>
+  <nav class="navbar navbar-expand-xs navbar-light position-sticky sticky-top spin-navbar" style=" background: #90000e;">
+    <ul class="nav left-section">
+      <li class="nav-item d-inline-block d-md-none">
+        <a class="btn" id="toggle-sidebar">
+          <i class="fas fa-bars"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/img/brand/logo_L_white.png" width="100" class="d-inline-block align-top" alt="">
+        </a>
+      </li>
+    </ul>
 
 
 
-        <ul class="nav justify-content-end nav-profile">
-            <li class="nav-item">
-                <img class="user-image-thumbnail rounded-circle"
-                     src="./assets/img/profile/profile.png"
-                     width="50"
-                     height="50">
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                   href="#"
-                   id="navbarDropdown"
-                   role="button"
-                   data-toggle="dropdown"
-                   aria-haspopup="true"
-                   aria-expanded="false">
-                    <div class="account-box">
-                        <span class="user-name">{{fullname}}</span>
-                        <span class="user-id">{{email}}</span>
-                    </div>
-                </a>
-                <div class="dropdown-menu"
-                     aria-labelledby="navbarDropdown">
-
-                    <!-- <div class="dropdown-divider"></div> -->
-                    <a class="dropdown-item"
-                       href="#"
-                       (click)="logout()">Log Out</a>
-                </div>
-            </li>
-        </ul>
-
-
-    </nav>
-
-    <div class="row main">
-        <div class="col-sm-1 spin-sidebar">
-          <div id="sidebar">
-
-            <!-- Sidebar Links -->
-            <nav class="spin-link">
-                <ul class="nav flex-column">
-                    <li class="nav-item active">
-                        <a class="nav-link"
-                           [routerLink]="['/']">
-                            <i class="fas fa-pen-square"></i>
-                            <span class="menu-title">เวลาทำงาน</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           [routerLink]="['/project']">
-                            <i class="fas fa-folder-open"></i>
-                            <span class="menu-title">โครงการ</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#">
-                            <i class="fas fa-suitcase"></i>
-                            <span class="menu-title">ระบบลา</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#">
-                            <i class="fas fa-history"></i>
-                            <span class="menu-title">เข้า-ออก</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#">
-                            <i class="fas fa-newspaper"></i>
-                            <span class="menu-title">ข่าวสาร</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropright">
-                      <a class="nav-link dropdown-toggle" id="admin-menu-dropdown"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-cogs"></i>
-                          <span class="menu-title">Admin</span>
-                      </a>
-                      <div class="dropdown-menu"   aria-labelledby="admin-menu-dropdown">
-
-                          <!-- <div class="dropdown-divider"></div> -->
-                          <a class="dropdown-item"  href="#">Log Out</a>
-                    </div>
-                  </li>
-                </ul>
-            </nav>
+    <ul class="nav justify-content-end nav-profile">
+      <li class="nav-item">
+        <img class="user-image-thumbnail rounded-circle" src="./assets/img/profile/profile.png" width="50" height="50">
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <div class="account-box">
+            <span class="user-name">{{fullname}}</span>
+            <span class="user-id">{{email}}</span>
           </div>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+          <!-- <div class="dropdown-divider"></div> -->
+          <a class="dropdown-item" href="#" (click)="logout()">Log Out</a>
         </div>
-        <div class="col-12 col-sm-11">
-            <!-- Sub Header -->
-            <router-outlet></router-outlet>
-        </div>
+      </li>
+    </ul>
+
+
+  </nav>
+
+  <div class="row main">
+    <div class="col-sm-1 spin-sidebar">
+      <div id="sidebar">
+
+        <!-- Sidebar Links -->
+        <nav class="spin-link">
+          <ul class="nav flex-column">
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/']">
+                <i class="fas fa-pen-square"></i>
+                <span class="menu-title">เวลาทำงาน</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/project']">
+                <i class="fas fa-folder-open"></i>
+                <span class="menu-title">โครงการ</span>
+              </a>
+            </li>
+            <li class="nav-item disabled">
+              <a class="nav-link">
+                <i class="fas fa-suitcase"></i>
+                <span class="menu-title">ระบบลา</span>
+              </a>
+            </li>
+            <li class="nav-item disabled">
+              <a class="nav-link">
+                <i class="fas fa-history"></i>
+                <span class="menu-title">เข้า-ออก</span>
+              </a>
+            </li>
+            <li class="nav-item disabled">
+              <a class="nav-link">
+                <i class="fas fa-newspaper"></i>
+                <span class="menu-title">ข่าวสาร</span>
+              </a>
+            </li>
+            <li class="nav-item dropright">
+              <a class="nav-link dropdown-toggle" id="admin-menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-cogs"></i>
+                <span class="menu-title">Admin</span>
+
+              </a>
+              <div class="dropdown-menu" aria-labelledby="admin-menu-dropdown">
+                <!-- <div class="dropdown-divider"></div> -->
+                <a class="dropdown-item" [routerLink]="['/user-register']">ผู้ใช้งาน</a>
+                <a class="dropdown-item" [routerLink]="['/responsibility']">หน้าที่ความรับผิดชอบ</a>
+                <a class="dropdown-item" [routerLink]="['/officer']">พนักงาน</a>
+              </div>
+
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
+    <div class="col-12 col-sm-11">
+      <!-- Sub Header -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

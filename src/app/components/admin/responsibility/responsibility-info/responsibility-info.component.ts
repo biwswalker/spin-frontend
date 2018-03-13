@@ -7,7 +7,7 @@ import { ResponsibilityModalComponent } from '../responsibility-modal/responsibi
 @Component({
   selector: 'app-responsibility-info',
   templateUrl: './responsibility-info.component.html',
-  styleUrls: ['./responsibility-info.component.scss']
+  styleUrls: ['./responsibility-info.component.scss', '../responsibility.component.scss']
 })
 export class ResponsibilityInfoComponent implements OnInit {
 
@@ -23,9 +23,7 @@ export class ResponsibilityInfoComponent implements OnInit {
 
 
   editResponsibility(event) {
-    console.log(this.responsibility);
     this.responsibilityService.emitResponsibility(this.responsibility.respId);
-    console.log(this.responsibility);
     this.responsibilityService.onOpenModal();
   }
 

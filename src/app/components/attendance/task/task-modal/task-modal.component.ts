@@ -24,12 +24,11 @@ declare var $: any;
 })
 export class TaskModalComponent implements AfterViewInit {
 
-
   public task: Task = new Task();
   public bgColor: string;
   public taskForm: TaskForm = new TaskForm();
   private modal = new SpinModal();
-  private user = new User();
+  private user: User = new User();
   public mode = '';
 
   @ViewChild(TaskDetailComponent) taskDetailChild;
@@ -42,13 +41,15 @@ export class TaskModalComponent implements AfterViewInit {
     private eventMessageService: EventMessagesService,
     private auth: AuthenticationService,
     private projectService: ProjectService) {
+    this.auth.crrUser.subscribe((user: User) => {
+      this.user = user;
+    });
 
   }
 
   ngAfterViewInit() {
     // Get User
     this.user = this.auth.getUser();
-    console.log(this.user);
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       console.log('currentTask=> ', task);
@@ -66,16 +67,24 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
+    console.log(task);
     this.taskForm.task = task;
     this.mode = mode;
-    this.taskForm.task.color = task.color ? task.color : 'primary';
+    this.taskDetailChild.color = task.color ? task.color : 'primary';
+    this.bgColor = task.color ? task.color : 'primary';
     const objTask = this.taskForm.task;
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     if (this.taskForm.task.projectId) {
-      console.log('GGQWPPP')
-      this.taskService.selectedProjectId.next(this.taskForm.task.projectId);
+      console.log('GGQWPPP');
+      this.projectService.findProjectById(this.taskForm.task.projectId).subscribe(
+        project => {
+          this.taskService.changeProjectId(project.projectId);
+          this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
+        }
+      )
     }
     this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
+    this.taskPartnerChild.owner = this.user.email;
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
@@ -83,17 +92,6 @@ export class TaskModalComponent implements AfterViewInit {
       console.log('View');
     }
   }
-
-  // selectedProject(prjId: number) {
-  //   this.projectService.findProjectById(prjId).subscribe(
-  //     project => {
-  //       if (project) {
-  //         this.taskService.selectedProjectId.next(project.projectId);
-  //         this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
-  //       }
-  //     }
-  //   )
-  // }
 
   onSubmit() {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
@@ -155,6 +153,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.oncloseModal();
       },
       error => {
+        this.eventMessageService.onInsertError(error);
         console.log(error)
       }
     );
@@ -164,9 +163,10 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskService.updateTask(task).subscribe(
       res => {
         console.log(res);
-        this.eventMessageService.onInsertSuccess('');
+        this.eventMessageService.onUpdateSuccess('');
         this.oncloseModal();
       }, error => {
+        this.eventMessageService.onUpdateError(error);
         console.log(error);
       }
     )

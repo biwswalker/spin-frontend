@@ -37,42 +37,48 @@ export class TimetableDayComponent implements AfterViewInit {
   }
 
   fecthWorkingTaskByDate(enDate: string) {
-    this.refreshTimeTable();
     this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(enDate)).subscribe((tasks: Task[]) => {
       let index = 0;
+      let isRepeat: number[] = [];
+      this.refreshTimeTable();
       for (let task of tasks) {
-        if (task.activeFlag === 'A') {
-          const start = Number(task.workStartTime);
-          const end = Number(task.workEndTime) - 30;
-          let startIndex = -1;
-          let endIndex = -1;
-          if (start === end) {
-            startIndex = this.worktable.findIndex(time => time === start)
-            endIndex = startIndex;
-          } else {
-            startIndex = this.worktable.findIndex(time => time === start)
-            let min = convertTimeString(end).substr(2, 1);
-            if (min === '7') {
-              endIndex = this.worktable.findIndex(time => time === end - 40)
+        // Check Report loop Subject
+        let repeated = isRepeat.find(id => id === task.taskId);
+        if (!repeated) {
+          if (task.activeFlag === 'A') {
+            const start = Number(task.workStartTime);
+            const end = Number(task.workEndTime) - 30;
+            let startIndex = -1;
+            let endIndex = -1;
+            if (start === end) {
+              startIndex = this.worktable.findIndex(time => time === start)
+              endIndex = startIndex;
             } else {
-              endIndex = this.worktable.findIndex(time => time === end)
+              startIndex = this.worktable.findIndex(time => time === start)
+              let min = convertTimeString(end).substr(2, 1);
+              if (min === '7') {
+                endIndex = this.worktable.findIndex(time => time === end - 40)
+              } else {
+                endIndex = this.worktable.findIndex(time => time === end)
+              }
             }
-          }
+            let groupClass = `stamped${index}`
+            let overlapClass = `overlap${index}`
+            let overlayClass = `overlay${index}`
+            for (let i = startIndex; i <= endIndex; i++) {
+              $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
+            }
+            $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
+            $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
+              <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
+              <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
+            </div>`);
+            $(`.${overlayClass}`).addClass('stamp-box')
+            $(`.${overlapClass}`).click(() => this.onViewTask(task));
+            isRepeat.push(task.taskId)
 
-          let groupClass = `stamped${index}`
-          let overlapClass = `overlap${index}`
-          let overlayClass = `overlay${index}`
-          for (let i = startIndex; i <= endIndex; i++) {
-            $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
+            index++;
           }
-          $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
-          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
-        <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
-        <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
-      </div>`);
-          $(`.${overlayClass}`).addClass('stamp-box')
-          $(`.${overlapClass}`).click(() => this.onViewTask(task));
-          index++;
         }
       }
     }, err => {
@@ -134,6 +140,10 @@ export class TimetableDayComponent implements AfterViewInit {
           if (timeList.length == 1) {
             let starttime = Number(timeList[0])
             let endtime = Number(timeList[0]) + 30
+            let min = convertTimeString(endtime).substr(2, 1);
+            if (min === '6') {
+              endtime = endtime + 40;
+            }
             startWorkingTime = convertTimeString(starttime);
             endWorkingTime = convertTimeString(endtime);
           } else {
@@ -160,6 +170,7 @@ export class TimetableDayComponent implements AfterViewInit {
   }
 
   onViewTask(task) {
+    console.log('onViewTask(task) BIWSWALKER')
     let modal = new SpinModal();
     modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
     $('#task-modal').on("hidden.bs.modal", function () {

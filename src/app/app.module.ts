@@ -4,7 +4,7 @@ import { NgModule, Directive, Input, Output, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
-import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+// import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
@@ -81,6 +81,10 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
+import { OfficerComponent } from './components/admin/officer/officer.component';
+import { OfficerSearchComponent } from './components/admin/officer/officer-search/officer-search.component';
+import { OfficerInfoComponent } from './components/admin/officer/officer-info/officer-info.component';
+import { OfficerModalComponent } from './components/admin/officer/officer-modal/officer-modal.component';
 import { UserRegisterModalComponent } from './components/admin/user-register/user-register-modal/user-register-modal.component';
 
 @NgModule({
@@ -125,8 +129,12 @@ import { UserRegisterModalComponent } from './components/admin/user-register/use
     UserRegisterComponent,
     UserRegisterInfoComponent,
     UserRegisterSearchComponent,
-    UserRegisterModalComponent,
-    ],
+    OfficerComponent,
+    OfficerSearchComponent,
+    OfficerInfoComponent,
+    OfficerModalComponent,
+    UserRegisterModalComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -136,7 +144,6 @@ import { UserRegisterModalComponent } from './components/admin/user-register/use
     BrowserAnimationsModule,
     TagInputModule,
     BrowserAnimationsModule,
-    NguiAutoCompleteModule,
     InfiniteScrollModule,
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
@@ -166,7 +173,4 @@ import { UserRegisterModalComponent } from './components/admin/user-register/use
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
-
-platformBrowserDynamic().bootstrapModule(AppModule);
-
+export class AppModule { }

@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 import { UtilsService } from './../../providers/utils/utils.service';
 import { ProjectModalComponent } from './project-modal/project-modal.component';
 import { ProjectSearchComponent } from './project-search/project-search.component';
@@ -14,8 +15,9 @@ import { Project } from '../../models/project';
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })
-export class ProjectComponent implements OnInit {
-
+export class ProjectComponent{
+  public user: User = new User;
+  public renderPage:boolean = false;
   @ViewChild(ProjectSearchComponent) projectSearch;
   @ViewChild(ProjectInfoComponent) projectInfo;
   @ViewChild(ProjectModalComponent) projectModal;
@@ -23,11 +25,29 @@ export class ProjectComponent implements OnInit {
     private projectService: ProjectService,
     private eventService: EventService,
     private authService: AuthenticationService,
-    private utilsService: UtilsService) { }
+    private utilsService: UtilsService) {
 
-  ngOnInit() {
+     }
+
+    ngAfterContentInit() {
+    console.log('ProjectComponent start')
+    this.authService.crrUser.subscribe(user=>{
+      console.log('this.user: ',this.user)
+      this.user = user;
+      this.renderPage = true;
+      },
+      err=>{
+        console.log(err);
+      }
+    );
 
   }
+
+  ngOnDestroy(){
+      console.log('ngOnDestroy.......');
+  }
+
+
 
   onNewProjectClick(){
     this.projectModal.newProject();
@@ -43,7 +63,7 @@ export class ProjectComponent implements OnInit {
 
   }
   displayProjectDetail(projectId){
-    this.projectInfo.projectDetail.project = new Project;
+    this.projectInfo.projectDetail.user = this.user;
     this.projectInfo.projectDetail.projectPhases = [];
     this.projectService.findProjectById(projectId).subscribe(
       data=>{
@@ -55,10 +75,10 @@ export class ProjectComponent implements OnInit {
     );
     this.projectService.findProjectPhaseById(projectId).subscribe(
       data=>{
-        if(data!){
+        if(data.length != 0){
           this.projectInfo.projectDetail.projectPhases = data;
           this.projectInfo.projectSummary.projectPhases = data;
-          this.projectInfo.projectSummary.displayProjectSummary(projectId,data[0].id.seqId);
+          this.projectInfo.projectSummary.displayProjectSummary(projectId,(data[0].id.seqId));
         }
 
       },err=>{

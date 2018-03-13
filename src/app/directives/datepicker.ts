@@ -21,7 +21,7 @@ export class DatePickerDirective implements ControlValueAccessor{
   //  });
   }
   ngAfterViewInit(){
-    $(this.el.nativeElement).datepicker().on('change', e => this.onModelChange(e.target.value));
+    $(this.el.nativeElement).datepicker({autoclose:true}).on('change', e => this.onModelChange(e.target.value));
 
   }
   onModelChange: Function = (e) => {

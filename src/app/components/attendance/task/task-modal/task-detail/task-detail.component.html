@@ -33,50 +33,32 @@
       </div>
       <div class="col-3">
         <label>เวลา *</label>
-        <input class="form-control"
-          id="work-start-time"
-          name="work-start-time"
-          formControlName="taskDetailStartTime"
-          type="text">
-          <!-- <input class="form-control"
-            id="work-start-time"
-            name="work-start-time"
-            formControlName="taskDetailStartTime"
-            [typeahead]="timeList"
-            [typeaheadScrollable]="true"
-            [typeaheadMinLength]="0"
-            (typeaheadOnSelect)="onChangeTime($event)"
-            [typeaheadOptionsInScrollableView]="10"> -->
-            <!-- <div class="btn-group" dropdown placement="top">
-              <button type="button" class="form-control">{{workStartTime}}</button>
-              <button type="button" dropdownToggle class="form-control dropdown-toggle dropdown-toggle-split">
-                  <span class="caret" ></span>
-                  <span class="sr-only">Split button!</span>
-              </button>
-              <div >
-                <ul *dropdownMenu class="dropdown-menu" role="menu">
-                  <li role="menuitem" *ngFor="let time of timeList">
-                    <a class="dropdown-item" (click)="onChangeTime($event)">{{time}}</a>
-                  </li>
-                </ul>
+            <div class="input-group">
+                <select class="form-control"
+                        id="workStartTime"
+                        name="workStartTime"
+                        (change)="onChangeTime()"
+                        formControlName="taskDetailStartTime">
+                  <option *ngFor="let time of timeList"
+                          [value]="time">
+                            {{time}}
+                  </option>
+                </select>
               </div>
-            </div> -->
       </div>
-      <div class=" col-3">
+      <div class="col-3">
         <label class="invisible">เวลา *</label>
-        <input class="form-control"
-          id="work-end-time"
-          name="work-end-time"
-          formControlName="taskDetailEndTime"
-          type="text">
-          <!-- <input class="form-control"
-            id="work-end-time"
-            name="work-end-time"
-            formControlName="taskDetailEndTime"
-            [typeahead]="timeList"
-            [typeaheadScrollable]="true"
-            [typeaheadMinLength]="0"
-            [typeaheadOptionsInScrollableView]="10"> -->
+            <div class="input-group">
+                <select class="form-control"
+                        id="workEndTime"
+                        name="workEndTime"
+                        formControlName="taskDetailEndTime">
+                  <option *ngFor="let time of endTimeList"
+                          [value]="time">
+                            {{time}}
+                  </option>
+                </select>
+              </div>
       </div>
     </div>
   <div class="row">

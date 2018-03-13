@@ -10,9 +10,9 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class AuthenticationService {
 
-  private isAccess = new Subject<boolean>();
+  private isAccess = new BehaviorSubject<boolean>(false);
   public crrAccess = this.isAccess.asObservable();
-  private userSubject = new Subject<User>();
+  private userSubject = new BehaviorSubject<User>(new User());
   public crrUser = this.userSubject.asObservable();
   public user = new User();
   public refreshTko = false;
@@ -93,7 +93,7 @@ export class AuthenticationService {
           if (user.Department) {
             accessesUser.department = user.Department;
           }
-          this.user = user;
+          this.user = accessesUser;
           this.userSubject.next(accessesUser);
           return Status.SUCCESS;
         } else {
