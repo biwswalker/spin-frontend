@@ -21,7 +21,7 @@ export class EventMessagesService {
   }
 
   onWarning(detail){
-    this.notify.initialWarning('แจ้งเตืน',detail);
+    this.notify.initialWarning('แจ้งเตือน',detail);
   }
 
   onInsertError(detail){
