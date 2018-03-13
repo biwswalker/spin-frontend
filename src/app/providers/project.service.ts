@@ -17,6 +17,7 @@ export class ProjectService {
 
   // Begin Insert Update Delete Actions
   createProject(project) {
+
     return this.request.requestMethodPUT('projects-management', project);
   }
 
@@ -24,30 +25,30 @@ export class ProjectService {
     return this.request.requestMethodPOST('projects-management', project);
   }
 
-  toggleFavorite(projectId){
-    return this.request.requestMethodGET('favorite-project-management/'+projectId);
+  toggleFavorite(projectId) {
+    return this.request.requestMethodGET('favorite-project-management/' + projectId);
   }
   // End Insert Update Delete Actions
 
 
   // Begin find for display action
-  findProjects(isMember,page,size) {
-    return this.request.requestMethodGET('projects-management/find-allow-project/'+isMember+'?p='+page+'&s='+size);
+  findProjects(isMember, page, size) {
+    return this.request.requestMethodGET('projects-management/find-allow-project/' + isMember + '?p=' + page + '&s=' + size);
   }
   findProjectById(projectId) {
-    return this.request.requestMethodGET('projects-management/'+projectId);
+    return this.request.requestMethodGET('project-management/projects/' + projectId);
   }
   findProjectPhaseById(projectId) {
-    return this.request.requestMethodGET('project-phase-management/'+projectId);
+    return this.request.requestMethodGET('project-phase-management/' + projectId);
   }
-  findProjectMemberById(projectId){
-    return this.request.requestMethodGET('project-member-management/'+projectId);
+  findProjectMemberById(projectId) {
+    return this.request.requestMethodGET('project-member-management/project-members/' + projectId);
   }
-  findMemberSummary(projectId,seqId){
-    return this.request.requestMethodGET('task-management/sums-each-user-id/project-id/'+projectId+'/phase-id/'+seqId);
+  findMemberSummary(projectId, seqId) {
+    return this.request.requestMethodGET('task-management/sums-each-user-id/project-id/' + projectId + '/phase-id/' + seqId);
   }
-  findTagsSummary(projectId,seqId){
-    return this.request.requestMethodGET('task-management/sums-each-tags/project-id/'+projectId+'/phase-id/'+seqId);
+  findTagsSummary(projectId, seqId) {
+    return this.request.requestMethodGET('task-management/sums-each-tags/project-id/' + projectId + '/phase-id/' + seqId);
   }
   findProjectAbbrById(projectId) {
     return this.findProjectById(projectId).map(project => {
@@ -56,21 +57,21 @@ export class ProjectService {
   }
   // End find for display action
 
-  findFavoriteProjectByUserId(userId: string){
-    return this.request.requestMethodGET('favorite-project-management/find-autocomplete-project');
+  findFavoriteProjectByUserId(userId: string) {
+    return this.request.requestMethodGET('favorite-project-management/favorite-projects/find-autocomplete-project');
   }
 
-  fetchProjectAutocomplete(){
-    return this.request.requestMethodGET('projects-management/find-autocomplete-project/N');
+  fetchProjectAutocomplete() {
+    return this.request.requestMethodGET('project-management/projects/find-autocomplete-project/N');
   }
 
 
-  onUpdateProject(project:Project){
+  onUpdateProject(project: Project) {
     console.log('onUpdateProject............');
     this.editProject.next(project);
   }
 
-  onProjectHaveChanged(){
+  onProjectHaveChanged() {
     console.log('onProjectHaveChanged......');
     this.isProjectHaveChanged.next(1);
   }
