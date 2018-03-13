@@ -26,7 +26,7 @@ export class ResponsibilityComponent implements OnInit {
   }
 
 
-  getRespId(key) {
+  getData(key) {
     console.log('key = ' + key);
     this.respId = key;
     this.getRespInfo();
