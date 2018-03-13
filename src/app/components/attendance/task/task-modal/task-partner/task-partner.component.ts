@@ -21,7 +21,7 @@ export class TaskPartnerComponent {
   public taskPartner: any[] = [];
   public doSelfFlag: boolean = true;
   public taskMember: any[] = [];
-  public autocompletePartnerList = new Observable<any[]>()
+  public autocompletePartnerList: any[] = [];
   public partner: any;
   public mode: string;
 
@@ -100,14 +100,18 @@ export class TaskPartnerComponent {
   }
 
   getautoCompletePartner(projectId) {
-    this.autocompletePartnerList = this.partnerService.findAllUser(projectId).map(atpPartner => {
-      console.log(atpPartner)
-      for (let selecteds of this.taskPartner) {
-        atpPartner = atpPartner.filter(item => item.userId !== selecteds.userId)
+    // this.autocompletePartnerList = this.partnerService.findAllUser(projectId).map(atpPartner => {
+    //   for (let selecteds of this.taskPartner) {
+    //     atpPartner = atpPartner.filter(item => item.userId !== selecteds.userId)
+    //   }
+    //   console.log(atpPartner);
+    //   return atpPartner;
+    // });
+    this.partnerService.findAllUser(projectId).subscribe(
+      partners=>{
+        this.autocompletePartnerList = partners;
       }
-      return atpPartner;
-    });
-    console.log(this.autocompletePartnerList);
+    )
   }
 
   addPartner() {
