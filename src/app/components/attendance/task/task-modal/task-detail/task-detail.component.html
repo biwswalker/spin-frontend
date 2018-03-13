@@ -33,18 +33,18 @@
       </div>
       <div class="col-3">
         <label>เวลา *</label>
-          <div class="input-group">
-            <select class="form-control"
-                    id="workStartTime"
-                    name="workStartTime"
-                    (change)="onChangeTime()"
-                    formControlName="taskDetailStartTime">
-              <option *ngFor="let time of timeList"
-                      [value]="time">
-                        {{time}}
-              </option>
-            </select>
-          </div>
+            <div class="input-group">
+                <select class="form-control"
+                        id="workStartTime"
+                        name="workStartTime"
+                        (change)="onChangeTime()"
+                        formControlName="taskDetailStartTime">
+                  <option *ngFor="let time of timeList"
+                          [value]="time">
+                            {{time}}
+                  </option>
+                </select>
+              </div>
       </div>
       <div class="col-3">
         <label class="invisible">เวลา *</label>

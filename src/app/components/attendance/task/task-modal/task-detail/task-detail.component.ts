@@ -59,7 +59,6 @@ export class TaskDetailComponent implements OnInit {
     // Find project
     console.log(this.projectService.fetchProjectAutocomplete());
     this.projectList = this.projectService.fetchProjectAutocomplete();
-    console.log(this.projectList);
   }
 
   resetData() {
