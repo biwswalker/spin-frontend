@@ -21,6 +21,7 @@
   <div class="row">
     <div class="col-6">
       <label>วันที่ *</label>
+      <div class="input-group">
       <input class="form-control"
         type="text"
         name="datepicker"
@@ -30,6 +31,10 @@
         [(ngModel)]="workDate"
         formControlName="taskDetailWorkDate"
         id="datepicker">
+        <div class="input-group-append input-group-addon">
+          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+        </div>
+      </div>
       </div>
       <div class="col-3">
         <label>เวลา *</label>
