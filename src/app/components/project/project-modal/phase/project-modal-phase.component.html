@@ -37,9 +37,6 @@
           formControlName="phaseName"
           maxlength="10"
           [(ngModel)]="projectPhase.phaseName">
-          <div class="invalid-feedback">
-              Please choose a username.
-            </div>
         </div>
   </div>
   <div class="col-6">
@@ -55,13 +52,13 @@
           [(ngModel)]="projectPhase.startDate"
           formControlName="startDate"
           >
-          <div class="input-group-append input-group-addon">
+          <div class="input-group-append">
               <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
             </div>
       </div>
       <label for="end-date">วันที่สิ้นสุดโครงการ *</label>
       <div class="input-group">
-          <input type="text" class="form-control"
+          <input type="text" class="form-control datepicker"
           id="end-date"
           name="endDate"
           maxlength="10"
@@ -70,7 +67,7 @@
           [(ngModel)]="projectPhase.endDate"
           formControlName="endDate"
           >
-          <div class="input-group-append input-group-addon">
+          <div class="input-group-append">
               <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
             </div>
       </div>
