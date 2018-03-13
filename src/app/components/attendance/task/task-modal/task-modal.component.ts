@@ -93,17 +93,6 @@ export class TaskModalComponent implements AfterViewInit {
     }
   }
 
-  // selectedProject(prjId: number) {
-  //   this.projectService.findProjectById(prjId).subscribe(
-  //     project => {
-  //       if (project) {
-  //         this.taskService.selectedProjectId.next(project.projectId);
-  //         this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
-  //       }
-  //     }
-  //   )
-  // }
-
   onSubmit() {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
