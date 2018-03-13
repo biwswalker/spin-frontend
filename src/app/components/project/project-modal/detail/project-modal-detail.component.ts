@@ -1,3 +1,4 @@
+import { EventMessagesService } from './../../../../providers/utils/event-messages.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Project } from '../../../../models/project';
@@ -21,7 +22,8 @@ export class ProjectModalDetailComponent implements OnInit{
   constructor(private ng2ImgToolsService: Ng2ImgToolsService,
               private sanitizer: DomSanitizer,
               private zone: NgZone,
-              private projectService:ProjectService) { }
+              private projectService:ProjectService,
+              private eventMessagesService:EventMessagesService) { }
 
   ngOnInit() {
     this.project.isVisble = false;
@@ -46,15 +48,22 @@ export class ProjectModalDetailComponent implements OnInit{
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    this.resizeImage(this.fileToUpload);
+    console.log('file: ',this.fileToUpload);
+    if(this.fileToUpload.size >1000000){
+      this.eventMessagesService.onWarning('กรุณาอัพโหลดไฟล์ไม่เกิน 1MB');
+    }else{
+      // this.resizeImage(this.fileToUpload);
+      this.resizedImage=window.URL.createObjectURL(this.fileToUpload);
+      this.resizedImageTrusted=this.sanitizer.bypassSecurityTrustUrl(this.resizedImage);
+      this.convertFileToBase64(this.fileToUpload,this.fileToUpload);
+    }
+
   }
 
   // resize image to thumbnail size
   resizeImage(file:File){
     console.info("Starting resize for file:", file);
     this.ng2ImgToolsService.resize([file], 200, 200).subscribe( result =>{
-        this.resizedImage=window.URL.createObjectURL(result);
-        this.resizedImageTrusted=this.sanitizer.bypassSecurityTrustUrl(this.resizedImage);
         this.convertFileToBase64(result,file);
       }, error => {
             console.error("Resize error:", error);
@@ -75,6 +84,7 @@ export class ProjectModalDetailComponent implements OnInit{
     }
     oriReader.onloadend = (e) => {
       this.project.projectImage = oriReader.result;
+      this.project.projectThumbnail  = oriReader.result;
     }
 
     thmReader.readAsDataURL(thm);
