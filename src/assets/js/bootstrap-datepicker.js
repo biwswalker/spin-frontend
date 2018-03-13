@@ -619,10 +619,12 @@
 								switch(this.viewMode){
 									case 0:
 										this.viewDate = this.moveMonth(this.viewDate, dir);
+										this._trigger('changeMonth', this.viewDate);
 										break;
 									case 1:
 									case 2:
 										this.viewDate = this.moveYear(this.viewDate, dir);
+										this._trigger('changeMonth', this.viewDate);
 										break;
 								}
 								this.fill();

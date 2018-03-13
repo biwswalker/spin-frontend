@@ -62,6 +62,7 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     $(datepickerId).datepicker({
       todayHighlight: true,
       beforeShowDay: function (date) {
+        console.log(date)
         let dates = new Date(date);
         let monthDate = self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(dates));
         for (let hol of self.holidays) {
@@ -69,6 +70,7 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
             return { enabled: true, classes: 'holiday', tooltip: hol.holName };
           }
         }
+        // console.log('unstamp' + self.unstamped)
         for (let unstamp of self.unstamped) {
           if (unstamp == monthDate) {
             console.log('unstamp' + monthDate)
@@ -82,12 +84,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
         }
         return { enabled: true, tooltip: '' };
       }
-      // onChangeMonthYear: function (year, month, inst) {
-      //   let thYear = self.utilsService.convertToThYearStr(year);
-      //   let thMoth = self.utilsService.convertNumberTo2Deci(month);
-      //   // Get SpecialDate
-      //   self.subjectYearMonth.next({ year: thYear, month: thMoth })
-      // }
     });
 
 
@@ -96,11 +92,12 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
       self.subjectDate.next(self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(pickerdate)));
     });
     $(datepickerId).datepicker().on('changeMonth', function (dateText) {
-      console.log(dateText)
-      // let thYear = self.utilsService.convertToThYearStr(year);
-      //   let thMoth = self.utilsService.convertNumberTo2Deci(month);
-      //   // Get SpecialDate
-      //   self.subjectYearMonth.next({ year: thYear, month: thMoth })
+      let pickerdate = new Date(dateText.date);
+      let thYear = self.utilsService.convertToThYear(pickerdate.getFullYear());
+      let thMoth = self.utilsService.convertNumberTo2Deci(pickerdate.getMonth() + 1);
+      self.subjectYearMonth.next({ year: thYear, month: thMoth })
+    });
+    $(datepickerId).datepicker().on('changeYear', function (dateText) {
     });
     // Sets stye
     $(datepickerId).addClass('w-100');
@@ -115,30 +112,36 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
 
   fetchSpecialDate(year, month) {
     // Get Unstamped
-    this.taskService.findUnStamped(year, month).subscribe(unstampeds => {
+    let self = this;
+    let unstampedFetch = this.taskService.findUnStamped(year, month).map(unstampeds => {
       this.unstamped = [];
       this.unstamped = unstampeds;
+      console.log(this.unstamped)
     });
 
     // Get Holiday
-    this.holidayService.findHolidayByMonth(year, month).subscribe((holidays: Holiday[]) => {
+    let holidaysFetch = this.holidayService.findHolidayByMonth(year, month).map((holidays: Holiday[]) => {
       this.holidays = [];
       for (let hol of holidays) {
         if (hol.activeFlag == 'A') {
           this.holidays.push(hol);
+          console.log(this.holidays)
         }
       }
     });
 
     // Get Leave
-    this.leaveService.findLeaveByMonth(year, month).subscribe((leaves: Leave[]) => {
+    let leavesFetch = this.leaveService.findLeaveByMonth(year, month).map((leaves: Leave[]) => {
       this.leaves = [];
       for (let leave of leaves) {
         if (leave.activeFlag == 'A') {
           this.leaves.push(leave);
+          console.log(this.leaves)
         }
       }
     });
-
+    Observable.forkJoin(unstampedFetch, holidaysFetch, leavesFetch).subscribe(successes => {}, err => {}, () => {
+      console.log('Complete');
+    })
   }
 }
