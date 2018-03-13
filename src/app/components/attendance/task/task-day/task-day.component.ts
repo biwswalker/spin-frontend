@@ -62,7 +62,7 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     $(datepickerId).datepicker({
       todayHighlight: true,
       beforeShowDay: function (date) {
-        console.log(date)
+        // console.log(date)
         let dates = new Date(date);
         let monthDate = self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(dates));
         for (let hol of self.holidays) {
@@ -116,7 +116,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     let unstampedFetch = this.taskService.findUnStamped(year, month).map(unstampeds => {
       this.unstamped = [];
       this.unstamped = unstampeds;
-      console.log(this.unstamped)
     });
 
     // Get Holiday
@@ -125,7 +124,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
       for (let hol of holidays) {
         if (hol.activeFlag == 'A') {
           this.holidays.push(hol);
-          console.log(this.holidays)
         }
       }
     });
@@ -136,12 +134,11 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
       for (let leave of leaves) {
         if (leave.activeFlag == 'A') {
           this.leaves.push(leave);
-          console.log(this.leaves)
         }
       }
     });
     Observable.forkJoin(unstampedFetch, holidaysFetch, leavesFetch).subscribe(successes => {}, err => {}, () => {
-      console.log('Complete');
+      // console.log('Complete');
     })
   }
 }
