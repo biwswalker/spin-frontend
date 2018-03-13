@@ -32,10 +32,6 @@ export class ProjectService {
 
 
   // Begin find for display action
-<<<<<<< HEAD
-=======
-
->>>>>>> cf34f0df075741e50cf6f96da45795a261088ff9
   findProjects(isMember,page,size) {
     return this.request.requestMethodGET('project-management/projects/find-allow-project/'+isMember+'?p='+page+'&s='+size);
   }
