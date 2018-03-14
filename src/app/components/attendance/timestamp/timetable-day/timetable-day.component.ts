@@ -65,12 +65,14 @@ export class TimetableDayComponent implements AfterViewInit {
             let groupClass = `stamped${index}`
             let overlapClass = `overlap${index}`
             let overlayClass = `overlay${index}`
+            let totalInd = endIndex - startIndex;
             for (let i = startIndex; i <= endIndex; i++) {
               $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
             }
             $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
             $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
-              <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
+              <span class="text-truncate m-0 stamp-topic">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)} | <div class="d-inline topic-task">${task.topic}</div></span>
+              ${totalInd > 0 ? `<p class="text-truncate m-0">${task.activity}</p>` : ''}
               <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
             </div>`);
             $(`.${overlayClass}`).addClass('stamp-box')
@@ -170,7 +172,6 @@ export class TimetableDayComponent implements AfterViewInit {
   }
 
   onViewTask(task) {
-    console.log('onViewTask(task) BIWSWALKER')
     let modal = new SpinModal();
     modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
     $('#task-modal').on("hidden.bs.modal", function () {

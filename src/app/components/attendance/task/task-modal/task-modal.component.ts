@@ -67,17 +67,14 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log(task);
     this.taskForm.task = task;
     this.mode = mode;
     // this.taskDetailChild.color = (task.color ? task.color : 'blue');
     this.bgColor = task.color ? task.color : 'blue';
     const objTask = this.taskForm.task;
-    console.log(objTask);
     objTask.color = (task.color ? task.color : 'blue');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     if (this.taskForm.task.projectId) {
-      console.log('GGQWPPP');
       this.projectService.findProjectById(this.taskForm.task.projectId).subscribe(
         project => {
           this.taskService.changeProjectId(project.projectId);
