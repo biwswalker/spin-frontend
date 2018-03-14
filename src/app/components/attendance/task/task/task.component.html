@@ -4,17 +4,14 @@
       <!-- , source.taskType === '1' ? 'assign':'' -->
     <div class="card task-card selection" [ngClass]="[selected ? 'selected' : '', isOwner]" (click)="onselectTask()">
       <div class="card-body">
-        <span>{{source.workStartTime | time}} - {{source.workEndTime | time}}</span>
+        <span>{{source.workStartTime | time}} - {{source.workEndTime | time}} | <div class="create-owner">{{source.ownerUserId}}</div></span>
         <button type="button"
                 (click)="onView()"
                 class="btn btn-outline-info float-right btn-view">
-          <i class="fas fa-external-link-square-alt"></i>{{isOwner === 'owner' ? ' edit' : ' view'}}</button>
+          <i class="fas fa-external-link-square-alt"></i>{{isOwner === 'owner' ? ' view' : ' edit'}}</button>
         <h6 class="card-title text-truncate">{{source.topic}}</h6>
         <p class="card-text text-truncate">{{source.activity}}</p>
-
-        <div class="float-left task-owner">
-            {{source.ownerUserId}}
-        </div>
+        <!-- <div class="float-rif task-owner"></div> -->
         <div class="float-right task-collaborators" *ngIf="isCollaborator">
           <i class="fas fa-users"></i>
         </div>
