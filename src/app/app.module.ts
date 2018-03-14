@@ -149,11 +149,7 @@ import { OfficerModalComponent } from './components/admin/officer/officer-modal/
     BsDropdownModule.forRoot()
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: Interceptor,
-      multi: true
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
     HttpRequestService,
     EventService,
     ProjectService,

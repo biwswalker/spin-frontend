@@ -15,8 +15,10 @@ export class AuthenticationService {
   private userSubject = new BehaviorSubject<User>(new User());
   public crrUser = this.userSubject.asObservable();
   public user = new User();
-  public refreshTko = false;
-  constructor(private request: HttpRequestService) { }
+  public notAuthorization = false;
+
+  constructor(private request: HttpRequestService) {
+  }
 
   authen(username: string, password: string) {
     var data = new FormData();
@@ -46,36 +48,6 @@ export class AuthenticationService {
         localStorage.removeItem(Default.ACTOKN);
         localStorage.removeItem(Default.TOKNTY);
         localStorage.removeItem(Default.RFTOKN);
-        this.isAccess.next(false)
-        return Status.ERROR;
-      })
-  }
-
-  refreshToken() {
-    console.log('refresh tok')
-    this.refreshTko = true;
-    const headers = new HttpHeaders({
-      "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
-    })
-    const options = { headers: headers }
-    return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).toPromise()
-      .then(token => {
-        this.refreshTko = false;
-        if (token) {
-          localStorage.setItem(Default.ACTOKN, token.access_token)
-          localStorage.setItem(Default.TOKNTY, token.token_type)
-          localStorage.setItem(Default.RFTOKN, token.refresh_token)
-          this.isAccess.next(true);
-          return this.accessUser();
-        } else {
-          this.isAccess.next(false)
-          return Status.ERROR;
-        }
-      })
-      .catch(error => {
-        this.refreshTko = false;
-        console.log(error)
-        this.removeToken();
         this.isAccess.next(false)
         return Status.ERROR;
       })
@@ -112,10 +84,24 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.notAuthorization = true;
     let acces_token: any = localStorage.getItem(Default.ACTOKN);
-    this.request.requestMethodGET(`logout/${acces_token}`).subscribe((response: Response) => console.log(response))
-    this.removeToken();
-    this.isAccess.next(false)
+    if (acces_token) {
+      return this.request.requestMethodGET(`logout/${acces_token}`).subscribe((response: Response) => {
+        this.notAuthorization = false;
+        this.removeToken();
+        this.isAccess.next(false)
+      },
+        error => {
+          this.notAuthorization = false;
+          this.removeToken();
+          this.isAccess.next(false)
+        });
+    } else {
+      this.notAuthorization = false;
+      this.removeToken();
+      this.isAccess.next(false)
+    }
   }
 
   isInSession(): boolean {
@@ -143,12 +129,37 @@ export class AuthenticationService {
   }
 
   isRefresh() {
-    return this.refreshTko;
+    return this.notAuthorization;
   }
 
   removeToken() {
     localStorage.removeItem(Default.ACTOKN)
     localStorage.removeItem(Default.TOKNTY)
     localStorage.removeItem(Default.RFTOKN)
+  }
+
+  refreshToken(): Observable<string> {
+    console.log('refresh token')
+    this.notAuthorization = true;
+    const headers = new HttpHeaders({
+      "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
+    })
+    const options = { headers: headers }
+    return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).map(token => {
+      this.notAuthorization = false;
+      if (token) {
+        localStorage.setItem(Default.ACTOKN, token.access_token)
+        localStorage.setItem(Default.TOKNTY, token.token_type)
+        localStorage.setItem(Default.RFTOKN, token.refresh_token)
+        this.isAccess.next(true);
+        this.accessUser();
+        return this.getNowToken();
+      } else {
+        console.log('Refresh Error')
+        this.removeToken();
+        this.isAccess.next(false)
+        return Status.ERROR;
+      }
+    }, error => this.notAuthorization = false)
   }
 }
