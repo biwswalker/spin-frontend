@@ -19,7 +19,7 @@ export class HolidayInfoComponent implements OnInit {
   private subjectYearMonth = new BehaviorSubject<{}>({ year: this.utilsService.getCuurentThYear(), month: this.utilsService.getCurrentThMonth() });
   private crrYearMonth = this.subjectYearMonth.asObservable();
 
-  private holidays: Holiday[] = [];
+  public holidays: Holiday[] = [];
 
 
   @ViewChild(HolidayProcessComponent) holidayProcess;

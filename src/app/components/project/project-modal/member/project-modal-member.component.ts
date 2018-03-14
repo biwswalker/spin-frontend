@@ -96,7 +96,7 @@ export class ProjectModalMemberComponent implements OnInit {
     this.projectMember.respName = this.projectMember.responsibility.respName;
   }
 
-  onSubmit($event){
+  onSubmit(){
     this.utilsService.findInvalidControls(this.projectMemberGroup);
     if(this.projectMemberGroup.valid){
       this.projectMembers = this.projectMembers.concat(this.projectMember);

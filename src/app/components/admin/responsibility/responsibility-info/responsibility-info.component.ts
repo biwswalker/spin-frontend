@@ -11,7 +11,7 @@ import { ResponsibilityModalComponent } from '../responsibility-modal/responsibi
 })
 export class ResponsibilityInfoComponent implements OnInit {
 
-  protected responsibility: Responsibility;
+  public responsibility: Responsibility;
 
 
   constructor(protected responsibilityService: ResponsibilityService) { }
