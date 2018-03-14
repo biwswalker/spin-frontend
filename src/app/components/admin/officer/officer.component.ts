@@ -1,3 +1,4 @@
+import { Mode } from './../../../config/properties';
 import { Observable } from 'rxjs/Observable';
 import { EventMessagesService } from './../../../providers/utils/event-messages.service';
 import { Officer } from './../../../models/officer';
@@ -85,7 +86,7 @@ export class OfficerComponent implements OnInit {
           data.subscribe(
             result => {
               console.log(result);
-              this.officers2 = result;
+              //   this.officers2 = result;
               this.getMessage();
             }
           )
@@ -185,6 +186,13 @@ export class OfficerComponent implements OnInit {
     this.file = null;
   }
 
+  createOfficer() {
+    this.officerModal.mode = Mode.I;
+    this.officerModal.officer = new Officer();
+    this.officerModal.ngOnInit();
+    this.officerService.onOpenModal();
+  }
+
 
   getMessage() {
     console.log("this.officers = ", this.officers2);
@@ -196,6 +204,13 @@ export class OfficerComponent implements OnInit {
     } else {
       console.log("==============else================");
       //import data
+    }
+  }
+
+  onCheckState(key) {
+    console.log('onCheckState = ' + key);
+    if (key) {
+      this.officerSearch.ngOnInit();
     }
   }
 
