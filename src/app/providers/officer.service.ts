@@ -1,3 +1,5 @@
+
+import { Officer } from './../models/officer';
 import { Injectable, EventEmitter } from "@angular/core";
 import { HttpRequestService } from "./utils/http-request.service";
 import { Observable } from "rxjs/Observable";
@@ -43,5 +45,29 @@ export class OfficerService {
     this.modal.close('#officer-modal');
   }
 
+  findDepartmentByKeyword(keyword) {
+    return this.request.requestMethodGET('/department-management/departments/find-by-keyword/' + keyword);
+  }
+
+  findPositionByKeyword(keyword) {
+    return this.request.requestMethodGET('/position-management/positions/find-by-keyword/' + keyword);
+  }
+
+
+  getDataObservable(key1, key2): Observable<any> {
+    // console.log('getDataObservable');
+    // ดึงข้อมูล department ทั้งหมด
+    const department = this.findDepartmentByKeyword(key1);
+
+    // ดึงข้อมูล position ทั้งหมด
+    const position = this.findPositionByKeyword(key2);
+
+
+    return Observable.forkJoin(department, position);
+  }
+
+  onSentData(value) {
+
+  }
 
 }
