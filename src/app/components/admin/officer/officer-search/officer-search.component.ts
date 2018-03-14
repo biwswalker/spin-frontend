@@ -21,7 +21,7 @@ export class OfficerSearchComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
 
-  constructor(protected officerService: OfficerService) { }
+  constructor(private officerService: OfficerService) { }
 
   ngOnInit() {
     this.officers = [];

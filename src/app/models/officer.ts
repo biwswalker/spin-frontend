@@ -15,6 +15,7 @@ export class Officer {
     public remark: string;
     public activeFlag: string;
     public versionId: number;
+    public email: string;
 
     public department: Department;
     public position: Position;
