@@ -31,6 +31,8 @@ export class OfficerComponent implements OnInit {
   public officers3: Officer[] = [];
 
   public messages: string[] = [];
+  public messagesDepartment: string[] = [];
+  public messagesPosition: string[] = [];
 
 
   arrayBuffer: any;
@@ -87,6 +89,7 @@ export class OfficerComponent implements OnInit {
             result => {
               console.log(result);
               //   this.officers2 = result;
+              this.messages = this.messagesDepartment.concat(this.messagesPosition);
               this.getMessage();
             }
           )
@@ -146,12 +149,20 @@ export class OfficerComponent implements OnInit {
           if (data[0]) {
             officer.deptId = data[0].deptId;
           } else {
-            this.messages = this.messages.concat(deptAbbr);
+            if (this.messagesDepartment.length === 0) {
+              this.messagesDepartment = this.messagesDepartment.concat('ชื่อแผนกดังต่อไปนี้ ');
+            } else {
+              this.messagesDepartment = this.messagesDepartment.concat('deptAbbr');
+            }
           }
           if (data[1]) {
             officer.positionId = data[1].positionId;
           } else {
-            this.messages = this.messages.concat(positionAbbr);
+            if (this.messagesPosition.length === 0) {
+              this.messagesPosition = this.messagesPosition.concat('ชื่อตำแหน่งดังต่อไปนี้ ');
+            } else {
+              this.messagesPosition = this.messagesPosition.concat('deptAbbr');
+            }
           }
 
           //รหัสพนักงาน

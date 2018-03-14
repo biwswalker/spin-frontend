@@ -23,7 +23,6 @@ export class OfficerModalComponent implements OnInit {
   public headerTxt: string = '';
 
 
-
   public departmentList: Department[];
   public deptId: number = 0;
 
@@ -132,6 +131,9 @@ export class OfficerModalComponent implements OnInit {
         this.officer = res;
         this.deptId = this.officer.deptId;
         this.positionId = this.officer.positionId;
+        console.log(this.officer.activeFlag);
+        this.isActive = this.officer.activeFlag == 'A' ? true : false;
+        console.log(this.isActive);
         this.initialData();
         console.log(this.officer.deptId);
       }
