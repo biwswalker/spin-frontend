@@ -1,13 +1,14 @@
 <div class="nav flex-column task-list"
      >
   <li class="nav-item">
-    <div class="card task-card selection" [ngClass]="[selected ? 'selected' : '', source.task_type === '1' ? 'assign':'']" (click)="onselectTask()">
+      <!-- , source.taskType === '1' ? 'assign':'' -->
+    <div class="card task-card selection" [ngClass]="[selected ? 'selected' : '', isOwner]" (click)="onselectTask()">
       <div class="card-body">
         <span>{{source.workStartTime | time}} - {{source.workEndTime | time}}</span>
         <button type="button"
                 (click)="onView()"
                 class="btn btn-outline-info float-right btn-view">
-          <i class="fas fa-external-link-square-alt"></i> view</button>
+          <i class="fas fa-external-link-square-alt"></i>{{isOwner === 'owner' ? ' edit' : ' view'}}</button>
         <h6 class="card-title text-truncate">{{source.topic}}</h6>
         <p class="card-text text-truncate">{{source.activity}}</p>
 
@@ -23,9 +24,7 @@
           #{{source.projectId | projectName | async}}
         </div>
         <div class="task-tags">
-          <span class="badge badge-pill badge-tags">Development</span>
-          <span class="badge badge-pill badge-tags">Angular</span>
-          <span class="badge badge-pill badge-tags">Spring boot</span>
+          <span class="badge badge-pill badge-tags" *ngFor="let tag of source.taskTagList">{{tag.tag.tagName}}</span>
         </div>
       </div>
     </div>

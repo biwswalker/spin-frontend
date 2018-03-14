@@ -5,8 +5,15 @@
   overflow: auto;
 }
 
-.dialog-confirm{
-  height: 350px;
-  width: 350px;
-  // text-align: center;
+.label-task-modal{
+  margin-bottom: 0px;
+  margin-top: 8px;
+}
+
+.modal-dialog-centered{
+  margin: 0 auto;
+}
+
+.tab-pane.in.fixed-modal.active{
+  height: 570px;
 }

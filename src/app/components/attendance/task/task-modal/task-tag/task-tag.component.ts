@@ -7,7 +7,7 @@ import { Task } from '../../../../../models/task';
 @Component({
   selector: 'app-task-tag',
   templateUrl: './task-tag.component.html',
-  styleUrls: ['./task-tag.component.scss']
+  styleUrls: ['./task-tag.component.scss','../task-modal.component.scss']
 })
 export class TaskTagComponent implements OnInit {
 

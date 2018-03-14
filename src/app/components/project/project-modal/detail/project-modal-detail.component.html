@@ -24,7 +24,7 @@
         [src]="resizedImageTrusted"
         class="img-thumbnail project-image">
         <a class="btn btn-info btn-sm btn-block"><label id="upload-project-label" for="upload-project">Browse</label></a>
-        <input type="file"
+        <input type="file" accept="image/*"
         id="upload-project"
         (change)="handleFileInput($event.target.files)">
       </div>

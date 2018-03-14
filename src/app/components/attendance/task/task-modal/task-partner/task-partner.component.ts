@@ -11,17 +11,17 @@ declare var $: any;
 @Component({
   selector: 'app-task-partner',
   templateUrl: './task-partner.component.html',
-  styleUrls: ['./task-partner.component.scss']
+  styleUrls: ['./task-partner.component.scss','../task-modal.component.scss']
 })
 export class TaskPartnerComponent {
 
   public taskId: number;
   public ownerEmail = '';
   public selectPartner: any;
-  public taskPartner: any[] = [];
+  public taskPartner: any[];
   public doSelfFlag: boolean = true;
   public taskMember: any[] = [];
-  public autocompletePartnerList = new Observable<any[]>()
+  public autocompletePartnerList: any[] = [];
   public partner: any;
   public mode: string;
 
@@ -35,7 +35,10 @@ export class TaskPartnerComponent {
     this.taskId = taskId;
     this.mode = mode;
     this.ownerEmail = usrEmail;
-    let isRepeat: number[] = []
+    let isRepeat: number[] = [];
+    this.autocompletePartnerList = [];
+    this.taskMember = [];
+    this.taskPartner = [];
     this.taskService.currentProjectId.subscribe((projectId: number) => {
       if (projectId) {
         // Check Report loop Subject
@@ -100,14 +103,12 @@ export class TaskPartnerComponent {
   }
 
   getautoCompletePartner(projectId) {
-    this.autocompletePartnerList = this.partnerService.findAllUser(projectId).map(atpPartner => {
-      console.log(atpPartner)
-      for (let selecteds of this.taskPartner) {
-        atpPartner = atpPartner.filter(item => item.userId !== selecteds.userId)
+    this.partnerService.findAllUser(projectId).subscribe(
+      partners=>{
+        this.autocompletePartnerList = [];
+        this.autocompletePartnerList = partners;
       }
-      return atpPartner;
-    });
-    console.log(this.autocompletePartnerList);
+    )
   }
 
   addPartner() {
@@ -115,6 +116,7 @@ export class TaskPartnerComponent {
       let sPartner = this.selectPartner;
       if (this.taskMember.indexOf(sPartner) == -1) {
         this.taskPartner.push(sPartner);
+        this.autocompletePartnerList.splice(this.autocompletePartnerList.indexOf(sPartner), 1);
       }
       this.partner = null;
       this.selectPartner = null;
@@ -126,6 +128,9 @@ export class TaskPartnerComponent {
   }
 
   deletePartner(obj) {
-    this.taskPartner.splice(this.taskPartner.indexOf(obj), 1);
+    if(obj){
+      this.taskPartner.splice(this.taskPartner.indexOf(obj), 1);
+      this.autocompletePartnerList.push(obj);
+    }
   }
 }

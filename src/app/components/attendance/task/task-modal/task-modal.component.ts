@@ -59,7 +59,7 @@ export class TaskModalComponent implements AfterViewInit {
     });
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
-      console.log('currentViewTask=> ', task)
+      console.log('currentViewTask=> ', task);
       if (task.taskId) {
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
@@ -70,9 +70,11 @@ export class TaskModalComponent implements AfterViewInit {
     console.log(task);
     this.taskForm.task = task;
     this.mode = mode;
-    this.taskDetailChild.color = task.color ? task.color : 'primary';
-    this.bgColor = task.color ? task.color : 'primary';
+    // this.taskDetailChild.color = (task.color ? task.color : 'blue');
+    this.bgColor = task.color ? task.color : 'blue';
     const objTask = this.taskForm.task;
+    console.log(objTask);
+    objTask.color = (task.color ? task.color : 'blue');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     if (this.taskForm.task.projectId) {
       console.log('GGQWPPP');
@@ -93,18 +95,9 @@ export class TaskModalComponent implements AfterViewInit {
     }
   }
 
-  // selectedProject(prjId: number) {
-  //   this.projectService.findProjectById(prjId).subscribe(
-  //     project => {
-  //       if (project) {
-  //         this.taskService.selectedProjectId.next(project.projectId);
-  //         this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
-  //       }
-  //     }
-  //   )
-  // }
-
   onSubmit() {
+    console.log(this.taskDetailChild.taskObj.color)
+    this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
@@ -147,6 +140,8 @@ export class TaskModalComponent implements AfterViewInit {
         $('.timestamp .ui-selected').removeClass('ui-selected');
         self.taskService.changeTimetableDate(self.utilsService.convertThDateToEn(stampDate));
       })
+    }else{
+      this.eventMessageService.onWarning('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบ');
     }
   }
 

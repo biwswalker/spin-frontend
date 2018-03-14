@@ -13,21 +13,23 @@ import { Task } from '../../../../models/task';
 export class TaskAllComponent implements OnInit, OnDestroy {
 
   public keyword = ''
-  public allTask = new Observable<TaskAll[]>();
+  public tasks: TaskAll[] = [];
   private subjectKeyword = new BehaviorSubject<string>(this.keyword);
   private crrKeyword = this.subjectKeyword.asObservable();
-  private nowPage = 1;
   private timeout = null;
   private isCriteria = false;
+  private size = 5;
 
   constructor(private taskService: TaskService) { }
 
   ngOnInit() {
-    this.findAllTask();
     this.crrKeyword.subscribe(keyword => {
+      this.size = 5;
       if (keyword) {
         this.isCriteria = true;
-        this.allTask = this.taskService.findCriteriaTask(keyword, this.nowPage, 5, true);
+        this.taskService.findCriteriaTask(keyword, 1, this.size, true).subscribe(taska => {
+          this.tasks = taska;
+        });
       } else {
         this.isCriteria = false;
         this.findAllTask();
@@ -36,8 +38,9 @@ export class TaskAllComponent implements OnInit, OnDestroy {
   }
 
   findAllTask() {
-    this.nowPage = 1;
-    this.allTask = this.taskService.findAllTask(1, 5, true);
+    this.taskService.findAllTask(1, this.size, true).subscribe(taska => {
+      this.tasks = taska;
+    });
   }
 
   onSearch() {
@@ -45,14 +48,15 @@ export class TaskAllComponent implements OnInit, OnDestroy {
   }
 
   onScrollDown() {
-    console.log('scrolled!!');
-    this.nowPage++;
+    this.size += 5;
     if (this.isCriteria) {
-      // this.allTask = this.allTask.concat(this.taskService.findCriteriaTask(this.keyword, this.nowPage, 5, true));
-      this.allTask.concat(this.taskService.findCriteriaTask(this.keyword, this.nowPage, 5, true));
+      this.taskService.findCriteriaTask(this.keyword, 1, this.size, true).subscribe(taska => {
+        this.tasks = taska;
+      });
     } else {
-      // this.allTask = this.allTask.concat(this.taskService.findAllTask(this.nowPage, 5, true));
-      this.allTask.concat(this.taskService.findAllTask(this.nowPage, 5, true));
+      this.taskService.findAllTask(1, this.size, true).subscribe(taska => {
+        this.tasks = taska;
+      });
     }
   }
 
