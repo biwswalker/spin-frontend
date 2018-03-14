@@ -11,14 +11,14 @@ declare var $: any;
 @Component({
   selector: 'app-task-partner',
   templateUrl: './task-partner.component.html',
-  styleUrls: ['./task-partner.component.scss']
+  styleUrls: ['./task-partner.component.scss','../task-modal.component.scss']
 })
 export class TaskPartnerComponent {
 
   public taskId: number;
   public ownerEmail = '';
   public selectPartner: any;
-  public taskPartner: any[] = [];
+  public taskPartner: any[];
   public doSelfFlag: boolean = true;
   public taskMember: any[] = [];
   public autocompletePartnerList: any[] = [];

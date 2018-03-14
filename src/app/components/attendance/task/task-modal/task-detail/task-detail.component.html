@@ -20,9 +20,9 @@
 
   <div class="row">
     <div class="col-6">
-      <label>วันที่ *</label>
+      <label class="label-task-modal">วันที่ *</label>
       <div class="input-group">
-      <input class="form-control"
+      <input class="form-control datepicker"
         type="text"
         name="datepicker"
         data-provide="datepicker"
@@ -37,7 +37,7 @@
       </div>
       </div>
       <div class="col-3">
-        <label>เวลา *</label>
+        <label class="label-task-modal">เวลา *</label>
             <div class="input-group">
                 <select class="form-control"
                         id="workStartTime"
@@ -68,7 +68,7 @@
     </div>
   <div class="row">
     <div class=" col-12">
-      <label>หัวข้อ *</label>
+      <label class="label-task-modal">หัวข้อ *</label>
       <input class="form-control"
         type="text"
         [disabled]="mode === 'View'"
@@ -80,7 +80,7 @@
   </div>
   <div class="row">
     <div class=" col-12">
-      <label>กิจกรรม *</label>
+      <label class="label-task-modal">กิจกรรม *</label>
       <textarea class="form-control"
         rows="3"
         id="activity"
@@ -93,7 +93,7 @@
   </div>
   <div class="row">
     <div class=" col-12">
-      <label>ชื่อโครงการ *</label>
+      <label class="label-task-modal">ชื่อโครงการ *</label>
       <input class="form-control"
         id="project-id"
         name="project-id"
@@ -113,23 +113,19 @@
   </div>
 
   <div class="row">
-    <div class="col" >
-      <nav class="nav" id="fav-project">
-        <div *ngFor="let obj of favProjectList | async">
+      <div class="col-2" *ngFor="let obj of favProjectList | async">
           <div class="btn thumbnail-size">
               <img
               src="{{obj.projectThumbnail}}"
               (click)="onFavoriteClick(obj)">
           </div>
-        </div>
-      </nav>
     </div>
-  </div>
+    </div>
 </form>
 
 <div class="row">
   <div class="col">
-    <label>สีพื้นหลัง</label>
+    <label class="label-task-modal">สีพื้นหลัง</label>
   </div>
 </div>
 <div class="row">

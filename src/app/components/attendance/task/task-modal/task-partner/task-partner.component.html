@@ -1,70 +1,74 @@
 <div class="container">
-    <div class="row">
-        <div class="col d-flex">
-            <div class="ml-auto">
-                <label>{{ownerEmail}}</label>
-                <span class="do-self-flag">
-                <input class="switch"
-                       type="checkbox"
-                       id="do-self-flag"
-                       name="do-self-flag"
-                       [(ngModel)]="doSelfFlag">
-                <label for="do-self-flag">
-                    <span></span>
-                </label>
-                </span>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col d-flex">
+      <div class="ml-auto">
+        <label>{{ownerEmail}}</label>
+          <span class="do-self-flag">
+            <input class="switch"
+                   type="checkbox"
+                   id="do-self-flag"
+                   name="do-self-flag"
+                   [(ngModel)]="doSelfFlag">
+              <label for="do-self-flag">
+                <span></span>
+              </label>
+          </span>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <label>สมาชิกโครงการ</label>
+  </div>
+  <div class="row">
+    <label class="label-task-modal">สมาชิกโครงการ</label>
+      <div class="col-12 rounded bg-white text-dark scroll-auto">
+        <div id="member-list"
+             *ngFor="let obj of taskMember">
+          <input type="checkbox"
+                 name="member-status"
+                 id="member-status"
+                 [(ngModel)]="obj.status">
+                  {{obj.email}}
         </div>
-        <div class="col-12 rounded bg-white text-dark scroll-auto">
-            <div id="member-list" *ngFor="let obj of taskMember">
-                <input type="checkbox"
-                  name="member-status"
-                  id="member-status"
-                  [(ngModel)]="obj.status">
-                    {{obj.email}}
-            </div>
-        </div>
+      </div>
+  </div>
+  <div class="row">
+    <label class="label-task-modal">ผู้ร่วมงาน</label>
+    <div class="col-12 scroll-auto bg-white rounded text-dark">
+      <div id="partner-list"
+           name="partner-list"
+           *ngFor="let obj of taskPartner">
+             <a class="fas fa-times-circle"
+               (click)="deletePartner(obj)">
+             </a>
+               {{obj.email}}
+      </div>
     </div>
-
-    <label>ผู้ร่วมงาน</label>
-    <div class="row">
-        <div class=" col-12 scroll-auto bg-white rounded text-dark">
-            <div *ngIf="taskPartner">
-                <div id="partner-list"
-                  name="partner-list"
-                  *ngFor="let obj of taskPartner">
-                    {{obj.email}}
-                    <a class="fas fa-times-circle"
-                      (click)="deletePartner(obj)" >
-                    </a>
-                </div>
-            </div>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <input class="form-control"
+             id="autocompletePartner"
+             [(ngModel)]="partner"
+             [typeahead]="autocompletePartnerList"
+             typeaheadOptionField="email"
+             [typeaheadItemTemplate]="customItemTemplate"
+             [typeaheadScrollable]="true"
+             [typeaheadMinLength]="0"
+             [typeaheadOptionsInScrollableView]="5"
+             (typeaheadOnSelect)="onSelect($event)">
+               <ng-template #customItemTemplate
+                            let-model="item"
+                            let-index="index">
+                 <h6>
+                   {{model.email}}
+                 </h6>
+               </ng-template>
     </div>
-    <div class="row">
-        <div class="col">
-            <input
-              class="form-control"
-              id="autocompletePartner"
-              [(ngModel)]="partner"
-              [typeahead]="autocompletePartnerList"
-              typeaheadOptionField="email"
-              [typeaheadItemTemplate]="customItemTemplate"
-              [typeaheadScrollable]="true"
-              [typeaheadMinLength]="0"
-              [typeaheadOptionsInScrollableView]="5"
-                (typeaheadOnSelect)="onSelect($event)">
-            <ng-template #customItemTemplate let-model="item" let-index="index">
-                <h6>{{model.email}}</h6>
-            </ng-template>
-        </div>
-        <div class="col-2">
-            <button type="button" class="btn btn-success" id="add-partner-btn" (click)="addPartner()">เพิ่ม</button>
-        </div>
+    <div class="col-2">
+      <button type="button"
+              class="btn btn-success"
+              id="add-partner-btn"
+              (click)="addPartner()">
+                เพิ่ม
+      </button>
     </div>
+  </div>
 </div>

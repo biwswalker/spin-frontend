@@ -5,7 +5,15 @@
   overflow: auto;
 }
 
+.label-task-modal{
+  margin-bottom: 0px;
+  margin-top: 8px;
+}
+
 .modal-dialog-centered{
   margin: 0 auto;
 }
 
+.tab-pane.in.fixed-modal.active{
+  height: 570px;
+}
