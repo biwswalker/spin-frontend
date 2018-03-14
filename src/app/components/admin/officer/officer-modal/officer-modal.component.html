@@ -10,7 +10,7 @@
         </button>
 
         <div class="text-center header-text">
-          {{headerTxt}}หน้าที่ความรับผิดชอบ
+          {{headerTxt}} พนักงาน
         </div>
 
         <button type="submit" class="btn btn-link" [routerLink]="" (click)="onSubmit()">
@@ -23,25 +23,130 @@
         <!-- Body -->
         <div class="modal-body">
           <div class="row">
-            <div class="col">
-              <label>รหัสพนักงาน</label>
-              <input class="form-control" type="text">
-
+            <div class="col-3 d-flex">
+              <label class="office-id">รหัสพนักงาน</label>
             </div>
-            <div class="col d-flex">
+            <div class="col-4 d-flex">
+              <input class="form-control" [(ngModel)]="officer.officeId" [disabled]="mode === 'EDIT'" type="text" id="office-id" name="office-id"
+                formControlName="officeId">
+            </div>
+            <div class="col-5 d-flex">
               <div class="ml-auto ">
-                <label class="mx-auto">ใช้งาน</label>
+                <label class="mx-auto">ปฏิบัติงาน</label>
                 <span class="status-flag">
-                  <input class="switch" type="checkbox" checked="true" (change)="onChangeActiveFlag()" id="active" name="active">
+                  <input class="switch" type="checkbox" [checked]="isActive" (change)="onChangeActiveFlag()" id="active" name="active">
                   <label for="active">
                     <span></span>
                   </label>
                   <input type="hidden" id="active-flag" name="active-flag" formControlName="activeFlag">
+                  <input type="hidden" id="position-id" name="position-id" formControlName="positionId">
+                  <input type="hidden" id="dept-id" name="dept-id" formControlName="deptId">
 
                 </span>
               </div>
             </div>
           </div>
+
+
+
+          <div class="row">
+            <div class="col-4 text-center">
+              <label>คำนำหน้าชื่อ</label>
+            </div>
+            <div class="col-4 text-center">
+              <label>ชื่อ</label>
+            </div>
+            <div class="col-4 text-center">
+              <label>นามสกุล</label>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-4">
+              <div class="row">
+                <div class="col-3">
+                  <label>ไทย</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-control" [(ngModel)]="officer.titleTh" type="text" id="title-th" name="title-th" formControlName="titleTh">
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <input class="form-control" [(ngModel)]="officer.firstNameTh" type="text" id="firstname-th" name="firstname-th" formControlName="firstNameTh">
+
+            </div>
+            <div class="col-4">
+              <input class="form-control" [(ngModel)]="officer.lastNameTh" type="text" id="lastname-th" name="lastname-th" formControlName="lastNameTh">
+
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-4">
+              <div class="row">
+                <div class="col-3">
+                  <label>Eng</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-control" [(ngModel)]="officer.titleEn" type="text" id="title-en" name="title-en" formControlName="titleEn">
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <input class="form-control" [(ngModel)]="officer.firstNameEn" type="text" id="firstname-en" name="firstname-en" formControlName="firstNameEn">
+            </div>
+            <div class="col-4">
+              <input class="form-control" [(ngModel)]="officer.lastNameEn" type="text" id="lastname-en" name="lastname-en" formControlName="lastNameEn">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <label>แผนก</label>
+              <input class="form-control" id="dept-id" name="dept-id" formControlName="deptName" [typeahead]="departmentList" typeaheadOptionField="deptName"
+                [typeaheadItemTemplate]="customItemTemplate" [typeaheadScrollable]="true" [typeaheadMinLength]="0" [typeaheadOptionsInScrollableView]="5"
+                (typeaheadOnSelect)="onChangeDepartment($event)">
+              <ng-template #customItemTemplate let-model="item" let-index="index">
+                <h6>{{model.deptName}}</h6>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <label>ตำแหน่ง</label>
+              <input class="form-control" id="position-id" name="position-id" formControlName="positionName" [typeahead]="positionList"
+                typeaheadOptionField="positionName" [typeaheadItemTemplate]="customItemTemplate1" [typeaheadScrollable]="true"
+                [typeaheadMinLength]="0" [typeaheadOptionsInScrollableView]="5" (typeaheadOnSelect)="onChangePosition($event)">
+              <ng-template #customItemTemplate1 let-model="item" let-index="index">
+                <h6>{{model.positionName}}</h6>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label>วันที่เริ่มทำงาน</label>
+              <div class="input-group">
+                <input class="form-control datepicker" type="text" name="datepicker" data-provide="datepicker" data-date-language="th-th"
+                  summitDatePicker [(ngModel)]="startDate" formControlName="startDate" id="datepicker">
+                <div class="input-group-append input-group-addon">
+                  <span class="input-group-text">
+                    <i class="fas fa-calendar-alt"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
         </div>
       </form>
     </div>

@@ -31,7 +31,7 @@ export class EventMessagesService {
     this.notify.initialError('เกิดข้อผิดพลาด', detail.error.details);
   }
   onUploadError(detail) {
-    this.notify.initialError('เกิดข้อผิดพลาด ข้อมูลไม่ถูกต้อง', detail);
+    this.notify.initialError('เกิดข้อผิดพลาด พบข้อมูลไม่สมบูรณ์', detail);
   }
 
 

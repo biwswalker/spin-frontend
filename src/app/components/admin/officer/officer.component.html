@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 col-md-6 col-xl-5">
     <h2 class="d-inline-block mt-2 mb-0">พนักงาน</h2>
-    <button type="button" class="btn btn-link">
+    <button type="button" class="btn btn-link" (click)="createOfficer()">
       <i class="fas fa-plus-circle"></i> เพิ่มใหม่</button>
     <button class="btn btn-link" type="button" data-toggle="modal" data-target="#upload-modal">
       <span>
@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<!-- <app-officer-modal></app-officer-modal> -->
+<app-officer-modal (changeState)="onCheckState($event)"> </app-officer-modal>
 <div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="upload-modal" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered" role="document">
     <div class="modal-content">

@@ -46,16 +46,15 @@ export class OfficerService {
   }
 
   findDepartmentByKeyword(keyword) {
-    return this.request.requestMethodGET('/department-management/departments/find-by-keyword/' + keyword);
+    return this.request.requestMethodGET('department-management/departments/find-by-keyword/' + keyword);
   }
 
   findPositionByKeyword(keyword) {
-    return this.request.requestMethodGET('/position-management/positions/find-by-keyword/' + keyword);
+    return this.request.requestMethodGET('position-management/positions/find-by-keyword/' + keyword);
   }
 
 
   getDataObservable(key1, key2): Observable<any> {
-    // console.log('getDataObservable');
     // ดึงข้อมูล department ทั้งหมด
     const department = this.findDepartmentByKeyword(key1);
 
@@ -70,4 +69,28 @@ export class OfficerService {
 
   }
 
+  //autocomplete แผนก 
+  findAutocompleteDepartment() {
+    return this.request.requestMethodGET('departments-management/departments');
+  }
+
+  //autocomplete ตำแหน่ง 
+  findAutocompletePosition() {
+    return this.request.requestMethodGET('position-management/positions');
+  }
+
+  findDepartmentById(id) {
+    return this.request.requestMethodGET('department-management/departments/' + id);
+  }
+  findPositionById(id) {
+    return this.request.requestMethodGET('position-management/positions/' + id);
+  }
+
+  createOfficer(officer) {
+    return this.request.requestMethodPUT('officer-management/officers', officer);
+  }
+
+  updateOfficer(officer) {
+    return this.request.requestMethodPOST('officer-management/officers', officer);
+  }
 }

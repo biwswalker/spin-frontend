@@ -25,7 +25,11 @@ export class OfficerSearchComponent implements OnInit {
 
   ngOnInit() {
     this.officers = [];
-    this.getAllOfficer();
+    if (this.criteriaValue) {
+      this.onSearchByCriteria(this.criteriaValue);
+    } else {
+      this.getAllOfficer();
+    }
   }
 
 
