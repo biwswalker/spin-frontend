@@ -7,7 +7,7 @@ import { Task } from '../../../../../models/task';
 @Component({
   selector: 'app-task-tag',
   templateUrl: './task-tag.component.html',
-  styleUrls: ['./task-tag.component.scss','../task-modal.component.scss']
+  styleUrls: ['./task-tag.component.scss', '../task-modal.component.scss']
 })
 export class TaskTagComponent implements OnInit {
 
@@ -38,10 +38,10 @@ export class TaskTagComponent implements OnInit {
   }
 
   initialTag(taskId: number) {
-    if(taskId){
+    if (taskId) {
       this.tagService.findByTaskId(taskId).subscribe(
         tags => {
-          if(tags){
+          if (tags) {
             this.tagList = [];
             for (let tag of tags) {
               this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
@@ -62,6 +62,8 @@ export class TaskTagComponent implements OnInit {
   }
 
   onSelected(event) {
-    this.tagList.push(event);
+    if (this.tagList.indexOf(event) == -1) {
+      this.tagList.push(event);
+    }
   }
 }
