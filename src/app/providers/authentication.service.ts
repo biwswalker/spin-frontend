@@ -21,6 +21,7 @@ export class AuthenticationService {
   }
 
   authen(username: string, password: string) {
+    this.notAuthorization = true;
     var data = new FormData();
     data.append("grant_type", "password");
     data.append("username", username);
@@ -31,6 +32,7 @@ export class AuthenticationService {
     const options = { headers: headers }
     return this.request.requestMethodPOSTWithHeader('oauth/token', data, options).toPromise()
       .then(token => {
+        this.notAuthorization = false;
         if (token) {
           sessionStorage.setItem(Default.ACTOKN, token.access_token)
           sessionStorage.setItem(Default.TOKNTY, token.token_type)
@@ -44,6 +46,7 @@ export class AuthenticationService {
         }
       })
       .catch(error => {
+        this.notAuthorization = false;
         console.log(error)
         sessionStorage.removeItem(Default.ACTOKN);
         sessionStorage.removeItem(Default.TOKNTY);
@@ -84,6 +87,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    console.log('logout')
     // this.notAuthorization = true;
     // let acces_token: any = sessionStorage.getItem(Default.ACTOKN);
     // if (acces_token) {
