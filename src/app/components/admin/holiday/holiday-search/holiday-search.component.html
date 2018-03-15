@@ -19,21 +19,22 @@
   <div class="col-sm-8 text-left">ชื่อหน้าที่</div>
   <div class="col-sm-4 text-left">ชื่อย่อ</div>
 </div>
+<ul class="list-group list-group-flush" *ngFor="let holiday of holidays">
+  <div>
+    <button type="button" (click)="onChangeHoliday(holiday)" class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="col-sm-8 text-left">
+          <p>{{holiday.holName}}</p>
+        </div>
+        <div class="col-sm-4 text-left media">
+          <p>{{holiday.holDate | thaiDate:'full' || '' }}</p>
+        </div>
+      </div>
+    </button>
+  </div>
+
+</ul>
+
 <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
   (scrolled)="onScrollDown()">
-  <ul class="list-group list-group-flush" *ngFor="let holiday of holidays">
-    <div>
-      <button type="button" (click)="onChangeHoliday(holiday)" class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col-sm-8 text-left">
-            <p>{{holiday.holName}}</p>
-          </div>
-          <div class="col-sm-4 text-left media">
-            <p>{{holiday.holDate | thaiDate:'full' || '' }}</p>
-          </div>
-        </div>
-      </button>
-    </div>
-
-  </ul>
 </div>

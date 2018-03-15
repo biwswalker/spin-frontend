@@ -78,6 +78,7 @@ export class HolidaySearchComponent implements OnInit {
     } else {
       this.holidayService.findAllPageable(this.page, this.size).subscribe(
         collection => {
+          console.log(collection)
           if (collection) {
             this.page += 1;
             this.holidays = this.holidays.concat(collection);
