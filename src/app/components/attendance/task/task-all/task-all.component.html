@@ -15,11 +15,12 @@
 </div>
 <div class="tasks-list"
      infiniteScroll
-     [infiniteScrollDistance]="1"
-     [infiniteScrollThrottle]="1000"
      [scrollWindow]="false"
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="50"
      (scrolled)="onScrollDown()">
-  <div *ngFor="let atask of allTask | async" class="task-groups">
+  <div *ngFor="let atask of tasks"
+       class="task-groups">
     <div class="group-date">{{atask.date | thaiDate:'short'}}</div>
     <task [source]="task"
           *ngFor="let task of atask.tasks | async"></task>

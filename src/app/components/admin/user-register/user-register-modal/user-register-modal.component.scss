@@ -1,0 +1,15 @@
+@import '~assets/scss/modal.scss';
+@import '~assets/scss/toggle.scss';
+@import '../../admin-page.scss';
+
+    $active: #2359c5;
+    $white: white;
+    a {
+      color: $white;
+    }
+
+    textarea{
+      resize: none;
+    }
+
+

@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TaskService } from '../../../../providers/task.service';
+import { AuthenticationService } from '../../../../providers/authentication.service';
+import { User } from '../../../../models/user';
+import { Subscription } from 'rxjs';
 
 declare var SpinModal: any;
 declare var $: any;
@@ -9,7 +12,7 @@ declare var $: any;
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskDirective implements OnInit {
+export class TaskDirective implements OnInit, OnDestroy {
 
   // Directive
   @Input() source: Task;
@@ -18,11 +21,20 @@ export class TaskDirective implements OnInit {
   public selected = false;
   public isCollaborator = false;
   public isView = false;
+  public isOwner = ''
+  private subscription: Subscription
 
-  constructor(private taskService: TaskService) {
-  }
+  constructor(private taskService: TaskService, private authService: AuthenticationService) {}
 
   ngOnInit() {
+    this.subscription = this.authService.crrUser.subscribe((user: User) => {
+      if(user.userId !== this.source.ownerUserId){
+        this.isOwner = 'owner'
+      }else{
+        this.isOwner = ''
+      }
+    })
+
     this.isCollaborator = this.source.taskPartnerList ? true : false;
     // Async
     this.taskService.currentIsSelectTask.subscribe(task => {
@@ -53,7 +65,10 @@ export class TaskDirective implements OnInit {
       self.isView = false;
     })
     this.taskService.onViewTask(this.source);
-    
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

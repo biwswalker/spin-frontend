@@ -151,11 +151,7 @@ import { UserRegisterModalComponent } from './components/admin/user-register/use
     BsDropdownModule.forRoot()
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: Interceptor,
-      multi: true
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
     HttpRequestService,
     EventService,
     ProjectService,

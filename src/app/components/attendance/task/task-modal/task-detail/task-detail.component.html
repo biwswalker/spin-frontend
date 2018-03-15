@@ -9,6 +9,7 @@
             type="checkbox"
             id="status-flag"
             name="status-flag"
+            [disabled]="mode == 'VIEW'"
             formControlName="taskDetailStatusFlag">
               <label for="status-flag">
                 <span></span>
@@ -20,14 +21,15 @@
 
   <div class="row">
     <div class="col-6">
-      <label>วันที่ *</label>
+      <label class="label-task-modal">วันที่ *</label>
       <div class="input-group">
-      <input class="form-control"
+      <input class="form-control datepicker"
         type="text"
         name="datepicker"
         data-provide="datepicker"
         data-date-language="th-th"
         summitDatePicker
+        [disabled]="mode === 'VIEW'"
         [(ngModel)]="workDate"
         formControlName="taskDetailWorkDate"
         id="datepicker">
@@ -37,7 +39,7 @@
       </div>
       </div>
       <div class="col-3">
-        <label>เวลา *</label>
+        <label class="label-task-modal">เวลา *</label>
             <div class="input-group">
                 <select class="form-control"
                         id="workStartTime"
@@ -68,10 +70,9 @@
     </div>
   <div class="row">
     <div class=" col-12">
-      <label>หัวข้อ *</label>
+      <label class="label-task-modal" >หัวข้อ *</label>
       <input class="form-control"
         type="text"
-        [disabled]="mode === 'View'"
         name="topic"
         maxlength="500"
         formControlName="taskDetailTopic"
@@ -80,12 +81,11 @@
   </div>
   <div class="row">
     <div class=" col-12">
-      <label>กิจกรรม *</label>
+      <label class="label-task-modal">กิจกรรม *</label>
       <textarea class="form-control"
         rows="3"
         id="activity"
         name="activity"
-        [disabled]="mode === 'View'"
         maxlength="1000"
         formControlName="taskDetailActivity">
       </textarea>
@@ -93,11 +93,10 @@
   </div>
   <div class="row">
     <div class=" col-12">
-      <label>ชื่อโครงการ *</label>
+      <label class="label-task-modal">ชื่อโครงการ *</label>
       <input class="form-control"
         id="project-id"
         name="project-id"
-        [disabled]="mode === 'View'"
         formControlName="taskDetailProject"
         [typeahead]="projectList"
         typeaheadOptionField="projectName"
@@ -112,35 +111,34 @@
       </div>
   </div>
 
-  <div class="row">
-    <div class="col" >
-      <nav class="nav" id="fav-project">
-        <div *ngFor="let obj of favProjectList | async">
-          <div class="btn thumbnail-size">
-              <img
-              src="{{obj.projectThumbnail}}"
-              (click)="onFavoriteClick(obj)">
-          </div>
-        </div>
-      </nav>
+  <div class="row" *ngIf="mode !== 'VIEW'">
+    <div class="col-2" *ngFor="let obj of favProjectList | async">
+      <div class="btn thumbnail-size"
+           data-toggle="tooltip"
+           data-placement="bottom"
+           title="{{obj.projectName}}">
+             <img
+               src="{{obj.projectThumbnail}}"
+               (click)="onFavoriteClick(obj)">
+      </div>
     </div>
   </div>
 </form>
 
 <div class="row">
   <div class="col">
-    <label>สีพื้นหลัง</label>
+    <label class="label-task-modal">สีพื้นหลัง</label>
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <a class="btn primary color-picker" (click)="onColorPick('primary')" id="corlor" [class.active]="color == 'primary'"></a>
-    <a class="btn success color-picker" (click)="onColorPick('success')" id="corlor" [class.active]="color == 'success'"></a>
-    <a class="btn danger color-picker" (click)="onColorPick('danger')" id="corlor" [class.active]="color == 'danger'"></a>
-    <a class="btn orange color-picker" (click)="onColorPick('orange')" id="corlor" [class.active]="color == 'orange'"></a>
-    <a class="btn secondary color-picker" (click)="onColorPick('secondary')" id="corlor" [class.active]="color == 'secondary'"></a>
-    <a class="btn info color-picker" (click)="onColorPick('info')" id="corlor" [class.active]="color == 'info'"></a>
-    <a class="btn dark color-picker" (click)="onColorPick('dark')" id="corlor" [class.active]="color == 'dark'"></a>
+    <a class="btn blue color-picker" (click)="onColorPick('blue')" id="corlor" [class.active]="taskObj.color == 'blue'"></a>
+    <a class="btn pink color-picker" (click)="onColorPick('pink')" id="corlor" [class.active]="taskObj.color == 'pink'"></a>
+    <a class="btn red color-picker" (click)="onColorPick('red')" id="corlor" [class.active]="taskObj.color == 'red'"></a>
+    <a class="btn orange color-picker" (click)="onColorPick('orange')" id="corlor" [class.active]="taskObj.color == 'orange'"></a>
+    <a class="btn cyan color-picker" (click)="onColorPick('cyan')" id="corlor" [class.active]="taskObj.color == 'cyan'"></a>
+    <a class="btn yellow color-picker" (click)="onColorPick('yellow')" id="corlor" [class.active]="taskObj.color == 'yellow'"></a>
+    <a class="btn green color-picker" (click)="onColorPick('green')" id="corlor" [class.active]="taskObj.color == 'green'"></a>
   </div>
 </div>
 </div>

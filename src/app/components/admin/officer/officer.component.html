@@ -1,11 +1,12 @@
 <div class="row">
   <div class="col-12 col-md-6 col-xl-5">
     <h2 class="d-inline-block mt-2 mb-0">พนักงาน</h2>
-    <button type="button" class="btn btn-link">
+    <button type="button" class="btn btn-link" (click)="createOfficer()">
       <i class="fas fa-plus-circle"></i> เพิ่มใหม่</button>
-    <button class="btn btn-link" type="button">
+    <button class="btn btn-link" type="button" data-toggle="modal" data-target="#upload-modal">
       <span>
         <i class="  fas fa-upload"></i>
+
         <label>อัพโหลด</label>
       </span>
     </button>
@@ -28,5 +29,45 @@
     </div>
   </div>
 </div>
-<!--   
-  <app-responsibility-modal (changeState)="onCheckState($event)"></app-responsibility-modal> -->
+
+<app-officer-modal (changeState)="onCheckState($event)"> </app-officer-modal>
+<div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="upload-modal" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="header-text text-center">
+          อัพโหลดไฟล์ Excel
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onCloseModal()">
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row" *ngIf="!isUpload">
+          <div class="col-12 text-center">
+            <input type="file" (change)="incomingfile($event)" required placeholder="Upload file" accept=".xlsx">
+            <button type="button" class="btn btn-info" (click)="Upload()" [disabled]="!fileName">Upload</button>
+          </div>
+        </div>
+        <div class="row text-center" *ngIf="isUpload">
+          <div class="col-12">
+            <p>อัพโหลดข้อมูลเรียบร้อย</p>
+          </div>
+        </div>
+        <div class="row text-center" *ngIf="isUpload">
+          <div class="col-12">
+            <p>ทั้งหมด {{record}} รายการ </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer text-center" *ngIf="isUpload">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onCloseModal()">ตกลง</button>
+      </div>
+
+    </div>
+  </div>
+</div>

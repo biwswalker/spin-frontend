@@ -9,15 +9,21 @@ import { AuthenticationService } from './providers/authentication.service';
 export class AppComponent {
 
   public isAccess = false;
+  private isRequested = false;
 
   constructor(private authService: AuthenticationService) {
     this.authService.crrAccess.subscribe(accesses => {
       if (this.authService.isInSession()) {
-        this.authService.accessUser();
+        if (!this.isRequested) {
+          console.log('request')
+          this.authService.accessUser();
+          this.isRequested = true;
+        }
         this.isAccess = true;
       } else {
         this.isAccess = false;
       }
+
     })
   }
 }

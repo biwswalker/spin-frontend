@@ -21,11 +21,15 @@ export class OfficerSearchComponent implements OnInit {
 
   @Output() messageEvent = new EventEmitter<string>();
 
-  constructor(protected officerService: OfficerService) { }
+  constructor(private officerService: OfficerService) { }
 
   ngOnInit() {
     this.officers = [];
-    this.getAllOfficer();
+    if (this.criteriaValue) {
+      this.onSearchByCriteria(this.criteriaValue);
+    } else {
+      this.getAllOfficer();
+    }
   }
 
 

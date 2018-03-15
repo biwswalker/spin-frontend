@@ -11,10 +11,10 @@
                     New Task
                 </div>
 
-                <div class="d-flex">
-                    <div class="ml-auto">
+                <div class="d-flex" >
+                    <div class="ml-auto" *ngIf="mode !== 'VIEW'">
                         <!-- Delete Button -->
-                        <button class="btn btn-link" *ngIf="mode == 'EDIT'">
+                        <button class="btn btn-link" >
                                 <i class="far fa-trash-alt" data-toggle="modal" href="#confirmDeleteTask"></i>
                             </button>
                         <!-- Save Button -->
@@ -54,7 +54,6 @@
             <!-- Body -->
             <div class="modal-body">
                 <div class="tab-content">
-
                     <!-- Detail -->
                     <div role="tabpanel" class="tab-pane in active fixed-modal" id="tab-detail">
                         <app-task-detail (messageEvent)="receiveMessage($event)"></app-task-detail>
@@ -75,7 +74,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog dialog-confirm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -87,6 +86,23 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                 <button type="button" class="btn btn-primary" (click)="deleteTask()" data-dismiss="modal">ลบงานที่สร้างไว้</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header danger">
+                <i class="fas fa-trash-alt"></i> ยืนยันการลบงานหรือไม่ ?
+            </div>
+            <div class="modal-footer">
+                <div class="col-6">
+                    <a class="btn btn-danger" data-dismiss="modal">ยกเลิก</a>
+                </div>
+                <div class="col-6">
+                    <a class="btn btn-success" (click)="deleteTask()" data-dismiss="modal">ลบงานที่สร้างไว้</a>
+                </div>
             </div>
         </div>
     </div>

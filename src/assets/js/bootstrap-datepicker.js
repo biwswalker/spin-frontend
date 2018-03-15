@@ -392,6 +392,11 @@
 			this.fill();
 		},
 
+		refresh: function(){
+			// Custom by jannarong.sa 
+			this.fill();
+		},
+
 		fillDow: function(){
 			var dowCnt = this.o.weekStart,
 			html = '<tr>';
@@ -619,10 +624,12 @@
 								switch(this.viewMode){
 									case 0:
 										this.viewDate = this.moveMonth(this.viewDate, dir);
+										this._trigger('changeMonth', this.viewDate);
 										break;
 									case 1:
 									case 2:
 										this.viewDate = this.moveYear(this.viewDate, dir);
+										this._trigger('changeMonth', this.viewDate);
 										break;
 								}
 								this.fill();

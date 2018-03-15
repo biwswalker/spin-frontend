@@ -16,7 +16,7 @@ import { Mode } from "../../../config/properties";
   templateUrl: "./user-register.component.html",
   styleUrls: ["./user-register.component.scss"]
 })
-export class UserRegisterComponent implements OnInit {
+export class UserRegisterComponent  {
   @ViewChild(UserRegisterInfoComponent) info;
   @ViewChild(UserRegisterSearchComponent) search;
   @ViewChild(UserRegisterModalComponent) userModal;
@@ -28,7 +28,9 @@ export class UserRegisterComponent implements OnInit {
     private utilsService: UtilsService
   ) {}
 
-  ngOnInit() {}
+  ngAfterViewInit() {
+    this.userModal.ngOnInit();
+  }
 
   passKeyToChildrens(userId) {
     console.log("presskey: ", userId);
@@ -66,6 +68,6 @@ export class UserRegisterComponent implements OnInit {
 
   createUserRegister() {
     console.log("open");
-    this.userModal.test();
+    this.userModal.onCreate();
   }
 }

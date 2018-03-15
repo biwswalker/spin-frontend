@@ -59,7 +59,7 @@ export class TaskModalComponent implements AfterViewInit {
     });
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
-      console.log('currentViewTask=> ', task)
+      console.log('currentViewTask=> ', task);
       if (task.taskId) {
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
@@ -67,15 +67,13 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log(task);
     this.taskForm.task = task;
     this.mode = mode;
-    this.taskDetailChild.color = task.color ? task.color : 'primary';
-    this.bgColor = task.color ? task.color : 'primary';
+    this.bgColor = task.color ? task.color : 'blue';
     const objTask = this.taskForm.task;
+    objTask.color = (task.color ? task.color : 'blue');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     if (this.taskForm.task.projectId) {
-      console.log('GGQWPPP');
       this.projectService.findProjectById(this.taskForm.task.projectId).subscribe(
         project => {
           this.taskService.changeProjectId(project.projectId);
@@ -88,9 +86,6 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
-    if (this.mode == Mode.V) {
-      console.log('View');
-    }
   }
 
   onSubmit() {
@@ -137,6 +132,8 @@ export class TaskModalComponent implements AfterViewInit {
         $('.timestamp .ui-selected').removeClass('ui-selected');
         self.taskService.changeTimetableDate(self.utilsService.convertThDateToEn(stampDate));
       })
+    }else{
+      this.eventMessageService.onWarning('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบ');
     }
   }
 

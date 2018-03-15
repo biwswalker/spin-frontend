@@ -38,6 +38,7 @@ export class UserRegisterService {
   }
 
   onOpenModal() {
+    console.log("onOpenModal...")
     this.modal.initial("#user-modal", {
       show: true,
       backdrop: "static",

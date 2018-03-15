@@ -36,8 +36,9 @@ export class TaskDetailComponent implements OnInit {
   public projectList: Project[];
   public taskDetailFormGroup: FormGroup;
   public user: User;
-  public color: string;
+  // public color: string;
   public mode: string;
+  public isDisabled: boolean;
   public favProjectList = new Observable<Project[]>();
   public timeList: any[];
   public endTimeList: any[];
@@ -77,6 +78,12 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
+    if(mode == 'VIEW'){
+      console.log(mode)
+      this.taskDetailFormGroup.disable();
+    }else{
+      this.taskDetailFormGroup.enable();
+    }
     this.taskObj = new Task();
     this.taskObj = task;
     this.mode = mode;
@@ -118,10 +125,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
-    this.color = color;
-    if (this.color) {
-      this.taskObj.color = this.color;
-      this.messageEvent.emit(this.color);
+    console.log(color);
+    this.taskObj.color = color;
+    if (this.taskObj.color) {
+      this.messageEvent.emit(this.taskObj.color);
     }
   }
 
@@ -139,14 +146,11 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onChangeTime() {
-
     let startTime = this.taskDetailFormGroup.value.taskDetailStartTime;
     let endTime = this.taskDetailFormGroup.value.taskDetailEndTime;
-
     this.endTimeList = this.utilsService.getTimeList();
     this.endTimeList.splice(0, this.endTimeList.indexOf(startTime) + 1);
     this.workStartTime = startTime;
-
     if ((this.timeList.indexOf(startTime) - this.timeList.indexOf(endTime)) >= 0) {
       this.taskDetailFormGroup.patchValue({ taskDetailEndTime: this.endTimeList[0] });
     }
