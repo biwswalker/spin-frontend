@@ -131,9 +131,11 @@
     <div class="col-2 thumbnail-img" *ngFor="let obj of favProjectList | async">
       <div class="btn thumbnail-size"
            data-toggle="tooltip"
+           id="{{obj.projectId}}"
            data-placement="bottom"
            title="{{obj.projectName}}">
              <img
+               name="{{obj.projectId}}"
                src="{{obj.projectThumbnail}}"
                (click)="onFavoriteClick(obj)">
       </div>
@@ -148,13 +150,13 @@
 </div>
 <div class="row">
   <div class="col">
-    <a class="btn blue color-picker" (click)="onColorPick('blue')" id="corlor" [class.active]="taskObj.color == 'blue'"></a>
-    <a class="btn pink color-picker" (click)="onColorPick('pink')" id="corlor" [class.active]="taskObj.color == 'pink'"></a>
-    <a class="btn red color-picker" (click)="onColorPick('red')" id="corlor" [class.active]="taskObj.color == 'red'"></a>
-    <a class="btn orange color-picker" (click)="onColorPick('orange')" id="corlor" [class.active]="taskObj.color == 'orange'"></a>
-    <a class="btn cyan color-picker" (click)="onColorPick('cyan')" id="corlor" [class.active]="taskObj.color == 'cyan'"></a>
-    <a class="btn yellow color-picker" (click)="onColorPick('yellow')" id="corlor" [class.active]="taskObj.color == 'yellow'"></a>
-    <a class="btn green color-picker" (click)="onColorPick('green')" id="corlor" [class.active]="taskObj.color == 'green'"></a>
+    <a class="btn blue color-picker" (click)="onColorPick('blue')" id="blue" [class.active]="taskObj.color == 'blue'"></a>
+    <a class="btn pink color-picker" (click)="onColorPick('pink')" id="pink" [class.active]="taskObj.color == 'pink'"></a>
+    <a class="btn red color-picker" (click)="onColorPick('red')" id="red" [class.active]="taskObj.color == 'red'"></a>
+    <a class="btn orange color-picker" (click)="onColorPick('orange')" id="orange" [class.active]="taskObj.color == 'orange'"></a>
+    <a class="btn cyan color-picker" (click)="onColorPick('cyan')" id="cyan" [class.active]="taskObj.color == 'cyan'"></a>
+    <a class="btn yellow color-picker" (click)="onColorPick('yellow')" id="yellow" [class.active]="taskObj.color == 'yellow'"></a>
+    <a class="btn green color-picker" (click)="onColorPick('green')" id="green" [class.active]="taskObj.color == 'green'"></a>
   </div>
 </div>
 </div>
