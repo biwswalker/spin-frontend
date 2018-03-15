@@ -9,6 +9,7 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/take';
 import { AuthenticationService } from "../providers/authentication.service";
+import { Locale } from "./properties";
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
@@ -18,12 +19,13 @@ export class Interceptor implements HttpInterceptor {
     constructor(private authService: AuthenticationService) { }
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+        let local = Locale;
         if (token) {
             if (!this.authService.isRefresh()) {
-                return req.clone({ setHeaders: { Authorization: token } });
+                return req.clone({ setHeaders: { Authorization: token, "Accept-Language": local } });
             }
         }
-        return req;
+        return req.clone({ setHeaders: { "Accept-Language": local } });
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {

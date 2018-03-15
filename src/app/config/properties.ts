@@ -48,3 +48,8 @@ export const Mode = {
     E: 'EDIT',
     I: 'INSERT'
 }
+export var Locale = 'th'
+export const Locales = {
+    TH: 'th',
+    EN: 'en'
+}

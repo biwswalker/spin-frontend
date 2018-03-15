@@ -1,9 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { TaskService } from '../../../../providers/task.service';
-import { Task } from '../../../../models/task';
 import { WorkingTime } from '../../../../config/properties';
 import { UtilsService } from '../../../../providers/utils/utils.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 declare var SpinModal: any;
 declare var convertTimeString: any;
 declare var $: any;
@@ -37,7 +35,7 @@ export class TimetableDayComponent implements AfterViewInit {
   }
 
   fecthWorkingTaskByDate(enDate: string) {
-    this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(enDate)).subscribe((tasks: Task[]) => {
+    this.taskService.findWorkingTaskByDate(this.utilsService.convertEnDateToTh(enDate)).subscribe((tasks: any[]) => {
       let index = 0;
       let isRepeat: number[] = [];
       this.refreshTimeTable();
@@ -71,8 +69,10 @@ export class TimetableDayComponent implements AfterViewInit {
             }
             $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
             $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
-              <span class="text-truncate m-0 stamp-topic">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)} | <div class="d-inline topic-task">${task.topic}</div></span>
-              ${totalInd > 0 ? `<p class="text-truncate m-0">${task.activity}</p>` : ''}
+              <div class="m-0 stamp-topic text-truncate"><div class="d-inline">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
+              ${task.projectAbbr ? `<div class="d-inline topic-task"> #${task.projectAbbr}</div>` : ''}</div>
+              ${totalInd > 0 ? `<div class="stamp-topic text-truncate m-0"><div class="topic-task">${task.topic}</div></div>` : ''}
+              ${totalInd > 1 ? `<div class="stamp-activity text-truncate m-0">${task.activity}</div>` : ''}
               <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
             </div>`);
             $(`.${overlayClass}`).addClass('stamp-box')
