@@ -30,7 +30,7 @@
               <div class="ml-auto ">
                 <label class="mx-auto">ใช้งาน</label>
                 <span class="status-flag">
-                  <input class="switch" type="checkbox" checked="true" (change)="onChangeActiveFlag()" id="active" name="active">
+                  <input class="switch" type="checkbox" [checked]="isActive" (change)="onChangeActiveFlag()" id="active" name="active">
                   <label for="active">
                     <span></span>
                   </label>
