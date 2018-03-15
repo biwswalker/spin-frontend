@@ -3,7 +3,7 @@ import { Officer } from './officer';
 export class User {
   public userId: string;
   public userPws: string;
-  public officerId: string;
+  public officeId: string;
   public email: string;
   public userLevel: string;
   public remark: string;

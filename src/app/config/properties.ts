@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+export const URL = 'http://10.1.87.111:8081/';
+=======
 export const URL = 'http://10.1.87.224:8081/';
 // export const URL = 'http://172.17.3.49:8080/spin-s/';
+>>>>>>> 9eef3a778a44e4ed0531bb796c356fe23a44868a
 export const Method = {
     GET: 'GET',
     POST: 'POST'

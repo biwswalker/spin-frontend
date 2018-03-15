@@ -1,0 +1,83 @@
+<!-- MODAL -->
+<div class="modal fade" id="user-modal" role="dialog" aria-hidden="true" aria-labelledby="user-modal">
+	<div class="modal-dialog modal-md" role="document">
+		<div class="modal-content">
+			<!-- HEADER -->
+			<div class="modal-header">
+				<button class="btn btn-link" type="button" (click)="onCloseModal()"><i class="fas fa-times fa-lg"></i></button>
+				<div class="text-center header-text info-body-bold">
+					{{user.userId == null?'เพิ่มผู้ใช้งาน': 'แก้ไขผู้ใช้งาน'}}
+				</div>
+				<button class="btn btn-save modal-btn" type="button" (click)="onSubmit()"><i class="fas fa-plus-circle mr-1"></i>เพิ่ม</button>
+			</div>
+
+			<!-- BODY -->
+			<div class="modal-body">
+				<form>
+          <div class="row">
+								<div class="col-12 d-flex">
+									<div class="ml-auto ">
+                <label class="mx-auto info-body-bold">ใช้งาน</label>
+                <span class="status-flag">
+                  <input class="switch" id="active" name="active" type="checkbox" checked="true">
+                  <label for="active">
+                    <span></span>
+                  </label>
+                  <input id="active-flag" name="active-flag" type="hidden">
+                </span>
+              </div>
+						</div>
+					</div>
+          	<div class="row">
+								<div class="col-12 form-group">
+									<label for="user-name" class="info-body-bold">รหัสผู้ใช้งาน</label>
+									<input class="form-control" id="user-id" name="user-id" type="text" maxlength="30" [(ngModel)]="user.userId">
+								</div>
+          </div>
+
+
+      	<div class="row">
+								<div class="col-12 form-group">
+                  <label for="user-name" class="info-body-bold">ชื่อผู้ใช้งาน</label>
+                  <!-- <input type="text"
+                         [typeahead]="officerList"
+                         [typeaheadItemTemplate]="customItemTemplate"
+                         [typeaheadScrollable]=true
+                         [typeaheadMinLength]="0"
+                         [typeaheadOptionsInScrollableView]="5"
+                         (typeaheadOnSelect)="onChangeOfficer($event)"
+                         >
+                        <ng-template #customItemTemplate let-model="item" let-index="index">
+                          <h6>{{model.firstNameTh}} {{modal.lastNameTh}}</h6>
+                        </ng-template> -->
+              </div>
+        </div>
+      	<div class="row">
+								<div class="col-12 form-group">
+									<label for="email" class="info-body-bold">Email</label>
+									<input class="form-control" id="email" name="email" type="text" maxlength="30" [(ngModel)]="user.email">
+								</div>
+        </div>
+        	<div class="row">
+								<div class="col-12 form-group">
+									<label for="user-level" class="info-body-bold">ระดับการใช้งาน</label>
+									<input class="form-control" id="user-level" name="user-level" type="text" maxlength="30" [(ngModel)]="user.userLevel">
+						</div>
+        </div>
+        	<div class="row">
+								<div class="col-12 form-group">
+									<label for="remark" class="info-body-bold">หมายเหตุ</label>
+                  <textarea class="form-control"
+                          id="remark"
+                          name="remark"
+                          maxlength="30"
+                          rows="5"
+                          col="50"
+                          [(ngModel)]="user.remark"></textarea>
+						</div>
+        </div>
+    </form>
+			</div>
+		</div>
+	</div>
+</div>
