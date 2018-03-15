@@ -13,16 +13,17 @@ export class AppComponent {
 
   constructor(private authService: AuthenticationService) {
     this.authService.crrAccess.subscribe(accesses => {
-      if(!this.isRequested){
-        this.isRequested = true;
-        if (this.authService.isInSession()) {
+      if (this.authService.isInSession()) {
+        if (!this.isRequested) {
+          console.log('request')
           this.authService.accessUser();
-          this.isAccess = true;
-        } else {
-          this.isAccess = false;
+          this.isRequested = true;
         }
-        
+        this.isAccess = true;
+      } else {
+        this.isAccess = false;
       }
+
     })
   }
 }

@@ -69,7 +69,6 @@ export class TaskModalComponent implements AfterViewInit {
   onTaskHasSelected(task: Task, mode: string) {
     this.taskForm.task = task;
     this.mode = mode;
-    // this.taskDetailChild.color = (task.color ? task.color : 'blue');
     this.bgColor = task.color ? task.color : 'blue';
     const objTask = this.taskForm.task;
     objTask.color = (task.color ? task.color : 'blue');
@@ -87,13 +86,9 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
-    if (this.mode == Mode.V) {
-      console.log('View');
-    }
   }
 
   onSubmit() {
-    console.log(this.taskDetailChild.taskObj.color)
     this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');

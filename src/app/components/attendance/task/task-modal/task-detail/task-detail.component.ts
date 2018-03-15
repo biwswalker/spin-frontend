@@ -38,6 +38,7 @@ export class TaskDetailComponent implements OnInit {
   public user: User;
   // public color: string;
   public mode: string;
+  public isDisabled: boolean;
   public favProjectList = new Observable<Project[]>();
   public timeList: any[];
   public endTimeList: any[];
@@ -77,7 +78,12 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
-    console.log(task)
+    if(mode == 'VIEW'){
+      console.log(mode)
+      this.taskDetailFormGroup.disable();
+    }else{
+      this.taskDetailFormGroup.enable();
+    }
     this.taskObj = new Task();
     this.taskObj = task;
     this.mode = mode;

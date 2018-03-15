@@ -9,6 +9,7 @@
             type="checkbox"
             id="status-flag"
             name="status-flag"
+            [disabled]="mode == 'VIEW'"
             formControlName="taskDetailStatusFlag">
               <label for="status-flag">
                 <span></span>
@@ -28,6 +29,7 @@
         data-provide="datepicker"
         data-date-language="th-th"
         summitDatePicker
+        [disabled]="mode === 'VIEW'"
         [(ngModel)]="workDate"
         formControlName="taskDetailWorkDate"
         id="datepicker">
@@ -68,10 +70,9 @@
     </div>
   <div class="row">
     <div class=" col-12">
-      <label class="label-task-modal">หัวข้อ *</label>
+      <label class="label-task-modal" >หัวข้อ *</label>
       <input class="form-control"
         type="text"
-        [disabled]="mode === 'View'"
         name="topic"
         maxlength="500"
         formControlName="taskDetailTopic"
@@ -85,7 +86,6 @@
         rows="3"
         id="activity"
         name="activity"
-        [disabled]="mode === 'View'"
         maxlength="1000"
         formControlName="taskDetailActivity">
       </textarea>
@@ -97,7 +97,6 @@
       <input class="form-control"
         id="project-id"
         name="project-id"
-        [disabled]="mode === 'View'"
         formControlName="taskDetailProject"
         [typeahead]="projectList"
         typeaheadOptionField="projectName"
@@ -112,15 +111,18 @@
       </div>
   </div>
 
-  <div class="row">
-      <div class="col-2" *ngFor="let obj of favProjectList | async">
-          <div class="btn thumbnail-size">
-              <img
-              src="{{obj.projectThumbnail}}"
-              (click)="onFavoriteClick(obj)">
-          </div>
+  <div class="row" *ngIf="mode !== 'VIEW'">
+    <div class="col-2" *ngFor="let obj of favProjectList | async">
+      <div class="btn thumbnail-size"
+           data-toggle="tooltip"
+           data-placement="bottom"
+           title="{{obj.projectName}}">
+             <img
+               src="{{obj.projectThumbnail}}"
+               (click)="onFavoriteClick(obj)">
+      </div>
     </div>
-    </div>
+  </div>
 </form>
 
 <div class="row">
