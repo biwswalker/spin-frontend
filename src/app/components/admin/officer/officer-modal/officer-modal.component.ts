@@ -144,14 +144,14 @@ export class OfficerModalComponent implements OnInit {
   validateForm() {
     this.officerGroup = new FormGroup({
       officeId: new FormControl(this.officer.officeId, Validators.required),
-      titleTh: new FormControl(this.officer.titleTh, Validators.required),
+      titleTh: new FormControl(this.officer.titleTh),
       firstNameTh: new FormControl(this.officer.firstNameTh, Validators.required),
       lastNameTh: new FormControl(this.officer.lastNameTh, Validators.required),
       titleEn: new FormControl(this.officer.titleEn),
       firstNameEn: new FormControl(this.officer.firstNameEn),
       lastNameEn: new FormControl(this.officer.lastNameEn),
       startDate: new FormControl(this.officer.startDate, Validators.required),
-      deptName: new FormControl(this.deptName),
+      deptName: new FormControl(this.deptName, Validators.required),
       positionName: new FormControl(this.positionName),
       deptId: new FormControl(this.officer.deptId),
       positionId: new FormControl(this.officer.deptId),
