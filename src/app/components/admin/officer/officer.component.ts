@@ -31,6 +31,7 @@ export class OfficerComponent implements OnInit {
   public messages: string[] = [];
   public messagesDepartment: string[] = [];
   public messagesPosition: string[] = [];
+  public message: string = '';
 
 
   arrayBuffer: any;
@@ -63,8 +64,9 @@ export class OfficerComponent implements OnInit {
 
   Upload() {
     console.log('upload');
-    this.isUpload = true;
     let fileReader = new FileReader();
+    this.record = 0;
+    this.clearMessage();
     console.log(fileReader);
     fileReader.onload = (e) => {
       console.log(fileReader.result);
@@ -88,6 +90,7 @@ export class OfficerComponent implements OnInit {
               console.log(result);
               //   this.officers2 = result;
               this.messages = this.messagesDepartment.concat(this.messagesPosition);
+              console.log(this.messages);
               this.getMessage();
             }
           )
@@ -134,7 +137,8 @@ export class OfficerComponent implements OnInit {
 
     //วันที่เข้างาน
     let date = obj['วันที่เข้างาน'].split("/");
-    let startdate = (Number.parseInt(date[2]) + 543) + date[1] + ("0" + (date[0])).slice(-2);
+    let startdate = (Number.parseInt(date[2]) + 543) + ("0" + (date[1])).slice(-2) + ("0" + (date[0])).slice(-2);
+    console.log('startdate ', startdate);
 
     //E-mail
     let email = obj['E-mail'];
@@ -148,18 +152,18 @@ export class OfficerComponent implements OnInit {
             officer.deptId = data[0].deptId;
           } else {
             if (this.messagesDepartment.length === 0) {
-              this.messagesDepartment = this.messagesDepartment.concat('ชื่อแผนกดังต่อไปนี้ ');
+              this.messagesDepartment = this.messagesDepartment.concat('ชื่อแผนกดังต่อไปนี้ ไม่พบในฐานข้อมูล ');
             } else {
-              this.messagesDepartment = this.messagesDepartment.concat('deptAbbr');
+              this.messagesDepartment = this.messagesDepartment.concat(deptAbbr);
             }
           }
           if (data[1]) {
             officer.positionId = data[1].positionId;
           } else {
             if (this.messagesPosition.length === 0) {
-              this.messagesPosition = this.messagesPosition.concat('ชื่อตำแหน่งดังต่อไปนี้ ');
+              this.messagesPosition = this.messagesPosition.concat('ชื่อตำแหน่งดังต่อไปนี้ ไม่พบในฐานข้อมูล');
             } else {
-              this.messagesPosition = this.messagesPosition.concat('deptAbbr');
+              this.messagesPosition = this.messagesPosition.concat(positionAbbr);
             }
           }
 
@@ -205,13 +209,28 @@ export class OfficerComponent implements OnInit {
 
   getMessage() {
     console.log("this.officers = ", this.officers);
-    if (this.messages.length === 0) {
+    console.log("this.messages = ", this.messages.length);
+    if (this.messages.length > 1) {
+      this.isUpload = false;
+      this.message = 'พบข้อมูลไม่สมบูรณ์ '.concat(this.messages.toString());
       console.log("==============if================");
-      this.eventMessagesService.onUploadError(this.messages)
+      //    this.eventMessagesService.onUploadError(this.messages)
       //print message
     } else {
+      this.isUpload = true;
       console.log("==============else================");
       //import data
+      this.officerService.uploadExcel(this.officers).subscribe(
+        data => {
+          console.log(data);
+          this.eventMessagesService.onInsertSuccess(null);
+          this.clearMessage();
+        },
+        error => {
+          this.eventMessagesService.onInsertError(error);
+          this.clearMessage();
+        }
+      );
     }
   }
 
@@ -220,6 +239,13 @@ export class OfficerComponent implements OnInit {
     if (key) {
       this.officerSearch.ngOnInit();
     }
+  }
+
+  clearMessage() {
+    this.messages = [];
+    this.messagesDepartment = [];
+    this.messagesPosition = [];
+    this.message = '';
   }
 
 }

@@ -52,6 +52,11 @@
             <button type="button" class="btn btn-info" (click)="Upload()" [disabled]="!fileName">Upload</button>
           </div>
         </div>
+        <div class="row text-center text-danger" *ngIf="!isUpload && message">
+          <div class="col-12">
+            <p> {{message}} </p>
+          </div>
+        </div>
         <div class="row text-center" *ngIf="isUpload">
           <div class="col-12">
             <p>อัพโหลดข้อมูลเรียบร้อย</p>

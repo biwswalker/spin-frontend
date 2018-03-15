@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TaskComponent } from './task/task.component';
 
 @Component({
   selector: 'app-attendance',
@@ -14,14 +15,19 @@ import { Component, OnInit } from '@angular/core';
     </div>
   </div>
 </div>
-<task-modal></task-modal>`,
+<task-modal  (onCompleteEmit)="insertComplete($event)"></task-modal>`,
   styles: ['.box { background-color: #fff; padding: 1rem; border-radius: 5px; webkit-box-shadow: 2px 1px 3px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); box-shadow: 2px 1px 3px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); } .exbox {padding-left:5px;padding-right:5px;}']
 })
 export class AttendanceComponent implements OnInit {
 
+  @ViewChild(TaskComponent) tasksChild;
   constructor() { }
 
   ngOnInit() {
 
+  }
+
+  insertComplete(event){
+    this.tasksChild.onInsertTaskCompleted(event);
   }
 }

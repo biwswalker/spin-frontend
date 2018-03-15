@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { TaskService } from '../../../../providers/task.service';
 import { Observable } from 'rxjs/Observable';
 import { TaskForm } from '../../../../forms/task-form';
@@ -15,7 +15,7 @@ declare var $: any;
   templateUrl: './task-day.component.html',
   styleUrls: ['./task-day.component.scss']
 })
-export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class TaskDayComponent implements AfterViewInit {
 
 
   private subjectDate = new BehaviorSubject<string>(this.utilsService.getCurrentThDate());
@@ -42,7 +42,8 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     // End Async
   }
 
-  ngOnInit() {
+  onTaskCompleted(date) {
+    this.subjectDate.next(date);
   }
 
   ngAfterViewInit(): void {
@@ -102,9 +103,6 @@ export class TaskDayComponent implements OnInit, AfterViewInit, AfterViewChecked
     $($(datepickerId).find('.datepicker-inline table')).addClass('w-100');
     $($(datepickerId).find('.datepicker-inline')).css({ 'margin-left': 'auto', 'margin-right': 'auto' });
     // End Call DatePicker
-  }
-
-  ngAfterViewChecked() {
   }
 
   fetchSpecialDate(year, month) {

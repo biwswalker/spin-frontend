@@ -2,7 +2,7 @@ import { ProjectService } from './../../../../providers/project.service';
 import { Project } from './../../../../models/project';
 import { FormGroup } from '@angular/forms';
 import { TaskPartnerComponent } from './task-partner/task-partner.component';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskForm } from '../../../../forms/task-form';
 import { TaskTagComponent } from './task-tag/task-tag.component';
@@ -30,7 +30,8 @@ export class TaskModalComponent implements AfterViewInit {
   private modal = new SpinModal();
   private user: User = new User();
   public mode = '';
-
+  
+  @Output() onCompleteEmit = new EventEmitter<string>();
   @ViewChild(TaskDetailComponent) taskDetailChild;
   @ViewChild(TaskPartnerComponent) taskPartnerChild;
   @ViewChild(TaskTagComponent) taskTagChild;
@@ -132,6 +133,7 @@ export class TaskModalComponent implements AfterViewInit {
       $('#task-modal').on("hidden.bs.modal", function () {
         $('.timestamp .ui-selected').removeClass('ui-selected');
         self.taskService.changeTimetableDate(self.utilsService.convertThDateToEn(stampDate));
+        self.onCompleteEmit.emit(stampDate);
       })
     }else{
       this.eventMessageService.onWarning('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบ');
