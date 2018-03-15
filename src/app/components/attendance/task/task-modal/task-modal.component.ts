@@ -67,7 +67,6 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log(task);
     this.taskForm.task = task;
     this.mode = mode;
     this.bgColor = task.color ? task.color : 'blue';

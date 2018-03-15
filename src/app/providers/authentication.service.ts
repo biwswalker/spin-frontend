@@ -32,9 +32,9 @@ export class AuthenticationService {
     return this.request.requestMethodPOSTWithHeader('oauth/token', data, options).toPromise()
       .then(token => {
         if (token) {
-          localStorage.setItem(Default.ACTOKN, token.access_token)
-          localStorage.setItem(Default.TOKNTY, token.token_type)
-          localStorage.setItem(Default.RFTOKN, token.refresh_token)
+          sessionStorage.setItem(Default.ACTOKN, token.access_token)
+          sessionStorage.setItem(Default.TOKNTY, token.token_type)
+          sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
           this.isAccess.next(true);
           return this.accessUser();
         } else {
@@ -45,9 +45,9 @@ export class AuthenticationService {
       })
       .catch(error => {
         console.log(error)
-        localStorage.removeItem(Default.ACTOKN);
-        localStorage.removeItem(Default.TOKNTY);
-        localStorage.removeItem(Default.RFTOKN);
+        sessionStorage.removeItem(Default.ACTOKN);
+        sessionStorage.removeItem(Default.TOKNTY);
+        sessionStorage.removeItem(Default.RFTOKN);
         this.isAccess.next(false)
         return Status.ERROR;
       })
@@ -84,36 +84,36 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.notAuthorization = true;
-    let acces_token: any = localStorage.getItem(Default.ACTOKN);
-    if (acces_token) {
-      return this.request.requestMethodGET(`logout/${acces_token}`).subscribe((response: Response) => {
-        this.notAuthorization = false;
-        this.removeToken();
-        this.isAccess.next(false)
-      },
-        error => {
-          this.notAuthorization = false;
-          this.removeToken();
-          this.isAccess.next(false)
-        });
-    } else {
-      this.notAuthorization = false;
-      this.removeToken();
-      this.isAccess.next(false)
-    }
+    // this.notAuthorization = true;
+    // let acces_token: any = sessionStorage.getItem(Default.ACTOKN);
+    // if (acces_token) {
+    //   return this.request.requestMethodGET(`log-out/${acces_token}`).subscribe((response: Response) => {
+    //     this.notAuthorization = false;
+    //     this.removeToken();
+    //     this.isAccess.next(false)
+    //   },
+    //     error => {
+    //       this.notAuthorization = false;
+    //       this.removeToken();
+    //       this.isAccess.next(false)
+    //     });
+    // } else {
+    // this.notAuthorization = false;
+    this.removeToken();
+    this.isAccess.next(false)
+    // }
   }
 
   isInSession(): boolean {
-    if (localStorage.getItem(Default.ACTOKN)) {
+    if (sessionStorage.getItem(Default.ACTOKN)) {
       return true;
     }
     return false;
   }
 
   getNowToken(): string {
-    let access_token: any = localStorage.getItem(Default.ACTOKN);
-    let token_type: any = localStorage.getItem(Default.TOKNTY);
+    let access_token: any = sessionStorage.getItem(Default.ACTOKN);
+    let token_type: any = sessionStorage.getItem(Default.TOKNTY);
     if (access_token) {
       return `${token_type} ${access_token}`;
     }
@@ -121,7 +121,7 @@ export class AuthenticationService {
   }
 
   getRefreshToken(): string {
-    let refresh_token: any = localStorage.getItem(Default.RFTOKN);
+    let refresh_token: any = sessionStorage.getItem(Default.RFTOKN);
     if (refresh_token) {
       return `${refresh_token}`;
     }
@@ -133,9 +133,9 @@ export class AuthenticationService {
   }
 
   removeToken() {
-    localStorage.removeItem(Default.ACTOKN)
-    localStorage.removeItem(Default.TOKNTY)
-    localStorage.removeItem(Default.RFTOKN)
+    sessionStorage.removeItem(Default.ACTOKN)
+    sessionStorage.removeItem(Default.TOKNTY)
+    sessionStorage.removeItem(Default.RFTOKN)
   }
 
   refreshToken(): Observable<string> {
@@ -148,9 +148,9 @@ export class AuthenticationService {
     return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).map(token => {
       this.notAuthorization = false;
       if (token) {
-        localStorage.setItem(Default.ACTOKN, token.access_token)
-        localStorage.setItem(Default.TOKNTY, token.token_type)
-        localStorage.setItem(Default.RFTOKN, token.refresh_token)
+        sessionStorage.setItem(Default.ACTOKN, token.access_token)
+        sessionStorage.setItem(Default.TOKNTY, token.token_type)
+        sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
         this.isAccess.next(true);
         this.accessUser();
         return this.getNowToken();

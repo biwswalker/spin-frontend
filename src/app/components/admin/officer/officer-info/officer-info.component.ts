@@ -12,7 +12,7 @@ import { Position } from '../../../../models/position';
 export class OfficerInfoComponent implements OnInit {
 
   public officer: Officer
-  constructor(protected officerService: OfficerService) { }
+  constructor(private officerService: OfficerService) { }
 
   ngOnInit() {
     this.officer = new Officer();

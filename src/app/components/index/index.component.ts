@@ -3,7 +3,7 @@ import { AuthenticationService } from '../../providers/authentication.service';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs';
-
+declare var $:any;
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -25,6 +25,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.email = this.user.email;
       }
       if (this.user.officer) {
+        $('#task-modal').on("hidden.bs.modal")
         this.fullname = `${this.user.officer.firstNameEn} ${this.user.officer.lastNameEn}`;
       }
     });

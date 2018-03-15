@@ -15,9 +15,9 @@ declare var $: any;
 })
 export class ResponsibilityModalComponent implements OnInit {
 
-  protected responsibilityGroup: FormGroup;
+  public responsibilityGroup: FormGroup;
   public responsibility: Responsibility;
-  protected mode: string;
+  public mode: string;
   protected isActive: boolean = true;
 
   public headerTxt: string = '';

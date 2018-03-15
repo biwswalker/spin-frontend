@@ -46,6 +46,7 @@ export class Interceptor implements HttpInterceptor {
         if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
             return this.logoutUser();
         }
+        console.log(error)
         console.log('Error 400 please call 191.')
         return Observable.throw(error);
     }

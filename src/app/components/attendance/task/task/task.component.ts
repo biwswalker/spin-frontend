@@ -28,7 +28,7 @@ export class TaskDirective implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.authService.crrUser.subscribe((user: User) => {
-      if(user.userId === this.source.ownerUserId){
+      if(user.userId !== this.source.ownerUserId){
         this.isOwner = 'owner'
       }else{
         this.isOwner = ''

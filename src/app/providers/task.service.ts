@@ -63,7 +63,6 @@ export class TaskService {
   }
 
   onViewTask(task: Task) {
-    console.log('onViewTask BIWSWALKER')
     this.viewTask.next(task);
   }
 
