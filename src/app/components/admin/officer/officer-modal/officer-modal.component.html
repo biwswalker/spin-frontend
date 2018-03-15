@@ -27,7 +27,7 @@
               <label class="office-id">รหัสพนักงาน *</label>
             </div>
             <div class="col-4 d-flex">
-              <input class="form-control" [(ngModel)]="officer.officeId" [disabled]="mode == 'EDIT'" type="text" id="office-id" name="office-id"
+              <input class="form-control" [(ngModel)]="officer.officeId" [disabled]="mode === 'EDIT'" type="text" id="office-id" name="office-id"
                 formControlName="officeId">
             </div>
             <div class="col-5 d-flex">
