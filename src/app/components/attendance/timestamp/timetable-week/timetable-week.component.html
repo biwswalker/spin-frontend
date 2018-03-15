@@ -2,13 +2,13 @@
   <div class="col-12 time-header">
     <div class="col table-header">
       <div class="row">
-        <div class="col">1</div>
-        <div class="col">2</div>
-        <div class="col">3</div>
-        <div class="col">4</div>
-        <div class="col">5</div>
-        <div class="col">6</div>
-        <div class="col">7</div>
+        <div class="col">{{ dates[0] | async | thaiDate:'day' }}</div>
+        <div class="col">{{ dates[1] | async | thaiDate:'day' }}</div>
+        <div class="col">{{ dates[2] | async | thaiDate:'day' }}</div>
+        <div class="col">{{ dates[3] | async | thaiDate:'day' }}</div>
+        <div class="col">{{ dates[4] | async | thaiDate:'day' }}</div>
+        <div class="col">{{ dates[5] | async | thaiDate:'day' }}</div>
+        <div class="col">{{ dates[6] | async | thaiDate:'day' }}</div>
       </div>
     </div>
   </div>

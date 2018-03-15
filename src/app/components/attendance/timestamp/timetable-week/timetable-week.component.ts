@@ -3,6 +3,7 @@ import { WorkingTime } from '../../../../config/properties';
 import { TaskService } from '../../../../providers/task.service';
 import { UtilsService } from '../../../../providers/utils/utils.service';
 import { Task } from '../../../../models/task';
+import { Observable } from 'rxjs/Observable';
 
 declare var $: any;
 declare var SpinModal: any;
@@ -18,11 +19,12 @@ export class TimetableWeekComponent {
   public worktable = WorkingTime
   public firstDOW = '';
   public endDOW = '';
+  public dates: Observable<string>[] = [];
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
     // Async
     this.taskService.currentTimetableDOW.subscribe((dow: any) => {
-      if(dow.start && dow.end){
+      if (dow.start && dow.end) {
         this.firstDOW = dow.start;
         this.endDOW = dow.end;
         this.fecthWorkingTaskByWeek()
@@ -35,6 +37,7 @@ export class TimetableWeekComponent {
     let dataDate = this.firstDOW
     for (let i = 1; i <= 7; i++) {
       this.fecthWorkingTaskByDate(dataDate, i);
+      this.dates[i-1] = Observable.of(dataDate);
       dataDate = this.utilsService.getNextDay(dataDate)
     }
   }
@@ -72,7 +75,7 @@ export class TimetableWeekComponent {
           }
           // Step 2
           $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
-            $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
+          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
               <div class="m-0 stamp-topic text-truncate"><div class="d-inline">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
               ${task.projectAbbr ? `<div class="d-inline topic-task"> #${task.projectAbbr}</div>` : ''}</div>
               ${totalInd > 0 ? `<div class="stamp-topic text-truncate m-0"><div class="topic-task">${task.topic}</div></div>` : ''}

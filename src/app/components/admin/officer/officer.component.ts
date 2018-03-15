@@ -137,7 +137,8 @@ export class OfficerComponent implements OnInit {
 
     //วันที่เข้างาน
     let date = obj['วันที่เข้างาน'].split("/");
-    let startdate = (Number.parseInt(date[2]) + 543) + date[1] + ("0" + (date[0])).slice(-2);
+    let startdate = (Number.parseInt(date[2]) + 543) + ("0" + (date[1])).slice(-2) + ("0" + (date[0])).slice(-2);
+    console.log('startdate ', startdate);
 
     //E-mail
     let email = obj['E-mail'];

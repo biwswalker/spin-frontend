@@ -204,6 +204,13 @@ export class UtilsService {
     return ` ${date} ${month} ${year}`
   }
 
+  displayDayDate(thDate: string): string {
+    let enDate = this.convertThDateToEn(thDate);
+    var day = moment(enDate, Format.DATE_DB).format('dd');
+    let date = this.getThGetDate(enDate);
+    return `${day}${date}`
+  }
+
   calcurateHours(hour: number, mins: number): number {
     let totalMins = (hour * 60) + mins;
     let totalHours = Math.round(totalMins / 60);

@@ -2,7 +2,7 @@ import { User } from './../../../../../models/user';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TaskModalComponent } from './../task-modal.component';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone } from '@angular/core';
 import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
@@ -47,7 +47,8 @@ export class TaskDetailComponent implements OnInit {
     private projectService: ProjectService,
     private taskService: TaskService,
     private utilsService: UtilsService,
-    private auth: AuthenticationService) {
+    private auth: AuthenticationService,
+    private ngZone: NgZone) {
   }
 
   ngOnInit() {
@@ -59,7 +60,7 @@ export class TaskDetailComponent implements OnInit {
     this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
     // Find project
     this.projectService.fetchProjectAutocomplete().subscribe(
-      projects=>{
+      projects => {
         this.projectList = projects;
       }
     )
@@ -78,10 +79,11 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
+    console.log('initialTaskDetail');
     if(mode == 'VIEW'){
       this.isDisabled = true;
       this.taskDetailFormGroup.disable();
-    }else{
+    } else {
       this.isDisabled = false;
       this.taskDetailFormGroup.enable();
     }
@@ -93,10 +95,9 @@ export class TaskDetailComponent implements OnInit {
     this.initialData();
     this.validateData();
     this.timeList = this.utilsService.getTimeList();
-  }
-
-  onSelectCallBack(date: string) {
-    this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
+    this.ngZone.runOutsideAngular(() => {
+      this.ngZone.run(() => { console.log('ngZone.runOutsideAngular'); });
+    });
   }
 
   initialTime() {
@@ -126,7 +127,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
-    console.log(color);
     this.taskObj.color = color;
     if (this.taskObj.color) {
       this.messageEvent.emit(this.taskObj.color);

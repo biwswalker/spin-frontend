@@ -1,34 +1,36 @@
-<div class="row collapse show" id="datepickerCollapse">
-  <div id="workingDatePicker" class="inline-picker"></div>
-</div>
-
-<!-- <h4 class="text-center">วันหยุดประจำเดือน</h4>
-<div id="holiday-list" *ngFor="let holiday of holidays ">
+<div id="resp-info">
+  <div class="row info-header">
+    <div class="col-9 text-left">
+      <h5 class="mb-0">
+        <label>รายละเอียดวันหยุด</label>
+      </h5>
+    </div>
+    <div class="col-3 text-right">
+      <button type="button" class="btn btn-link" (click)="editHoliday($event)">
+        <i class="fas fa-pencil-alt"> แก้ไข</i>
+      </button>
+    </div>
+  </div>
   <div class="row">
-    <div class="col-sm-4 text-info">
-      <h5 class="card-title">{{holiday.holDate | thaiDate:'full' || '' }}</h5>
+    <div class="col-9">
+      <label class="info-body-bold">ชื่อวันหยุด</label>
+      <p class="info-body">{{holiday.holName}}</p>
     </div>
-    <div class="col-sm-8 text-info">
-      <h5 class="card-text">{{holiday.holName}}</h5>
+    <div class="col-3">
+      <label class="info-body-bold">สถานะ</label>
+      <p class="info-body">{{holiday.activeFlag === 'A' ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</p>
     </div>
   </div>
-</div> -->
-
-<div id="card-holiday" class="card">
-  <div class="card-header">
-    <h4 class="text-center">วันหยุดประจำเดือน</h4>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">วันที่</label>
+      <p class="info-body">{{holiday.holDate | thaiDate:'full' || '' }}</p>
+    </div>
   </div>
-  <div class="card-body" *ngFor=" let holiday of holidays">
-    <div id="holiday-list">
-
-      <div class="row">
-        <div class="col-sm-4 text-info">
-          <h5 class="card-title">{{holiday.holDate | thaiDate:'full' || '' }}</h5>
-        </div>
-        <div class="col-sm-8 text-info">
-          <h5 class="card-text">{{holiday.holName}}</h5>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">หมายเหตุ</label>
+      <label class="info-body">{{holiday.remark}}</label>
     </div>
   </div>
 </div>
