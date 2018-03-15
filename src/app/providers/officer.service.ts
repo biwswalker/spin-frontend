@@ -93,4 +93,10 @@ export class OfficerService {
   updateOfficer(officer) {
     return this.request.requestMethodPOST('officer-management/officers', officer);
   }
+
+  //upload excel officer-management/officers/upload-excel
+
+  uploadExcel(officers) {
+    return this.request.requestMethodPUT('officer-management/officers/upload-excel', officers);
+  }
 }
