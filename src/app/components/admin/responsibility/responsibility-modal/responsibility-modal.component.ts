@@ -56,6 +56,7 @@ export class ResponsibilityModalComponent implements OnInit {
     this.responsibilityService.findByRespId(respId).subscribe(
       res => {
         this.responsibility = res;
+        this.isActive = this.responsibility.activeFlag == 'A' ? true : false;
       }
     );
   }

@@ -1,0 +1,78 @@
+<!-- Modal -->
+<div class="modal fade" id="holiday-modal" tabindex="-1" role="dialog" aria-labelledby="holiday-modal" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <button type="button" class="btn btn-link" (click)="oncloseModal()">
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+
+        <div class="text-center header-text">
+          {{headerTxt}}วันหยุด
+        </div>
+
+        <button type="submit" class="btn btn-link" [routerLink]="" (click)="onSubmit()">
+          <i class="fas {{mode === 'INSERT' ? 'fa-plus-circle' : 'fa-pencil-alt'}}"> {{headerTxt}}</i>
+        </button>
+
+      </div>
+
+      <form [formGroup]="holidayGroup" novalidate>
+        <!-- Body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              ชื่อวันหยุด
+            </div>
+            <div class="col d-flex">
+              <div class="ml-auto ">
+                <label class="mx-auto">ใช้งาน</label>
+                <span class="status-flag">
+                  <input class="switch" type="checkbox" checked="true" (change)="onChangeActiveFlag()" id="active" name="active">
+                  <label for="active">
+                    <span></span>
+                  </label>
+                  <input type="hidden" id="active-flag" name="active-flag" formControlName="activeFlag">
+
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <input class="form-control" [(ngModel)]="holiday.holName" type="text" id="hol-name" name="hol-name" formControlName="holName">
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label>วันที่</label>
+              <div class="input-group">
+                <input class="form-control datepicker" type="text" name="datepicker" data-provide="datepicker" data-date-language="th-th"
+                  summitDatePicker [(ngModel)]="holDate" formControlName="holDate" id="datepicker">
+                <div class="input-group-append input-group-addon">
+                  <span class="input-group-text">
+                    <i class="fas fa-calendar-alt"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              หมายเหตุ
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <textarea class="form-control" [(ngModel)]="holiday.remark" rows="6" cols="50" id="remark" name="remark" formControlName="remark"></textarea>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

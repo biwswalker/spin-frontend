@@ -75,42 +75,42 @@ export class ResponsibilitySearchComponent implements OnInit {
     }
   }
 
-  onScrollDown() {
-    console.log('onScrollDown' + this.criteriaValue);
-    this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
-      collection => {
-        if (collection) {
-          this.page += 1;
-          this.responsibilities = this.responsibilities.concat(collection);
-        }
-      }
-    );
-  }
-
   // onScrollDown() {
   //   console.log('onScrollDown' + this.criteriaValue);
-  //   if (this.criteriaValue) {
-  //     this.responsibilityService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
-  //       collection => {
-  //         this.responsibilities = this.responsibilities.concat(collection);
-  //         if (collection.length > 0) {
-  //           this.messageEvent.emit(collection[0].respId);
-  //         }
+  //   this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
+  //     collection => {
+  //       if (collection) {
   //         this.page += 1;
+  //         this.responsibilities = this.responsibilities.concat(collection);
   //       }
-  //     );
-  //   } else {
-  //     this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
-  //       collection => {
-  //         if (collection) {
-  //           this.page += 1;
-  //           this.responsibilities = this.responsibilities.concat(collection);
-  //         }
-  //       }
-  //     );
-  //   }
-
+  //     }
+  //   );
   // }
+
+  onScrollDown() {
+    console.log('onScrollDown' + this.criteriaValue);
+    if (this.criteriaValue) {
+      this.responsibilityService.findByCriteria(this.criteriaValue, this.page, 5).subscribe(
+        collection => {
+          this.responsibilities = this.responsibilities.concat(collection);
+          if (collection.length > 0) {
+            this.messageEvent.emit(collection[0].respId);
+          }
+          this.page += 1;
+        }
+      );
+    } else {
+      this.responsibilityService.findAllPageable(this.page, 5).subscribe(
+        collection => {
+          if (collection) {
+            this.page += 1;
+            this.responsibilities = this.responsibilities.concat(collection);
+          }
+        }
+      );
+    }
+
+  }
 
 
 }

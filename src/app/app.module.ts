@@ -45,7 +45,6 @@ import { ProjectInfoComponent } from './components/project/project-info/project-
 import { PrjInfoSummaryComponent } from './components/project/project-info/prj-info-summary/prj-info-summary.component';
 import { HolidayComponent } from './components/admin/holiday/holiday.component';
 import { HolidayInfoComponent } from './components/admin/holiday/holiday-info/holiday-info.component';
-import { HolidayProcessComponent } from './components/admin/holiday/holiday-process/holiday-process.component';
 import { ResponsibilityComponent } from './components/admin/responsibility/responsibility.component';
 import { ResponsibilityInfoComponent } from './components/admin/responsibility/responsibility-info/responsibility-info.component';
 import { ResponsibilitySearchComponent } from './components/admin/responsibility/responsibility-search/responsibility-search.component';
@@ -86,6 +85,8 @@ import { OfficerSearchComponent } from './components/admin/officer/officer-searc
 import { OfficerInfoComponent } from './components/admin/officer/officer-info/officer-info.component';
 import { OfficerModalComponent } from './components/admin/officer/officer-modal/officer-modal.component';
 import { UserRegisterModalComponent } from './components/admin/user-register/user-register-modal/user-register-modal.component';
+import { HolidaySearchComponent } from './components/admin/holiday/holiday-search/holiday-search.component';
+import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/holiday-modal.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +122,6 @@ import { UserRegisterModalComponent } from './components/admin/user-register/use
     DatePickerDirective,
     HolidayComponent,
     HolidayInfoComponent,
-    HolidayProcessComponent,
     ResponsibilityComponent,
     ResponsibilityInfoComponent,
     ResponsibilitySearchComponent,
@@ -133,7 +133,9 @@ import { UserRegisterModalComponent } from './components/admin/user-register/use
     OfficerSearchComponent,
     OfficerInfoComponent,
     OfficerModalComponent,
-    UserRegisterModalComponent
+    UserRegisterModalComponent,
+    HolidaySearchComponent,
+    HolidayModalComponent
   ],
   imports: [
     BrowserModule,

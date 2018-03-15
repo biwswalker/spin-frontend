@@ -19,26 +19,27 @@
   <div class="col-sm-8 text-left">ชื่อหน้าที่</div>
   <div class="col-sm-4 text-left">ชื่อย่อ</div>
 </div>
-<div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
-  (scrolled)="onScrollDown()">
-  <ul class="list-group list-group-flush" *ngFor="let resp of responsibilities">
-    <div>
-      <button type="button" (click)="onChangeResp(resp)" class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col-sm-8 text-left">
-            <p>{{resp.respName}}</p>
-          </div>
-          <div class="col-sm-4 text-left media">
-            <!-- <span class="avatar avatar-md mr-2">
+<ul class="list-group list-group-flush" *ngFor="let resp of responsibilities">
+  <div>
+    <button type="button" (click)="onChangeResp(resp)" class="list-group-item list-group-item-action">
+      <div class="row">
+        <div class="col-sm-8 text-left">
+          <p>{{resp.respName}}</p>
+        </div>
+        <div class="col-sm-4 text-left media">
+          <!-- <span class="avatar avatar-md mr-2">
             <span class="media-object rounded-circle text-circle d-flex mr-2 justify-content-center align-items-center bg-secondary">{{resp.respAbbr}}</span>
           </span> -->
-            <p>{{resp.respAbbr}}</p>
-          </div>
+          <p>{{resp.respAbbr}}</p>
         </div>
-      </button>
-    </div>
+      </div>
+    </button>
+  </div>
 
-  </ul>
+</ul>
+
+<div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScrollDown()">
 </div>
 <!-- <div class="row" *ngFor="let resp of responsibilities | async">
   <div class="col-sm-8 text-left">
