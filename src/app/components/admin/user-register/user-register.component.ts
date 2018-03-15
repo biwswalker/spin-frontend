@@ -67,7 +67,12 @@ export class UserRegisterComponent  {
   }
 
   createUserRegister() {
-    console.log("open");
-    this.userModal.onCreate();
+    this.userModal.mode = Mode.I;
+    this.userModal.ngOnInit();
+    console.log('mode: ', this.userModal.mode);
+    this.userModal.user = new User();
+    this.userRegisterService.onOpenModal();
   }
+
+
 }

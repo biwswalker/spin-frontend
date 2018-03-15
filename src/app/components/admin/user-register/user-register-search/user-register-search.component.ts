@@ -6,6 +6,7 @@ import { User } from './../../../../models/user';
 import { Component, OnInit, Output } from '@angular/core';
 import { UserRegisterComponent } from '../user-register.component';
 import { EventEmitter } from "@angular/core";
+import { Mode } from "./../../../../config/properties";
 
 @Component({
   selector: "app-user-register-search",

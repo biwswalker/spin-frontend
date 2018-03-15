@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { HttpRequestService } from './utils/http-request.service';
@@ -7,6 +8,8 @@ declare var SpinModal: any;
 export class UserRegisterService {
   private result: any;
   public modal = new SpinModal();
+  public key: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(private request: HttpRequestService) {}
 
   findAll(activeFlag, page, size) {
@@ -37,17 +40,41 @@ export class UserRegisterService {
     );
   }
 
+  onCloseModal() {
+    this.modal.close("#user-modal");
+  }
   onOpenModal() {
-    console.log("onOpenModal...")
     this.modal.initial("#user-modal", {
       show: true,
       backdrop: "static",
-      keyboard: true
+      keyword: true
     });
   }
 
-  onCloseModal() {
-    this.modal.close("#user-modal");
+  emit(value: string) {
+    this.key.emit(value);
+  }
+
+  createUser(user) {
+    console.log("submit user:",user);
+    user.activeFlag = this.convertActiveFlag(user.activeFlag);
+    user.userPwd = "";
+    user.faildCount = 0;
+    return this.request.requestMethodPUT("user-management/users", user);
+  }
+
+  updateUser(user) {
+    console.log("updateUser......",user);
+    user.activeFlag = this.convertActiveFlag(user.activeFlag);
+    return this.request.requestMethodPOST("user-management/users", user);
+  }
+
+  convertActiveFlag(activeFlag){
+    if(activeFlag === 'true'){
+      return 'A';
+    }else{
+      return 'I';
+    }
   }
 }
 

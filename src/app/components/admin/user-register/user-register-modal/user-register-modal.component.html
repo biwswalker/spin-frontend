@@ -6,9 +6,12 @@
 			<div class="modal-header">
 				<button class="btn btn-link" type="button" (click)="onCloseModal()"><i class="fas fa-times fa-lg"></i></button>
 				<div class="text-center header-text info-body-bold">
-					{{user.userId == null?'เพิ่มผู้ใช้งาน': 'แก้ไขผู้ใช้งาน'}}
-				</div>
-				<button class="btn btn-save modal-btn" type="button" (click)="onSubmit()"><i class="fas fa-plus-circle mr-1"></i>เพิ่ม</button>
+          {{headerText}}ผู้ใช้งาน
+        </div>
+
+        <button class="btn btn-save modal-btn" type="button" (click)="onSubmit()">
+          <i class="fas {{mode === 'INSERT' ? 'fa-plus-circle' : 'fa-pencil-alt'}}"> {{headerText}}</i>
+        </button>
 			</div>
 
 			<!-- BODY -->
@@ -19,11 +22,11 @@
 									<div class="ml-auto ">
                 <label class="mx-auto info-body-bold">ใช้งาน</label>
                 <span class="status-flag">
-                  <input class="switch" id="active" name="active" type="checkbox" checked="true">
+                  <input class="switch" id="active" name="active" type="checkbox" checked="true" >
                   <label for="active">
                     <span></span>
                   </label>
-                  <input id="active-flag" name="active-flag" type="hidden">
+                  <input id="active-flag" name="active-flag" type="hidden" [(ngModel)]="user.activeFlag">
                 </span>
               </div>
 						</div>
@@ -47,10 +50,9 @@
                          [typeaheadItemTemplate]="customItemTemplate"
                          [typeaheadOptionsInScrollableView]="10"
                          (typeaheadOnSelect)="onSelectedOfficer($event)"
-                         (typeaheadOnChange)="onChangeOfficer($event)"
                          class="form-control">
                      <ng-template #customItemTemplate let-model="item" let-index="index">
-                        <h6>{{model.officer.firstNameTh}} {{model.officer.lastNameTh}}</h6>
+                        <h6>{{model.firstNameTh}} {{model.lastNameTh}}</h6>
                       </ng-template>
 
               </div>
@@ -63,8 +65,12 @@
         </div>
         	<div class="row">
 								<div class="col-12 form-group">
-									<label for="user-level" class="info-body-bold">ระดับการใช้งาน</label>
-									<input class="form-control" id="user-level" name="user-level" type="text" maxlength="30" [(ngModel)]="user.userLevel">
+                  <label for="user-level" class="info-body-bold">ระดับการใช้งาน</label>
+                  <select class="form-control" id="user-level" name="user-level" [(ngModel)]="user.userLevel">
+                  <option  value="A">Admin</option>
+                  <option value="P">ProjectEditor</option>
+                  <option value="U">User</option>
+                </select>
 						</div>
         </div>
         	<div class="row">
