@@ -22,21 +22,34 @@
   <div class="row">
     <div class="col-6">
       <label class="label-task-modal">วันที่ *</label>
-      <div class="input-group">
-      <input class="form-control datepicker"
-        type="text"
-        name="datepicker"
-        data-provide="datepicker"
-        data-date-language="th-th"
-        summitDatePicker
-        [disabled]="mode === 'VIEW'"
-        [(ngModel)]="workDate"
-        formControlName="taskDetailWorkDate"
-        id="datepicker">
-        <div class="input-group-append input-group-addon">
-          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-        </div>
+      <div class="input-group" *ngIf="isDisabled; else showDatePicker">
+        <input type="text"
+               class="form-control"
+               id="viewDate"
+               name="viewDate"
+               disabled="true"
+               [(ngModel)]="workDate"
+               formControlName="taskDetailWorkDate">
+          <div class="input-group-append input-group-addon">
+            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+          </div>
       </div>
+      <ng-template #showDatePicker>
+          <div class="input-group">
+              <input class="form-control datepicker"
+                     type="text"
+                     name="datepicker"
+                     data-provide="datepicker"
+                     data-date-language="th-th"
+                     summitDatePicker
+                     [(ngModel)]="workDate"
+                     formControlName="taskDetailWorkDate"
+                     id="datepicker">
+              <div class="input-group-append input-group-addon">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+            </div>
+      </ng-template>
       </div>
       <div class="col-3">
         <label class="label-task-modal">เวลา *</label>
@@ -112,6 +125,9 @@
   </div>
 
   <div class="row" *ngIf="mode !== 'VIEW'">
+    <div class="col-12">
+      <label class="label-task-modal">รายการโปรด</label>
+    </div>
     <div class="col-2" *ngFor="let obj of favProjectList | async">
       <div class="btn thumbnail-size"
            data-toggle="tooltip"

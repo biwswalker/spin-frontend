@@ -1,4 +1,4 @@
-export const URL = 'http://10.1.87.224:8081/';
+export const URL = 'http://10.1.87.111:8081/';
 // export const URL = 'http://172.17.3.49:8080/spin-s/';
 export const Method = {
     GET: 'GET',
@@ -43,4 +43,9 @@ export const Mode = {
     V: 'VIEW',
     E: 'EDIT',
     I: 'INSERT'
+}
+export var Locale = 'th'
+export const Locales = {
+    TH: 'th',
+    EN: 'en'
 }
