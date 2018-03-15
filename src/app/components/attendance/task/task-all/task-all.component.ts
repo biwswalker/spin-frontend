@@ -43,6 +43,10 @@ export class TaskAllComponent implements OnInit, OnDestroy {
     });
   }
 
+  onTaskCompleted(){
+    this.findAllTask();
+  }
+
   onSearch() {
     this.subjectKeyword.next(this.keyword)
   }
