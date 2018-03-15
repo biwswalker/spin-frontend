@@ -78,6 +78,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
+    console.log('initialTaskDetail');
     if(mode == 'VIEW'){
       this.isDisabled = true;
       this.taskDetailFormGroup.disable();
@@ -93,10 +94,6 @@ export class TaskDetailComponent implements OnInit {
     this.initialData();
     this.validateData();
     this.timeList = this.utilsService.getTimeList();
-  }
-
-  onSelectCallBack(date: string) {
-    this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
   }
 
   initialTime() {
@@ -126,7 +123,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
-    console.log(color);
     this.taskObj.color = color;
     if (this.taskObj.color) {
       this.messageEvent.emit(this.taskObj.color);
