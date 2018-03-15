@@ -79,7 +79,8 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
-    if (mode == 'VIEW') {
+    console.log('initialTaskDetail');
+    if(mode == 'VIEW'){
       this.isDisabled = true;
       this.taskDetailFormGroup.disable();
     } else {
@@ -97,10 +98,6 @@ export class TaskDetailComponent implements OnInit {
     this.ngZone.runOutsideAngular(() => {
       this.ngZone.run(() => { console.log('ngZone.runOutsideAngular'); });
     });
-  }
-
-  onSelectCallBack(date: string) {
-    this.taskDetailFormGroup.patchValue({ taskDetailWorkDate: date });
   }
 
   initialTime() {
@@ -130,7 +127,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onColorPick(color) {
-    console.log(color);
     this.taskObj.color = color;
     if (this.taskObj.color) {
       this.messageEvent.emit(this.taskObj.color);

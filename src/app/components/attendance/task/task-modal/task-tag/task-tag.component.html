@@ -22,14 +22,8 @@
       <label class="label-task-modal max-width">ป้ายกำกับที่เคยใช้</label>
       <div *ngFor="let tag of usedTagList">
     <div class="col-2">
-        <a (click)="onSelected(tag)" class="btn btn-tag">{{tag.value}}</a>
+        <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.value}}" name="{{tag.value}}">{{tag.value}}</a>
     </div>
   </div>
   </div>
 </div>
-<!-- <tag-input [removable]="false"
-                 [ngModel]="usedTagList"
-                 [maxItems]='0'
-                 [allowDupes]='true'
-                 (onSelect)="onSelected($event)">
-      </tag-input> -->

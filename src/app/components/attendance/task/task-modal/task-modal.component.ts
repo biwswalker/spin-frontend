@@ -30,7 +30,7 @@ export class TaskModalComponent implements AfterViewInit {
   private modal = new SpinModal();
   private user: User = new User();
   public mode = '';
-  
+
   @Output() onCompleteEmit = new EventEmitter<string>();
   @ViewChild(TaskDetailComponent) taskDetailChild;
   @ViewChild(TaskPartnerComponent) taskPartnerChild;
@@ -68,6 +68,7 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
+    console.log('onTaskSelect');
     this.taskForm.task = task;
     this.mode = mode;
     this.bgColor = task.color ? task.color : 'blue';
@@ -182,6 +183,7 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   deleteTask() {
+    let stampDate = this.task.workDate;
     if (this.taskForm.task.taskId) {
       this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
         res => {
@@ -190,6 +192,8 @@ export class TaskModalComponent implements AfterViewInit {
           console.log(error)
         }, () => {
           this.oncloseModal();
+          this.taskService.changeTimetableDate(this.utilsService.convertThDateToEn(stampDate));
+          this.onCompleteEmit.emit(stampDate);
         }
       )
     }

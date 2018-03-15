@@ -67,7 +67,7 @@ export class ResponsibilityModalComponent implements OnInit {
     this.responsibilityGroup = new FormGroup({
       respName: new FormControl(this.responsibility.respName, Validators.required),
       respAbbr: new FormControl(this.responsibility.respAbbr, Validators.required),
-      respDesc: new FormControl(this.responsibility.respDesc, Validators.required),
+      respDesc: new FormControl(this.responsibility.respDesc),
       activeFlag: new FormControl(this.responsibility.activeFlag),
       respId: new FormControl(this.responsibility.respId),
       versionId: new FormControl(this.responsibility.versionId)

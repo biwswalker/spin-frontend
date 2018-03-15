@@ -22,8 +22,8 @@
         <div id="member-list"
              *ngFor="let obj of taskMember">
           <input type="checkbox"
-                 name="member-status"
-                 id="member-status"
+                 name="{{obj.userId}}"
+                 id="{{obj.userId}}"
                  [disabled]="mode == 'VIEW'"
                  [(ngModel)]="obj.status">
                    {{obj.email}}
@@ -37,8 +37,10 @@
            name="partner-list"
            *ngFor="let obj of taskPartner">
              <a class="btn fas fa-times-circle"
-             *ngIf="mode !== 'VIEW'"
-               (click)="deletePartner(obj)">
+                *ngIf="mode !== 'VIEW'"
+                id="{{obj.userId}}"
+                name="{{obj.userId}}"
+                (click)="deletePartner(obj)">
              </a>
                {{obj.email}}
       </div>
@@ -54,6 +56,7 @@
              [typeaheadItemTemplate]="customItemTemplate"
              [typeaheadScrollable]="true"
              [typeaheadMinLength]="0"
+             id="input-add-partner"
              [typeaheadOptionsInScrollableView]="5"
              (typeaheadOnSelect)="onSelect($event)">
                <ng-template #customItemTemplate

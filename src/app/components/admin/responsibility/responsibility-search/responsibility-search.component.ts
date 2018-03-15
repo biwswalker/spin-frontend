@@ -90,7 +90,7 @@ export class ResponsibilitySearchComponent implements OnInit {
   onScrollDown() {
     console.log('onScrollDown' + this.criteriaValue);
     if (this.criteriaValue) {
-      this.responsibilityService.findByCriteria(this.criteriaValue, this.page, 5).subscribe(
+      this.responsibilityService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
         collection => {
           this.responsibilities = this.responsibilities.concat(collection);
           if (collection.length > 0) {
@@ -100,8 +100,9 @@ export class ResponsibilitySearchComponent implements OnInit {
         }
       );
     } else {
-      this.responsibilityService.findAllPageable(this.page, 5).subscribe(
+      this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
         collection => {
+          console.log(collection)
           if (collection) {
             this.page += 1;
             this.responsibilities = this.responsibilities.concat(collection);
