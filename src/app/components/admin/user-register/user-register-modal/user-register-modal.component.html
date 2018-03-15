@@ -35,21 +35,24 @@
 								</div>
           </div>
 
-
       	<div class="row">
 								<div class="col-12 form-group">
                   <label for="user-name" class="info-body-bold">ชื่อผู้ใช้งาน</label>
-                  <!-- <input type="text"
+                  <input name="fullName"
+                         [(ngModel)]="fullName"
                          [typeahead]="officerList"
-                         [typeaheadItemTemplate]="customItemTemplate"
-                         [typeaheadScrollable]=true
+                         [typeaheadOptionsLimit]="10"
                          [typeaheadMinLength]="0"
-                         [typeaheadOptionsInScrollableView]="5"
-                         (typeaheadOnSelect)="onChangeOfficer($event)"
-                         >
-                        <ng-template #customItemTemplate let-model="item" let-index="index">
-                          <h6>{{model.firstNameTh}} {{modal.lastNameTh}}</h6>
-                        </ng-template> -->
+                         typeaheadOptionField="officer.fullName"
+                         [typeaheadItemTemplate]="customItemTemplate"
+                         [typeaheadOptionsInScrollableView]="10"
+                         (typeaheadOnSelect)="onSelectedOfficer($event)"
+                         (typeaheadOnChange)="onChangeOfficer($event)"
+                         class="form-control">
+                     <ng-template #customItemTemplate let-model="item" let-index="index">
+                        <h6>{{model.officer.firstNameTh}} {{model.officer.lastNameTh}}</h6>
+                      </ng-template>
+
               </div>
         </div>
       	<div class="row">
