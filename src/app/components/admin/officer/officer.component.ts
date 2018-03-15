@@ -27,8 +27,6 @@ export class OfficerComponent implements OnInit {
   public fileName: any;
 
   public officers: Officer[] = [];
-  public officers2: any;
-  public officers3: Officer[] = [];
 
   public messages: string[] = [];
   public messagesDepartment: string[] = [];
@@ -206,11 +204,10 @@ export class OfficerComponent implements OnInit {
 
 
   getMessage() {
-    console.log("this.officers = ", this.officers2);
     console.log("this.officers = ", this.officers);
     if (this.messages.length === 0) {
       console.log("==============if================");
-      this.eventMessagesService.onUploadError(this.messages[0])
+      this.eventMessagesService.onUploadError(this.messages)
       //print message
     } else {
       console.log("==============else================");

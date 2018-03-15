@@ -79,9 +79,10 @@ export class TaskDetailComponent implements OnInit {
 
   initTaskDetail(task: Task, mode: string) {
     if(mode == 'VIEW'){
-      console.log(mode)
+      this.isDisabled = true;
       this.taskDetailFormGroup.disable();
     }else{
+      this.isDisabled = false;
       this.taskDetailFormGroup.enable();
     }
     this.taskObj = new Task();
