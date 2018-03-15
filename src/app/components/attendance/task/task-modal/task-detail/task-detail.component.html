@@ -35,20 +35,20 @@
           </div>
       </div>
       <ng-template #showDatePicker>
-          <div class="input-group">
-              <input class="form-control datepicker"
-                     type="text"
-                     name="datepicker"
-                     data-provide="datepicker"
-                     data-date-language="th-th"
-                     summitDatePicker
-                     [(ngModel)]="workDate"
-                     formControlName="taskDetailWorkDate"
-                     id="datepicker">
-              <div class="input-group-append input-group-addon">
-                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-              </div>
-            </div>
+        <div class="input-group">
+          <input class="form-control datepicker"
+                 type="text"
+                 name="datepicker"
+                 data-provide="datepicker"
+                 data-date-language="th-th"
+                 summitDatePicker
+                 [(ngModel)]="workDate"
+                 formControlName="taskDetailWorkDate"
+                 id="datepicker">
+          <div class="input-group-append input-group-addon">
+            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+          </div>
+        </div>
       </ng-template>
       </div>
       <div class="col-3">
@@ -128,7 +128,7 @@
     <div class="col-12">
       <label class="label-task-modal">รายการโปรด</label>
     </div>
-    <div class="col-2" *ngFor="let obj of favProjectList | async">
+    <div class="col-2 thumbnail-img" *ngFor="let obj of favProjectList | async">
       <div class="btn thumbnail-size"
            data-toggle="tooltip"
            data-placement="bottom"
