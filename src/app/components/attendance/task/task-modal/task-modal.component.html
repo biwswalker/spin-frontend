@@ -11,10 +11,10 @@
                     New Task
                 </div>
 
-                <div class="d-flex">
-                    <div class="ml-auto">
+                <div class="d-flex" >
+                    <div class="ml-auto" *ngIf="mode !== 'VIEW'">
                         <!-- Delete Button -->
-                        <button class="btn btn-link" *ngIf="mode == 'EDIT'">
+                        <button class="btn btn-link" >
                                 <i class="far fa-trash-alt" data-toggle="modal" href="#confirmDeleteTask"></i>
                             </button>
                         <!-- Save Button -->

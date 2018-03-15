@@ -24,8 +24,9 @@
           <input type="checkbox"
                  name="member-status"
                  id="member-status"
+                 [disabled]="mode == 'VIEW'"
                  [(ngModel)]="obj.status">
-                  {{obj.email}}
+                   {{obj.email}}
         </div>
       </div>
   </div>
@@ -35,14 +36,15 @@
       <div id="partner-list"
            name="partner-list"
            *ngFor="let obj of taskPartner">
-             <a class="fas fa-times-circle"
+             <a class="btn fas fa-times-circle"
+             *ngIf="mode !== 'VIEW'"
                (click)="deletePartner(obj)">
              </a>
                {{obj.email}}
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="mode !== 'VIEW'">
     <div class="col">
       <input class="form-control"
              id="autocompletePartner"
