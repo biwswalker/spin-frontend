@@ -4,7 +4,7 @@
       <!-- , source.taskType === '1' ? 'assign':'' -->
     <div class="card task-card selection" [ngClass]="[selected ? 'selected' : '', isOwner]" (click)="onselectTask()">
       <div class="card-body">
-        <span>{{source.workStartTime | time}} - {{source.workEndTime | time}} | <div class="create-owner">{{source.ownerUserId}}</div></span>
+        <span>{{source.workStartTime | time}} - {{source.workEndTime | time}} <div class="create-owner" *ngIf="source.projectId!">#{{source.projectId | projectName | async}}</div></span>
         <button type="button"
                 (click)="onView()"
                 class="btn btn-outline-info float-right btn-view">
@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class="card-footer" [ngClass]="source.color">
-        <div class="task-project float-left text-truncate" *ngIf="source.projectId!">
-          #{{source.projectId | projectName | async}}
+        <div class="task-project float-left text-truncate" >
+          {{source.ownerUserId}}
         </div>
         <div class="task-tags">
           <span class="badge badge-pill badge-tags" *ngFor="let tag of source.taskTagList">{{tag.tag.tagName}}</span>

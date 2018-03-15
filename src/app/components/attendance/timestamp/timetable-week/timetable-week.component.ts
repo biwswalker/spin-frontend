@@ -41,7 +41,7 @@ export class TimetableWeekComponent {
 
   fecthWorkingTaskByDate(thDate: string, dateIndex: number) {
     this.refreshTimeTable();
-    this.taskService.findWorkingTaskByDate(thDate).subscribe((tasks: Task[]) => {
+    this.taskService.findWorkingTaskByDate(thDate).subscribe((tasks: any[]) => {
       let index = 0;
       for (let task of tasks) {
         if (task.activeFlag === 'A') {
@@ -65,16 +65,20 @@ export class TimetableWeekComponent {
           let groupClass = `stamped${dateIndex}${index}`
           let overlapClass = `overlap${dateIndex}${index}`
           let overlayClass = `overlay${dateIndex}${index}`
+          let totalInd = endIndex - startIndex;
           // Step 1
           for (let i = startIndex; i <= endIndex; i++) {
             $($($(`.timestamp-week${dateIndex}`).find('.stamp'))[i]).addClass(`unavailable ${groupClass}`);
           }
           // Step 2
           $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
-          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
-        <p class="text-truncate m-0 stamp-topic">${task.topic}</p>
-        <p class="text-truncate colla-display m-0"><i class="fas fa-users"></i></p>        
-      </div>`);
+            $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
+              <div class="m-0 stamp-topic text-truncate"><div class="d-inline">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
+              ${task.projectAbbr ? `<div class="d-inline topic-task"> #${task.projectAbbr}</div>` : ''}</div>
+              ${totalInd > 0 ? `<div class="stamp-topic text-truncate m-0"><div class="topic-task">${task.topic}</div></div>` : ''}
+              ${totalInd > 1 ? `<div class="stamp-activity text-truncate m-0">${task.activity}</div>` : ''}
+              <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
+            </div>`);
           // Step 3
           $(`.${overlayClass}`).addClass('stamp-box')
           $(`.${overlapClass}`).click(() => this.onViewTask(task));
