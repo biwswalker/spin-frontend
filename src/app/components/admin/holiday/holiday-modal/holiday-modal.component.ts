@@ -17,7 +17,7 @@ export class HolidayModalComponent implements OnInit {
   public holidayGroup: FormGroup;
   public holiday: Holiday;
   public mode: string;
-  protected isActive: boolean = true;
+  public isActive: boolean = true;
 
   public holDate: string;
   public headerTxt: string = '';
@@ -25,7 +25,8 @@ export class HolidayModalComponent implements OnInit {
   @Output() changeState = new EventEmitter<boolean>();
 
 
-  constructor(protected holidayService: HolidayService, protected eventMessagesService: EventMessagesService, protected utilsService: UtilsService) {
+  constructor(protected holidayService: HolidayService, protected eventMessagesService: EventMessagesService,
+    protected utilsService: UtilsService) {
     this.holiday = new Holiday();
 
     this.holidayService.key.subscribe(
@@ -78,6 +79,7 @@ export class HolidayModalComponent implements OnInit {
   }
 
   onSubmit() {
+    this.utilsService.findInvalidControls(this.holidayGroup);
     if (this.holidayGroup.valid) {
       this.holidayGroup.controls['activeFlag'].setValue(this.isActive ? 'A' : 'I');
 

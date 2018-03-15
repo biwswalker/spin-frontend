@@ -6,6 +6,7 @@ import { ResponsibilityService } from '../../../../providers/responsibility.serv
 import { ResponsibilityInfoComponent } from '../responsibility-info/responsibility-info.component';
 import { error } from 'protractor';
 import { EventMessagesService } from '../../../../providers/utils/event-messages.service';
+import { UtilsService } from '../../../../providers/utils/utils.service';
 
 declare var $: any;
 @Component({
@@ -18,12 +19,12 @@ export class ResponsibilityModalComponent implements OnInit {
   public responsibilityGroup: FormGroup;
   public responsibility: Responsibility;
   public mode: string;
-  protected isActive: boolean = true;
+  public isActive: boolean = true;
 
   public headerTxt: string = '';
   @Output() changeState = new EventEmitter<boolean>();
 
-  constructor(protected responsibilityService: ResponsibilityService, protected eventMessagesService: EventMessagesService) {
+  constructor(protected responsibilityService: ResponsibilityService, private utilsService: UtilsService, protected eventMessagesService: EventMessagesService) {
     this.responsibility = new Responsibility();
 
     this.responsibilityService.key.subscribe(
@@ -62,18 +63,6 @@ export class ResponsibilityModalComponent implements OnInit {
   }
 
 
-
-  // createForm() {
-  //   this.responsibilityGroup = new FormGroup({
-  //     respName: new FormControl(null, Validators.required),
-  //     respAbbr: new FormControl(null, Validators.required),
-  //     respDesc: new FormControl('', Validators.required),
-  //     activeFlag: new FormControl(''),
-  //     respId: new FormControl(null),
-  //     versionId: new FormControl(null)
-  //   })
-  // }
-
   validateForm() {
     this.responsibilityGroup = new FormGroup({
       respName: new FormControl(this.responsibility.respName, Validators.required),
@@ -90,6 +79,7 @@ export class ResponsibilityModalComponent implements OnInit {
   }
 
   onSubmit() {
+    this.utilsService.findInvalidControls(this.responsibilityGroup);
     if (this.responsibilityGroup.valid) {
       this.responsibilityGroup.controls['activeFlag'].setValue(this.isActive ? 'A' : 'I');
       console.log('responsibilityGroup = {}', this.responsibilityGroup.value);

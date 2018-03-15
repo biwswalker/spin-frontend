@@ -81,6 +81,7 @@ export class OfficerModalComponent implements OnInit {
   }
 
   onSubmit() {
+    this.utilsService.findInvalidControls(this.officerGroup);
     if (this.officerGroup.valid) {
       this.officerGroup.controls['activeFlag'].setValue(this.isActive ? 'A' : 'I');
       this.officerGroup.controls['startDate'].setValue(this.utilsService.convertDatePickerToThDate(this.startDate));
