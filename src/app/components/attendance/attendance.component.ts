@@ -4,6 +4,13 @@ import { TaskComponent } from './task/task.component';
 @Component({
   selector: 'app-attendance',
   template: `<div class="row" style="padding-top: 15px;">
+  <div class="col-12">
+        <div class="page-title d-flex">
+            <h2 class="d-inline-block">เวลาทำงาน</h2>
+        </div>
+
+
+  </div>
   <div class="col-12 col-md-6 col-lg-6 col-xl-5 exbox">
   <div class="box">
   <tasks></tasks>
