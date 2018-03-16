@@ -32,7 +32,6 @@ export class ProjectComponent{
     ngAfterContentInit() {
     console.log('ProjectComponent start')
     this.authService.crrUser.subscribe(user=>{
-      console.log('this.user: ',this.user)
       this.user = user;
       this.renderPage = true;
       },

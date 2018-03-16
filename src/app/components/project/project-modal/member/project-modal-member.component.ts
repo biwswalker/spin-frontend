@@ -46,6 +46,7 @@ export class ProjectModalMemberComponent implements OnInit {
 
       users=>{
         this.users = [];
+        console.log('user autocomplete:',users);
         for (let user of users){
           user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
           this.users = this.users.concat(user);
