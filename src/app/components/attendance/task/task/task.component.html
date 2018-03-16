@@ -5,11 +5,9 @@
     <div class="card task-card selection" [ngClass]="[selected ? 'selected' : '', isOwner]" (click)="onselectTask()">
       <div class="card-body">
         <span>{{source.workStartTime | time}} - {{source.workEndTime | time}} <div class="create-owner" *ngIf="source.projectId!">#{{source.projectId | projectName | async}}</div></span>
-        <button type="button"
-                (click)="onView()"
-                class="btn btn-outline-info float-right btn-view">
-          <i class="fas fa-external-link-square-alt"></i>{{isOwner === 'owner' ? ' view' : ' edit'}}</button>
-        <h6 class="card-title text-truncate">{{source.topic}}</h6>
+        <a (click)="onView()"  class="btn btn-link float-right p-0">
+          <i class="fas" [ngClass]="isOwner === 'owner' ? 'fa-eye' : 'fa-edit'"></i></a>
+        <h5 class="card-title text-truncate">{{source.topic}}</h5>
         <p class="card-text text-truncate">{{source.activity}}</p>
         <!-- <div class="float-rif task-owner"></div> -->
         <div class="float-right task-collaborators" *ngIf="isCollaborator">
