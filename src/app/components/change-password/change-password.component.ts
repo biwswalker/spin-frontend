@@ -56,8 +56,8 @@ export class ChangePasswordComponent implements OnInit {
           this.router.navigate(['/']);
 
         },err=>{
-          console.log('error: ',err);
-          this.eventMessagesService.onUpdateError(err);
+          console.log(err);
+          // this.eventMessagesService.onUpdateError(err);
         }
       )
     }

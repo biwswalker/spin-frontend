@@ -15,7 +15,7 @@ $(document).ready(function () {
   });
 
   $(document).on('click','.spin-link ul li',function(){
-    $(this).addClass('active').siblings().removeClass('active');
+    $(this).not( ".disabled" ).addClass('active').siblings().removeClass('active');
   });
 
 
