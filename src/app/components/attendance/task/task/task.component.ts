@@ -21,8 +21,8 @@ export class TaskDirective implements OnInit, OnDestroy {
   public selected = false;
   public isCollaborator = false;
   public isView = false;
-  public isOwner = ''
-  private subscription: Subscription
+  public isOwner = '';
+  private subscription: Subscription;
 
   constructor(private taskService: TaskService, private authService: AuthenticationService) {}
 

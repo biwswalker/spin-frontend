@@ -7,6 +7,7 @@
             <input class="switch"
                    type="checkbox"
                    id="do-self-flag"
+                   [disabled]="mode == 'VIEW'"
                    name="do-self-flag"
                    [(ngModel)]="doSelfFlag">
               <label for="do-self-flag">
