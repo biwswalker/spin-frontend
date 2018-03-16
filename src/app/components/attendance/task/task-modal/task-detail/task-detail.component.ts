@@ -79,8 +79,9 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
+    this.mode = mode;
     console.log('initialTaskDetail');
-    if(mode == 'VIEW'){
+    if(this.mode === 'VIEW'){
       this.isDisabled = true;
       this.taskDetailFormGroup.disable();
     } else {
@@ -89,7 +90,6 @@ export class TaskDetailComponent implements OnInit {
     }
     this.taskObj = new Task();
     this.taskObj = task;
-    this.mode = mode;
     this.resetData();
     this.initialTime();
     this.initialData();

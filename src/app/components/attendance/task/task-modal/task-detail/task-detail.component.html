@@ -22,19 +22,6 @@
   <div class="row">
     <div class="col-6">
       <label class="label-task-modal">วันที่ *</label>
-      <div class="input-group" *ngIf="isDisabled; else showDatePicker">
-        <input type="text"
-               class="form-control"
-               id="viewDate"
-               name="viewDate"
-               disabled="true"
-               [(ngModel)]="workDate"
-               formControlName="taskDetailWorkDate">
-          <div class="input-group-append input-group-addon">
-            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-          </div>
-      </div>
-      <ng-template #showDatePicker>
         <div class="input-group">
           <input class="form-control datepicker"
                  type="text"
@@ -42,6 +29,7 @@
                  data-provide="datepicker"
                  data-date-language="th-th"
                  summitDatePicker
+                 [attr.disabled]="isDisabled?'':null"
                  [(ngModel)]="workDate"
                  formControlName="taskDetailWorkDate"
                  id="datepicker">
@@ -49,7 +37,6 @@
             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
           </div>
         </div>
-      </ng-template>
       </div>
       <div class="col-3">
         <label class="label-task-modal">เวลา *</label>
@@ -143,13 +130,11 @@
   </div>
 </form>
 
-<div class="row">
-  <div class="col">
+    <div class="row" *ngIf="mode !== 'VIEW'">
+    <div class="col-12">
     <label class="label-task-modal">สีพื้นหลัง</label>
   </div>
-</div>
-<div class="row">
-  <div class="col">
+  <div class="col-12">
     <a class="btn blue color-picker" (click)="onColorPick('blue')" id="blue" [class.active]="taskObj.color == 'blue'"></a>
     <a class="btn pink color-picker" (click)="onColorPick('pink')" id="pink" [class.active]="taskObj.color == 'pink'"></a>
     <a class="btn red color-picker" (click)="onColorPick('red')" id="red" [class.active]="taskObj.color == 'red'"></a>

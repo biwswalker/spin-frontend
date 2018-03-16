@@ -69,7 +69,11 @@ export class TaskModalComponent implements AfterViewInit {
 
   onTaskHasSelected(task: Task, mode: string) {
     console.log('onTaskSelect');
-    this.taskForm.task = task;
+    console.log(task.taskId);
+    // this.taskServ
+    const temp = task;
+    this.task = new Task();
+    this.taskForm.task = temp;
     this.mode = mode;
     this.bgColor = task.color ? task.color : 'blue';
     const objTask = this.taskForm.task;
@@ -106,6 +110,11 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
       let stampDate = this.task.workDate;
+      if(this.user.userId !== this.taskForm.task.ownerUserId){
+        this.task.referTaskId = this.taskForm.task.taskId;
+      }else{
+        this.task.referTaskId = this.taskForm.task.referTaskId;
+      }
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
           this.task.taskPartnerList.push({ id: { userId: obj.userId } });
@@ -123,27 +132,11 @@ export class TaskModalComponent implements AfterViewInit {
       if (this.mode == Mode.E) {
         this.task.taskId = this.taskForm.task.taskId;
         this.task.versionId = this.taskForm.task.versionId;
-        console.log('updateTask: ', this.task);
         this.updateTask(this.task);
       } else {
-        console.log('insertTask: ', this.task);
         this.createNewTask(this.task);
       }
-      let self = this;
-      $('#task-modal').on("hidden.bs.modal", function () {
-        $('.timestamp .ui-selected').removeClass('ui-selected');
-        self.taskService.changeTimetableDate(self.utilsService.convertThDateToEn(stampDate));
-        self.onCompleteEmit.emit(stampDate);
-      })
-    }else{
-      this.eventMessageService.onWarning('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบ');
     }
-  }
-
-  onClose() {
-    $('#task-modal').on("hidden.bs.modal", function () {
-      $('.timestamp .ui-selected').removeClass('ui-selected')
-    })
   }
 
   createNewTask(task: Task) {
@@ -155,7 +148,7 @@ export class TaskModalComponent implements AfterViewInit {
       },
       error => {
         this.eventMessageService.onInsertError(error);
-        console.log(error)
+        console.log(error);
       }
     );
   }
@@ -174,7 +167,10 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   oncloseModal() {
+    let stampDate = this.taskForm.task.workDate;
     this.modal.close('#task-modal');
+    this.taskService.changeTimetableDate(this.utilsService.convertThDateToEn(stampDate));
+    this.onCompleteEmit.emit(stampDate);
     this.task = new Task;
   }
 
@@ -183,17 +179,14 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   deleteTask() {
-    let stampDate = this.task.workDate;
     if (this.taskForm.task.taskId) {
       this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
         res => {
           console.log(res);
         }, error => {
-          console.log(error)
+          console.log(error);
         }, () => {
           this.oncloseModal();
-          this.taskService.changeTimetableDate(this.utilsService.convertThDateToEn(stampDate));
-          this.onCompleteEmit.emit(stampDate);
         }
       )
     }
