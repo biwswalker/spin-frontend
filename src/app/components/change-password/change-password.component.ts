@@ -19,6 +19,7 @@ export class ChangePasswordComponent implements OnInit {
               private utilsService: UtilsService) { }
 
   ngOnInit() {
+    this.validateForm();
     this.authService.crrUser.subscribe(user=>{
       console.log('this.user: ',user)
       this.user = user;
@@ -39,6 +40,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(){
+    console.log('date: ',this.formGroup.value);
     this.utilsService.findInvalidControls(this.formGroup);
     if(this.formGroup.valid){
 
