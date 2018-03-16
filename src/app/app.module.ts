@@ -51,6 +51,14 @@ import { ResponsibilityModalComponent } from './components/admin/responsibility/
 import { UserRegisterComponent } from "./components/admin/user-register/user-register.component";
 import { UserRegisterInfoComponent } from "./components/admin/user-register/user-register-info/user-register-info.component";
 import { UserRegisterSearchComponent } from "./components/admin/user-register/user-register-search/user-register-search.component";
+import { OfficerComponent } from './components/admin/officer/officer.component';
+import { OfficerSearchComponent } from './components/admin/officer/officer-search/officer-search.component';
+import { OfficerInfoComponent } from './components/admin/officer/officer-info/officer-info.component';
+import { OfficerModalComponent } from './components/admin/officer/officer-modal/officer-modal.component';
+import { UserRegisterModalComponent } from './components/admin/user-register/user-register-modal/user-register-modal.component';
+import { HolidaySearchComponent } from './components/admin/holiday/holiday-search/holiday-search.component';
+import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/holiday-modal.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 // service
@@ -79,13 +87,7 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
-import { OfficerComponent } from './components/admin/officer/officer.component';
-import { OfficerSearchComponent } from './components/admin/officer/officer-search/officer-search.component';
-import { OfficerInfoComponent } from './components/admin/officer/officer-info/officer-info.component';
-import { OfficerModalComponent } from './components/admin/officer/officer-modal/officer-modal.component';
-import { UserRegisterModalComponent } from './components/admin/user-register/user-register-modal/user-register-modal.component';
-import { HolidaySearchComponent } from './components/admin/holiday/holiday-search/holiday-search.component';
-import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/holiday-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -134,7 +136,8 @@ import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/
     OfficerModalComponent,
     UserRegisterModalComponent,
     HolidaySearchComponent,
-    HolidayModalComponent
+    HolidayModalComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

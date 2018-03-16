@@ -46,7 +46,7 @@ export class ProjectModalMemberComponent implements OnInit {
 
       users=>{
         this.users = [];
-        for (let user of users.content){
+        for (let user of users){
           user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
           this.users = this.users.concat(user);
         }
