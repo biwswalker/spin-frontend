@@ -108,6 +108,11 @@ export class AuthenticationService {
     // }
   }
 
+  changePassword(passwordObject:any){
+    console.log('changePassword')
+    return this.request.requestMethodPOST('user-management/users/change-password',passwordObject);
+  }
+
   isInSession(): boolean {
     if (sessionStorage.getItem(Default.ACTOKN)) {
       return true;

@@ -3,6 +3,8 @@ import { User } from './../../models/user';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthenticationService } from './../../providers/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { EventMessagesService } from '../../providers/utils/event-messages.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -16,7 +18,9 @@ export class ChangePasswordComponent implements OnInit {
   public newPassword2:string;
   public formGroup:FormGroup;
   constructor(private authService: AuthenticationService,
-              private utilsService: UtilsService) { }
+              private utilsService: UtilsService,
+              private eventMessagesService: EventMessagesService,
+              private router:Router) { }
 
   ngOnInit() {
     this.validateForm();
@@ -40,10 +44,22 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('date: ',this.formGroup.value);
+    console.log('data: ',this.formGroup.value);
     this.utilsService.findInvalidControls(this.formGroup);
     if(this.formGroup.valid){
+      const body = {oldPassword:this.oldPassword,newPassword1:this.newPassword1,newPassword2:this.newPassword2};
 
+      this.authService.changePassword(body).subscribe(
+        data=>{
+          console.log('change pass result:',data);
+          this.eventMessagesService.onUpdateSuccess('');
+          this.router.navigate(['/']);
+
+        },err=>{
+          console.log('error: ',err);
+          this.eventMessagesService.onUpdateError(err);
+        }
+      )
     }
   }
 
