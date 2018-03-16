@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './../components/change-password/change-password.component';
 import { TaskModalComponent } from './../components/attendance/task/task-modal/task-modal.component';
 import { ExampleComponent } from './../components/example/example.component';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'holiday', component: HolidayComponent },
   { path: 'responsibility', component: ResponsibilityComponent },
   { path: 'user-register', component: UserRegisterComponent },
-  { path: 'officer', component: OfficerComponent }
+  { path: 'officer', component: OfficerComponent },
+  { path: 'change-password', component: ChangePasswordComponent }
 ]
 
 @NgModule({
