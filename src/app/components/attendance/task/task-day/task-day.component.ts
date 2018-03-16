@@ -50,11 +50,11 @@ export class TaskDayComponent implements AfterViewInit {
     // Toggle
     $("button.dp-btn-collapse").click(function () {
       $("button.dp-btn-collapse > i").toggle();
-      if ($('#toggle-calendar').hasClass('collapsed')) {
-        $('.day-tasks-list').css({ "height": "240px" });
-      } else {
-        $('.day-tasks-list').css({ "height": "500px" });
-      }
+      // if ($('#toggle-calendar').hasClass('collapsed')) {
+      //   $('.day-tasks-list').css({ "height": "240px" });
+      // } else {
+      //   $('.day-tasks-list').css({ "height": "500px" });
+      // }
     });
 
     // Call DatePicker
