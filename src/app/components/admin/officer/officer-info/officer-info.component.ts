@@ -7,7 +7,7 @@ import { Position } from '../../../../models/position';
 @Component({
   selector: 'app-officer-info',
   templateUrl: './officer-info.component.html',
-  styleUrls: ['./officer-info.component.scss', '../officer.component.scss']
+  styleUrls: ['./officer-info.component.scss']
 })
 export class OfficerInfoComponent implements OnInit {
 
