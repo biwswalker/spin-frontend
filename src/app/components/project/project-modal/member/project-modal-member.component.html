@@ -38,7 +38,8 @@
                     [typeaheadItemTemplate]="customItemTemplate"
                     [typeaheadOptionsInScrollableView]="10"
                     (typeaheadOnSelect)="onSelectedMember($event)"
-                    class="form-control">
+                    class="form-control"
+                    autocomplete="off">
 
                     <ng-template #customItemTemplate let-model="item" let-index="index">
                         <h6>{{model.officer.firstNameTh}} {{model.officer.lastNameTh}}</h6>
@@ -57,7 +58,8 @@
             [typeaheadMinLength]="0"
             typeaheadOptionField="respName"
             [typeaheadOptionsInScrollableView]="10"
-            (typeaheadOnSelect)="onSelectedResp($event)">
+            (typeaheadOnSelect)="onSelectedResp($event)"
+            autocomplete="off">
             <div class="invalid-feedback">
                 Please choose a username.
             </div>

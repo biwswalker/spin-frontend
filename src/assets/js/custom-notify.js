@@ -39,10 +39,10 @@ class MessageNotify{
         enter: 'animated fadeInDown',
         exit: 'animated fadeOut'
       },
-      placement: {
-        from: "top",
-        align: "center"
-      },
+      // placement: {
+      //   from: "top",
+      //   align: "center"
+      // },
     });
   }
 
@@ -53,7 +53,7 @@ class MessageNotify{
     },{
       type: 'danger',
       template:''+
-      '<div data-notify="container" class="col-8 col-md-4 col-xl-2 alert alert-{0}" role="alert">' +
+      '<div data-notify="container" class="col-8 col-md-4 col-xl-3 alert alert-{0}" role="alert">' +
       '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>'+
       '{1} {2}'+
       '</div>',
@@ -62,10 +62,10 @@ class MessageNotify{
         enter: 'animated fadeInDown',
         exit: 'animated fadeOut'
       },
-      placement: {
-        from: "top",
-        align: "center"
-      },
+      // placement: {
+      //   from: "top",
+      //   align: "center"
+      // },
     });
   }
 }
