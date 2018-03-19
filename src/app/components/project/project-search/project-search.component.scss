@@ -45,6 +45,9 @@ p{
         }
         .project-name{
           border:0.1rem solid $second-bg-color;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         .phase{
           text-align: center;

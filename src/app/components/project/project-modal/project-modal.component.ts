@@ -8,6 +8,7 @@ import { ProjectModalDetailComponent } from './detail/project-modal-detail.compo
 import { EventService } from '../../../providers/utils/event.service';
 import { AuthenticationService } from '../../../providers/authentication.service';
 import { ProjectModalPhaseComponent } from './phase/project-modal-phase.component';
+import { HttpErrorResponse } from '@angular/common/http';
 declare var SpinModal: any;
 @Component({
   selector: 'project-modal',
@@ -70,6 +71,7 @@ export class ProjectModalComponent{
       this.project.projectPhaseList = this.projectModalPhase.projectPhases;
       this.project.projectMemberList = this.projectModalMember.projectMembers;
       this.project.visibilityFlag = (this.project.isVisble == false ? 'Y' : 'N');
+      this.project.activeFlag = null;
       // Call Provider
       this.projectService.createProject(this.project).subscribe(
         data => {
@@ -78,7 +80,8 @@ export class ProjectModalComponent{
         },
         err=>{
           console.log("Exception: ",err);
-          this.eventMessageService.onInsertError(err);
+          // this.eventMessageService.onInsertError(err);
+
         },
         ()=>{
           this.projectService.onProjectHaveChanged();
@@ -96,7 +99,7 @@ export class ProjectModalComponent{
       this.project.projectPhaseList = this.projectModalPhase.projectPhases;
       this.project.projectMemberList = this.projectModalMember.projectMembers;
       this.project.visibilityFlag = (this.project.isVisble == true ? 'N' : 'Y');
-
+      this.project.activeFlag = null;
 
       // Call Provider
       this.projectService.updateProject(this.project).subscribe(
