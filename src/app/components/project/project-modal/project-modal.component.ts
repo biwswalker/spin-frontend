@@ -71,7 +71,6 @@ export class ProjectModalComponent{
       this.project.projectPhaseList = this.projectModalPhase.projectPhases;
       this.project.projectMemberList = this.projectModalMember.projectMembers;
       this.project.visibilityFlag = (this.project.isVisble == false ? 'Y' : 'N');
-      this.project.activeFlag = null;
       // Call Provider
       this.projectService.createProject(this.project).subscribe(
         data => {
@@ -80,7 +79,10 @@ export class ProjectModalComponent{
         },
         err=>{
           console.log("Exception: ",err);
-          // this.eventMessageService.onInsertError(err);
+          if(err.status == 500){
+            this.eventMessageService.onInsertError(err);
+          }
+
 
         },
         ()=>{
@@ -109,7 +111,9 @@ export class ProjectModalComponent{
         },
         err=>{
           console.log("Exception: ",err);
-          this.eventMessageService.onUpdateError(err);
+          if(err.status == 500){
+            this.eventMessageService.onUpdateError(err);
+          }
         },
         ()=>{
           this.projectService.onProjectHaveChanged();
