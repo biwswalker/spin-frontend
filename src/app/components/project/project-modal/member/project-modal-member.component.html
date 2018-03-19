@@ -23,7 +23,7 @@
   <form [formGroup]="projectMemberGroup" id="project-member-insert">
   <div class="row">
     <div class="col-12 d-flex">
-        <h4>สมาชิก</h4>
+        <h4>เพิ่มสมาชิก</h4>
         <button type="button" class="btn btn-link ml-auto" (click)="onSubmit()"><i class="fas fa-check fa-lg"></i></button>
     </div>
     <div class="col-12">
@@ -38,7 +38,8 @@
                     [typeaheadItemTemplate]="customItemTemplate"
                     [typeaheadOptionsInScrollableView]="10"
                     (typeaheadOnSelect)="onSelectedMember($event)"
-                    class="form-control">
+                    class="form-control"
+                    autocomplete="off">
 
                     <ng-template #customItemTemplate let-model="item" let-index="index">
                         <h6>{{model.officer.firstNameTh}} {{model.officer.lastNameTh}}</h6>
@@ -57,7 +58,8 @@
             [typeaheadMinLength]="0"
             typeaheadOptionField="respName"
             [typeaheadOptionsInScrollableView]="10"
-            (typeaheadOnSelect)="onSelectedResp($event)">
+            (typeaheadOnSelect)="onSelectedResp($event)"
+            autocomplete="off">
             <div class="invalid-feedback">
                 Please choose a username.
             </div>

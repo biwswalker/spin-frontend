@@ -5,7 +5,7 @@ import { OfficerService } from './../../../../providers/officer.service';
 @Component({
   selector: 'app-officer-search',
   templateUrl: './officer-search.component.html',
-  styleUrls: ['./officer-search.component.scss', '../officer.component.scss']
+  styleUrls: ['./officer-search.component.scss']
 })
 export class OfficerSearchComponent implements OnInit {
 

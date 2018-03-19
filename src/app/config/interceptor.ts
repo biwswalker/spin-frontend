@@ -37,6 +37,8 @@ export class Interceptor implements HttpInterceptor {
                             return this.handle400Error(error);
                         case 401:
                             return this.handle401Error(req, next);
+                        default:
+                            return Observable.throw(error);
                     }
                 } else {
                     return Observable.throw(error);

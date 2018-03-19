@@ -1,5 +1,5 @@
 import { TaskForm } from './../../../forms/task-form';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { TaskDayComponent } from './task-day/task-day.component';
 import { TaskAllComponent } from './task-all/task-all.component';
 
@@ -10,6 +10,7 @@ import { TaskAllComponent } from './task-all/task-all.component';
 })
 export class TaskComponent implements OnInit {
 
+  @Output() onSelectUnstamped = new EventEmitter<string>();
   @ViewChild(TaskDayComponent) taskDayChild;
   @ViewChild(TaskAllComponent) taskAllChild;
 
@@ -21,6 +22,10 @@ export class TaskComponent implements OnInit {
   onInsertTaskCompleted(date) {
     this.taskDayChild.onTaskCompleted(date);
     this.taskAllChild.onTaskCompleted();
+  }
+
+  onSelectUnstampedDate(date) {
+    this.onSelectUnstamped.emit(date);
   }
 
 }

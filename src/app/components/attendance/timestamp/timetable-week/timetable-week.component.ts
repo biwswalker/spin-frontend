@@ -22,12 +22,16 @@ export class TimetableWeekComponent {
   public dates: Observable<string>[] = [];
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
+    let checkDubplicated: string[] = [];
     // Async
     this.taskService.currentTimetableDOW.subscribe((dow: any) => {
-      if (dow.start && dow.end) {
-        this.firstDOW = dow.start;
-        this.endDOW = dow.end;
-        this.fecthWorkingTaskByWeek()
+      let isDup = checkDubplicated.find(date => date === dow);
+      if (!isDup) {
+        if (dow.start && dow.end) {
+          this.firstDOW = dow.start;
+          this.endDOW = dow.end;
+          this.fecthWorkingTaskByWeek()
+        }
       }
     })
     // End Async
@@ -37,7 +41,7 @@ export class TimetableWeekComponent {
     let dataDate = this.firstDOW
     for (let i = 1; i <= 7; i++) {
       this.fecthWorkingTaskByDate(dataDate, i);
-      this.dates[i-1] = Observable.of(dataDate);
+      this.dates[i - 1] = Observable.of(dataDate);
       dataDate = this.utilsService.getNextDay(dataDate)
     }
   }

@@ -24,11 +24,14 @@ export class EventMessagesService {
     this.notify.initialWarning('แจ้งเตือน', detail);
   }
 
+  onCustomError(title,detail) {
+    this.notify.initialError(title, 'เนื่องจาก'+detail);
+  }
   onInsertError(detail) {
-    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.details);
+    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.message);
   }
   onUpdateError(detail) {
-    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.details);
+    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.message);
   }
   onUploadError(detail) {
     this.notify.initialError('เกิดข้อผิดพลาด พบข้อมูลไม่สมบูรณ์', detail);

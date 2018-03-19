@@ -29,7 +29,7 @@
                  id="day-tasks"
                  role="tabpanel"
                  aria-labelledby="day-tab">
-                 <task-day></task-day>
+                 <task-day (changeDateEvent)="onSelectUnstampedDate($event)"></task-day>
             </div>
             <div class="tab-pane fade"
                  id="week-tasks"
