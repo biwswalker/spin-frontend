@@ -25,7 +25,7 @@ export class EventMessagesService {
   }
 
   onCustomError(title,detail) {
-    this.notify.initialError(title, 'เนื่องจาก'+detail.error.description);
+    this.notify.initialError(title, 'เนื่องจาก'+detail);
   }
   onInsertError(detail) {
     this.notify.initialError('เกิดข้อผิดพลาด', detail.error.details);

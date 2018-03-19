@@ -357,7 +357,7 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
-			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
+      var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
 				top: offset.top + height,
 				left: offset.left,
@@ -393,7 +393,7 @@
 		},
 
 		refresh: function(){
-			// Custom by jannarong.sa 
+			// Custom by jannarong.sa
 			this.fill();
 		},
 

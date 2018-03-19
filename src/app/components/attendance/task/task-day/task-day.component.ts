@@ -65,22 +65,24 @@ export class TaskDayComponent implements AfterViewInit {
       beforeShowDay: function (date) {
         let dates = new Date(date);
         let monthDate = self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(dates));
-        for (let hol of self.holidays) {
-          if (hol.holDate == monthDate) {
-            return { enabled: true, classes: 'holiday', tooltip: hol.holName };
+        // Get Spacial Date
+        let isHoliday = self.holidays.find(hol => hol.holDate == monthDate);
+        let isUnstamped = self.unstamped.find(unstamped => unstamped == monthDate);
+        let isLeave = self.leaves.find(leave => leave.leaveDate == monthDate);
+        // Set Spacial Date
+        if (isHoliday) {
+          return { enabled: true, classes: 'holiday', tooltip: isHoliday.holName };
+        } else if (isUnstamped) {
+          return { enabled: true, classes: 'unstamped', tooltip: 'คุณไม่ได้ลงเวลางาน' };
+        } else if (isLeave) {
+          return { enabled: true, classes: 'leave', tooltip: 'ลา' };
+        } else {
+          if (dates.getDay() === 0 || dates.getDay() === 6) {
+            return { enabled: true, classes: 'week-end', tooltip: ' ' };
+          } else {
+            return { enabled: true, tooltip: ' ' };
           }
         }
-        for (let unstamp of self.unstamped) {
-          if (unstamp == monthDate) {
-            return { enabled: true, classes: 'unstamped', tooltip: 'คุณไม่ได้ลงเวลางาน' };
-          }
-        }
-        for (let leave of self.leaves) {
-          if (leave.leaveDate == monthDate) {
-            return { enabled: true, classes: 'leave', tooltip: 'ลา' };
-          }
-        }
-        return { enabled: true, tooltip: '' };
       }
     });
 
@@ -90,10 +92,9 @@ export class TaskDayComponent implements AfterViewInit {
       let enDate = self.utilsService.convertDateToEnStringDate(pickerdate)
       let thDate = self.utilsService.convertEnDateToTh(enDate)
       let isUnstamped = self.unstamped.find(unstampedDate => unstampedDate === thDate);
+      self.subjectDate.next(thDate);
       if (isUnstamped) {
         self.changeDateEvent.emit(enDate);
-      } else {
-        self.subjectDate.next(thDate);
       }
     });
     $(datepickerId).datepicker().on('changeMonth', function (dateText) {
