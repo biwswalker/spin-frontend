@@ -7,7 +7,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { OfficerInfoComponent } from './officer-info/officer-info.component';
 import { OfficerSearchComponent } from './officer-search/officer-search.component';
 import { OfficerModalComponent } from './officer-modal/officer-modal.component';
-import * as XLSX from 'ts-xlsx';
+import * as XLSX from 'xlsx';
 import { mapTo } from 'rxjs/operator/mapTo';
 
 @Component({
