@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 @Component({
   selector: 'app-responsibility-search',
   templateUrl: './responsibility-search.component.html',
-  styleUrls: ['./responsibility-search.component.scss', '../responsibility.component.scss']
+  styleUrls: ['./responsibility-search.component.scss']
 })
 export class ResponsibilitySearchComponent implements OnInit {
 
