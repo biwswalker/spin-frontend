@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
 import { Subject } from 'rxjs';
+import { EventMessagesService } from './utils/event-messages.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -17,7 +18,8 @@ export class AuthenticationService {
   public user = new User();
   public notAuthorization = false;
 
-  constructor(private request: HttpRequestService) {
+  constructor(private request: HttpRequestService,
+  private eventMessageService: EventMessagesService) {
   }
 
   authen(username: string, password: string) {
@@ -48,6 +50,7 @@ export class AuthenticationService {
       .catch(error => {
         this.notAuthorization = false;
         console.log(error)
+        this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error);
         sessionStorage.removeItem(Default.ACTOKN);
         sessionStorage.removeItem(Default.TOKNTY);
         sessionStorage.removeItem(Default.RFTOKN);

@@ -1,6 +1,14 @@
+
+.member-list{
+  display: block !important;
+  max-height: 20rem;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
 #project-member-insert{
   position: absolute;
   bottom: 1rem;
   left:1rem;
   right: 1rem;
 }
+
