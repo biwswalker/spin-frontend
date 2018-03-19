@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { TaskService } from '../../../../providers/task.service';
 import { Observable } from 'rxjs/Observable';
 import { TaskForm } from '../../../../forms/task-form';
@@ -17,7 +17,7 @@ declare var $: any;
 })
 export class TaskDayComponent implements AfterViewInit {
 
-
+  @Output() changeDateEvent = new EventEmitter<string>();
   private subjectDate = new BehaviorSubject<string>(this.utilsService.getCurrentThDate());
   private crrDate = this.subjectDate.asObservable();
   private subjectYearMonth = new BehaviorSubject<{}>({ year: this.utilsService.getCuurentThYear(), month: this.utilsService.getCurrentThMonth() });
@@ -87,7 +87,14 @@ export class TaskDayComponent implements AfterViewInit {
 
     $(datepickerId).datepicker().on('changeDate', function (dateText) {
       let pickerdate = new Date(dateText.date);
-      self.subjectDate.next(self.utilsService.convertEnDateToTh(self.utilsService.convertDateToEnStringDate(pickerdate)));
+      let enDate = self.utilsService.convertDateToEnStringDate(pickerdate)
+      let thDate = self.utilsService.convertEnDateToTh(enDate)
+      let isUnstamped = self.unstamped.find(unstampedDate => unstampedDate === thDate);
+      if (isUnstamped) {
+        self.changeDateEvent.emit(enDate);
+      } else {
+        self.subjectDate.next(thDate);
+      }
     });
     $(datepickerId).datepicker().on('changeMonth', function (dateText) {
       let pickerdate = new Date(dateText.date);
@@ -132,7 +139,7 @@ export class TaskDayComponent implements AfterViewInit {
         }
       }
     });
-    Observable.forkJoin(unstampedFetch, holidaysFetch, leavesFetch).subscribe(successes => {}, err => {}, () => {
+    Observable.forkJoin(unstampedFetch, holidaysFetch, leavesFetch).subscribe(successes => { }, err => { }, () => {
       $('#workingDatePicker').datepicker('refresh');
     })
   }
