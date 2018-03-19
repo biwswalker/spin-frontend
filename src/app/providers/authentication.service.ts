@@ -50,7 +50,7 @@ export class AuthenticationService {
       .catch(error => {
         this.notAuthorization = false;
         console.log(error)
-        this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error);
+        this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error.error.description);
         sessionStorage.removeItem(Default.ACTOKN);
         sessionStorage.removeItem(Default.TOKNTY);
         sessionStorage.removeItem(Default.RFTOKN);
