@@ -17,7 +17,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="mode !== 'VIEW'">
     <label class="label-task-modal">สมาชิกโครงการ</label>
       <div class="col-12 rounded bg-white text-dark scroll-auto">
         <div id="member-list"
@@ -25,12 +25,24 @@
           <input type="checkbox"
                  name="{{obj.userId}}"
                  id="{{obj.userId}}"
-                 [disabled]="mode == 'VIEW'"
+                 autocomplete="off"
                  [(ngModel)]="obj.status">
-                   {{obj.email}}
+                   {{obj.fullName}}
         </div>
       </div>
   </div>
+
+  <!-- VIEW MODE -->
+  <div class="row" *ngIf="mode == 'VIEW'">
+      <label class="label-task-modal">สมาชิกโครงการ</label>
+        <div class="col-12 rounded bg-white text-dark scroll-auto">
+          <div id="member-list"
+               *ngFor="let obj of taskMember">
+                     {{obj.fullName}}
+          </div>
+        </div>
+    </div>
+
   <div class="row">
     <label class="label-task-modal">ผู้ร่วมงาน</label>
     <div class="col-12 scroll-auto bg-white rounded text-dark">
@@ -43,7 +55,7 @@
                 name="{{obj.userId}}"
                 (click)="deletePartner(obj)">
              </a>
-               {{obj.email}}
+               {{obj.fullName}}
       </div>
     </div>
   </div>
@@ -53,10 +65,11 @@
              id="autocompletePartner"
              [(ngModel)]="partner"
              [typeahead]="autocompletePartnerList"
-             typeaheadOptionField="email"
+             typeaheadOptionField="fullName, email"
              [typeaheadItemTemplate]="customItemTemplate"
              [typeaheadScrollable]="true"
              [typeaheadMinLength]="0"
+             autocomplete="off"
              id="input-add-partner"
              [typeaheadOptionsInScrollableView]="5"
              (typeaheadOnSelect)="onSelect($event)">
@@ -64,7 +77,7 @@
                             let-model="item"
                             let-index="index">
                  <h6>
-                   {{model.email}}
+                   {{model.fullName}}
                  </h6>
                </ng-template>
     </div>

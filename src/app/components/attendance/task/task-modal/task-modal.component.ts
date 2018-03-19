@@ -68,9 +68,8 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log('onTaskSelect');
-    console.log(task.taskId);
-    // this.taskServ
+    console.log('onTaskHasSelected | ', mode);
+    console.log(task);
     const temp = task;
     this.task = new Task();
     this.taskForm.task = temp;
@@ -79,19 +78,31 @@ export class TaskModalComponent implements AfterViewInit {
     const objTask = this.taskForm.task;
     objTask.color = (task.color ? task.color : 'blue');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
-    if (this.taskForm.task.projectId) {
-      this.projectService.findProjectById(this.taskForm.task.projectId).subscribe(
+    this.checkProjectId(this.taskForm.task.projectId);
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
+    this.taskPartnerChild.owner = this.user.email;
+    this.taskTagChild.tagList = [];
+    this.taskTagChild.mode = this.mode;
+    this.taskTagChild.initialTag(this.taskForm.task.taskId);
+    this.taskTagChild.ngOnInit();
+  }
+
+  checkTaskId(taskId: number){
+    this.taskDetailChild.copyTask = false;
+    if(taskId){
+      this.taskDetailChild.copyTask = true;
+    }
+  }
+
+  checkProjectId(projectId: number){
+    if (projectId) {
+      this.projectService.findProjectById(projectId).subscribe(
         project => {
           this.taskService.changeProjectId(project.projectId);
           this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
         }
       )
     }
-    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
-    this.taskPartnerChild.owner = this.user.email;
-    this.taskTagChild.tagList = [];
-    this.taskTagChild.mode = this.mode;
-    this.taskTagChild.initialTag(this.taskForm.task.taskId);
   }
 
   onSubmit() {

@@ -21,7 +21,7 @@ export class PartnerService {
       return this.request.requestMethodGET('user-management/users/project-id/' + prjId).subscribe(partner => {
         let atpPartners = []
         for (let obj of partner) {
-          atpPartners.push({ userId: obj.userId, email: obj.email });
+          atpPartners.push({ userId: obj.userId, email: obj.email, fullName: obj.officer.firstNameTh + ' ' + obj.officer.lastNameTh });
         }
         observer.next(atpPartners);
         return observer;

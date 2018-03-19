@@ -29,6 +29,7 @@
                  data-provide="datepicker"
                  data-date-language="th-th"
                  summitDatePicker
+                 autocomplete="off"
                  [attr.disabled]="isDisabled?'':null"
                  [(ngModel)]="workDate"
                  formControlName="taskDetailWorkDate"
@@ -74,7 +75,9 @@
       <input class="form-control"
         type="text"
         name="topic"
+        autocomplete="off"
         maxlength="500"
+        [disabled]="!copyTask"
         formControlName="taskDetailTopic"
         id="topic">
     </div>
@@ -85,6 +88,7 @@
       <textarea class="form-control"
         rows="3"
         id="activity"
+        autocomplete="off"
         name="activity"
         maxlength="1000"
         formControlName="taskDetailActivity">
@@ -100,8 +104,10 @@
         formControlName="taskDetailProject"
         [typeahead]="projectList"
         typeaheadOptionField="projectName"
+        [disabled]="copyTask"
         [typeaheadItemTemplate]="customItemTemplate"
         [typeaheadScrollable]="true"
+        autocomplete="off"
         [typeaheadMinLength]="0"
         [typeaheadOptionsInScrollableView]="5"
         (typeaheadOnSelect)="onChangeProject($event)">
@@ -111,7 +117,7 @@
       </div>
   </div>
 
-  <div class="row" *ngIf="mode !== 'VIEW'">
+  <div class="row" *ngIf="isDisabled !== true">
     <div class="col-12">
       <label class="label-task-modal">รายการโปรด</label>
     </div>
@@ -145,7 +151,6 @@
   </div>
 </div>
 </div>
-
 
 <!-- <div class="row row">
     <div class=" col d-flex">
