@@ -14,8 +14,9 @@ import { TaskService } from '../../../providers/task.service';
 <button type="button"
   class="btn btn-sm btn-outline-secondary" (click)="onChangeDate('next')"><i class="fas fa-chevron-right"></i></button>
   </div>
-  <div class="nowdate text-truncate" *ngIf="nowView === 'day'">{{ enDateStr | thaiDate:'stamptable' }}</div>
-  <div class="nowdate text-truncate" *ngIf="nowView === 'week'">{{ firstDOW | thaiDate:'short' }} - {{ endDOW | thaiDate:'short' }}</div>
+  <div class="nowdate text-truncate">ลงเวลาทำงาน</div>
+  <!--<div class="nowdate text-truncate" *ngIf="nowView === 'day'">{{ enDateStr | thaiDate:'stamptable' }}</div>
+  <div class="nowdate text-truncate" *ngIf="nowView === 'week'">{{ firstDOW | thaiDate:'short' }} - {{ endDOW | thaiDate:'short' }}</div>-->
   <div class="btn-group" role="group" >
   <button type="button"
   class="btn btn-sm btn-outline-secondary" [ngClass]="nowView === 'day' ? 'active' : ''" (click)="onChangeView('day')">วัน</button>
@@ -75,11 +76,12 @@ export class TimestampComponent implements OnInit {
       }
     } else {
       this.enDateStr = this.utilsService.getCurrentEnDate();
-      this.taskService.changeTimetableDate(this.enDateStr);
       if (this.nowView === 'week') {
         this.firstDOW = this.utilsService.getStartOfWeek(this.enDateStr, true);
         this.endDOW = this.utilsService.getEndOfWeek(this.enDateStr, true);
         this.taskService.changeTimetableDOW({ start: this.firstDOW, end: this.endDOW })
+      } else {
+        this.taskService.changeTimetableDate(this.enDateStr);
       }
     }
   }
@@ -97,5 +99,9 @@ export class TimestampComponent implements OnInit {
     }
   }
 
-
+  changeSelectedDate(date) {
+    this.enDateStr = date;
+    this.nowView = 'day';
+    this.taskService.changeTimetableDate(this.enDateStr);
+  }
 }

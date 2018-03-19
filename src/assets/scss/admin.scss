@@ -1,20 +1,22 @@
-.admin-info-header{
+.admin-info-header {
   font-weight: bold;
-  border-bottom:5px solid #BF0013;
+  border-bottom: 5px solid #BF0013;
 }
 
-.admin-info-body-bold{
-  font-weight: bold;
+.admin-info-body-bold {
+  font-weight: normal;
 }
 
 .admin-info-body {
-  color: #A4A4A4
-
+  color: #0044cc;
 }
 
+.admin-table-header {
+  background: #BF0013;
+  color: #FFFFFF;
+}
 
-.admin-table-header{
-    background: #BF0013;
-    color: #FFFFFF;
-
+.admin-list-group-item {
+  padding-bottom: 0px;
+  padding-top: 1px;
 }

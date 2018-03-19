@@ -18,10 +18,14 @@ export class TimetableDayComponent implements AfterViewInit {
   public enDateStr = '';
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
+    let checkDubplicated: string[] = [];
     // Async
     this.taskService.currentTimetableDate.subscribe(enDate => {
-      this.enDateStr = enDate;
-      this.fecthWorkingTaskByDate(enDate)
+      let isDup = checkDubplicated.find(date => date === enDate);
+      if (!isDup) {
+        this.enDateStr = enDate;
+        this.fecthWorkingTaskByDate(enDate)
+      }
     })
     // End Async
   }
