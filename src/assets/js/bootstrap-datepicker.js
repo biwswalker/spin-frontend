@@ -256,6 +256,7 @@
 		},
 
 		show: function(e) {
+      console.log('datepicker show: ',this.date)
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.picker.show();
@@ -367,6 +368,7 @@
 
 		_allow_update: true,
 		update: function(){
+      console.log('update: ')
 			if (!this._allow_update) return;
 
 			var date, fromArgs = false;
@@ -376,8 +378,15 @@
 			} else {
 				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
 				delete this.element.data().date;
-			}
+      }
 
+      //if user input date no '/'
+      if(date){
+        if(date.length == 8){
+          var temp = date;
+          date =  temp.substring(0,2)+'/'+temp.substring(2,4)+'/'+temp.substring(4,8);
+        }
+      }
 			this.date = DPGlobal.parseDate(date, this.o.format, this.o.language);
 
 			if(fromArgs) this.setValue();
@@ -466,6 +475,7 @@
 		},
 
 		fill: function() {
+      console.log('fill: ',this.viewDate);
 			var d = new Date(this.viewDate),
 				year = d.getUTCFullYear(),
 				month = d.getUTCMonth(),
@@ -711,6 +721,7 @@
 		},
 
 		_setDate: function(date, which){
+
 			if (!which || which == 'date')
 				this.date = new Date(date);
 			if (!which || which  == 'view')
