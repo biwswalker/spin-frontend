@@ -60,7 +60,7 @@ export class DepartmentModalComponent implements OnInit {
 
   validateForm() {
     this.departmentGroup = new FormGroup({
-      deptId: new FormControl(this.department.deptId, Validators.required),
+      deptId: new FormControl(this.department.deptId),
       deptName: new FormControl(this.department.deptName, Validators.required),
       deptAbbr: new FormControl(this.department.deptAbbr, Validators.required),
       activeFlag: new FormControl(this.department.activeFlag),
