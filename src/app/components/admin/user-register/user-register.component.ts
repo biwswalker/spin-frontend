@@ -1,3 +1,4 @@
+import { EventMessagesService } from './../../../providers/utils/event-messages.service';
 import { UserRegisterModalComponent } from './user-register-modal/user-register-modal.component';
 import { Officer } from './../../../models/officer';
 import { UtilsService } from './../../../providers/utils/utils.service';
@@ -10,13 +11,26 @@ import { UserRegisterInfoComponent } from './user-register-info/user-register-in
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { User } from '../../../models/user';
 import { Mode } from "../../../config/properties";
+import * as XLSX from "ts-xlsx";
+import { mapTo } from "rxjs/operator/mapTo";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: "app-user-register",
   templateUrl: "./user-register.component.html",
   styleUrls: ["./user-register.component.scss"]
 })
-export class UserRegisterComponent  {
+export class UserRegisterComponent {
+  arrayBuffer: any;
+  public users: User[] = [];
+  message: string;
+  messagesPosition: any[];
+  messagesDepartment: any[];
+  messages: any[];
+  record: number;
+  file: any;
+  fileName: string;
+  isUpload: boolean;
   @ViewChild(UserRegisterInfoComponent) info;
   @ViewChild(UserRegisterSearchComponent) search;
   @ViewChild(UserRegisterModalComponent) userModal;
@@ -25,7 +39,8 @@ export class UserRegisterComponent  {
     protected userRegisterService: UserRegisterService,
     private eventService: EventService,
     private authService: AuthenticationService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private eventMessageService: EventMessagesService
   ) {}
 
   ngAfterViewInit() {
@@ -69,9 +84,29 @@ export class UserRegisterComponent  {
   createUserRegister() {
     this.userModal.mode = Mode.I;
     this.userModal.ngOnInit();
-    console.log('mode: ', this.userModal.mode);
+    console.log("mode: ", this.userModal.mode);
     this.userModal.user = new User();
     this.userRegisterService.onOpenModal();
+  }
+
+  incomingfile(event) {
+    this.file = event.target.files[0];
+    this.fileName = event.target.files[0].name;
+  }
+
+  onCloseModal() {
+    this.isUpload = false;
+    this.fileName = "";
+    this.file = null;
+  }
+
+
+
+  clearMessage() {
+    this.messages = [];
+    this.messagesDepartment = [];
+    this.messagesPosition = [];
+    this.message = "";
   }
 
 
