@@ -24,6 +24,7 @@
     "@angular/router": "^5.2.0",
     "@ng-select/ng-select": "^0.30.1",
     "@ngui/auto-complete": "^0.16.1",
+    "@types/xlsx": "0.0.36",
     "angular-datepicker": "^1.0.5",
     "bootstrap": "^4.0.0",
     "classlist.js": "^1.1.20150312",
@@ -36,6 +37,7 @@
     "ngx-loading": "^1.0.14",
     "ngx-popper": "^2.0.1",
     "rxjs": "^5.5.6",
+    "ts-xlsx": "0.0.11",
     "web-animations-js": "^2.3.1",
     "xlsx": "^0.12.5",
     "zone.js": "^0.8.19"
