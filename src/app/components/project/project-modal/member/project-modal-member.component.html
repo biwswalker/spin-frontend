@@ -42,20 +42,13 @@
     <div class="col-12">
         <div class="form-group">
             <label for="responsibility">ตำแหน่ง *</label>
-            <input type="text" class="form-control"
-            id="responsibility"
+            <ng-select [items]="responsibilities"
+            bindLabel="respName"
+            bindValue="respId"
+            [(ngModel)]="respId"
+            (add)="onSelectedResp($event)"
             formControlName="respId"
-            [(ngModel)]="respName"
-            [typeahead]="responsibilities"
-            [typeaheadOptionsLimit]="10"
-            [typeaheadMinLength]="0"
-            typeaheadOptionField="respName"
-            [typeaheadOptionsInScrollableView]="5"
-            (typeaheadOnSelect)="onSelectedResp($event)"
-            autocomplete="off">
-            <div class="invalid-feedback">
-                Please choose a username.
-            </div>
+            ></ng-select>
         </div>
     </div>
 
