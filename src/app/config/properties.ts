@@ -1,4 +1,5 @@
-//export const URL = 'http://10.1.87.224:8081/';
+// export const URL = 'http://10.1.87.224:8081/';
+
 //ip for deploy officer(BKK)
 export const URL = 'http://172.17.3.49:8080/spin-s/';
 export const Method = {
