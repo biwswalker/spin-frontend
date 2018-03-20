@@ -1,17 +1,19 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { AuthenticationService } from './providers/authentication.service';
+import { UtilsService } from './providers/utils/utils.service';
 declare var $:any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-
+export class AppComponent implements OnInit {
+  
+  public loading = false;
   public isAccess = false;
   private isRequested = false;
 
-  constructor(private authService: AuthenticationService, private zone: NgZone) {
+  constructor(private authService: AuthenticationService, private zone: NgZone, private utilService: UtilsService) {
     this.authService.crrAccess.subscribe(accesses => {
       if (this.authService.isInSession()) {
         if (!this.isRequested) {
@@ -29,5 +31,11 @@ export class AppComponent {
       }
 
     })
+  }
+
+  ngOnInit() {
+    this.utilService.isLoading.subscribe((isLoad: boolean) => {
+      setTimeout(() => { this.loading = isLoad, 0 })
+    });
   }
 }

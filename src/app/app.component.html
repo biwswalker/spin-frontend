@@ -1,3 +1,4 @@
 <!-- <app-index></app-index> -->
 <app-index *ngIf="isAccess"></app-index>
 <login *ngIf="!isAccess"></login>
+<ngx-loading [show]="loading"></ngx-loading>

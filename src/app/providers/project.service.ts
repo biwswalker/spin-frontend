@@ -54,14 +54,17 @@ export class ProjectService {
     return this.request.requestMethodGET('task-management/sums-each-tags/project-id/' + projectId + '/phase-id/' + seqId);
   }
   findProjectAbbrById(projectId) {
-    let filteredPrj = this.holderPojectAbbr.find(prj => prj.projectId === projectId)
-    if(!filteredPrj){
-      return this.findProjectById(projectId).map(project => {
-        this.holderPojectAbbr.push({ projectId: project.projectId, projectAbbr: project.projectAbbr })
-        return project.projectAbbr;
-      });
-    }
-    return Observable.of(filteredPrj.projectAbbr);
+    setTimeout(() => {
+      let filteredPrj = this.holderPojectAbbr.find(prj => prj.projectId === projectId)
+      if (!filteredPrj) {
+        return this.findProjectById(projectId).map(project => {
+          this.holderPojectAbbr.push({ projectId: project.projectId, projectAbbr: project.projectAbbr })
+          return project.projectAbbr;
+        });
+      }
+      return Observable.of(filteredPrj.projectAbbr)
+        , 0
+    });
   }
   // End find for display action
 
