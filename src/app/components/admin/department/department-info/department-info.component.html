@@ -1,0 +1,36 @@
+<div id="resp-info">
+  <div class="row info-header">
+    <div class="col-9 text-left">
+      <h5 class="mb-0">
+        <label>รายละเอียดแผนก</label>
+      </h5>
+    </div>
+    <div class="col-3 text-right">
+      <button type="button" class="btn btn-link" (click)="editDepartment($event)">
+        <i class="fas fa-pencil-alt"> แก้ไข</i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <label class="info-body-bold">ชื่อแผนก</label>
+      <p class="info-body">{{department.deptName}}</p>
+    </div>
+    <div class="col-3">
+      <label class="info-body-bold">สถานะ</label>
+      <p class="info-body">{{department.activeFlag === 'A' ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">ชื่อย่อ</label>
+      <p class="info-body">{{department.deptAbbr}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">หมายเหตุ</label>
+      <label class="info-body">{{department.remark}}</label>
+    </div>
+  </div>
+</div>

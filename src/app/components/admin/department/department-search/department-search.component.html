@@ -16,18 +16,18 @@
 </div>
 
 <div class="row admin-table-header">
-  <div class="col-sm-8 text-left">ชื่อวันหยุด</div>
-  <div class="col-sm-4 text-left">วันที่</div>
+  <div class="col-sm-8 text-left">ชื่อแผนก</div>
+  <div class="col-sm-4 text-left">ชื่อย่อ</div>
 </div>
-<ul class="list-group list-group-flush" *ngFor="let holiday of holidays">
+<ul class="list-group list-group-flush" *ngFor="let department of departments">
   <div>
-    <button type="button" (click)="onChangeHoliday(holiday)" class="list-group-item list-group-item-action">
+    <button type="button" (click)="onChangeDepartment(department)" class="list-group-item list-group-item-action">
       <div class="row">
         <div class="col-sm-8 text-left">
-          <p>{{holiday.holName}}</p>
+          <p>{{department.deptName}}</p>
         </div>
         <div class="col-sm-4 text-left media">
-          <p>{{holiday.holDate | thaiDate:'full' || '' }}</p>
+          <p>{{department.deptAbbr}}</p>
         </div>
       </div>
     </button>
@@ -35,8 +35,7 @@
 
 </ul>
 
-
-<div class="row" *ngIf="holidays.length === 0">
+<div class="row" *ngIf="departments.length === 0">
   <div class="col-sm-12 text-center">
     <p>ไม่พบข้อมูล</p>
   </div>

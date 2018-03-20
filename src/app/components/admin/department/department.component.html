@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-12 col-md-6 col-xl-5">
+    <h2 class="d-inline-block mt-2 mb-0">แผนก</h2>
+    <button type="button" class="btn btn-link" (click)="createDepartment()">
+      <i class="fas fa-plus-circle"></i> เพิ่มใหม่</button>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-12 col-md-6 col-xl-6 content-left">
+    <div class="row">
+      <div class="col-12">
+        <app-department-search (messageEvent)="getData($event)"></app-department-search>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-6 content-right">
+    <div class="row">
+      <div class="col-12">
+        <app-department-info></app-department-info>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-department-modal (changeState)="onCheckState($event)"></app-department-modal>
