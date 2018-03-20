@@ -23,7 +23,7 @@ export class ProjectModalMemberComponent implements OnInit {
   public projectMemberGroup: FormGroup;
   public projectMember: ProjectMember = new ProjectMember;
   public projectMembers: ProjectMember[] = [];
-  public users: User[] = [];
+  public users: any;
   public responsibilities: Responsibility[] = [];
   public userName:string;
   public respName:string;
@@ -42,20 +42,7 @@ export class ProjectModalMemberComponent implements OnInit {
 
 
 
-    this.officerService.fetchAllAutocomplete('A').subscribe(
-
-      users=>{
-        this.users = [];
-        for (let user of users){
-          user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
-          this.users = this.users.concat(user);
-        }
-
-        // this.usersdata;
-      },err=>{
-        console.log(err);
-      }
-    );
+    this.users = this.officerService.fetchAllAutocomplete('A');
 
     this.respService.fetchResponsibilityAutocomplete('A').subscribe(
       data=>{
