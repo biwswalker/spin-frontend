@@ -23,7 +23,10 @@ export class ProjectModalMemberComponent implements OnInit {
   public projectMemberGroup: FormGroup;
   public projectMember: ProjectMember = new ProjectMember;
   public projectMembers: ProjectMember[] = [];
-  public users: any;
+  public users: User[] = [];
+  public user: User = new User;
+  public userId:string = '';
+  // public users: Observable<User[]>;
   public responsibilities: Responsibility[] = [];
   public userName:string;
   public respName:string;
@@ -41,8 +44,21 @@ export class ProjectModalMemberComponent implements OnInit {
     this.validateForm();
 
 
+    // this.users = this.officerService.fetchAllAutocomplete('A');
+    this.officerService.fetchAllAutocomplete('A').subscribe(
 
-    this.users = this.officerService.fetchAllAutocomplete('A');
+      users=>{
+        this.users = [];
+        for (let user of users){
+          user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
+          this.users = this.users.concat(user);
+        }
+
+        // this.usersdata;
+      },err=>{
+        console.log(err);
+      }
+    );
 
     this.respService.fetchResponsibilityAutocomplete('A').subscribe(
       data=>{
@@ -71,11 +87,11 @@ export class ProjectModalMemberComponent implements OnInit {
 
 
   onSelectedMember(event){
-    console.log('onSelectedMember...');
-    this.projectMember.user = event.item;
+    this.projectMember.user = event;
     this.projectMember.id.userId = this.projectMember.user.userId;
     this.userName = this.projectMember.user.officer.firstNameTh+' '+this.projectMember.user.officer.lastNameTh;
   }
+
 
   onSelectedResp(event){
     this.projectMember.responsibility = event.item;
@@ -86,10 +102,18 @@ export class ProjectModalMemberComponent implements OnInit {
   onSubmit(){
     this.utilsService.findInvalidControls(this.projectMemberGroup);
     if(this.projectMemberGroup.valid){
-      this.projectMembers = this.projectMembers.concat(this.projectMember);
-      this.projectMember = new ProjectMember;
-      this.userName = null;
-      this.respName = null;
+      console.log(this.userId)
+      const result = this.projectMembers.filter(user=>user.id.userId == this.userId);
+
+
+      if(result.length == 0){
+        this.projectMembers = this.projectMembers.concat(this.projectMember);
+        this.projectMember = new ProjectMember;
+        this.userId = null;
+        this.respName = null;
+        this.projectMemberGroup.reset();
+      }
+
     }
   }
 

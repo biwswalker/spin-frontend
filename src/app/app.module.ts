@@ -10,7 +10,7 @@ import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { NgxPopperModule } from 'ngx-popper';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -169,7 +169,8 @@ import { DatePickerDirective } from './directives/datepicker';
       primaryColour: '#dc3545',
       secondaryColour: '#28a745',
       tertiaryColour: '#ffc107'
-    })
+    }),
+    NgSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },

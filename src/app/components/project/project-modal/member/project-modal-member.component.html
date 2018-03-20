@@ -29,21 +29,14 @@
     <div class="col-12">
         <div class="form-group">
             <label for="member-name">ชื่อ - นามสกุล *</label>
-            <input formControlName="userName"
-                    [(ngModel)]="userName"
-                    [typeahead]="users"
-                    [typeaheadOptionsLimit]="10"
-                    [typeaheadMinLength]="0"
-                    typeaheadOptionField="user.fullName"
-                    [typeaheadItemTemplate]="customItemTemplate"
-                    [typeaheadOptionsInScrollableView]="10"
-                    (typeaheadOnSelect)="onSelectedMember($event)"
-                    class="form-control"
-                    autocomplete="off">
-
-                    <ng-template #customItemTemplate let-model="item" let-index="index">
-                        <h6>{{model.officer.firstNameTh}} {{model.officer.lastNameTh}}</h6>
-                      </ng-template>
+            <ng-select [items]="users"
+           bindLabel="fullName"
+           bindValue="userId"
+           [(ngModel)]="userId"
+           (add)="onSelectedMember($event)"
+           formControlName="userName"
+           >
+          </ng-select>
         </div>
     </div>
     <div class="col-12">
@@ -54,10 +47,10 @@
             formControlName="respId"
             [(ngModel)]="respName"
             [typeahead]="responsibilities"
-            [typeaheadOptionsLimit]="7"
+            [typeaheadOptionsLimit]="10"
             [typeaheadMinLength]="0"
             typeaheadOptionField="respName"
-            [typeaheadOptionsInScrollableView]="10"
+            [typeaheadOptionsInScrollableView]="5"
             (typeaheadOnSelect)="onSelectedResp($event)"
             autocomplete="off">
             <div class="invalid-feedback">
