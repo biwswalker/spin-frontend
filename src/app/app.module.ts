@@ -92,6 +92,7 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
+import { HelpComponent } from './components/help/help.component';
 
 
 @NgModule({
@@ -147,6 +148,7 @@ import { DatePickerDirective } from './directives/datepicker';
     DepartmentInfoComponent,
     DepartmentModalComponent,
     DepartmentSearchComponent,
+    HelpComponent,
   ],
   imports: [
     BrowserModule,

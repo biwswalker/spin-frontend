@@ -1,3 +1,4 @@
+import { HelpComponent } from './../components/help/help.component';
 import { ChangePasswordComponent } from './../components/change-password/change-password.component';
 import { TaskModalComponent } from './../components/attendance/task/task-modal/task-modal.component';
 import { ExampleComponent } from './../components/example/example.component';
@@ -25,7 +26,9 @@ const routes: Routes = [
   { path: 'user-register', component: UserRegisterComponent },
   { path: 'officer', component: OfficerComponent },
   { path: 'change-password', component: ChangePasswordComponent },
-  { path: 'department', component: DepartmentComponent }
+  { path: 'department', component: DepartmentComponent },
+
+  { path: 'help', component: HelpComponent }
 ]
 
 @NgModule({
