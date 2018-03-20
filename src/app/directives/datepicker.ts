@@ -21,11 +21,11 @@ export class DatePickerDirective implements ControlValueAccessor{
   //  });
   }
   ngAfterViewInit(){
-    $(this.el.nativeElement).datepicker({autoclose:true}).on('change', e => this.onModelChange(e.target.value));
+    $(this.el.nativeElement).datepicker({autoclose:true,format: 'dd/mm/yyyy'}).on('change', e => this.onModelChange(e.target.value));
 
   }
   onModelChange: Function = (e) => {
-    // console.log(this.controlContainer);
+
   };
 
 
@@ -35,6 +35,7 @@ export class DatePickerDirective implements ControlValueAccessor{
   writeValue(val: string) : void {
     if(this.model){
       this.el.nativeElement.value = this.model;
+      $(this.el.nativeElement).datepicker('update');
     }else{
       this.el.nativeElement.value = null;
     }

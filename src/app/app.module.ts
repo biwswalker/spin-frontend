@@ -59,7 +59,10 @@ import { UserRegisterModalComponent } from './components/admin/user-register/use
 import { HolidaySearchComponent } from './components/admin/holiday/holiday-search/holiday-search.component';
 import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/holiday-modal.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-
+import { DepartmentComponent } from './components/admin/department/department.component';
+import { DepartmentInfoComponent } from './components/admin/department/department-info/department-info.component';
+import { DepartmentModalComponent } from './components/admin/department/department-modal/department-modal.component';
+import { DepartmentSearchComponent } from './components/admin/department/department-search/department-search.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -78,6 +81,7 @@ import { HolidayService } from './providers/holiday.service';
 import { LeaveService } from './providers/leave.service';
 import { EventMessagesService } from './providers/utils/event-messages.service';
 import { UserRegisterService } from './providers/userregister.service';
+import { DepartmentService } from './providers/department.service';
 
 
 // Pipe
@@ -138,6 +142,10 @@ import { DatePickerDirective } from './directives/datepicker';
     HolidaySearchComponent,
     HolidayModalComponent,
     ChangePasswordComponent,
+    DepartmentComponent,
+    DepartmentInfoComponent,
+    DepartmentModalComponent,
+    DepartmentSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -169,7 +177,8 @@ import { DatePickerDirective } from './directives/datepicker';
     HolidayService,
     LeaveService,
     EventMessagesService,
-    UserRegisterService
+    UserRegisterService,
+    DepartmentService
   ],
   bootstrap: [AppComponent]
 })

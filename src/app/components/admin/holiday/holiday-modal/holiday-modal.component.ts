@@ -65,7 +65,7 @@ export class HolidayModalComponent implements OnInit {
 
   validateForm() {
     this.holidayGroup = new FormGroup({
-      holId: new FormControl(this.holiday.holId, Validators.required),
+      holId: new FormControl(this.holiday.holId),
       holName: new FormControl(this.holiday.holName, Validators.required),
       holDate: new FormControl(this.holiday.holDate, Validators.required),
       activeFlag: new FormControl(this.holiday.activeFlag),
