@@ -51,8 +51,14 @@ export class Interceptor implements HttpInterceptor {
             alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
             return this.logoutUser();
         }
-        console.log(error)
-        console.log('Error 400 please call 191.')
+        if (error.error.error === 'invalid_request') {
+            let errorDesc = error.error.description;
+            if (errorDesc.toLowerCase().indexOf("Invalid refresh token".toLowerCase()) > -1) {
+                alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+            }
+        }
+        // console.log(error)
+        // console.log('Error 400 please call 191.')
         return Observable.throw(error);
     }
 

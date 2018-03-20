@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
         this.authService.authen(this.loginGroup.value.username, this.loginGroup.value.password).then((data) => {
           result = true;
           if (data == Status.SUCCESS) {
-            console.log(Status.SUCCESS)
             spin(false);
           } else {
             spin(false);

@@ -9,6 +9,7 @@ import { Holiday } from '../../../../models/holiday';
 import { Leave } from '../../../../models/leave';
 import { LeaveService } from '../../../../providers/leave.service';
 import { AuthenticationService } from '../../../../providers/authentication.service';
+import { Task } from '../../../../models/task';
 declare var $: any;
 @Component({
   selector: 'task-day',
@@ -88,6 +89,7 @@ export class TaskDayComponent implements AfterViewInit {
 
 
     $(datepickerId).datepicker().on('changeDate', function (dateText) {
+      self.taskService.chageSelectedTask(new Task());
       let pickerdate = new Date(dateText.date);
       let enDate = self.utilsService.convertDateToEnStringDate(pickerdate)
       let thDate = self.utilsService.convertEnDateToTh(enDate)

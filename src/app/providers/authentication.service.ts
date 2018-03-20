@@ -36,9 +36,9 @@ export class AuthenticationService {
       .then(token => {
         this.notAuthorization = false;
         if (token) {
-          sessionStorage.setItem(Default.ACTOKN, token.access_token)
-          sessionStorage.setItem(Default.TOKNTY, token.token_type)
-          sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
+          sessionStorage.setItem(Default.ACTOKN, btoa(token.access_token));
+          sessionStorage.setItem(Default.TOKNTY, btoa(token.token_type));
+          sessionStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
           this.isAccess.next(true);
           return this.accessUser();
         } else {
@@ -129,7 +129,7 @@ export class AuthenticationService {
     let access_token: any = sessionStorage.getItem(Default.ACTOKN);
     let token_type: any = sessionStorage.getItem(Default.TOKNTY);
     if (access_token) {
-      return `${token_type} ${access_token}`;
+      return `${atob(token_type)} ${atob(access_token)}`;
     }
     return '';
   }
@@ -137,7 +137,7 @@ export class AuthenticationService {
   getRefreshToken(): string {
     let refresh_token: any = sessionStorage.getItem(Default.RFTOKN);
     if (refresh_token) {
-      return `${refresh_token}`;
+      return `${atob(refresh_token)}`;
     }
     return '';
   }
@@ -153,7 +153,6 @@ export class AuthenticationService {
   }
 
   refreshToken(): Observable<string> {
-    console.log('refresh token')
     this.notAuthorization = true;
     const headers = new HttpHeaders({
       "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
@@ -162,9 +161,9 @@ export class AuthenticationService {
     return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).map(token => {
       this.notAuthorization = false;
       if (token) {
-        sessionStorage.setItem(Default.ACTOKN, token.access_token)
-        sessionStorage.setItem(Default.TOKNTY, token.token_type)
-        sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
+        sessionStorage.setItem(Default.ACTOKN, btoa(token.access_token));
+        sessionStorage.setItem(Default.TOKNTY, btoa(token.token_type));
+        sessionStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
         this.isAccess.next(true);
         this.accessUser();
         return this.getNowToken();
