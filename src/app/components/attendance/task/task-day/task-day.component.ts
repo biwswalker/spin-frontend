@@ -89,7 +89,6 @@ export class TaskDayComponent implements AfterViewInit {
 
 
     $(datepickerId).datepicker().on('changeDate', function (dateText) {
-      self.taskService.chageSelectedTask(new Task());
       let pickerdate = new Date(dateText.date);
       let enDate = self.utilsService.convertDateToEnStringDate(pickerdate)
       let thDate = self.utilsService.convertEnDateToTh(enDate)
