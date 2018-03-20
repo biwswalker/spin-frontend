@@ -91,7 +91,7 @@ export class TaskPartnerComponent {
           console.log('nonMembers=> ', nonMembers);
           this.taskPartner = [];
           for (let obj of nonMembers) {
-            this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.fullName });
+            this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
           }
         }
       }

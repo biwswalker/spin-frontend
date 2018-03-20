@@ -42,6 +42,7 @@ export class TaskDetailComponent implements OnInit {
   public favProjectList = new Observable<Project[]>();
   public timeList: any[];
   public endTimeList: any[];
+  public datePattern: any[] = [];
 
   constructor(
     private projectService: ProjectService,
@@ -105,6 +106,7 @@ export class TaskDetailComponent implements OnInit {
 
     this.ngZone.runOutsideAngular(() => {
       this.ngZone.run(() => { console.log('ngZone.runOutsideAngular'); });
+      this.utilsService.loader(false);
     });
   }
 
