@@ -42,6 +42,7 @@ export class TaskDetailComponent implements OnInit {
   public favProjectList = new Observable<Project[]>();
   public timeList: any[];
   public endTimeList: any[];
+  public datePattern: any[] = [];
 
   constructor(
     private projectService: ProjectService,
