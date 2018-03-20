@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
 import { Subject } from 'rxjs';
+import { EventMessagesService } from './utils/event-messages.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -17,7 +18,8 @@ export class AuthenticationService {
   public user = new User();
   public notAuthorization = false;
 
-  constructor(private request: HttpRequestService) {
+  constructor(private request: HttpRequestService,
+    private eventMessageService: EventMessagesService) {
   }
 
   authen(username: string, password: string) {
@@ -34,9 +36,9 @@ export class AuthenticationService {
       .then(token => {
         this.notAuthorization = false;
         if (token) {
-          sessionStorage.setItem(Default.ACTOKN, token.access_token)
-          sessionStorage.setItem(Default.TOKNTY, token.token_type)
-          sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
+          sessionStorage.setItem(Default.ACTOKN, btoa(token.access_token));
+          sessionStorage.setItem(Default.TOKNTY, btoa(token.token_type));
+          sessionStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
           this.isAccess.next(true);
           return this.accessUser();
         } else {
@@ -48,6 +50,7 @@ export class AuthenticationService {
       .catch(error => {
         this.notAuthorization = false;
         console.log(error)
+        this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error.error.description);
         sessionStorage.removeItem(Default.ACTOKN);
         sessionStorage.removeItem(Default.TOKNTY);
         sessionStorage.removeItem(Default.RFTOKN);
@@ -78,6 +81,8 @@ export class AuthenticationService {
         }
       }).catch(error => {
         console.log(error)
+        alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+        this.logout();
         return Status.ERROR;
       });
   }
@@ -108,6 +113,11 @@ export class AuthenticationService {
     // }
   }
 
+  changePassword(passwordObject: any) {
+    console.log('changePassword')
+    return this.request.requestMethodPOST('user-management/users/change-password', passwordObject);
+  }
+
   isInSession(): boolean {
     if (sessionStorage.getItem(Default.ACTOKN)) {
       return true;
@@ -119,7 +129,7 @@ export class AuthenticationService {
     let access_token: any = sessionStorage.getItem(Default.ACTOKN);
     let token_type: any = sessionStorage.getItem(Default.TOKNTY);
     if (access_token) {
-      return `${token_type} ${access_token}`;
+      return `${atob(token_type)} ${atob(access_token)}`;
     }
     return '';
   }
@@ -127,7 +137,7 @@ export class AuthenticationService {
   getRefreshToken(): string {
     let refresh_token: any = sessionStorage.getItem(Default.RFTOKN);
     if (refresh_token) {
-      return `${refresh_token}`;
+      return `${atob(refresh_token)}`;
     }
     return '';
   }
@@ -143,7 +153,6 @@ export class AuthenticationService {
   }
 
   refreshToken(): Observable<string> {
-    console.log('refresh token')
     this.notAuthorization = true;
     const headers = new HttpHeaders({
       "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
@@ -152,9 +161,9 @@ export class AuthenticationService {
     return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).map(token => {
       this.notAuthorization = false;
       if (token) {
-        sessionStorage.setItem(Default.ACTOKN, token.access_token)
-        sessionStorage.setItem(Default.TOKNTY, token.token_type)
-        sessionStorage.setItem(Default.RFTOKN, token.refresh_token)
+        sessionStorage.setItem(Default.ACTOKN, btoa(token.access_token));
+        sessionStorage.setItem(Default.TOKNTY, btoa(token.token_type));
+        sessionStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
         this.isAccess.next(true);
         this.accessUser();
         return this.getNowToken();
@@ -164,6 +173,10 @@ export class AuthenticationService {
         this.isAccess.next(false)
         return Status.ERROR;
       }
-    }, error => this.notAuthorization = false)
+    }, error => {
+      this.notAuthorization = false
+      alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+      this.logout();
+    })
   }
 }

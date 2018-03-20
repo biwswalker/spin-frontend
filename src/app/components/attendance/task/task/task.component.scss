@@ -1,41 +1,37 @@
 .selection {
     cursor: pointer;
-    transform: scale(1);
-    -webkit-transition: -webkit-transform 0.3s;
-    transition: transform 0.3s;
-    -o-transition: .5s;
-    -ms-transition: .5s;
-    -moz-transition: .5s;
-    -webkit-transition: .5s;
+    transition: all 0.2s;
     /* ...and now for the proper property */
-    transition: .5s;
     background-color: #f9f9f9;
     .card-footer {
         padding: 0 !important;
         padding-left: 5px !important;
         padding-right: 5px !important;
-    }  
+    }
 }
 
 .selection:hover {
-    color: white;
-    background: rgb(64, 64, 64);
+    // color: white;
+    // background: rgb(64, 64, 64);
     // box-shadow: 0px 0px 40px -20px rgba(0, 0, 0, 0.64);
-    transform: scale(1.04);
-    -webkit-transition: -webkit-transform 0.6s;
-    transition: transform 0.6s;
+    // transform: scale(1.04);
+    background-color: rgba(199, 199, 199, 0.5);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: all 0.2s;
     .card-footer {
         background: rgb(102, 102, 102);
         .task-project {
             color: white;
         }
-    }   
+    }
 }
 
 .selection.selected {
     color: white;
+    transform: scale(1.01);
     background: rgb(64, 64, 64);
-    box-shadow: 15px 15px 20px -5px rgba(0, 0, 0, 0.6);
+    // box-shadow: 15px 15px 20px -5px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     .card-footer {
         background: rgb(102, 102, 102);
         .task-project {

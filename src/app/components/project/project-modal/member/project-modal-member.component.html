@@ -23,44 +23,32 @@
   <form [formGroup]="projectMemberGroup" id="project-member-insert">
   <div class="row">
     <div class="col-12 d-flex">
-        <h4>สมาชิก</h4>
+        <h4>เพิ่มสมาชิก</h4>
         <button type="button" class="btn btn-link ml-auto" (click)="onSubmit()"><i class="fas fa-check fa-lg"></i></button>
     </div>
     <div class="col-12">
         <div class="form-group">
             <label for="member-name">ชื่อ - นามสกุล *</label>
-            <input formControlName="userName"
-                    [(ngModel)]="userName"
-                    [typeahead]="users"
-                    [typeaheadOptionsLimit]="10"
-                    [typeaheadMinLength]="0"
-                    typeaheadOptionField="user.fullName"
-                    [typeaheadItemTemplate]="customItemTemplate"
-                    [typeaheadOptionsInScrollableView]="10"
-                    (typeaheadOnSelect)="onSelectedMember($event)"
-                    class="form-control">
-
-                    <ng-template #customItemTemplate let-model="item" let-index="index">
-                        <h6>{{model.officer.firstNameTh}} {{model.officer.lastNameTh}}</h6>
-                      </ng-template>
+            <ng-select [items]="users"
+           bindLabel="fullName"
+           bindValue="userId"
+           [(ngModel)]="userId"
+           (add)="onSelectedMember($event)"
+           formControlName="userName"
+           >
+          </ng-select>
         </div>
     </div>
     <div class="col-12">
         <div class="form-group">
             <label for="responsibility">ตำแหน่ง *</label>
-            <input type="text" class="form-control"
-            id="responsibility"
+            <ng-select [items]="responsibilities"
+            bindLabel="respName"
+            bindValue="respId"
+            [(ngModel)]="respId"
+            (add)="onSelectedResp($event)"
             formControlName="respId"
-            [(ngModel)]="respName"
-            [typeahead]="responsibilities"
-            [typeaheadOptionsLimit]="7"
-            [typeaheadMinLength]="0"
-            typeaheadOptionField="respName"
-            [typeaheadOptionsInScrollableView]="10"
-            (typeaheadOnSelect)="onSelectedResp($event)">
-            <div class="invalid-feedback">
-                Please choose a username.
-            </div>
+            ></ng-select>
         </div>
     </div>
 

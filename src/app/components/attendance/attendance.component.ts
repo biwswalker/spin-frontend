@@ -1,12 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TaskComponent } from './task/task.component';
+import { TimestampComponent } from './timestamp/timestamp.component';
 
 @Component({
   selector: 'app-attendance',
   template: `<div class="row" style="padding-top: 15px;">
+  <div class="col-12">
+        <div class="page-title d-flex">
+            <h2 class="d-inline-block">เวลาทำงาน</h2>
+        </div>
+
+
+  </div>
   <div class="col-12 col-md-6 col-lg-6 col-xl-5 exbox">
   <div class="box">
-  <tasks></tasks>
+  <tasks (onSelectUnstamped)="isDateUnstamped($event)"></tasks>
     </div>
   </div>
   <div class="col-12 col-md-6 col-lg-6 col-xl-7 exbox">
@@ -21,6 +29,7 @@ import { TaskComponent } from './task/task.component';
 export class AttendanceComponent implements OnInit {
 
   @ViewChild(TaskComponent) tasksChild;
+  @ViewChild(TimestampComponent) timestampChild;
   constructor() { }
 
   ngOnInit() {
@@ -29,5 +38,9 @@ export class AttendanceComponent implements OnInit {
 
   insertComplete(event){
     this.tasksChild.onInsertTaskCompleted(event);
+  }
+
+  isDateUnstamped(date){
+    this.timestampChild.changeSelectedDate(date);
   }
 }

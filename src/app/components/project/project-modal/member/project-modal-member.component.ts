@@ -24,9 +24,10 @@ export class ProjectModalMemberComponent implements OnInit {
   public projectMember: ProjectMember = new ProjectMember;
   public projectMembers: ProjectMember[] = [];
   public users: User[] = [];
+  public user: User = new User;
   public responsibilities: Responsibility[] = [];
-  public userName:string;
-  public respName:string;
+  public userId:string;
+  public respId:string;
 
   constructor(private officerService: OfficerService,
   private respService:ResponsibilityService,
@@ -41,12 +42,12 @@ export class ProjectModalMemberComponent implements OnInit {
     this.validateForm();
 
 
-
+    // this.users = this.officerService.fetchAllAutocomplete('A');
     this.officerService.fetchAllAutocomplete('A').subscribe(
 
       users=>{
         this.users = [];
-        for (let user of users.content){
+        for (let user of users){
           user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
           this.users = this.users.concat(user);
         }
@@ -72,8 +73,8 @@ export class ProjectModalMemberComponent implements OnInit {
 
   validateForm(){
     this.projectMemberGroup = new FormGroup({
-      userName: new FormControl(this.userName, Validators.required),
-      respId: new FormControl(this.projectMember.respId, Validators.required),
+      userName: new FormControl(this.userId, Validators.required),
+      respId: new FormControl(this.respId, Validators.required),
 
     })
   }
@@ -84,14 +85,13 @@ export class ProjectModalMemberComponent implements OnInit {
 
 
   onSelectedMember(event){
-    console.log('onSelectedMember...');
-    this.projectMember.user = event.item;
+    this.projectMember.user = event;
     this.projectMember.id.userId = this.projectMember.user.userId;
-    this.userName = this.projectMember.user.officer.firstNameTh+' '+this.projectMember.user.officer.lastNameTh;
   }
 
+
   onSelectedResp(event){
-    this.projectMember.responsibility = event.item;
+    this.projectMember.responsibility = event;
     this.projectMember.respId = this.projectMember.responsibility.respId;
     this.projectMember.respName = this.projectMember.responsibility.respName;
   }
@@ -99,17 +99,22 @@ export class ProjectModalMemberComponent implements OnInit {
   onSubmit(){
     this.utilsService.findInvalidControls(this.projectMemberGroup);
     if(this.projectMemberGroup.valid){
-      this.projectMembers = this.projectMembers.concat(this.projectMember);
-      this.projectMember = new ProjectMember;
-      this.userName = null;
-      this.respName = null;
+      const result = this.projectMembers.filter(user=>user.id.userId == this.userId);
+
+      if(result.length == 0){
+        this.projectMembers = this.projectMembers.concat(this.projectMember);
+        this.projectMember = new ProjectMember;
+        this.userId = null;
+        this.respId = null;
+        this.projectMemberGroup.reset();
+      }
+
     }
   }
 
   prepareDataForEdit(projectId){
     this.projectService.findProjectMemberById(projectId).subscribe(
       data=>{
-        console.log('project member: ',data);
         this.projectMembers = data;
       }
     )

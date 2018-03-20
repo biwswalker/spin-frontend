@@ -32,10 +32,13 @@
             <span class="user-id">{{email}}</span>
           </div>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:180px">
 
-          <!-- <div class="dropdown-divider"></div> -->
-          <a class="dropdown-item" href="#" (click)="logout()">Log Out</a>
+
+          <a class="dropdown-item" [routerLink]="['/change-password']">เปลี่ยนรหัสผ่าน</a>
+          <a class="dropdown-item" [routerLink]="['/help']">ช่วยเหลือ</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" (click)="logout()">ออกจากระบบ</a>
         </div>
       </li>
     </ul>
@@ -44,7 +47,7 @@
   </nav>
 
   <div class="row main">
-    <div class="col-sm-1 spin-sidebar">
+    <div class="col-md-1 spin-sidebar">
       <div id="sidebar">
 
         <!-- Sidebar Links -->
@@ -80,7 +83,7 @@
                 <span class="menu-title">ข่าวสาร</span>
               </a>
             </li>
-            <li class="nav-item dropright">
+            <li class="nav-item dropright" *ngIf="user.userLevel == 'A'">
               <a class="nav-link dropdown-toggle" id="admin-menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-cogs"></i>
                 <span class="menu-title">Admin</span>
@@ -92,6 +95,7 @@
                 <a class="dropdown-item" [routerLink]="['/responsibility']">หน้าที่ความรับผิดชอบ</a>
                 <a class="dropdown-item" [routerLink]="['/officer']">พนักงาน</a>
                 <a class="dropdown-item" [routerLink]="['/holiday']">วันหยุด</a>
+                <a class="dropdown-item" [routerLink]="['/department']">แผนก</a>
               </div>
 
             </li>
@@ -99,7 +103,7 @@
         </nav>
       </div>
     </div>
-    <div class="col-12 col-sm-11">
+    <div class="col-12 col-md-11">
       <!-- Sub Header -->
       <router-outlet></router-outlet>
     </div>

@@ -36,12 +36,13 @@ export class TaskDetailComponent implements OnInit {
   public projectList: Project[];
   public taskDetailFormGroup: FormGroup;
   public user: User;
-  // public color: string;
   public mode: string;
+  public copyTask: boolean = false;
   public isDisabled: boolean;
   public favProjectList = new Observable<Project[]>();
   public timeList: any[];
   public endTimeList: any[];
+  public datePattern: any[] = [];
 
   constructor(
     private projectService: ProjectService,
@@ -79,24 +80,33 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
-    console.log('initialTaskDetail');
-    if(mode == 'VIEW'){
+    this.mode = mode;
+    if (this.mode === 'VIEW') {
+      console.log('VIEW')
       this.isDisabled = true;
       this.taskDetailFormGroup.disable();
     } else {
       this.isDisabled = false;
       this.taskDetailFormGroup.enable();
+      if (task.taskId && mode == Mode.I) {
+        console.log('COPYTASK');
+        this.isDisabled = true;
+        this.taskDetailFormGroup.controls['taskDetailProject'].disable();
+      } else {
+        console.log('INSERT')
+      }
     }
     this.taskObj = new Task();
     this.taskObj = task;
-    this.mode = mode;
     this.resetData();
     this.initialTime();
     this.initialData();
     this.validateData();
     this.timeList = this.utilsService.getTimeList();
+
     this.ngZone.runOutsideAngular(() => {
       this.ngZone.run(() => { console.log('ngZone.runOutsideAngular'); });
+      this.utilsService.loader(false);
     });
   }
 

@@ -72,16 +72,16 @@ border-collapse:separate;
     }
 
     // Select day
-    .ui-datepicker-current-day{
-        display: block;
-        border-radius: 50%;
-        border: 1px solid $red;
-        text-align: center;
-        margin: auto;
-        a {
-            color: $red !important;
-        }
-    }
+    // .ui-datepicker-current-day{
+    //     display: block;
+    //     border-radius: 50%;
+    //     border: 1px solid $red;
+    //     text-align: center;
+    //     margin: auto;
+    //     a {
+    //         color: $red !important;
+    //     }
+    // }
 
     .active{
         // border-radius: 50%;
@@ -101,10 +101,8 @@ border-collapse:separate;
     }
 
     // Week end
-    .ui-datepicker-week-end{
-        a {
-            color: $gray !important;
-        }
+    .week-end{
+      color: $gray !important;
     }
 }
 

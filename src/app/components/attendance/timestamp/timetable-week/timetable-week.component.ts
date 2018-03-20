@@ -22,12 +22,16 @@ export class TimetableWeekComponent {
   public dates: Observable<string>[] = [];
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
+    let checkDubplicated: string[] = [];
     // Async
     this.taskService.currentTimetableDOW.subscribe((dow: any) => {
-      if (dow.start && dow.end) {
-        this.firstDOW = dow.start;
-        this.endDOW = dow.end;
-        this.fecthWorkingTaskByWeek()
+      let isDup = checkDubplicated.find(date => date === dow);
+      if (!isDup) {
+        if (dow.start && dow.end) {
+          this.firstDOW = dow.start;
+          this.endDOW = dow.end;
+          this.fecthWorkingTaskByWeek()
+        }
       }
     })
     // End Async
@@ -37,7 +41,7 @@ export class TimetableWeekComponent {
     let dataDate = this.firstDOW
     for (let i = 1; i <= 7; i++) {
       this.fecthWorkingTaskByDate(dataDate, i);
-      this.dates[i-1] = Observable.of(dataDate);
+      this.dates[i - 1] = Observable.of(dataDate);
       dataDate = this.utilsService.getNextDay(dataDate)
     }
   }
@@ -74,7 +78,7 @@ export class TimetableWeekComponent {
             $($($(`.timestamp-week${dateIndex}`).find('.stamp'))[i]).addClass(`unavailable ${groupClass}`);
           }
           // Step 2
-          $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
+          $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:101;'></div>`);
           $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
               <div class="m-0 stamp-topic text-truncate"><div class="d-inline">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
               ${task.projectAbbr ? `<div class="d-inline topic-task"> #${task.projectAbbr}</div>` : ''}</div>

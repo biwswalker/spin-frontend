@@ -16,18 +16,22 @@
 </div>
 
 <div class="row admin-table-header">
-  <div class="col-sm-8 text-left">ชื่อ-นามสกุล</div>
-  <div class="col-sm-4 text-left">แผนก</div>
+  <div class="col-sm-3 text-left">รหัสพนักงาน</div>
+  <div class="col-sm-6 text-left">ชื่อ-นามสกุล</div>
+  <div class="col-sm-3 text-left">แผนก</div>
 </div>
 
 <ul class="list-group list-group-flush" *ngFor="let officer of officers">
   <div>
     <button type="button" (click)="onChangeOfficer(officer)" class="list-group-item list-group-item-action">
       <div class="row">
-        <div class="col-sm-8 text-left">
-          <p>{{officer.firstNameTh}} {{officer.lastNameTh}}</p>
+        <div class="col-sm-3 text-left media">
+          <p>{{officer.officeId}}</p>
         </div>
-        <div class="col-sm-4 text-left media">
+        <div class="col-sm-6 text-left">
+          <p>{{officer.titleTh}} {{officer.firstNameTh}} {{officer.lastNameTh}}</p>
+        </div>
+        <div class="col-sm-3 text-left media">
           <p>{{officer.department.deptAbbr}}</p>
         </div>
       </div>
@@ -35,6 +39,15 @@
   </div>
 
 </ul>
+
+
+
+<div class="row" *ngIf="officers.length === 0">
+  <div class="col-sm-12 text-center">
+    <p>ไม่พบข้อมูล</p>
+  </div>
+</div>
+
 <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
   (scrolled)="onScrollDown()">
 </div>

@@ -357,7 +357,7 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
-			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
+      var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
 				top: offset.top + height,
 				left: offset.left,
@@ -376,8 +376,15 @@
 			} else {
 				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
 				delete this.element.data().date;
-			}
+      }
 
+      //if user input date no '/'
+      if(date){
+        if(date.length == 8){
+          var temp = date;
+          date =  temp.substring(0,2)+'/'+temp.substring(2,4)+'/'+temp.substring(4,8);
+        }
+      }
 			this.date = DPGlobal.parseDate(date, this.o.format, this.o.language);
 
 			if(fromArgs) this.setValue();
@@ -393,7 +400,7 @@
 		},
 
 		refresh: function(){
-			// Custom by jannarong.sa 
+			// Custom by jannarong.sa
 			this.fill();
 		},
 
@@ -711,6 +718,7 @@
 		},
 
 		_setDate: function(date, which){
+
 			if (!which || which == 'date')
 				this.date = new Date(date);
 			if (!which || which  == 'view')

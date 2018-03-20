@@ -23,13 +23,12 @@ export class TaskTagComponent implements OnInit {
 
   ngOnInit() {
     this.tagList = [];
-    this.findUsedTag();
-    this.initialAutocompleteTagList();
   }
 
   findUsedTag() {
     this.tagService.findUsedTag().subscribe(
       data => {
+        this.usedTagList = [];
         for (let obj of data) {
           this.usedTagList.push({ display: obj.tagName, value: obj.tagName });
         }
@@ -38,6 +37,8 @@ export class TaskTagComponent implements OnInit {
   }
 
   initialTag(taskId: number) {
+    this.findUsedTag();
+    this.initialAutocompleteTagList();
     if (taskId) {
       this.tagService.findByTaskId(taskId).subscribe(
         tags => {
@@ -56,6 +57,7 @@ export class TaskTagComponent implements OnInit {
   initialAutocompleteTagList() {
     this.tagService.findAll().subscribe(
       data => {
+        this.autoCompleteTagList = []
         this.autoCompleteTagList = data;
       }
     )

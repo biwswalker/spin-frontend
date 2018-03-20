@@ -4,13 +4,13 @@ import { NgModule, Directive, Input, Output, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
-// import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { NgxPopperModule } from 'ngx-popper';
 import { BsDropdownModule } from 'ngx-bootstrap';
-
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
+import { NgSelectModule } from '@ng-select/ng-select';
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -52,7 +52,18 @@ import { ResponsibilityModalComponent } from './components/admin/responsibility/
 import { UserRegisterComponent } from "./components/admin/user-register/user-register.component";
 import { UserRegisterInfoComponent } from "./components/admin/user-register/user-register-info/user-register-info.component";
 import { UserRegisterSearchComponent } from "./components/admin/user-register/user-register-search/user-register-search.component";
-
+import { OfficerComponent } from './components/admin/officer/officer.component';
+import { OfficerSearchComponent } from './components/admin/officer/officer-search/officer-search.component';
+import { OfficerInfoComponent } from './components/admin/officer/officer-info/officer-info.component';
+import { OfficerModalComponent } from './components/admin/officer/officer-modal/officer-modal.component';
+import { UserRegisterModalComponent } from './components/admin/user-register/user-register-modal/user-register-modal.component';
+import { HolidaySearchComponent } from './components/admin/holiday/holiday-search/holiday-search.component';
+import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/holiday-modal.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { DepartmentComponent } from './components/admin/department/department.component';
+import { DepartmentInfoComponent } from './components/admin/department/department-info/department-info.component';
+import { DepartmentModalComponent } from './components/admin/department/department-modal/department-modal.component';
+import { DepartmentSearchComponent } from './components/admin/department/department-search/department-search.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -71,6 +82,7 @@ import { HolidayService } from './providers/holiday.service';
 import { LeaveService } from './providers/leave.service';
 import { EventMessagesService } from './providers/utils/event-messages.service';
 import { UserRegisterService } from './providers/userregister.service';
+import { DepartmentService } from './providers/department.service';
 
 
 // Pipe
@@ -80,13 +92,8 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
-import { OfficerComponent } from './components/admin/officer/officer.component';
-import { OfficerSearchComponent } from './components/admin/officer/officer-search/officer-search.component';
-import { OfficerInfoComponent } from './components/admin/officer/officer-info/officer-info.component';
-import { OfficerModalComponent } from './components/admin/officer/officer-modal/officer-modal.component';
-import { UserRegisterModalComponent } from './components/admin/user-register/user-register-modal/user-register-modal.component';
-import { HolidaySearchComponent } from './components/admin/holiday/holiday-search/holiday-search.component';
-import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/holiday-modal.component';
+import { HelpComponent } from './components/help/help.component';
+
 
 @NgModule({
   declarations: [
@@ -135,7 +142,13 @@ import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/
     OfficerModalComponent,
     UserRegisterModalComponent,
     HolidaySearchComponent,
-    HolidayModalComponent
+    HolidayModalComponent,
+    ChangePasswordComponent,
+    DepartmentComponent,
+    DepartmentInfoComponent,
+    DepartmentModalComponent,
+    DepartmentSearchComponent,
+    HelpComponent,
   ],
   imports: [
     BrowserModule,
@@ -150,7 +163,16 @@ import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
     NgxPopperModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    LoadingModule.forRoot({
+      animationType: ANIMATION_TYPES.chasingDots,
+      fullScreenBackdrop: true,
+      backdropBackgroundColour: 'rgba(0,0,0,0.3)',
+      primaryColour: '#dc3545',
+      secondaryColour: '#28a745',
+      tertiaryColour: '#ffc107'
+    }),
+    NgSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
@@ -167,7 +189,8 @@ import { HolidayModalComponent } from './components/admin/holiday/holiday-modal/
     HolidayService,
     LeaveService,
     EventMessagesService,
-    UserRegisterService
+    UserRegisterService,
+    DepartmentService
   ],
   bootstrap: [AppComponent]
 })

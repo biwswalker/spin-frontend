@@ -55,13 +55,13 @@ export class ProjectService {
   }
   findProjectAbbrById(projectId) {
     let filteredPrj = this.holderPojectAbbr.find(prj => prj.projectId === projectId)
-    if(!filteredPrj){
+    if (!filteredPrj) {
       return this.findProjectById(projectId).map(project => {
         this.holderPojectAbbr.push({ projectId: project.projectId, projectAbbr: project.projectAbbr })
         return project.projectAbbr;
       });
     }
-    return Observable.of(filteredPrj.projectAbbr);
+    return Observable.of(filteredPrj.projectAbbr)
   }
   // End find for display action
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../providers/authentication.service';
 import { Status, Default } from '../../config/properties';
+import { EventMessagesService } from '../../providers/utils/event-messages.service';
 declare var spin: any;
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   public loginGroup: FormGroup;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, private eventMessageService: EventMessagesService) { }
 
   ngOnInit() {
     this.loginGroup = new FormGroup({
@@ -42,7 +43,6 @@ export class LoginComponent implements OnInit {
         this.authService.authen(this.loginGroup.value.username, this.loginGroup.value.password).then((data) => {
           result = true;
           if (data == Status.SUCCESS) {
-            console.log(Status.SUCCESS)
             spin(false);
           } else {
             spin(false);
@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
           spin(false);
           if (!result) {
             console.info('Connention timeout: Plz call 191.')
+            this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', 'Connention timeout');
           }
         }, 25000);
       }, 2500)

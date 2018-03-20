@@ -1,27 +1,41 @@
-<div class="nav flex-column task-list"
-     >
-  <li class="nav-item">
-      <!-- , source.taskType === '1' ? 'assign':'' -->
-    <div class="card task-card selection" [ngClass]="[selected ? 'selected' : '', isOwner]" (click)="onselectTask()">
+<div class="nav flex-column task-list">
+  <li class="nav-item w-100">
+    <!-- , source.taskType === '1' ? 'assign':'' -->
+    <div class="card task-card selection"
+         [ngClass]="[selected ? 'selected' : '', isOwner]"
+         (click)="onselectTask()">
       <div class="card-body">
-        <span>{{source.workStartTime | time}} - {{source.workEndTime | time}} <div class="create-owner" *ngIf="source.projectId!">#{{source.projectId | projectName | async}}</div></span>
-        <button type="button"
-                (click)="onView()"
-                class="btn btn-outline-info float-right btn-view">
-          <i class="fas fa-external-link-square-alt"></i>{{isOwner === 'owner' ? ' view' : ' edit'}}</button>
-        <h6 class="card-title text-truncate">{{source.topic}}</h6>
+        <span>
+          <i class="fas fa-check"
+             style="color:green;"
+             *ngIf="source.referTaskId && isOwner"></i>
+          <i class="fas fa-exclamation-triangle"
+             style="color:yellow;"
+             *ngIf="!source.referTaskId && isOwner"></i> {{source.workStartTime | time}} - {{source.workEndTime | time}}
+          <div class="create-owner"
+               *ngIf="source.projectId!">#{{source.projectId | projectName | async}}</div>
+        </span>
+        <a (click)="onView()"
+           class="btn btn-link float-right p-0">
+          <i class="fas"
+             [ngClass]="isOwner === 'owner' ? 'fa-eye' : 'fa-edit'"></i>
+        </a>
+        <h5 class="card-title text-truncate">{{source.topic}}</h5>
         <p class="card-text text-truncate">{{source.activity}}</p>
         <!-- <div class="float-rif task-owner"></div> -->
-        <div class="float-right task-collaborators" *ngIf="isCollaborator">
+        <div class="float-right task-collaborators"
+             *ngIf="isCollaborator">
           <i class="fas fa-users"></i>
         </div>
       </div>
-      <div class="card-footer" [ngClass]="source.color">
-        <div class="task-project float-left text-truncate" >
+      <div class="card-footer"
+           [ngClass]="source.color">
+        <div class="task-project float-left text-truncate">
           {{source.ownerUserId}}
         </div>
         <div class="task-tags">
-          <span class="badge badge-pill badge-tags" *ngFor="let tag of source.taskTagList">{{tag.tag.tagName}}</span>
+          <span class="badge badge-pill badge-tags"
+                *ngFor="let tag of source.taskTagList">{{tag.tag.tagName}}</span>
         </div>
       </div>
     </div>

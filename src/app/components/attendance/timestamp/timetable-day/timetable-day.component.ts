@@ -18,10 +18,14 @@ export class TimetableDayComponent implements AfterViewInit {
   public enDateStr = '';
 
   constructor(private taskService: TaskService, private utilsService: UtilsService) {
+    let checkDubplicated: string[] = [];
     // Async
     this.taskService.currentTimetableDate.subscribe(enDate => {
-      this.enDateStr = enDate;
-      this.fecthWorkingTaskByDate(enDate)
+      let isDup = checkDubplicated.find(date => date === enDate);
+      if (!isDup) {
+        this.enDateStr = enDate;
+        this.fecthWorkingTaskByDate(enDate)
+      }
     })
     // End Async
   }
@@ -65,9 +69,9 @@ export class TimetableDayComponent implements AfterViewInit {
             let overlayClass = `overlay${index}`
             let totalInd = endIndex - startIndex;
             for (let i = startIndex; i <= endIndex; i++) {
-              $($('.stamp')[i]).addClass(`unavailable ${groupClass}`);
+              $($($(`.timestamp`).find('.stamp'))[i]).addClass(`unavailable ${groupClass}`);
             }
-            $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:999;'></div>`);
+            $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:101;'></div>`);
             $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
               <div class="m-0 stamp-topic text-truncate"><div class="d-inline">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
               ${task.projectAbbr ? `<div class="d-inline topic-task"> #${task.projectAbbr}</div>` : ''}</div>
@@ -78,7 +82,6 @@ export class TimetableDayComponent implements AfterViewInit {
             $(`.${overlayClass}`).addClass('stamp-box')
             $(`.${overlapClass}`).click(() => this.onViewTask(task));
             isRepeat.push(task.taskId)
-
             index++;
           }
         }

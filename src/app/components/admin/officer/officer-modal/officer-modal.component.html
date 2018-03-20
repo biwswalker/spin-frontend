@@ -13,8 +13,8 @@
           {{headerTxt}} พนักงาน
         </div>
 
-        <button type="submit" class="btn btn-link" [routerLink]="" (click)="onSubmit()">
-          <i class="fas {{mode === 'INSERT' ? 'fa-plus-circle' : 'fa-pencil-alt'}}"> {{headerTxt}}</i>
+        <button type="submit" class="btn btn-save" [routerLink]="" (click)="onSubmit()">
+          <i class="fas fa-check mr-1"> บันทึก </i>
         </button>
 
       </div>
@@ -27,7 +27,7 @@
               <label class="office-id">รหัสพนักงาน *</label>
             </div>
             <div class="col-4 d-flex">
-              <input class="form-control" [(ngModel)]="officer.officeId" [disabled]="mode === 'EDIT'" type="text" id="office-id" name="office-id"
+              <input class="{{mode === 'EDIT' ? 'form-control-plaintext': 'form-control'}}" [(ngModel)]="officer.officeId" [readonly]="mode === 'EDIT'" type="text" id="office-id" name="office-id"
                 formControlName="officeId">
             </div>
             <div class="col-5 d-flex">
@@ -129,7 +129,7 @@
           </div>
 
           <div class="row">
-            <div class="col">
+            <div class="col-4">
               <label>วันที่เริ่มทำงาน *</label>
               <div class="input-group">
                 <input class="form-control datepicker" type="text" name="datepicker" data-provide="datepicker" data-date-language="th-th"
@@ -141,6 +141,8 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-8"></div>
           </div>
 
 

@@ -68,31 +68,48 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log('onTaskSelect');
-    this.taskForm.task = task;
+    this.utilsService.loader(true);
+    console.log('onTaskHasSelected | ', mode);
+    console.log(task);
+    const temp = task;
+    this.task = new Task();
+    this.taskForm.task = temp;
     this.mode = mode;
     this.bgColor = task.color ? task.color : 'blue';
     const objTask = this.taskForm.task;
     objTask.color = (task.color ? task.color : 'blue');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
-    if (this.taskForm.task.projectId) {
-      this.projectService.findProjectById(this.taskForm.task.projectId).subscribe(
+    this.checkProjectId(this.taskForm.task.projectId);
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
+    this.taskPartnerChild.owner = this.user.email;
+    this.taskTagChild.tagList = [];
+    this.taskTagChild.mode = this.mode;
+    this.taskTagChild.initialTag(this.taskForm.task.taskId);
+    this.taskTagChild.ngOnInit();
+  }
+
+  checkTaskId(taskId: number) {
+    this.taskDetailChild.copyTask = false;
+    if (taskId) {
+      this.taskDetailChild.copyTask = true;
+    }
+  }
+
+  checkProjectId(projectId: number) {
+    if (projectId) {
+      this.projectService.findProjectById(projectId).subscribe(
         project => {
           this.taskService.changeProjectId(project.projectId);
           this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
         }
       )
     }
-    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
-    this.taskPartnerChild.owner = this.user.email;
-    this.taskTagChild.tagList = [];
-    this.taskTagChild.mode = this.mode;
-    this.taskTagChild.initialTag(this.taskForm.task.taskId);
   }
 
   onSubmit() {
     this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
+      this.utilsService.loader(true);
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
       this.task.color = this.taskDetailChild.taskObj.color;
@@ -106,6 +123,11 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
       let stampDate = this.task.workDate;
+      if (this.user.userId !== this.taskForm.task.ownerUserId) {
+        this.task.referTaskId = this.taskForm.task.taskId;
+      } else {
+        this.task.referTaskId = this.taskForm.task.referTaskId;
+      }
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
           this.task.taskPartnerList.push({ id: { userId: obj.userId } });
@@ -123,27 +145,11 @@ export class TaskModalComponent implements AfterViewInit {
       if (this.mode == Mode.E) {
         this.task.taskId = this.taskForm.task.taskId;
         this.task.versionId = this.taskForm.task.versionId;
-        console.log('updateTask: ', this.task);
         this.updateTask(this.task);
       } else {
-        console.log('insertTask: ', this.task);
         this.createNewTask(this.task);
       }
-      let self = this;
-      $('#task-modal').on("hidden.bs.modal", function () {
-        $('.timestamp .ui-selected').removeClass('ui-selected');
-        self.taskService.changeTimetableDate(self.utilsService.convertThDateToEn(stampDate));
-        self.onCompleteEmit.emit(stampDate);
-      })
-    }else{
-      this.eventMessageService.onWarning('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบ');
     }
-  }
-
-  onClose() {
-    $('#task-modal').on("hidden.bs.modal", function () {
-      $('.timestamp .ui-selected').removeClass('ui-selected')
-    })
   }
 
   createNewTask(task: Task) {
@@ -152,10 +158,14 @@ export class TaskModalComponent implements AfterViewInit {
         console.log(res)
         this.eventMessageService.onInsertSuccess('');
         this.oncloseModal();
+
       },
       error => {
         this.eventMessageService.onInsertError(error);
-        console.log(error)
+        console.log(error);
+
+      }, () => {
+        this.utilsService.loader(false);
       }
     );
   }
@@ -169,12 +179,17 @@ export class TaskModalComponent implements AfterViewInit {
       }, error => {
         this.eventMessageService.onUpdateError(error);
         console.log(error);
+      }, () => {
+        this.utilsService.loader(false);
       }
     )
   }
 
   oncloseModal() {
+    let stampDate = this.taskForm.task.workDate;
     this.modal.close('#task-modal');
+    this.taskService.changeTimetableDate(this.utilsService.convertThDateToEn(stampDate));
+    this.onCompleteEmit.emit(stampDate);
     this.task = new Task;
   }
 
@@ -183,17 +198,16 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   deleteTask() {
-    let stampDate = this.task.workDate;
+    this.utilsService.loader(true);
     if (this.taskForm.task.taskId) {
       this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
         res => {
           console.log(res);
         }, error => {
-          console.log(error)
+          console.log(error);
         }, () => {
           this.oncloseModal();
-          this.taskService.changeTimetableDate(this.utilsService.convertThDateToEn(stampDate));
-          this.onCompleteEmit.emit(stampDate);
+          this.utilsService.loader(false);
         }
       )
     }

@@ -37,6 +37,8 @@ export class Interceptor implements HttpInterceptor {
                             return this.handle400Error(error);
                         case 401:
                             return this.handle401Error(req, next);
+                        default:
+                            return Observable.throw(error);
                     }
                 } else {
                     return Observable.throw(error);
@@ -46,10 +48,17 @@ export class Interceptor implements HttpInterceptor {
 
     handle400Error(error) {
         if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
+            alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
             return this.logoutUser();
         }
-        console.log(error)
-        console.log('Error 400 please call 191.')
+        if (error.error.error === 'invalid_request') {
+            let errorDesc = error.error.description;
+            if (errorDesc.toLowerCase().indexOf("Invalid refresh token".toLowerCase()) > -1) {
+                alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+            }
+        }
+        // console.log(error)
+        // console.log('Error 400 please call 191.')
         return Observable.throw(error);
     }
 
