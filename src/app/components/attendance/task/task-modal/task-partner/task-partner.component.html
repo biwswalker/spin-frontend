@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="isDisabled">
   <div class="row">
     <div class="col d-flex">
       <div class="ml-auto">
@@ -68,7 +68,7 @@
   </div>
   <div class="row" *ngIf="mode !== 'VIEW'">
     <div class="col">
-      <input class="form-control"
+      <!-- <input class="form-control"
              id="autocompletePartner"
              [(ngModel)]="partner"
              [typeahead]="autocompletePartnerList"
@@ -86,7 +86,13 @@
                  <p>
                    {{model.fullName}}
                  </p>
-               </ng-template>
+               </ng-template> -->
+               <ng-select [items]="autocompletePartnerList"
+          bindLabel="fullName"
+          bindValue="userId"
+          [(ngModel)]="partner"
+          (add)="onSelect($event)"
+          ></ng-select>
     </div>
     <div class="col-2">
       <button type="button"
@@ -97,4 +103,8 @@
       </button>
     </div>
   </div>
+</div>
+
+<div class="text-center" *ngIf="!isDisabled">
+  <p>กรุณาเลือกโครงการ...</p>
 </div>

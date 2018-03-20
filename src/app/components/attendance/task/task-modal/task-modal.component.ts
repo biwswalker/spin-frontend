@@ -2,7 +2,7 @@ import { ProjectService } from './../../../../providers/project.service';
 import { Project } from './../../../../models/project';
 import { FormGroup } from '@angular/forms';
 import { TaskPartnerComponent } from './task-partner/task-partner.component';
-import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskForm } from '../../../../forms/task-form';
 import { TaskTagComponent } from './task-tag/task-tag.component';
@@ -41,7 +41,8 @@ export class TaskModalComponent implements AfterViewInit {
     private utilsService: UtilsService,
     private eventMessageService: EventMessagesService,
     private auth: AuthenticationService,
-    private projectService: ProjectService) {
+    private projectService: ProjectService,
+    private elementRef: ElementRef) {
     this.auth.crrUser.subscribe((user: User) => {
       this.user = user;
     });
@@ -49,8 +50,6 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Get User
-    this.user = this.auth.getUser();
     // Get task on stamp
     this.taskService.currentTask.subscribe((task: Task) => {
       console.log('currentTask=> ', task);
@@ -69,6 +68,7 @@ export class TaskModalComponent implements AfterViewInit {
 
   onTaskHasSelected(task: Task, mode: string) {
     this.utilsService.loader(true);
+    this.taskDetailChild.disabledTab = true;
     console.log('onTaskHasSelected | ', mode);
     console.log(task);
     const temp = task;
@@ -210,6 +210,19 @@ export class TaskModalComponent implements AfterViewInit {
           this.utilsService.loader(false);
         }
       )
+    }
+  }
+
+  onClick() {
+    this.taskDetailChild.disabledTab = true;
+    console.log(this.taskDetailChild.disabledTab);
+    if (this.taskDetailChild.taskDetailFormGroup.invalid) {
+      this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
+      this.taskDetailChild.disabledTab = true;
+      console.log(this.taskDetailChild.disabledTab);
+    }else{
+      this.taskDetailChild.disabledTab = false;
+      console.log(this.taskDetailChild.disabledTab);
     }
   }
 }
