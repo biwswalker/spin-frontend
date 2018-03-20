@@ -153,7 +153,6 @@ export class AuthenticationService {
   }
 
   refreshToken(): Observable<string> {
-    console.log('refresh token')
     this.notAuthorization = true;
     const headers = new HttpHeaders({
       "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
