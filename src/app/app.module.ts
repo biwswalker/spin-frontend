@@ -9,7 +9,6 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { NgxPopperModule } from 'ngx-popper';
 import { BsDropdownModule } from 'ngx-bootstrap';
-
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -160,7 +159,7 @@ import { DatePickerDirective } from './directives/datepicker';
     TypeaheadModule.forRoot(),
     Ng2ImgToolsModule,
     NgxPopperModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
