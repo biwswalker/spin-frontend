@@ -168,6 +168,7 @@ $white: #fff;
   #sidebar{
     position: -webkit-fixed;
     position: fixed;
+    height: calc(100vh + 5rem) !important;
   }
 }
 
