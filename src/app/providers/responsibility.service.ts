@@ -21,7 +21,7 @@ export class ResponsibilityService {
   }
 
   fetchResponsibilityAutocomplete(activeFlag) {
-    return this.request.requestMethodGET('/responsibility-management/responsibilities');
+    return this.request.requestMethodGET('responsibility-management/responsibilities');
   }
 
   findAll() {
