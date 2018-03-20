@@ -256,7 +256,6 @@
 		},
 
 		show: function(e) {
-      console.log('datepicker show: ',this.date)
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.picker.show();
@@ -368,7 +367,6 @@
 
 		_allow_update: true,
 		update: function(){
-      console.log('update: ')
 			if (!this._allow_update) return;
 
 			var date, fromArgs = false;
@@ -475,7 +473,6 @@
 		},
 
 		fill: function() {
-      console.log('fill: ',this.viewDate);
 			var d = new Date(this.viewDate),
 				year = d.getUTCFullYear(),
 				month = d.getUTCMonth(),
