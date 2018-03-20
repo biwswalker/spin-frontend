@@ -106,6 +106,7 @@ export class TaskDetailComponent implements OnInit {
 
     this.ngZone.runOutsideAngular(() => {
       this.ngZone.run(() => { console.log('ngZone.runOutsideAngular'); });
+      this.utilsService.loader(false);
     });
   }
 
