@@ -54,7 +54,7 @@ export class UserRegisterSearchComponent implements OnInit {
   }
 
   onScrollDownWithKeyword() {
-    console.log("keywork:", this.keyword);
+    console.log("keyword:", this.keyword);
     if (this.keyword) {
       this.userRegisterService
         .findAllByCriteria(this.keyword, this.page, this.size)
@@ -66,6 +66,7 @@ export class UserRegisterSearchComponent implements OnInit {
                 "userlistonScrollDownWithKeyword: " + this.userList.length
               );
               if (this.userList.length !== 0 && this.page === 1) {
+                console.log(this.userList[0]);
                 this.onUserSelected(this.userList[0]);
               }
               this.page += 1;
@@ -83,6 +84,7 @@ export class UserRegisterSearchComponent implements OnInit {
   onUserSelected(user) {
     console.log("selected user");
     this.userSelected = user;
+    console.log(this.userSelected);
     this.messageEvent.emit(user.userId);
   }
 

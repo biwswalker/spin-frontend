@@ -5,10 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { NgxPopperModule } from 'ngx-popper';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule,TypeaheadModule  } from 'ngx-bootstrap';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { NgSelectModule } from '@ng-select/ng-select';
 // config
@@ -172,7 +171,7 @@ import { HelpComponent } from './components/help/help.component';
       secondaryColour: '#28a745',
       tertiaryColour: '#ffc107'
     }),
-    NgSelectModule
+    NgSelectModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },

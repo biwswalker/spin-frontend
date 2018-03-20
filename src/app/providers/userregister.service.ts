@@ -13,14 +13,7 @@ export class UserRegisterService {
   constructor(private request: HttpRequestService) {}
 
   findAll(activeFlag, page, size) {
-    return this.request.requestMethodGET(
-      "user-management/users/active-flag/" +
-        activeFlag +
-        "?p=" +
-        page +
-        "&s=" +
-        size
-    );
+    return this.request.requestMethodGET("user-management/users/all/active-flag/" + activeFlag + "?p=" + page + "&s=" + size);
   }
 
   findAllByCriteria(term, page, size) {
