@@ -19,7 +19,7 @@ export class AuthenticationService {
   public notAuthorization = false;
 
   constructor(private request: HttpRequestService,
-  private eventMessageService: EventMessagesService) {
+    private eventMessageService: EventMessagesService) {
   }
 
   authen(username: string, password: string) {
@@ -81,6 +81,8 @@ export class AuthenticationService {
         }
       }).catch(error => {
         console.log(error)
+        alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+        this.logout();
         return Status.ERROR;
       });
   }
@@ -111,9 +113,9 @@ export class AuthenticationService {
     // }
   }
 
-  changePassword(passwordObject:any){
+  changePassword(passwordObject: any) {
     console.log('changePassword')
-    return this.request.requestMethodPOST('user-management/users/change-password',passwordObject);
+    return this.request.requestMethodPOST('user-management/users/change-password', passwordObject);
   }
 
   isInSession(): boolean {
@@ -172,6 +174,10 @@ export class AuthenticationService {
         this.isAccess.next(false)
         return Status.ERROR;
       }
-    }, error => this.notAuthorization = false)
+    }, error => {
+      this.notAuthorization = false
+      alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+      this.logout();
+    })
   }
 }

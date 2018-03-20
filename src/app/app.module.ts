@@ -9,6 +9,8 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { NgxPopperModule } from 'ngx-popper';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
+
 // config
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
@@ -160,6 +162,14 @@ import { DatePickerDirective } from './directives/datepicker';
     Ng2ImgToolsModule,
     NgxPopperModule,
     BsDropdownModule.forRoot(),
+    LoadingModule.forRoot({
+      animationType: ANIMATION_TYPES.chasingDots,
+      fullScreenBackdrop: true,
+      backdropBackgroundColour: 'rgba(0,0,0,0.3)',
+      primaryColour: '#dc3545',
+      secondaryColour: '#28a745',
+      tertiaryColour: '#ffc107'
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },

@@ -68,6 +68,7 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
+    this.utilsService.loader(true);
     console.log('onTaskHasSelected | ', mode);
     console.log(task);
     const temp = task;
@@ -87,14 +88,14 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskTagChild.ngOnInit();
   }
 
-  checkTaskId(taskId: number){
+  checkTaskId(taskId: number) {
     this.taskDetailChild.copyTask = false;
-    if(taskId){
+    if (taskId) {
       this.taskDetailChild.copyTask = true;
     }
   }
 
-  checkProjectId(projectId: number){
+  checkProjectId(projectId: number) {
     if (projectId) {
       this.projectService.findProjectById(projectId).subscribe(
         project => {
@@ -108,6 +109,7 @@ export class TaskModalComponent implements AfterViewInit {
   onSubmit() {
     this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
+      this.utilsService.loader(true);
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
       this.task.color = this.taskDetailChild.taskObj.color;
@@ -121,9 +123,9 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
       let stampDate = this.task.workDate;
-      if(this.user.userId !== this.taskForm.task.ownerUserId){
+      if (this.user.userId !== this.taskForm.task.ownerUserId) {
         this.task.referTaskId = this.taskForm.task.taskId;
-      }else{
+      } else {
         this.task.referTaskId = this.taskForm.task.referTaskId;
       }
       for (let obj of this.taskPartnerChild.taskMember) {
@@ -156,10 +158,14 @@ export class TaskModalComponent implements AfterViewInit {
         console.log(res)
         this.eventMessageService.onInsertSuccess('');
         this.oncloseModal();
+
       },
       error => {
         this.eventMessageService.onInsertError(error);
         console.log(error);
+
+      }, () => {
+        this.utilsService.loader(false);
       }
     );
   }
@@ -173,6 +179,8 @@ export class TaskModalComponent implements AfterViewInit {
       }, error => {
         this.eventMessageService.onUpdateError(error);
         console.log(error);
+      }, () => {
+        this.utilsService.loader(false);
       }
     )
   }
@@ -190,6 +198,7 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   deleteTask() {
+    this.utilsService.loader(true);
     if (this.taskForm.task.taskId) {
       this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
         res => {
@@ -198,6 +207,7 @@ export class TaskModalComponent implements AfterViewInit {
           console.log(error);
         }, () => {
           this.oncloseModal();
+          this.utilsService.loader(false);
         }
       )
     }

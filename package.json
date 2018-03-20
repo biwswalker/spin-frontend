@@ -32,6 +32,7 @@
     "ngx-bootstrap": "^2.0.2",
     "ngx-chips": "^1.6.3-rc.3",
     "ngx-infinite-scroll": "^0.8.3",
+    "ngx-loading": "^1.0.14",
     "ngx-popper": "^2.0.1",
     "rxjs": "^5.5.6",
     "web-animations-js": "^2.3.1",
