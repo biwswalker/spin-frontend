@@ -11,7 +11,7 @@ export class OfficerService {
   public modal = new SpinModal();
   public key: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private request: HttpRequestService) {}
+  constructor(private request: HttpRequestService) { }
 
   fetchAllAutocomplete(activeFlag) {
     return this.request.requestMethodGET(
@@ -31,11 +31,11 @@ export class OfficerService {
   findByCriteria(key, page, size) {
     return this.request.requestMethodGET(
       "officer-management/officers/find-by-criteria/" +
-        key +
-        "?p=" +
-        page +
-        "&s=" +
-        size
+      key +
+      "?p=" +
+      page +
+      "&s=" +
+      size
     );
   }
 
@@ -83,11 +83,11 @@ export class OfficerService {
     return Observable.forkJoin(department, position);
   }
 
-  onSentData(value) {}
+  onSentData(value) { }
 
   //autocomplete แผนก
   findAutocompleteDepartment() {
-    return this.request.requestMethodGET("departments-management/departments");
+    return this.request.requestMethodGET("department-management/departments");
   }
 
   //autocomplete ตำแหน่ง

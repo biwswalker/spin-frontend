@@ -11,6 +11,7 @@ import { HolidayComponent } from '../components/admin/holiday/holiday.component'
 import { ResponsibilityComponent } from '../components/admin/responsibility/responsibility.component';
 import { UserRegisterComponent } from '../components/admin/user-register/user-register.component';
 import { OfficerComponent } from './../components/admin/officer/officer.component';
+import { DepartmentComponent } from '../components/admin/department/department.component';
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'responsibility', component: ResponsibilityComponent },
   { path: 'user-register', component: UserRegisterComponent },
   { path: 'officer', component: OfficerComponent },
-  { path: 'change-password', component: ChangePasswordComponent }
+  { path: 'change-password', component: ChangePasswordComponent },
+  { path: 'department', component: DepartmentComponent }
 ]
 
 @NgModule({

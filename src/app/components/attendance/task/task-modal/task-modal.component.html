@@ -14,14 +14,14 @@
                 <div class="d-flex" >
                     <div class="ml-auto" *ngIf="mode == 'EDIT'">
                         <!-- Delete Button -->
-                        <button class="btn btn-link" id="del-btn" name="del-btn">
-                                <i class="far fa-trash-alt" data-toggle="modal" href="#confirmDeleteTask"></i>
+                        <button class="btn btn-link text-white" id="del-btn" name="del-btn">
+                                <i class="far fa-trash-alt mr-1 " data-toggle="modal" href="#confirmDeleteTask"></i>ลบ
                             </button>
                         </div>
 
                         <!-- Save Button -->
-                        <button class="btn btn-link" id="save-btn" name="save-btn" (click)="onSubmit()" *ngIf="mode !== 'VIEW'">
-                        <i class="fas fa-check fa-lg"></i>
+                        <button type="button" class="btn btn-save " id="save-btn" name="save-btn" (click)="onSubmit()" *ngIf="mode !== 'VIEW'">
+                            <i class="fas fa-check mr-1"></i>บันทึก
                       </button>
                 </div>
             </div>
