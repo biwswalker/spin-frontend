@@ -24,6 +24,7 @@ export class TaskPartnerComponent {
   public autocompletePartnerList: any[] = [];
   public partner: any;
   public mode: string;
+  public isDisabled: boolean = false;
 
   constructor(
     private taskService: TaskService,
@@ -32,6 +33,11 @@ export class TaskPartnerComponent {
   }
 
   initTaskPartner(taskId: number, mode: string, usrEmail: string) {
+    if(taskId){
+      this.isDisabled = true;
+    }else{
+      this.isDisabled = false;
+    }
     this.taskId = taskId;
     this.mode = mode;
     this.ownerEmail = usrEmail;
@@ -41,6 +47,7 @@ export class TaskPartnerComponent {
     this.taskPartner = [];
     this.taskService.currentProjectId.subscribe((projectId: number) => {
       if (projectId) {
+        this.isDisabled = true;
         // Check Report loop Subject
         let repeated = isRepeat.find(id => id === projectId);
         if (!repeated) {
@@ -91,7 +98,7 @@ export class TaskPartnerComponent {
           console.log('nonMembers=> ', nonMembers);
           this.taskPartner = [];
           for (let obj of nonMembers) {
-            this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.fullName });
+            this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
           }
         }
       }
@@ -134,7 +141,7 @@ export class TaskPartnerComponent {
   }
 
   onSelect(event) {
-    this.selectPartner = event.item;
+    this.selectPartner = event;
   }
 
   deletePartner(obj) {

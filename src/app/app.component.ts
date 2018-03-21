@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
     this.authService.crrAccess.subscribe(accesses => {
       if (this.authService.isInSession()) {
         if (!this.isRequested) {
-          console.log('request')
           // this.zone.run(() => { // <== added
           this.authService.accessUser();
           this.isRequested = true;

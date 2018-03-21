@@ -11,7 +11,6 @@ import { Mode } from "./../../../../config/properties";
   styleUrls: ["./user-register-info.component.scss"]
 })
 export class UserRegisterInfoComponent implements OnInit {
-  @ViewChild(UserRegisterModalComponent) userModal;
 
   public user: User = new User();
   public officer: Officer = new Officer();
@@ -23,8 +22,7 @@ export class UserRegisterInfoComponent implements OnInit {
   ngOnInit() {}
 
   ngAfterViewInit() {
-    this.userModal.ngOnInit();
-    this.userModal.fullName = this.officer.firstNameTh + " " + this.officer.lastNameTh;
+
   }
 
   updateUserRegister(event) {

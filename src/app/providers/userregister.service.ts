@@ -13,14 +13,7 @@ export class UserRegisterService {
   constructor(private request: HttpRequestService) {}
 
   findAll(activeFlag, page, size) {
-    return this.request.requestMethodGET(
-      "user-management/users/active-flag/" +
-        activeFlag +
-        "?p=" +
-        page +
-        "&s=" +
-        size
-    );
+    return this.request.requestMethodGET("user-management/users/all/active-flag/" + activeFlag + "?p=" + page + "&s=" + size);
   }
 
   findAllByCriteria(term, page, size) {
@@ -56,7 +49,7 @@ export class UserRegisterService {
   }
 
   createUser(user) {
-    console.log("submit user:",user);
+    console.log("submit user:", user);
     user.activeFlag = this.convertActiveFlag(user.activeFlag);
     user.userPwd = "";
     user.faildCount = 0;
@@ -64,17 +57,18 @@ export class UserRegisterService {
   }
 
   updateUser(user) {
-    console.log("updateUser......",user);
+    console.log("updateUser......", user);
     user.activeFlag = this.convertActiveFlag(user.activeFlag);
     return this.request.requestMethodPOST("user-management/users", user);
   }
 
-  convertActiveFlag(activeFlag){
-    if(activeFlag === 'true'){
-      return 'A';
-    }else{
-      return 'I';
+  convertActiveFlag(activeFlag) {
+    if (activeFlag === "true") {
+      return "A";
+    } else {
+      return "I";
     }
   }
+
 }
 

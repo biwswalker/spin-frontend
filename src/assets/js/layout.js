@@ -33,3 +33,4 @@ function inlineDatepicker() {
   $('.datepicker-inline table th').css({ 'margin-left': marginx2 + 'px', 'margin-right': marginx2 + 'px' })
   $('.datepicker-inline table td').css({ 'margin-left': marginx2 + 'px', 'margin-right': marginx2 + 'px' })
 }
+
