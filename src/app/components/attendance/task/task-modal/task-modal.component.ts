@@ -99,7 +99,9 @@ export class TaskModalComponent implements AfterViewInit {
     if (projectId) {
       this.projectService.findProjectById(projectId).subscribe(
         project => {
+          console.log('project: ', project)
           this.taskService.changeProjectId(project.projectId);
+          // this.taskDetailChild.projectId = project.projectId;
           this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
         }
       )
@@ -163,6 +165,7 @@ export class TaskModalComponent implements AfterViewInit {
       error => {
         this.eventMessageService.onInsertError(error);
         console.log(error);
+        this.utilsService.loader(false);
 
       }, () => {
         this.utilsService.loader(false);
@@ -179,6 +182,7 @@ export class TaskModalComponent implements AfterViewInit {
       }, error => {
         this.eventMessageService.onUpdateError(error);
         console.log(error);
+        this.utilsService.loader(false);
       }, () => {
         this.utilsService.loader(false);
       }

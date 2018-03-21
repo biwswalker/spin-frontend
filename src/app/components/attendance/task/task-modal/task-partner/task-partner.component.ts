@@ -129,11 +129,14 @@ export class TaskPartnerComponent {
   }
 
   addPartner() {
+    console.log(this.selectPartner);
     if (this.selectPartner != null) {
       let sPartner = this.selectPartner;
       if (this.taskMember.indexOf(sPartner) == -1) {
         this.taskPartner.push(sPartner);
+        console.log(this.taskPartner);
         this.autocompletePartnerList.splice(this.autocompletePartnerList.indexOf(sPartner), 1);
+        console.log(this.autocompletePartnerList);
       }
       this.partner = null;
       this.selectPartner = null;
@@ -141,7 +144,7 @@ export class TaskPartnerComponent {
   }
 
   onSelect(event) {
-    this.selectPartner = event;
+    this.selectPartner = event.item;
   }
 
   deletePartner(obj) {
