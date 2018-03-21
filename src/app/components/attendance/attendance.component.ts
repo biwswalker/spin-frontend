@@ -4,7 +4,7 @@ import { TimestampComponent } from './timestamp/timestamp.component';
 
 @Component({
   selector: 'app-attendance',
-  template: `<div class="row" style="padding-top: 15px;">
+  template: `<div class="row">
   <div class="col-12">
         <div class="page-title d-flex">
             <h2 class="d-inline-block">เวลาทำงาน</h2>
@@ -12,12 +12,12 @@ import { TimestampComponent } from './timestamp/timestamp.component';
 
 
   </div>
-  <div class="col-12 col-md-6 col-lg-6 col-xl-5 exbox">
+  <div class="col-12 col-md-6 col-lg-6 col-xl-5 content-left">
   <div class="box">
   <tasks (onSelectUnstamped)="isDateUnstamped($event)"></tasks>
     </div>
   </div>
-  <div class="col-12 col-md-6 col-lg-6 col-xl-7 exbox">
+  <div class="col-12 col-md-6 col-lg-6 col-xl-7 content-right">
   <div class="box">
     <timestamp></timestamp>
     </div>
