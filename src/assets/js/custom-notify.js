@@ -3,7 +3,7 @@ $.notifyDefaults({
 	type: 'success',
 	allow_dismiss: true
 });
-var messageNotify = (function(){
+var MessageNotify = (function(){
   return {
     initialSuccess :function(title) {
     $.notify({

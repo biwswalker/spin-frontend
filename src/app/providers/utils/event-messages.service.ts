@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-declare var messageNotify: any;
+declare var MessageNotify: any;
 @Injectable()
 export class EventMessagesService {
 
-  private notify = new messageNotify;
+  private notify = MessageNotify;
   constructor() {
 
   }
