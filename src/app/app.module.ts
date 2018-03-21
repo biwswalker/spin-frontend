@@ -7,7 +7,7 @@ import { TagInputModule } from 'ngx-chips';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { NgxPopperModule } from 'ngx-popper';
-import { BsDropdownModule,TypeaheadModule  } from 'ngx-bootstrap';
+import { BsDropdownModule, TypeaheadModule } from 'ngx-bootstrap';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { NgSelectModule } from '@ng-select/ng-select';
 // config
@@ -63,6 +63,10 @@ import { DepartmentComponent } from './components/admin/department/department.co
 import { DepartmentInfoComponent } from './components/admin/department/department-info/department-info.component';
 import { DepartmentModalComponent } from './components/admin/department/department-modal/department-modal.component';
 import { DepartmentSearchComponent } from './components/admin/department/department-search/department-search.component';
+import { PositionComponent } from './components/admin/position/position.component';
+import { PositionInfoComponent } from './components/admin/position/position-info/position-info.component';
+import { PositionModalComponent } from './components/admin/position/position-modal/position-modal.component';
+import { PositionSearchComponent } from './components/admin/position/position-search/position-search.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -82,6 +86,7 @@ import { LeaveService } from './providers/leave.service';
 import { EventMessagesService } from './providers/utils/event-messages.service';
 import { UserRegisterService } from './providers/userregister.service';
 import { DepartmentService } from './providers/department.service';
+import { PositionService } from './providers/position.service';
 
 
 // Pipe
@@ -147,6 +152,10 @@ import { HelpComponent } from './components/help/help.component';
     DepartmentInfoComponent,
     DepartmentModalComponent,
     DepartmentSearchComponent,
+    PositionComponent,
+    PositionInfoComponent,
+    PositionModalComponent,
+    PositionSearchComponent,
     HelpComponent,
   ],
   imports: [
@@ -189,7 +198,8 @@ import { HelpComponent } from './components/help/help.component';
     LeaveService,
     EventMessagesService,
     UserRegisterService,
-    DepartmentService
+    DepartmentService,
+    PositionService
   ],
   bootstrap: [AppComponent]
 })

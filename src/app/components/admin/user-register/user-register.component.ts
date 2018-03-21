@@ -11,7 +11,7 @@ import { UserRegisterInfoComponent } from './user-register-info/user-register-in
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { User } from '../../../models/user';
 import { Mode } from "../../../config/properties";
-import * as XLSX from "ts-xlsx";
+import * as XLSX from "xlsx";
 import { mapTo } from "rxjs/operator/mapTo";
 import { Observable } from "rxjs/Observable";
 
