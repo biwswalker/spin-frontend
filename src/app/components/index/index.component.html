@@ -35,7 +35,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:180px">
 
 
-          <a class="dropdown-item" [routerLink]="['/change-password']">เปลี่ยนรหัสผ่าน</a>
+          <a class="dropdown-item" *ngIf="false" [routerLink]="['/change-password']">เปลี่ยนรหัสผ่าน</a>
           <a class="dropdown-item" [routerLink]="['/help']">ช่วยเหลือ</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" (click)="logout()">ออกจากระบบ</a>

@@ -10,10 +10,12 @@
   });
 
   $(function() {
-    $('#toggle-sidebar').on('click','#sidebar',function(){
-      $(this).toggleClass('active');
+    $('#toggle-sidebar').on('click',function(){
+      $('#sidebar').toggleClass('active');
     });
+  });
 
+  $(function() {
     $('.spin-link ul li').on('click',function(){
       $(this).not( ".disabled" ).addClass('active').siblings().removeClass('active');
     });
