@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col d-flex">
       <div class="ml-auto">
-        <label>{{ownerEmail}}</label>
+        <label>{{user.email}}</label>
           <span class="do-self-flag">
             <input class="switch"
                    type="checkbox"
@@ -25,6 +25,7 @@
           <input type="checkbox"
                  name="{{obj.userId}}"
                  id="{{obj.userId}}"
+                 [hidden]="user.userId !== owner"
                  autocomplete="off"
                  [(ngModel)]="obj.status">
                    {{obj.fullName}}
