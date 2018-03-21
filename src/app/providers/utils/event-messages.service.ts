@@ -3,7 +3,7 @@ declare var MessageNotify: any;
 @Injectable()
 export class EventMessagesService {
 
-  private notify = new MessageNotify;
+  private notify = MessageNotify;
   constructor() {
 
   }

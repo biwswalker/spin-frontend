@@ -39,22 +39,28 @@ $stamped:rgb(44, 111, 246);
             border-bottom: 1px solid $cgraymid;
         }
     }
-    .timestamp {
-        position: relative;
+    .table{
         display: table-cell;
         padding-right: 0px;
         padding-left: 0px;
-        .stamp {
-            height: calc(524px / 26);
+
+        .timestamp {
             position: relative;
-        }
-        .stamp:nth-child(even) {
-            background-color: $chlightgray;
-        }
-        .stamp:nth-child(odd) {
-            background-color: $cllightgray;
+            padding-right: 0px;
+            padding-left: 0px;
+            .stamp {
+                height: calc(524px / 26);
+                position: relative;
+            }
+            .stamp:nth-child(even) {
+                background-color: $chlightgray;
+            }
+            .stamp:nth-child(odd) {
+                background-color: $cllightgray;
+            }
         }
     }
+    
 }
 
 .ui-selecting {

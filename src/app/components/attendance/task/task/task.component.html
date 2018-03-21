@@ -24,8 +24,9 @@
         <p class="card-text text-truncate">{{source.activity}}</p>
         <!-- <div class="float-rif task-owner"></div> -->
         <div class="float-right task-collaborators"
-             *ngIf="isCollaborator">
-          <i class="fas fa-users"></i>
+             *ngIf="(isCollaborator | async) as partner">
+          <i class="fas fa-users"
+             *ngIf="partner.length > 0" style="font-size:1rem;"></i>
         </div>
       </div>
       <div class="card-footer"

@@ -17,7 +17,7 @@ declare var SpinModal: any;
 })
 export class ProjectModalComponent{
   public project: Project = new Project;
-  public modal = new SpinModal();
+  public modal = new SpinModal;
   public currentAct:any;
   @ViewChild(ProjectModalDetailComponent) projectModalDetail;
   @ViewChild(ProjectModalPhaseComponent) projectModalPhase;

@@ -6,13 +6,15 @@ $(document).on('click','.data-can-select-list li',function(event) {
  }
 });
 
-class SpinCustomListUI{
+var SpinCustomListUI = (function(){
+  return {
 
-  selectOne(selector){
+  selectOne:function(selector){
     $(selector).on('click','.data-item',function(event) {
         $(this).addClass('active').siblings().removeClass('active');
       });
   }
 
 }
+});
 

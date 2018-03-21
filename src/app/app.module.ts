@@ -164,7 +164,6 @@ import { HelpComponent } from './components/help/help.component';
     RoutesModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     TagInputModule,
     BrowserAnimationsModule,
     InfiniteScrollModule,
