@@ -1,8 +1,5 @@
 var path = require("path");
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var scriptLoader = require("script-loader");
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
 module.exports = {
   entry: {
     'app': './src/assets/scss/app.scss',

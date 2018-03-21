@@ -3,9 +3,9 @@ $.notifyDefaults({
 	type: 'success',
 	allow_dismiss: true
 });
-
-class MessageNotify{
-  initialSuccess(title){
+var messageNotify = (function(){
+  return {
+    initialSuccess :function(title) {
     $.notify({
       title: '<strong>'+title+'</strong>',
     },{
@@ -21,9 +21,9 @@ class MessageNotify{
         exit: 'animated fadeOutRight'
       },
     });
-  }
+  },
 
-  initialWarning(title,detail){
+  initialWarning: function(title,detail) {
     $.notify({
       title: '<strong>'+title+'</strong>',
       message: detail
@@ -44,9 +44,8 @@ class MessageNotify{
       //   align: "center"
       // },
     });
-  }
-
-  initialError(title,detail){
+  },
+  initialError : function(title,detail) {
     $.notify({
       title: '<strong>'+title+'</strong>',
       message: detail
@@ -69,3 +68,4 @@ class MessageNotify{
     });
   }
 }
+})( jQuery );
