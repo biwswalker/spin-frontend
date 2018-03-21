@@ -85,8 +85,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
-    console.log(this.taskDetailFormGroup.value);
-    console.log(task);
     this.mode = mode;
     if (this.mode === 'VIEW') {
       this.isDisabled = true;
@@ -147,7 +145,7 @@ export class TaskDetailComponent implements OnInit {
       taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
       taskDetailTopic: new FormControl(this.topic, Validators.required),
       taskDetailActivity: new FormControl(this.activity, Validators.required),
-      taskDetailProject: new FormControl(this.project, Validators.required)
+      taskDetailProject: new FormControl(this.projectId, Validators.required)
     });
   }
 
@@ -157,42 +155,15 @@ export class TaskDetailComponent implements OnInit {
       this.messageEvent.emit(this.taskObj.color);
     }
   }
-  //<------------------------- TYPE-AHEAD-------------------------------->
-  onChangeProject(event) {
-    // this.utilsService.loader(true);
-    console.log(event.item);
-    this.taskDetailFormGroup.patchValue({ taskDetailProject: event.item.projectName });
-    this.projectId = event.item.projectId;
-    this.taskService.changeProjectId(event.item.projectId);
+
+  onSelectProject(event) {
+    this.taskService.changeProjectId(event.projectId);
   }
 
   onFavoriteClick(event) {
-    console.log(event);
-    this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
     this.taskService.changeProjectId(event.projectId);
   }
-
-  onBlurProject(event) {
-    console.log(event);
-    if (event) {
-      this.project = event.projectName;
-      this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
-      this.taskService.changeProjectId(event.projectId);
-    }
-  }
-  //<------------------------- TYPE-AHEAD-------------------------------->
-
-  //<------------------------- NG-SELECT-------------------------------->
-  onSelectProject(event) {
-    console.log(event)
-    // this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
-    this.projectId = event.projectId;
-    this.taskService.changeProjectId(event.projectId);
-    console.log(this.taskDetailFormGroup.value.taskDetailProject);
-  }
-
-  //<------------------------- NG-SELECT-------------------------------->
 
   onChangeTime() {
     let startTime = this.taskDetailFormGroup.value.taskDetailStartTime;

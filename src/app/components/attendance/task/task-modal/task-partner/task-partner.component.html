@@ -25,7 +25,7 @@
           <input type="checkbox"
                  name="{{obj.userId}}"
                  id="{{obj.userId}}"
-                 [hidden]="user.userId !== owner"
+                 [hidden]="hiddenCheckBox"
                  autocomplete="off"
                  [(ngModel)]="obj.status">
                    {{obj.fullName}}
@@ -69,7 +69,7 @@
   </div>
   <div class="row" *ngIf="mode !== 'VIEW'">
     <div class="col">
-      <input class="form-control"
+      <!-- <input class="form-control"
              id="autocompletePartner"
              [(ngModel)]="partner"
              [typeahead]="autocompletePartnerList"
@@ -87,13 +87,13 @@
                  <p>
                    {{model.fullName}}
                  </p>
-               </ng-template>
-               <!-- <ng-select [items]="autocompletePartnerList"
+               </ng-template> -->
+               <ng-select [items]="autocompletePartnerList"
           bindLabel="fullName"
           bindValue="userId"
           [(ngModel)]="partner"
           (add)="onSelect($event)"
-          ></ng-select> -->
+          ></ng-select>
     </div>
     <div class="col-2">
       <button type="button"
