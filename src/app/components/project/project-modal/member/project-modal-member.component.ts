@@ -115,7 +115,6 @@ export class ProjectModalMemberComponent implements OnInit {
   prepareDataForEdit(projectId){
     this.projectService.findProjectMemberById(projectId).subscribe(
       data=>{
-        console.log('member: ',data)
         this.projectMembers = data;
       }
     )

@@ -4,6 +4,13 @@ export class ProjectPhase{
   public startDate: string;
   public endDate: string;
   public versionId:number;
+  constructor(){
+    this.id = new Id();
+    this.phaseName = null;
+    this.startDate = null;
+    this.endDate = null;
+    this.versionId = 0;
+  }
 }
 
 class Id{
