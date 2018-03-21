@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-12 col-md-6 col-xl-5">
+    <h2 class="d-inline-block mt-2 mb-0">ตำแหน่ง</h2>
+    <button type="button" class="btn btn-link" (click)="createResponsibility()">
+      <i class="fas fa-plus-circle"></i> เพิ่มใหม่</button>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-12 col-md-6 col-xl-6 content-left">
+    <div class="row">
+      <div class="col-12">
+        <app-position-search (messageEvent)="getData($event)"></app-position-search>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-6 content-right">
+    <div class="row">
+      <div class="col-12">
+        <app-position-info></app-position-info>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-position-modal (changeState)="onCheckState($event)"></app-position-modal>

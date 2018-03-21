@@ -64,6 +64,10 @@ import { DepartmentComponent } from './components/admin/department/department.co
 import { DepartmentInfoComponent } from './components/admin/department/department-info/department-info.component';
 import { DepartmentModalComponent } from './components/admin/department/department-modal/department-modal.component';
 import { DepartmentSearchComponent } from './components/admin/department/department-search/department-search.component';
+import { PositionComponent } from './components/admin/position/position.component';
+import { PositionInfoComponent } from './components/admin/position/position-info/position-info.component';
+import { PositionModalComponent } from './components/admin/position/position-modal/position-modal.component';
+import { PositionSearchComponent } from './components/admin/position/position-search/position-search.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -83,6 +87,7 @@ import { LeaveService } from './providers/leave.service';
 import { EventMessagesService } from './providers/utils/event-messages.service';
 import { UserRegisterService } from './providers/userregister.service';
 import { DepartmentService } from './providers/department.service';
+import { PositionService } from './providers/position.service';
 
 
 // Pipe
@@ -147,6 +152,10 @@ import { DatePickerDirective } from './directives/datepicker';
     DepartmentInfoComponent,
     DepartmentModalComponent,
     DepartmentSearchComponent,
+    PositionComponent,
+    PositionInfoComponent,
+    PositionModalComponent,
+    PositionSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -187,7 +196,8 @@ import { DatePickerDirective } from './directives/datepicker';
     LeaveService,
     EventMessagesService,
     UserRegisterService,
-    DepartmentService
+    DepartmentService,
+    PositionService
   ],
   bootstrap: [AppComponent]
 })
