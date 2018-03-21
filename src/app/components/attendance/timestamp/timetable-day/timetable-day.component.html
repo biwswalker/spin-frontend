@@ -9,10 +9,15 @@
   
          class="time d-flex align-items-stretch">{{item}}</div>
   </div>
-  <div class="col timestamp">
-    <div *ngFor="let item of worktable ;let i = index"
-         class="stamp"
-         [attr.data-index]="i"
-         [attr.data-value]="item">&nbsp;</div>
+
+  <div class="col table">
+    <div class="row">
+      <div class="col timestamp">
+        <div *ngFor="let item of worktable ;let i = index"
+             class="stamp"
+             [attr.data-index]="i"
+             [attr.data-value]="item">&nbsp;</div>
+      </div>
+    </div>
   </div>
 </div>
