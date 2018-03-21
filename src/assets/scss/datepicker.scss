@@ -88,9 +88,10 @@ border-collapse:separate;
         // text-align: center;
         background-image: none !important;
         background-color: transparent !important;
-        border: 1px solid $red !important;
+        // border: 1px solid $red !important;
         border-radius: 4px !important;
         color: $black !important;
+        box-shadow: inset 0px 0px 0px 2px #dc3545;
     }
 
     // Now day
@@ -462,6 +463,7 @@ border-collapse:separate;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
 }
 .datepicker table tr td span.active:hover,
 .datepicker table tr td span.active:hover:hover,
