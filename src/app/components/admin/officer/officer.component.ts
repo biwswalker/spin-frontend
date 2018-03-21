@@ -90,6 +90,7 @@ export class OfficerComponent implements OnInit {
               console.log(result);
               //   this.officers2 = result;
               this.messages = this.messagesDepartment.concat(this.messagesPosition);
+              this.messages = this.remove_duplicates(this.messages);
               console.log(this.messages);
               this.getMessage();
             }
@@ -246,6 +247,39 @@ export class OfficerComponent implements OnInit {
     this.messagesDepartment = [];
     this.messagesPosition = [];
     this.message = '';
+  }
+
+  checkDuplicateInObject(propertyName, inputArray) {
+    var seenDuplicate = false,
+      testObject = {};
+    var newArray = [];
+    inputArray.map(function (item) {
+      var itemPropertyName = item[propertyName];
+      if (itemPropertyName in testObject) {
+        testObject[itemPropertyName].duplicate = true;
+        item.duplicate = true;
+        seenDuplicate = true;
+      }
+      else {
+        testObject[itemPropertyName] = item;
+        newArray.push(item);
+        delete item.duplicate;
+      }
+    });
+
+    return newArray;
+  }
+
+  remove_duplicates(arr) {
+    let obj = {};
+    for (let i = 0; i < arr.length; i++) {
+      obj[arr[i]] = true;
+    }
+    arr = [];
+    for (let key in obj) {
+      arr.push(key);
+    }
+    return arr;
   }
 
 }
