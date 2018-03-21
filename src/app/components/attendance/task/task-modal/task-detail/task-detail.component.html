@@ -96,7 +96,7 @@
     </div>
   </div>
   <div class="row">
-    <!-- <div class=" col-12">
+    <div class=" col-12">
       <label class="label-task-modal">ชื่อโครงการ *</label>
       <input class="form-control"
         id="project-id"
@@ -115,8 +115,8 @@
         <ng-template #customItemTemplate let-model="item" let-index="index">
           <h6>{{model.projectName}}</h6>
         </ng-template>
-      </div> -->
-      <div class="col-12">
+      </div>
+      <!-- <div class="col-12">
           <label class="label-task-modal">ชื่อโครงการ *</label>
           <ng-select [items]="projectList"
           bindLabel="projectName"
@@ -126,7 +126,7 @@
           (add)="onChangeProject($event)"
           formControlName="taskDetailProject"
           ></ng-select>
-      </div>
+      </div> -->
   </div>
 
   <div class="row" *ngIf="showFavPrj">

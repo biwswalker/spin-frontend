@@ -1,6 +1,7 @@
-$(document).ready(function(){
+
   // require('./input-date');
   // require('./input-time');
+  require('./jquery.min');
   require('./layout');
   require('./list');
   require('./modal');
@@ -8,10 +9,9 @@ $(document).ready(function(){
   require('./rotate');
   require('./timetable');
 
-})
 // require('./jquery.min');
-// require('./bootstrap-datepicker');
-// require('./bootstrap-datepicker-thai');
-// require('./bootstrap-notify.min');
-// require('./custom-notify');
+require('./bootstrap-datepicker');
+require('./bootstrap-datepicker-thai');
+require('./bootstrap-notify.min');
+require('./custom-notify');
 // require('./moment');

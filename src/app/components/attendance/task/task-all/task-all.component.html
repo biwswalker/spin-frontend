@@ -21,7 +21,7 @@
      (scrolled)="onScrollDown()">
   <div *ngFor="let atask of tasks"
        class="task-groups">
-    <div class="group-date">{{atask.date | thaiDate:'short'}}</div>
+    <div class="group-date mt-2">{{atask.date | thaiDate:'short'}}</div>
     <task [source]="task"
           *ngFor="let task of atask.tasks | async"></task>
   </div>

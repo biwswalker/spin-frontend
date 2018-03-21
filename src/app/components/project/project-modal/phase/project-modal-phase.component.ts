@@ -49,7 +49,7 @@ export class ProjectModalPhaseComponent implements OnInit {
       this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhaseGroup.value.endDate);
       this.projectPhases.push(this.projectPhase);
       this.projectPhase = new ProjectPhase;
-
+      this.projectPhaseGroup.reset();
     }
 
   }

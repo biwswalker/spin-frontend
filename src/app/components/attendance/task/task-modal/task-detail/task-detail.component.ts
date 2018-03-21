@@ -85,6 +85,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
+    console.log(task)
     this.mode = mode;
     if (this.mode === 'VIEW') {
       this.isDisabled = true;
@@ -157,14 +158,20 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onChangeProject(event) {
-      this.projectId = event.projectId;
-      this.taskService.changeProjectId(event.projectId);
+    this.projectId = event.projectId;
+    this.taskService.changeProjectId(event.projectId);
   }
 
   onFavoriteClick(event) {
     this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
     this.projectId = event.projectId;
     this.taskService.changeProjectId(event.projectId);
+  }
+
+  onBlurProject(event){
+    if(event){
+      this.taskDetailFormGroup.patchValue({ taskDetailProject: event.projectName });
+    }
   }
 
   onChangeTime() {
