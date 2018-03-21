@@ -23,7 +23,7 @@ export class UserRegisterService {
   }
 
   findByUserId(userId) {
-    return this.request.requestMethodGET("user-management/users/" + userId);
+    return this.request.requestMethodGET("user-management/users/" + userId.replace(".", "-"));
   }
 
   findByOfficerId(officerId) {
