@@ -4,6 +4,8 @@ import { TaskService } from '../../../../providers/task.service';
 import { AuthenticationService } from '../../../../providers/authentication.service';
 import { User } from '../../../../models/user';
 import { Subscription } from 'rxjs';
+import { PartnerService } from '../../../../providers/partner.service';
+import { Observable } from 'rxjs/Observable';
 
 declare var SpinModal: any;
 declare var $: any;
@@ -19,12 +21,12 @@ export class TaskDirective implements OnInit, OnDestroy {
 
   // Is set css class
   public selected = false;
-  public isCollaborator = false;
   public isView = false;
   public isOwner = '';
+  public isCollaborator = new Observable<any>()
   private subscription: Subscription;
 
-  constructor(private taskService: TaskService, private authService: AuthenticationService) {}
+  constructor(private taskService: TaskService, private authService: AuthenticationService, private partnerService: PartnerService) {}
 
   ngOnInit() {
     this.subscription = this.authService.crrUser.subscribe((user: User) => {
@@ -35,7 +37,7 @@ export class TaskDirective implements OnInit, OnDestroy {
       }
     })
 
-    this.isCollaborator = this.source.taskPartnerList ? true : false;
+    this.isCollaborator = this.partnerService.findByTaskId(this.source.taskId);
     // Async
     this.taskService.currentIsSelectTask.subscribe(task => {
       if (task === this.source.taskId) {
