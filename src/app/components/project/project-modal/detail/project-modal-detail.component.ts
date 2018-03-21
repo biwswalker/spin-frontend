@@ -26,6 +26,7 @@ export class ProjectModalDetailComponent implements OnInit{
               private eventMessagesService:EventMessagesService) { }
 
   ngOnInit() {
+    this.project = new Project;
     this.project.isVisble = false;
     this.project.activeFlag = 'A';
     this.validateForm();
