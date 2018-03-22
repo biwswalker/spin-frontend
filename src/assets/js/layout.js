@@ -25,6 +25,7 @@
 
 
 
+
   function menuDisplay($width) {
     if ($width > 576) {
       $('#sidebar').removeClass('active');
