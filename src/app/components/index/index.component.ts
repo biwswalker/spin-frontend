@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../providers/authentication.service';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $:any;
 @Component({
   selector: 'app-index',
@@ -16,9 +17,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   public user: User = new User();
   public fullname = '';
   public email = '';
+  public currentUrl:string;
 
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService,private router: Router) {
     this.authService.crrUser.subscribe((user: User) => {
       this.user = user;
       if (this.user.email) {
@@ -30,9 +32,16 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.fullname = `${this.user.officer.firstNameEn} ${this.user.officer.lastNameEn}`;
       }
     });
+
+
   }
 
   ngOnInit() {
+    this.router.events.subscribe((val) => {
+      console.log('router: ',val);
+      this.currentUrl = val['url'];
+      console.log('url: ',this.currentUrl);
+    })
   }
 
   ngOnDestroy() {
