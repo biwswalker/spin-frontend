@@ -23,11 +23,11 @@ export class TaskPartnerComponent {
   public selectPartner: any;
   public taskPartner: any[];
   public doSelfFlag: boolean = true;
-  public taskMember: any[] = [];
-  public autocompletePartnerList: any[] = [];
+  public taskMember: any[];
+  public autocompletePartnerList: any[];
   public partner: any;
   public mode: string;
-  public isDisabled: boolean;
+  public projectId: number;
   public hiddenCheckBox: boolean;
 
 
@@ -40,15 +40,19 @@ export class TaskPartnerComponent {
 
   initTaskPartner(taskId: number, mode: string, user: User, taskOwner: string) {
 
-    if(taskOwner){
-      if(user.userId !== taskOwner){
+    if (taskOwner) {
+      if (user.userId !== taskOwner) {
         this.hiddenCheckBox = true;
-      }else{
+      } else {
+        if (mode == Mode.E) {
+          this.hiddenCheckBox = true;
+        }
         this.hiddenCheckBox = false;
       }
-    }else{
+    } else {
       this.hiddenCheckBox = false;
     }
+
     this.taskId = taskId;
     this.mode = mode;
     this.owner = taskOwner;
@@ -59,6 +63,7 @@ export class TaskPartnerComponent {
     this.taskPartner = [];
     this.taskService.currentProjectId.subscribe((projectId: number) => {
       if (projectId) {
+        this.projectId = projectId;
         if (isRepeat !== projectId) {
           this.getautoCompletePartner(projectId);
           if (this.taskId) {
@@ -77,27 +82,14 @@ export class TaskPartnerComponent {
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
-          this.isDisabled = true;
-          this.taskMember = [];
           for (let obj of members) {
-            if (this.mode == Mode.V) {
-              if (obj.isPartner == "Y") {
-                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
-              }
-            } else if(this.mode == Mode.I && this.user.userId !== this.owner){
-              if (obj.isPartner == "Y") {
-                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
-              }
-            }else{
-              if (obj.isPartner == "Y") {
-                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
-              } else {
-                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
-              }
+            if (obj.isPartner == "Y") {
+              this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
+            } else {
+              this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
             }
           }
-        }
-        else {
+        } else {
           this.getProjectMember(projectId);
         }
       }
@@ -108,7 +100,7 @@ export class TaskPartnerComponent {
     this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
-          this.taskPartner = [];
+          // this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
           }
@@ -121,13 +113,10 @@ export class TaskPartnerComponent {
     this.partnerService.findByProjrctId(projectId).subscribe(
       member => {
         if (member) {
-          this.isDisabled = true;
-          this.taskMember = [];
+          // this.taskMember = [];
           for (let obj of member) {
             this.taskMember.push({ userId: obj.id.userId, email: obj.user.email, fullName: obj.user.officer.firstNameTh + ' ' + obj.user.officer.lastNameTh, status: false });
           }
-        }else{
-          this.isDisabled = false;
         }
       })
   }
@@ -135,7 +124,6 @@ export class TaskPartnerComponent {
   getautoCompletePartner(projectId) {
     this.partnerService.findAllUser(projectId).subscribe(
       partners => {
-        this.autocompletePartnerList = [];
         this.autocompletePartnerList = partners;
       }
     );
@@ -154,7 +142,6 @@ export class TaskPartnerComponent {
   }
 
   onSelect(event) {
-    console.log(event)
     this.selectPartner = event;
   }
 

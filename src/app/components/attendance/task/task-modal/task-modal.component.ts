@@ -51,26 +51,25 @@ export class TaskModalComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // Get task on stamp
+
     this.taskService.currentTask.subscribe((task: Task) => {
-      console.log('currentTask=> ', task);
+      // console.log('currentTask=> ', task);
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
         this.onTaskHasSelected(task, Mode.I);
       }
     });
     // Get Task on View or Edit
     this.taskService.currentViewTask.subscribe((task: Task) => {
-      console.log('currentViewTask=> ', task);
+      // console.log('currentViewTask=> ', task);
       if (task.taskId) {
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
     });
-    // this.utilsService.loader(true);
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    this.utilsService.loader(true);
     console.log('onTaskHasSelected | ', mode);
-    console.log(task);
+    console.log('task', task);
     const temp = task;
     this.task = new Task();
     this.taskForm.task = temp;
@@ -144,7 +143,6 @@ export class TaskModalComponent implements AfterViewInit {
       }
 
       if (this.mode == Mode.E) {
-
         this.task.taskId = this.taskForm.task.taskId;
         this.task.versionId = this.taskForm.task.versionId;
         this.updateTask(this.task);
@@ -159,15 +157,13 @@ export class TaskModalComponent implements AfterViewInit {
       res => {
         console.log(res)
         this.eventMessageService.onInsertSuccess('');
-        this.oncloseModal();
-
       },
       error => {
         this.eventMessageService.onInsertError(error);
         console.log(error);
         this.utilsService.loader(false);
-
       }, () => {
+        this.oncloseModal();
         this.utilsService.loader(false);
       }
     );
@@ -178,21 +174,28 @@ export class TaskModalComponent implements AfterViewInit {
       res => {
         console.log(res);
         this.eventMessageService.onUpdateSuccess('');
-        this.oncloseModal();
       }, error => {
         this.eventMessageService.onUpdateError(error);
         console.log(error);
         this.utilsService.loader(false);
       }, () => {
+        this.oncloseModal();
         this.utilsService.loader(false);
       }
     )
+  }
+
+  onConfirmModal(){
+    let modal = new SpinModal();
+    modal.initial('#confirmDeleteTask', { show: true, backdrop: 'true', keyboard: true });
+
   }
 
   oncloseModal() {
     let stampDate = this.taskForm.task.workDate;
     this.modal.close('#task-modal');
     this.taskService.changeTimetableDate(this.utilsService.convertThDateToEn(stampDate));
+    this.taskService.chageSelectedTask(new Task());
     this.onCompleteEmit.emit(stampDate);
     this.task = new Task;
   }
@@ -219,16 +222,4 @@ export class TaskModalComponent implements AfterViewInit {
     }
   }
 
-  onClick() {
-    this.taskDetailChild.disabledTab = true;
-    console.log(this.taskDetailChild.disabledTab);
-    if (this.taskDetailChild.taskDetailFormGroup.invalid) {
-      this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
-      this.taskDetailChild.disabledTab = true;
-      console.log(this.taskDetailChild.disabledTab);
-    } else {
-      this.taskDetailChild.disabledTab = false;
-      console.log(this.taskDetailChild.disabledTab);
-    }
-  }
 }

@@ -37,13 +37,10 @@ export class TaskDetailComponent implements OnInit {
   public taskDetailFormGroup: FormGroup;
   public user: User;
   public mode: string;
-  public copyTask: boolean = false;
-  public isDisabled: boolean;
   public favProjectList = new Observable<Project[]>();
   public timeList: any[];
   public endTimeList: any[];
   public datePattern: any[] = [];
-  public disabledTab: boolean = true;
   public showFavPrj: boolean = false;
 
   constructor(
@@ -86,31 +83,30 @@ export class TaskDetailComponent implements OnInit {
 
   initTaskDetail(task: Task, mode: string) {
     this.mode = mode;
+    this.taskObj = new Task();
+    this.taskObj = task;
+
     if (this.mode === 'VIEW') {
-      this.isDisabled = true;
       this.showFavPrj = false;
       this.taskDetailFormGroup.disable();
     } else if (this.mode == Mode.I) {
-      this.isDisabled = false;
       this.showFavPrj = true;
       this.taskDetailFormGroup.enable();
       if (task.taskId) {
         this.showFavPrj = false;
-        this.isDisabled = false;
         this.taskDetailFormGroup.controls['taskDetailProject'].disable();
-        this.taskDetailFormGroup.controls['taskDetailTopic'].disable();
+        this.taskDetailFormGroup.controls['taskDetailActivity'].enable();
         if (task.ownerUserId == this.user.userId) {
           this.taskDetailFormGroup.controls['taskDetailTopic'].enable();
         }
       }
     } else {
       this.showFavPrj = false;
+      this.taskDetailFormGroup.controls['taskDetailActivity'].enable();
       this.taskDetailFormGroup.controls['taskDetailTopic'].enable();
       this.taskDetailFormGroup.controls['taskDetailProject'].disable();
-      this.isDisabled = false;
     }
-    this.taskObj = new Task();
-    this.taskObj = task;
+
     this.resetData();
     this.initialTime();
     this.initialData();
@@ -118,7 +114,7 @@ export class TaskDetailComponent implements OnInit {
     this.timeList = this.utilsService.getTimeList();
 
     this.ngZone.runOutsideAngular(() => {
-      this.ngZone.run(() => { console.log('ngZone.runOutsideAngular'); });
+      this.ngZone.run(() => {});
       this.utilsService.loader(false);
     });
   }
@@ -165,6 +161,9 @@ export class TaskDetailComponent implements OnInit {
     this.taskService.changeProjectId(event.projectId);
   }
 
+  changeProjectId(prjId: number){
+    this.taskService.changeProjectId(prjId);
+  }
   onChangeTime() {
     let startTime = this.taskDetailFormGroup.value.taskDetailStartTime;
     let endTime = this.taskDetailFormGroup.value.taskDetailEndTime;

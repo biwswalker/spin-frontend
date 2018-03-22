@@ -1,4 +1,4 @@
-<div class="container" *ngIf="isDisabled">
+<div class="container" *ngIf="projectId !== undefined">
   <div class="row">
     <div class="col d-flex">
       <div class="ml-auto">
@@ -44,9 +44,9 @@
         </div>
     </div>
 
-  <div class="row">
-    <label class="label-task-modal">ผู้ร่วมงาน</label>
-    <div class="col-12 scroll-auto bg-white rounded text-dark">
+  <div class="row" >
+    <label class="label-task-modal" >ผู้ร่วมงาน</label>
+    <div class="col-12 scroll-auto bg-white rounded text-dark" *ngIf="taskPartner.length !== 0">
       <div id="partner-list"
            name="partner-list"
            *ngFor="let obj of taskPartner">
@@ -66,34 +66,15 @@
               </div>
       </div>
     </div>
+    <div class="col-12 scroll-auto bg-white rounded text-dark" *ngIf="taskPartner.length == 0">ยังไม่ได้เพิ่มผู้ร่วมงาน...</div>
   </div>
   <div class="row" *ngIf="mode !== 'VIEW'">
     <div class="col">
-      <!-- <input class="form-control"
-             id="autocompletePartner"
-             [(ngModel)]="partner"
-             [typeahead]="autocompletePartnerList"
-             typeaheadOptionField="fullName"
-             [typeaheadItemTemplate]="customItemTemplate"
-             [typeaheadScrollable]="true"
-             [typeaheadMinLength]="0"
-             autocomplete="off"
-             id="input-add-partner"
-             [typeaheadOptionsInScrollableView]="5"
-             (typeaheadOnSelect)="onSelect($event)">
-               <ng-template #customItemTemplate
-                            let-model="item"
-                            let-index="index">
-                 <p>
-                   {{model.fullName}}
-                 </p>
-               </ng-template> -->
-               <ng-select [items]="autocompletePartnerList"
-          bindLabel="fullName"
-          bindValue="userId"
-          [(ngModel)]="partner"
-          (add)="onSelect($event)"
-          ></ng-select>
+      <ng-select [items]="autocompletePartnerList"
+                 bindLabel="fullName"
+                 bindValue="userId"
+                 (add)="onSelect($event)">
+      </ng-select>
     </div>
     <div class="col-2">
       <button type="button"
@@ -106,6 +87,6 @@
   </div>
 </div>
 
-<div class="text-center" *ngIf="!isDisabled">
+<div class="text-center" *ngIf="projectId === undefined">
   <p>กรุณาเลือกโครงการ...</p>
 </div>

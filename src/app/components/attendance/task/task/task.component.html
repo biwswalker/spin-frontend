@@ -11,17 +11,17 @@
              *ngIf="source.referTaskId && isOwner"></i>
           <i class="fas fa-exclamation-triangle"
              style="color:yellow;"
-             *ngIf="!source.referTaskId && isOwner"></i> {{source.workStartTime | time}} - {{source.workEndTime | time}}
+             *ngIf="!source.referTaskId && isOwner"></i> {{workStartTime | time}} - {{workEndTime | time}}
           <div class="create-owner"
-               *ngIf="source.projectId!">#{{source.projectId | projectName | async}}</div>
+               *ngIf="source.projectId!">#{{projectId | projectName | async}}</div>
         </span>
         <a (click)="onView()"
            class="btn btn-link float-right p-0">
           <i class="fas"
              [ngClass]="isOwner === 'owner' ? 'fa-eye' : 'fa-edit'"></i>
         </a>
-        <h5 class="card-title text-truncate">{{source.topic}}</h5>
-        <p class="card-text text-truncate">{{source.activity}}</p>
+        <h5 class="card-title text-truncate">{{topic}}</h5>
+        <p class="card-text text-truncate">{{activity}}</p>
         <!-- <div class="float-rif task-owner"></div> -->
         <div class="float-right task-collaborators"
              *ngIf="(isCollaborator | async) as partner">
@@ -32,7 +32,7 @@
       <div class="card-footer"
            [ngClass]="source.color">
         <div class="task-project float-left text-truncate">
-          {{source.ownerUserId}}
+          {{ownerUserId}}
         </div>
         <div class="task-tags">
           <span class="badge badge-pill badge-tags"

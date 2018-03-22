@@ -4,7 +4,7 @@
 
             <!-- Header -->
             <div class="modal-header" [ngClass]="bgColor">
-                    <button class="btn btn-link" id="close-modal" name="close-modal" data-dismiss="modal">
+                    <button class="btn btn-link" id="close-modal" name="close-modal" (click)="oncloseModal()">
                       <i class="fas fa-times fa-lg"></i>
                     </button>
                 <div class="text-center header-text">
@@ -14,8 +14,9 @@
                 <div class="d-flex" >
                     <div class="ml-auto" *ngIf="mode == 'EDIT'">
                         <!-- Delete Button -->
-                        <button class="btn btn-link text-white" id="del-btn" name="del-btn">
-                                <i class="far fa-trash-alt mr-1 " data-toggle="modal" href="#confirmDeleteTask">ลบ</i>
+                        <button class="btn btn-link text-white" id="del-btn" name="del-btn" (click)="onConfirmModal()">
+                                <!-- <i class="far fa-trash-alt mr-1 " data-toggle="modal" href="#confirmDeleteTask">ลบ</i> -->
+                                <i class="far fa-trash-alt mr-1 " data-toggle="modal" >ลบ</i>
                             </button>
                         </div>
 

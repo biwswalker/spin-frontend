@@ -6,6 +6,7 @@ import { User } from '../../../../models/user';
 import { Subscription } from 'rxjs';
 import { PartnerService } from '../../../../providers/partner.service';
 import { Observable } from 'rxjs/Observable';
+import { UtilsService } from '../../../../providers/utils/utils.service';
 
 declare var SpinModal: any;
 declare var $: any;
@@ -25,10 +26,21 @@ export class TaskDirective implements OnInit, OnDestroy {
   public isOwner = '';
   public isCollaborator = new Observable<any>()
   private subscription: Subscription;
+  public workDate: string;
+  public workStartTime: string;
+  public workEndTime: string;
+  public projectId: number;
+  public topic: string;
+  public activity: string;
+  public ownerUserId: string;
 
-  constructor(private taskService: TaskService, private authService: AuthenticationService, private partnerService: PartnerService) {}
+
+  constructor(private taskService: TaskService,
+    private authService: AuthenticationService,
+    private partnerService: PartnerService) {}
 
   ngOnInit() {
+    this.initialData();
     this.subscription = this.authService.crrUser.subscribe((user: User) => {
       if(user.userId !== this.source.ownerUserId){
         this.isOwner = 'owner'
@@ -49,6 +61,16 @@ export class TaskDirective implements OnInit, OnDestroy {
     // End Async
   }
 
+  initialData(){
+    this.workDate = this.source.workDate;
+    this.workStartTime = this.source.workStartTime;
+    this.workEndTime = this.source.workEndTime;
+    this.projectId = this.source.projectId;
+    this.topic = this.source.topic;
+    this.activity = this.source.activity;
+    this.ownerUserId = this.source.ownerUserId;
+  }
+
   onselectTask() {
     if (!this.isView) {
       this.taskService.chageSelectedTask(this.source);
@@ -67,6 +89,7 @@ export class TaskDirective implements OnInit, OnDestroy {
       self.isView = false;
     })
     this.taskService.onViewTask(this.source);
+
   }
 
   ngOnDestroy() {
