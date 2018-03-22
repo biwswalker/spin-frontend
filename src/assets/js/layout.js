@@ -15,14 +15,6 @@
     });
   });
 
-  $(function() {
-    $('.spin-link ul li').on('click',function(){
-      $(this).not( ".disabled" ).addClass('active').siblings().removeClass('active');
-    });
-  });
-
-
-
 
 
   function menuDisplay($width) {

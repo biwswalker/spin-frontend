@@ -53,6 +53,7 @@ export class ProjectSearchComponent implements OnInit {
 
       },err=>{
         console.log(err);
+        this.eventMessageService.onCustomError('เกิดข้อผิดพลาด',err.error.message);
       }
     )
 
@@ -80,6 +81,7 @@ export class ProjectSearchComponent implements OnInit {
         }
       },err=>{
         console.log('Exception: ',err);
+        this.eventMessageService.onCustomError('เกิดข้อผิดพลาด',err.error.message);
       }
     )
 

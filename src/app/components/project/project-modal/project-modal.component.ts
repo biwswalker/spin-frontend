@@ -49,7 +49,6 @@ export class ProjectModalComponent{
   }
 
   ngOnDestroy(){
-    console.log('modal ngOnDestroy');
     this.projectService.onUpdateProject(new Project);
     this.currentAct.unsubscribe();
   }

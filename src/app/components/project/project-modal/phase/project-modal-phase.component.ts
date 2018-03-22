@@ -14,6 +14,7 @@ export class ProjectModalPhaseComponent implements OnInit {
   public projectPhaseGroup: FormGroup;
   public projectPhase: ProjectPhase = new ProjectPhase;
   public projectPhases: ProjectPhase[] = [];
+  // public minDate:any;
   constructor(private utilsService: UtilsService,
               private projectService:ProjectService) { }
 
@@ -48,6 +49,13 @@ export class ProjectModalPhaseComponent implements OnInit {
       this.projectPhase.startDate = this.utilsService.convertDatePickerToThDate(this.projectPhaseGroup.value.startDate);
       this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhaseGroup.value.endDate);
       this.projectPhases.push(this.projectPhase);
+
+      // const yyyy = this.projectPhase.endDate.substring(0,4);
+      // const mm = this.projectPhase.endDate.substring(4,6);
+      // const dd = this.projectPhase.endDate.substring(6,8);
+      // this.minDate = {year:yyyy,month:mm,day:dd};
+
+      // console.log('min date is: ',this.minDate);
       this.projectPhase = new ProjectPhase;
       this.projectPhaseGroup.reset();
     }

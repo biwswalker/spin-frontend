@@ -8,20 +8,20 @@ declare var $: any;
     provide: NG_VALUE_ACCESSOR,useExisting:
     forwardRef(() => DatePickerDirective),
     multi: true
-  }]
+  }],
+
 
 })
 export class DatePickerDirective implements ControlValueAccessor{
   value: string=null;
-  @Input('ngModel') model;
   constructor(private el: ElementRef,
-    private controlContainer:ControlContainer){
-  //     $(this.el.nativeElement).change(function() {
-  //      console.log('data change');
-  //  });
+    private controlContainer:ControlContainer,
+    ){
+
   }
   ngAfterViewInit(){
     $(this.el.nativeElement).datepicker({autoclose:true,format: 'dd/mm/yyyy'}).on('change', e => this.onModelChange(e.target.value));
+
 
   }
   onModelChange: Function = (e) => {
@@ -31,14 +31,17 @@ export class DatePickerDirective implements ControlValueAccessor{
     }else{
       this.el.nativeElement.value = e;
     }
+
   };
 
 
   onModelTouched: Function = (e) => {
+
   };
 
   writeValue(val: string) : void {
     this.el.nativeElement.value = val;
+
   }
 
   registerOnChange(fn: Function): void {

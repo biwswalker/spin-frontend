@@ -24,11 +24,9 @@ export class UserRegisterComponent {
   arrayBuffer: any;
   public users: User[] = [];
   message: string;
-  messagesPosition: any[];
-  messagesDepartment: any[];
   messages: any[];
   record: number;
-  file: any;
+  file: File;
   fileName: string;
   isUpload: boolean;
   @ViewChild(UserRegisterInfoComponent) info;
@@ -89,25 +87,120 @@ export class UserRegisterComponent {
     this.userRegisterService.onOpenModal();
   }
 
-  incomingfile(event) {
-    this.file = event.target.files[0];
-    this.fileName = event.target.files[0].name;
-  }
-
   onCloseModal() {
     this.isUpload = false;
     this.fileName = "";
     this.file = null;
   }
 
-
-
   clearMessage() {
     this.messages = [];
-    this.messagesDepartment = [];
-    this.messagesPosition = [];
     this.message = "";
   }
 
+  incomingfile(event) {
+    this.file = event.target.files[0];
+    this.fileName = event.target.files[0].name;
+  }
+
+  upload(){
+	console.log('upload');
+	let fileReader = new FileReader();
+	this.record = 0;
+	this.clearMessage();
+	console.log(fileReader);
+	fileReader.onload = (e) =>{
+		console.log(fileReader.result);
+		this.arrayBuffer = fileReader.result;
+		var data = new Uint8Array(this.arrayBuffer);
+		var arr = new Array();
+		for(var i=0; i!=data.length ;++i){
+			arr[i] = String.fromCharCode(data[i]);
+		}
+		var bstr = arr.join("");
+		var workbook = XLSX.read(bstr, {type: "binary"});
+		var first_sheet_name = workbook.SheetNames[0];
+		var worksheet = workbook.Sheets[first_sheet_name];
+		this.record = XLSX.utils.sheet_to_json(worksheet,{header:2}).length;
+		console.log('record =', this.record);
+		let obj = [];
+		obj = XLSX.utils.sheet_to_json(worksheet,{header:2});
+		this.convertData(obj).then(
+		data => {
+			data.subscribe(
+				result => {
+					console.log(result);
+					this.getMessage();
+				}
+      )
+    }
+    )
+	}
+	fileReader.readAsArrayBuffer(this.file);
+  }
+
+    async convertData(obj){
+	let result = [];
+	await obj.forEach(
+		element => {
+			result.push(this.mapData(element));
+		}
+	);
+	console.log(result);
+	console.log(this.users);
+	return await Observable.forkJoin(result);
+  }
+
+  mapData(obj): Observable<any>{
+	let user = new User();
+	let officeId = obj['รหัสพนักงาน'];
+	let email = obj['E-mail'];
+	let userLevel = 'U';
+	let remark = '';
+  let activeFlag = 'A';
+  console.log("email:"+email);
+  console.log(">>>>" + obj["E-mail"]);
+	let userId =  email.split('@')[0];
+
+	return this.userRegisterService.getDataObservable(officeId).map(
+		data => {
+			if(!data){
+				this.messages[0] = "ไม่พบข้อมูลพนักงานในฐานข้อมูล";
+			}
+
+			user.officeId = officeId;
+			user.email = email;
+			user.userId = userId;
+			user.userLevel = userLevel;
+			user.remark = remark;
+			user.activeFlag = activeFlag;
+
+			this.users = this.users.concat(user);
+			return user
+		}
+	);
+  }
+
+   getMessage(){
+    console.log(this.users);
+    console.log(this.messages.length);
+    if(this.message.length > 1){
+		this.isUpload = false;
+		this.message = "พบข้อมูลไม่สมบูรณ์ ".concat(this.messages.toString());
+	}else{
+		this.isUpload = true;
+		this.userRegisterService.uploadExcel(this.users).subscribe(
+			data => {
+				console.log(data);
+				this.eventMessageService.onInsertSuccess(null);
+				this.clearMessage();
+			},
+			error => {
+				this.eventMessageService.onInsertError(error);
+				this.clearMessage();
+			}
+		);
+	}
+  }
 
 }

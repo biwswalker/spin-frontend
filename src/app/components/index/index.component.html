@@ -53,13 +53,13 @@
         <!-- Sidebar Links -->
         <nav class="spin-link">
           <ul class="nav flex-column">
-            <li class="nav-item active">
+            <li class="nav-item" [ngClass]="currentUrl =='/'||currentUrl ==''?'active':''">
               <a class="nav-link" [routerLink]="['/']">
                 <i class="fas fa-pen-square"></i>
                 <span class="menu-title">เวลาทำงาน</span>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"  [ngClass]="currentUrl =='/project'?'active':''">
               <a class="nav-link" [routerLink]="['/project']">
                 <i class="fas fa-folder-open"></i>
                 <span class="menu-title">โครงการ</span>
@@ -91,12 +91,12 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="admin-menu-dropdown">
                 <!-- <div class="dropdown-divider"></div> -->
-                <a class="dropdown-item" [routerLink]="['/user-register']">ผู้ใช้งาน</a>
-                <a class="dropdown-item" [routerLink]="['/responsibility']">หน้าที่ความรับผิดชอบ</a>
-                <a class="dropdown-item" [routerLink]="['/officer']">พนักงาน</a>
-                <a class="dropdown-item" [routerLink]="['/holiday']">วันหยุด</a>
-                <a class="dropdown-item" [routerLink]="['/department']">แผนก</a>
-                <a class="dropdown-item" [routerLink]="['/position']">ตำแหน่ง</a>
+                <a class="dropdown-item" *ngIf="false" [ngClass]="currentUrl =='/user-register'?'active':''" [routerLink]="['/user-register']">ผู้ใช้งาน</a>
+                <a class="dropdown-item" [ngClass]="currentUrl =='/responsibility'?'active':''" [routerLink]="['/responsibility']">หน้าที่ความรับผิดชอบ</a>
+                <a class="dropdown-item" [ngClass]="currentUrl =='/officer'?'active':''" [routerLink]="['/officer']">พนักงาน</a>
+                <a class="dropdown-item" [ngClass]="currentUrl =='/holiday'?'active':''" [routerLink]="['/holiday']">วันหยุด</a>
+                <a class="dropdown-item" [ngClass]="currentUrl =='/department'?'active':''" [routerLink]="['/department']">แผนก</a>
+                <a class="dropdown-item" [ngClass]="currentUrl =='/position'?'active':''" [routerLink]="['/position']">ตำแหน่ง</a>
               </div>
 
             </li>
