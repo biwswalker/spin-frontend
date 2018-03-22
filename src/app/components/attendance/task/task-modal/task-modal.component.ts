@@ -102,7 +102,7 @@ export class TaskModalComponent implements AfterViewInit {
           console.log('project: ', project)
           this.taskService.changeProjectId(project.projectId);
           // this.taskDetailChild.projectId = project.projectId;
-          this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
+          // this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
         }
       )
     }
