@@ -13,7 +13,14 @@ export class UserRegisterService {
   constructor(private request: HttpRequestService) {}
 
   findAll(activeFlag, page, size) {
-    return this.request.requestMethodGET("user-management/users/all/active-flag/" + activeFlag + "?p=" + page + "&s=" + size);
+    return this.request.requestMethodGET(
+      "user-management/users/all/active-flag/" +
+        activeFlag +
+        "?p=" +
+        page +
+        "&s=" +
+        size
+    );
   }
 
   findAllByCriteria(term, page, size) {
@@ -23,7 +30,9 @@ export class UserRegisterService {
   }
 
   findByUserId(userId) {
-    return this.request.requestMethodGET("user-management/users/" + userId.replace(".", "-"));
+    return this.request.requestMethodGET(
+      "user-management/users/" + userId.replace(".", "-")
+    );
   }
 
   findByOfficerId(officerId) {
@@ -70,5 +79,13 @@ export class UserRegisterService {
     }
   }
 
+  getDataObservable(officeId): Observable<any> {
+    const officer = this.findByOfficerId(officeId);
+    return Observable.forkJoin(officer);
+  }
+
+  uploadExcel(users) {
+    return this.request.requestMethodPUT("user-management/users/upload-excel",users);
+  }
 }
 
