@@ -6,6 +6,8 @@ import { TaskService } from '../../../../../providers/task.service';
 import { Task } from '../../../../../models/task';
 import { Mode } from '../../../../../config/properties';
 import { Observable } from 'rxjs/Observable';
+import { UtilsService } from '../../../../../providers/utils/utils.service';
+import { User } from '../../../../../models/user';
 declare var $: any;
 
 @Component({
@@ -16,7 +18,8 @@ declare var $: any;
 export class TaskPartnerComponent {
 
   public taskId: number;
-  public ownerEmail = '';
+  public user: User;
+  public owner: string = '';
   public selectPartner: any;
   public taskPartner: any[];
   public doSelfFlag: boolean = true;
@@ -24,33 +27,39 @@ export class TaskPartnerComponent {
   public autocompletePartnerList: any[] = [];
   public partner: any;
   public mode: string;
-  public isDisabled: boolean = false;
+  public isDisabled: boolean;
+  public hiddenCheckBox: boolean;
+
 
   constructor(
     private taskService: TaskService,
-    private partnerService: PartnerService
+    private partnerService: PartnerService,
+    public utilsService: UtilsService
   ) {
   }
 
-  initTaskPartner(taskId: number, mode: string, usrEmail: string) {
-    if(taskId){
-      this.isDisabled = true;
+  initTaskPartner(taskId: number, mode: string, user: User, taskOwner: string) {
+
+    if(taskOwner){
+      if(user.userId !== taskOwner){
+        this.hiddenCheckBox = true;
+      }else{
+        this.hiddenCheckBox = false;
+      }
     }else{
-      this.isDisabled = false;
+      this.hiddenCheckBox = false;
     }
     this.taskId = taskId;
     this.mode = mode;
-    this.ownerEmail = usrEmail;
-    let isRepeat: number[] = [];
+    this.owner = taskOwner;
+    this.user = user;
+    let isRepeat: number = 0;
     this.autocompletePartnerList = [];
     this.taskMember = [];
     this.taskPartner = [];
     this.taskService.currentProjectId.subscribe((projectId: number) => {
       if (projectId) {
-        this.isDisabled = true;
-        // Check Report loop Subject
-        let repeated = isRepeat.find(id => id === projectId);
-        if (!repeated) {
+        if (isRepeat !== projectId) {
           this.getautoCompletePartner(projectId);
           if (this.taskId) {
             this.initialMember(projectId);
@@ -58,7 +67,7 @@ export class TaskPartnerComponent {
           } else {
             this.getProjectMember(projectId);
           }
-          isRepeat.push(projectId);
+          isRepeat = projectId;
         }
       }
     });
@@ -68,14 +77,18 @@ export class TaskPartnerComponent {
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
-          console.log('members=> ', members);
+          this.isDisabled = true;
           this.taskMember = [];
           for (let obj of members) {
             if (this.mode == Mode.V) {
               if (obj.isPartner == "Y") {
                 this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
               }
-            } else {
+            } else if(this.mode == Mode.I && this.user.userId !== this.owner){
+              if (obj.isPartner == "Y") {
+                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
+              }
+            }else{
               if (obj.isPartner == "Y") {
                 this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
               } else {
@@ -95,7 +108,6 @@ export class TaskPartnerComponent {
     this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
-          console.log('nonMembers=> ', nonMembers);
           this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
@@ -109,11 +121,13 @@ export class TaskPartnerComponent {
     this.partnerService.findByProjrctId(projectId).subscribe(
       member => {
         if (member) {
-          console.log('member=> ', member)
+          this.isDisabled = true;
           this.taskMember = [];
           for (let obj of member) {
             this.taskMember.push({ userId: obj.id.userId, email: obj.user.email, fullName: obj.user.officer.firstNameTh + ' ' + obj.user.officer.lastNameTh, status: false });
           }
+        }else{
+          this.isDisabled = false;
         }
       })
   }
@@ -121,7 +135,6 @@ export class TaskPartnerComponent {
   getautoCompletePartner(projectId) {
     this.partnerService.findAllUser(projectId).subscribe(
       partners => {
-        console.log('autocompletePartner=> ', partners);
         this.autocompletePartnerList = [];
         this.autocompletePartnerList = partners;
       }
@@ -129,14 +142,11 @@ export class TaskPartnerComponent {
   }
 
   addPartner() {
-    console.log(this.selectPartner);
     if (this.selectPartner != null) {
       let sPartner = this.selectPartner;
       if (this.taskMember.indexOf(sPartner) == -1) {
         this.taskPartner.push(sPartner);
-        console.log(this.taskPartner);
         this.autocompletePartnerList.splice(this.autocompletePartnerList.indexOf(sPartner), 1);
-        console.log(this.autocompletePartnerList);
       }
       this.partner = null;
       this.selectPartner = null;
@@ -144,7 +154,8 @@ export class TaskPartnerComponent {
   }
 
   onSelect(event) {
-    this.selectPartner = event.item;
+    console.log(event)
+    this.selectPartner = event;
   }
 
   deletePartner(obj) {

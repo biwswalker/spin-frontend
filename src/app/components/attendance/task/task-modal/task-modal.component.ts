@@ -64,11 +64,11 @@ export class TaskModalComponent implements AfterViewInit {
         this.onTaskHasSelected(task, this.user.userId === task.ownerUserId ? Mode.E : Mode.V);
       }
     });
+    // this.utilsService.loader(true);
   }
 
   onTaskHasSelected(task: Task, mode: string) {
     this.utilsService.loader(true);
-    this.taskDetailChild.disabledTab = true;
     console.log('onTaskHasSelected | ', mode);
     console.log(task);
     const temp = task;
@@ -80,8 +80,7 @@ export class TaskModalComponent implements AfterViewInit {
     objTask.color = (task.color ? task.color : 'blue');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     this.checkProjectId(this.taskForm.task.projectId);
-    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user.email);
-    this.taskPartnerChild.owner = this.user.email;
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user, task.ownerUserId);
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
@@ -99,10 +98,8 @@ export class TaskModalComponent implements AfterViewInit {
     if (projectId) {
       this.projectService.findProjectById(projectId).subscribe(
         project => {
-          console.log('project: ', project)
+          this.taskDetailChild.projectId = project.projectId;
           this.taskService.changeProjectId(project.projectId);
-          // this.taskDetailChild.projectId = project.projectId;
-          // this.taskDetailChild.taskDetailFormGroup.patchValue({ taskDetailProject: project.projectName });
         }
       )
     }
@@ -124,12 +121,14 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
-      let stampDate = this.task.workDate;
-      if (this.user.userId !== this.taskForm.task.ownerUserId) {
-        this.task.referTaskId = this.taskForm.task.taskId;
-      } else {
-        this.task.referTaskId = this.taskForm.task.referTaskId;
+      if(this.taskForm.task.taskId){
+        if(this.taskForm.task.referTaskId){
+          this.task.referTaskId = this.taskForm.task.referTaskId;
+        }else{
+          this.task.referTaskId = this.taskForm.task.taskId;
+        }
       }
+
       for (let obj of this.taskPartnerChild.taskMember) {
         if (obj.status == true) {
           this.task.taskPartnerList.push({ id: { userId: obj.userId } });
@@ -145,6 +144,7 @@ export class TaskModalComponent implements AfterViewInit {
       }
 
       if (this.mode == Mode.E) {
+
         this.task.taskId = this.taskForm.task.taskId;
         this.task.versionId = this.taskForm.task.versionId;
         this.updateTask(this.task);
@@ -209,6 +209,8 @@ export class TaskModalComponent implements AfterViewInit {
           console.log(res);
         }, error => {
           console.log(error);
+          this.utilsService.loader(false);
+          this.eventMessageService.onCustomError('ไม่สามารถลบข้อมูลได้ ',error.error.description);
         }, () => {
           this.oncloseModal();
           this.utilsService.loader(false);
@@ -224,7 +226,7 @@ export class TaskModalComponent implements AfterViewInit {
       this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
       this.taskDetailChild.disabledTab = true;
       console.log(this.taskDetailChild.disabledTab);
-    }else{
+    } else {
       this.taskDetailChild.disabledTab = false;
       console.log(this.taskDetailChild.disabledTab);
     }
