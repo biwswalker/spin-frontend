@@ -49,7 +49,6 @@ export class ProjectModalDetailComponent implements OnInit{
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    console.log('file: ',this.fileToUpload);
     if(this.fileToUpload.size >1000000){
       this.eventMessagesService.onWarning('กรุณาอัพโหลดไฟล์ไม่เกิน 1MB');
     }else{
@@ -63,7 +62,6 @@ export class ProjectModalDetailComponent implements OnInit{
 
   // resize image to thumbnail size
   resizeImage(file:File){
-    console.info("Starting resize for file:", file);
     this.ng2ImgToolsService.resize([file], 200, 200).subscribe( result =>{
         this.convertFileToBase64(result,file);
       }, error => {
@@ -81,7 +79,6 @@ export class ProjectModalDetailComponent implements OnInit{
 
     thmReader.onloadend = (e) => {
       this.project.projectThumbnail = thmReader.result;
-      console.log(this.project.projectThumbnail);
     }
     oriReader.onloadend = (e) => {
       this.project.projectImage = oriReader.result;
@@ -96,7 +93,6 @@ export class ProjectModalDetailComponent implements OnInit{
     this.project = new Project;
     this.projectService.findProjectById(projectId).subscribe(
       data=>{
-        console.log('project member: ',data);
         this.project = data;
         this.project.isVisble = (this.project.visibilityFlag == 'Y'?false:true);
         this.resizedImageTrusted =  this.project.projectThumbnail;

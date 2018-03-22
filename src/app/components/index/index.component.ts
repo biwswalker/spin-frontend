@@ -17,7 +17,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   public user: User = new User();
   public fullname = '';
   public email = '';
-  public currentUrl:string;
+  public currentUrl:string = '';
 
 
   constructor(private authService: AuthenticationService,private router: Router) {
@@ -38,9 +38,10 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.router.events.subscribe((val) => {
-      console.log('router: ',val);
-      this.currentUrl = val['url'];
-      console.log('url: ',this.currentUrl);
+      if( val['url'])
+        this.currentUrl = val['url'];
+
+
     })
   }
 

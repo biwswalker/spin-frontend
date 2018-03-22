@@ -4,68 +4,53 @@ import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/concat';
 import { Task } from '../../../../models/task';
+import { EventMessagesService } from '../../../../providers/utils/event-messages.service';
 
 @Component({
   selector: 'task-all',
   templateUrl: './task-all.component.html',
   styleUrls: ['./task-all.component.scss']
 })
-export class TaskAllComponent implements OnInit, OnDestroy {
+export class TaskAllComponent implements OnInit {
 
-  public keyword = ''
+  public keyword = '';
   public tasks: TaskAll[] = [];
-  private subjectKeyword = new BehaviorSubject<string>(this.keyword);
-  private crrKeyword = this.subjectKeyword.asObservable();
-  private timeout = null;
-  private isCriteria = false;
-  private size = 5;
+  public page = 1;
+  public size = 10;
 
-  constructor(private taskService: TaskService) { }
+  public throttle = 1000;
+  public scrollDistance = 1;
+
+  constructor(private taskService: TaskService,
+  private eventMessageService:EventMessagesService) { }
 
   ngOnInit() {
-    this.crrKeyword.subscribe(keyword => {
-      this.size = 5;
-      if (keyword) {
-        this.isCriteria = true;
-        this.taskService.findCriteriaTask(keyword, 1, this.size, true).subscribe(taska => {
-          this.tasks = taska;
-        });
-      } else {
-        this.isCriteria = false;
-        this.findAllTask();
-      }
-    });
+    this.doSearch();
   }
 
-  findAllTask() {
-    this.taskService.findAllTask(1, this.size, true).subscribe(taska => {
-      this.tasks = taska;
-    });
-  }
-
-  onTaskCompleted(){
-    this.findAllTask();
-  }
-
-  onSearch() {
-    this.subjectKeyword.next(this.keyword)
+  doSearch(){
+    this.tasks = [];
+    this.page = 1;
+    this.onScrollDown();
   }
 
   onScrollDown() {
-    this.size += 5;
-    if (this.isCriteria) {
-      this.taskService.findCriteriaTask(this.keyword, 1, this.size, true).subscribe(taska => {
-        this.tasks = taska;
-      });
-    } else {
-      this.taskService.findAllTask(1, this.size, true).subscribe(taska => {
-        this.tasks = taska;
-      });
-    }
-  }
+    this.taskService.findCriteriaTask(this.keyword,this.page,this.size).subscribe(
+      data=>{
+        console.log(data)
+        if(data!){
+          // data = ;
+          this.tasks = this.tasks.concat(this.taskService.reformTasks(data));
 
-  ngOnDestroy() {
-    this.subjectKeyword.unsubscribe();
+          this.page += 1;
+        }
+
+      },err=>{
+        console.log(err);
+        this.eventMessageService.onCustomError('เกิดข้อผิดพลาด',err.error.message);
+      }
+    )
+
   }
 
 

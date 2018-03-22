@@ -75,12 +75,10 @@ export class ProjectService {
 
 
   onUpdateProject(project: Project) {
-    console.log('onUpdateProject............');
     this.editProject.next(project);
   }
 
   onProjectHaveChanged() {
-    console.log('onProjectHaveChanged......');
     this.isProjectHaveChanged.next(1);
   }
 
