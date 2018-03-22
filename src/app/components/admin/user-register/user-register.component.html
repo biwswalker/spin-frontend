@@ -49,8 +49,8 @@
       <div class="modal-body">
         <div class="row" *ngIf="!isUpload">
           <div class="col-12 text-center">
-            <!-- <input type="file" (change)="incomingfile($event)" required placeholder="Upload file" accept=".xlsx">
-            <button class="btn btn-info" type="button" (click)="Upload()" [disabled]="!fileName">Upload</button> -->
+            <input type="file" (change)="incomingfile($event)" required placeholder="Upload file" accept=".xlsx">
+            <button class="btn btn-info" type="button" (click)="upload()" [disabled]="!fileName">Upload</button>
           </div>
         </div>
         <div class="row text-center text-danger" *ngIf="!isUpload && message">
