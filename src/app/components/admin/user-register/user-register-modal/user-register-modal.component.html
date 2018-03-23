@@ -22,11 +22,13 @@
 									<div class="ml-auto ">
                 <label class="mx-auto info-body-bold">ใช้งาน</label>
                 <span class="status-flag">
-                  <input class="switch" id="active" name="active" type="checkbox" checked="true" >
+                  <input class="switch" id="active"
+                  [checked]="isActive" (change)="onChangeActiveFlag()"
+                  name="active" type="checkbox">
                   <label for="active">
                     <span></span>
                   </label>
-                  <input id="active-flag" name="active-flag" type="hidden" [(ngModel)]="user.activeFlag">
+                  <input id="active-flag" name="active-flag" type="hidden" [(ngModel)]="activeFlag">
                 </span>
               </div>
 						</div>

@@ -210,6 +210,12 @@ export class TaskModalComponent implements AfterViewInit {
     this.task = new Task;
   }
 
+  onDismissModal(){
+    this.modal.close('#task-modal');
+    this.taskService.chageSelectedTask(new Task());
+    this.task = new Task;
+  }
+
   receiveMessage(event) {
     this.bgColor = event;
   }

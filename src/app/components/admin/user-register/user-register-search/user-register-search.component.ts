@@ -55,6 +55,7 @@ export class UserRegisterSearchComponent implements OnInit {
 
   onScrollDownWithKeyword() {
     console.log("keyword:", this.keyword);
+    console.log(this.userList.length);
     if (this.keyword) {
       this.userRegisterService
         .findAllByCriteria(this.keyword, this.page, this.size)
@@ -90,6 +91,7 @@ export class UserRegisterSearchComponent implements OnInit {
 
   onTermChange(event) {
     this.page = 1;
+    this.userList = null;
     this.userList = [];
     this.onScrollDownWithKeyword();
   }
