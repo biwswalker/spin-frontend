@@ -2,13 +2,10 @@
   <div class="col-12">
       <div class="input-group">
         <input class="form-control input-sm" id="keyword" name="keyword" type="text"
-        [(ngModel)]="keyword"
-        (keyup)="onTermChange($event)">
-        <div class="input-group-prepend">
-          <span class="username input-group-text">
-            <i class="fas fa-search"></i>
-          </span>
-    </div>
+        [(ngModel)]="keyword">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" (click)="onTermChange($event)"> <i class="fas fa-search"></i></button>
+        </div>
   </div>
 </div>
 </div>

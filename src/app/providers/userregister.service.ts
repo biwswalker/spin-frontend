@@ -67,7 +67,6 @@ export class UserRegisterService {
 
   updateUser(user) {
     console.log("updateUser......", user);
-    user.activeFlag = this.convertActiveFlag(user.activeFlag);
     return this.request.requestMethodPOST("user-management/users", user);
   }
 

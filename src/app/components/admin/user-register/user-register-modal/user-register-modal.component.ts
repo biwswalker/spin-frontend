@@ -17,6 +17,7 @@ declare var SpinModal: any;
   styleUrls: ["./user-register-modal.component.scss"]
 })
 export class UserRegisterModalComponent implements OnInit {
+  public isActive: boolean = true;
   public user: User = new User();
   public officer: Officer = new Officer();
   public modal = new SpinModal();
@@ -114,12 +115,15 @@ export class UserRegisterModalComponent implements OnInit {
     console.log("onSubmitUpdate.....");
     this.user.officeId = this.officer.officeId;
     console.log("user", this.user);
-    this.userRegisterService.updateUser(this.user).subscribe(res => {
+    this.userRegisterService.updateUser(this.user).subscribe(
+      res => {
         console.log(res);
         this.eventMessageService.onUpdateSuccess(res.userId);
-      }, error => {
+      },
+      error => {
         console.log(error);
-      });
+      }
+    );
     this.userRegisterService.onCloseModal();
   }
 
@@ -130,13 +134,20 @@ export class UserRegisterModalComponent implements OnInit {
   getUserById(userId) {
     this.userRegisterService.findByUserId(userId).subscribe(user => {
       this.user = user;
-      this.userRegisterService.findByOfficerId(this.user.officeId).subscribe(
-        officer => {
+      this.userRegisterService
+        .findByOfficerId(this.user.officeId)
+        .subscribe(officer => {
           this.officer = officer;
-          this.fullName = this.officer.firstNameTh + " " + this.officer.lastNameTh;
-        }
-      );
+          this.fullName =
+            this.officer.firstNameTh + " " + this.officer.lastNameTh;
+        });
     });
+  }
 
+  onChangeActiveFlag() {
+    this.isActive = !this.isActive;
+     console.log("active_flag: " + this.isActive);
+     this.user.activeFlag = this.isActive?'A':'I';
+     console.log("useractiveflag: "+this.user.activeFlag);
   }
 }
