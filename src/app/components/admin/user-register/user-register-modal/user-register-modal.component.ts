@@ -114,6 +114,7 @@ export class UserRegisterModalComponent implements OnInit {
   onSubmitUpdate() {
     console.log("onSubmitUpdate.....");
     this.user.officeId = this.officer.officeId;
+
     console.log("user", this.user);
     this.userRegisterService.updateUser(this.user).subscribe(
       res => {

@@ -21,8 +21,9 @@
   <div class="col-sm-3 text-left">แผนก</div>
 </div>
 
-<ul class="list-group list-group-flush" *ngFor="let officer of officers">
-  <div>
+<div class="search-results" data-infinite-scroll [scrollWindow]="false" [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScrollDown()">
+  <div class="list-group" *ngFor="let officer of officers">
     <button type="button" (click)="onChangeOfficer(officer)" class="list-group-item list-group-item-action">
       <div class="row">
         <div class="col-sm-3 text-left media">
@@ -37,17 +38,10 @@
       </div>
     </button>
   </div>
-
-</ul>
-
-
+</div>
 
 <div class="row" *ngIf="officers.length === 0">
   <div class="col-sm-12 text-center">
     <p>ไม่พบข้อมูล</p>
   </div>
-</div>
-
-<div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
-  (scrolled)="onScrollDown()">
 </div>

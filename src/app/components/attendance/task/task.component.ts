@@ -21,7 +21,7 @@ export class TaskComponent implements OnInit {
 
   onInsertTaskCompleted(date) {
     this.taskDayChild.onTaskCompleted(date);
-    this.taskAllChild.onTaskCompleted();
+    // this.taskAllChild.onTaskCompleted();
   }
 
   onSelectUnstampedDate(date) {

@@ -13,7 +13,7 @@ export class OfficerSearchComponent implements OnInit {
   public officers: Officer[];
 
   public page = 1;
-  public size = 13;
+  public size = 15;
 
   public throttle = 1000;
   public scrollDistance = 1;
@@ -78,7 +78,7 @@ export class OfficerSearchComponent implements OnInit {
   onScrollDown() {
     console.log('onScrollDown' + this.criteriaValue);
     if (this.criteriaValue) {
-      this.officerService.findByCriteria(this.criteriaValue, this.page, 5).subscribe(
+      this.officerService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
         collection => {
           this.officers = this.officers.concat(collection);
 
@@ -86,7 +86,7 @@ export class OfficerSearchComponent implements OnInit {
         }
       );
     } else {
-      this.officerService.findAllPageable(this.page, 5).subscribe(
+      this.officerService.findAllPageable(this.page, this.size).subscribe(
         collection => {
           if (collection) {
             this.page += 1;

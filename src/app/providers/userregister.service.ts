@@ -36,7 +36,6 @@ export class UserRegisterService {
   }
 
   findByOfficerId(officerId) {
-    console.log(officerId);
     return this.request.requestMethodGET(
       "officer-management/officers/" + officerId
     );
@@ -58,7 +57,6 @@ export class UserRegisterService {
   }
 
   createUser(user) {
-    console.log("submit user:", user);
     user.activeFlag = this.convertActiveFlag(user.activeFlag);
     user.userPwd = "";
     user.faildCount = 0;
@@ -66,7 +64,6 @@ export class UserRegisterService {
   }
 
   updateUser(user) {
-    console.log("updateUser......", user);
     return this.request.requestMethodPOST("user-management/users", user);
   }
 
@@ -79,6 +76,7 @@ export class UserRegisterService {
   }
 
   getDataObservable(officeId): Observable<any> {
+    console.log(officeId);
     const officer = this.findByOfficerId(officeId);
     return Observable.forkJoin(officer);
   }
