@@ -13,7 +13,7 @@ export class OfficerSearchComponent implements OnInit {
   public officers: Officer[];
 
   public page = 1;
-  public size = 13;
+  public size = 15;
 
   public throttle = 1000;
   public scrollDistance = 1;
