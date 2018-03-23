@@ -34,40 +34,14 @@ export class UserRegisterSearchComponent implements OnInit {
     this.onScrollDownWithKeyword();
   }
 
-  onScrollDown() {
-    console.log("onScrollDown...");
-    this.userRegisterService.findAll("A", this.page, this.size).subscribe(
-      data => {
-        if (data) {
-          this.userList = this.userList.concat(data.content);
-          console.log("userlist: " + this.userList.length);
-          if (this.userList.length !== 0 && this.page === 1) {
-            this.onUserSelected(this.userList[0]);
-          }
-          this.page += 1;
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
   onScrollDownWithKeyword() {
-    console.log("keyword:", this.keyword);
-    console.log(this.userList.length);
-    if (this.keyword) {
       this.userRegisterService
         .findAllByCriteria(this.keyword, this.page, this.size)
         .subscribe(
           data => {
             if (data) {
               this.userList = this.userList.concat(data);
-              console.log(
-                "userlistonScrollDownWithKeyword: " + this.userList.length
-              );
               if (this.userList.length !== 0 && this.page === 1) {
-                console.log(this.userList[0]);
                 this.onUserSelected(this.userList[0]);
               }
               this.page += 1;
@@ -77,9 +51,7 @@ export class UserRegisterSearchComponent implements OnInit {
             console.log(err);
           }
         );
-    } else {
-      this.onScrollDown();
-    }
+
   }
 
   onUserSelected(user) {
