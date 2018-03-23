@@ -71,6 +71,7 @@ export class DatePickerDirective implements ControlValueAccessor{
 
   observeDate(e){
       // setTimeout(()=>{
+        console.log('el:',this.el);
       this.minDate = this.el.nativeElement.dataset.dateStartDate;
       this.maxDate = this.el.nativeElement.dataset.dateEndDate;
 
@@ -98,7 +99,7 @@ export class DatePickerDirective implements ControlValueAccessor{
   }
 
   setMaxDate(date:string){
-    let yyyy = date.substring(7,10);
+    let yyyy = date.substring(6,10);
     let mm = date.substring(4,5);
     let dd = date.substring(0,2);
     let newDate = `${(dd)}/${mm}/${yyyy}`;

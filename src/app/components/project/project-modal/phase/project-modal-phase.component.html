@@ -51,6 +51,7 @@
           summitDatePicker
           autocomplete="off"
           [attr.data-date-start-date]="minDate"
+          [attr.data-date-end-date]="projectPhase.endDate"
           [(ngModel)]="projectPhase.startDate"
           formControlName="startDate"
           >
