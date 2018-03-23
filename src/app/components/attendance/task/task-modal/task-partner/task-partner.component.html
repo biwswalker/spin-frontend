@@ -25,7 +25,7 @@
           <input type="checkbox"
                  name="{{obj.userId}}"
                  id="{{obj.userId}}"
-                 [hidden]="hiddenCheckBox"
+                 [hidden]="mode == 'VIEW'"
                  autocomplete="off"
                  [(ngModel)]="obj.status">
                    {{obj.fullName}}
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-  <div class="row" >
+  <div class="row" *ngIf="mode !== 'VIEW'" >
     <label class="label-task-modal" >ผู้ร่วมงาน</label>
     <div class="col-12 scroll-auto bg-white rounded text-dark" *ngIf="taskPartner.length !== 0">
       <div id="partner-list"

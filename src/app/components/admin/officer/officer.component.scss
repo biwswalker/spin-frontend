@@ -35,9 +35,9 @@
 }
 
 .modal .modal-body {
-  height: 150px;
+  height: fit-content;
 }
 
 p {
-  white-space: pre-wrap;
+  word-wrap: break-word;
 }

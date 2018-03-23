@@ -37,9 +37,7 @@ export class TaskAllComponent implements OnInit {
   onScrollDown() {
     this.taskService.findCriteriaTask(this.keyword,this.page,this.size).subscribe(
       data=>{
-        console.log(data)
         if(data!){
-          // data = ;
           this.tasks = this.tasks.concat(this.taskService.reformTasks(data));
 
           this.page += 1;
