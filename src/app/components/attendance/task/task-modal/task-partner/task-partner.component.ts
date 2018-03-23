@@ -28,7 +28,6 @@ export class TaskPartnerComponent {
   public partner: any;
   public mode: string;
   public projectId: number;
-  public hiddenCheckBox: boolean;
 
 
   constructor(
@@ -39,20 +38,7 @@ export class TaskPartnerComponent {
   }
 
   initTaskPartner(taskId: number, mode: string, user: User, taskOwner: string) {
-
-    if (taskOwner) {
-      if (user.userId !== taskOwner) {
-        this.hiddenCheckBox = true;
-      } else {
-        if (mode == Mode.E) {
-          this.hiddenCheckBox = true;
-        }
-        this.hiddenCheckBox = false;
-      }
-    } else {
-      this.hiddenCheckBox = false;
-    }
-
+    // this.projectId = 0;
     this.taskId = taskId;
     this.mode = mode;
     this.owner = taskOwner;
@@ -74,6 +60,9 @@ export class TaskPartnerComponent {
           }
           isRepeat = projectId;
         }
+      }else{
+        this.projectId;
+        console.log(this.projectId)
       }
     });
   }
@@ -81,7 +70,9 @@ export class TaskPartnerComponent {
   initialMember(projectId: number) {
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
+        console.log(members)
         if (members) {
+          this.taskMember = [];
           for (let obj of members) {
             if (obj.isPartner == "Y") {
               this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
@@ -89,8 +80,6 @@ export class TaskPartnerComponent {
               this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
             }
           }
-        } else {
-          this.getProjectMember(projectId);
         }
       }
     );
@@ -100,7 +89,7 @@ export class TaskPartnerComponent {
     this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
-          // this.taskPartner = [];
+          this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
           }
@@ -113,9 +102,11 @@ export class TaskPartnerComponent {
     this.partnerService.findByProjrctId(projectId).subscribe(
       member => {
         if (member) {
-          // this.taskMember = [];
+          this.taskMember = [];
           for (let obj of member) {
-            this.taskMember.push({ userId: obj.id.userId, email: obj.user.email, fullName: obj.user.officer.firstNameTh + ' ' + obj.user.officer.lastNameTh, status: false });
+            if (obj.id.userId !== this.user.userId) {
+              this.taskMember.push({ userId: obj.id.userId, email: obj.user.email, fullName: obj.user.officer.firstNameTh + ' ' + obj.user.officer.lastNameTh, status: false });
+            }
           }
         }
       })
@@ -124,7 +115,15 @@ export class TaskPartnerComponent {
   getautoCompletePartner(projectId) {
     this.partnerService.findAllUser(projectId).subscribe(
       partners => {
-        this.autocompletePartnerList = partners;
+        this.autocompletePartnerList = [];
+        if (partners) {
+          this.autocompletePartnerList = partners;
+          for (let obj of this.autocompletePartnerList) {
+            if (obj.userId !== this.user.userId) {
+              this.autocompletePartnerList.splice(obj);
+            }
+          }
+        }
       }
     );
   }

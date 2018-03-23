@@ -108,6 +108,8 @@ export class TaskModalComponent implements AfterViewInit {
     this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.utilsService.loader(true);
+
+      //taskDetail
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
       this.task.color = this.taskDetailChild.taskObj.color;
@@ -120,12 +122,9 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
-      if(this.taskForm.task.taskId){
-        if(this.taskForm.task.referTaskId){
-          this.task.referTaskId = this.taskForm.task.referTaskId;
-        }else{
-          this.task.referTaskId = this.taskForm.task.taskId;
-        }
+
+      if (this.taskPartnerChild.doSelfFlag && this.mode == Mode.I && this.task.taskId) {
+        this.task.taskPartnerList.push({ id: { userId: this.user.userId } });
       }
 
       for (let obj of this.taskPartnerChild.taskMember) {
@@ -146,7 +145,18 @@ export class TaskModalComponent implements AfterViewInit {
         this.task.taskId = this.taskForm.task.taskId;
         this.task.versionId = this.taskForm.task.versionId;
         this.updateTask(this.task);
-      } else {
+      } else if (this.mode == Mode.I) {
+        if (this.taskForm.task.taskId) {
+          if (this.taskForm.task.referTaskId) {
+            this.task.referTaskId = this.taskForm.task.referTaskId;
+          } else {
+            this.task.referTaskId = this.taskForm.task.taskId;
+          }
+        }
+
+        if (this.taskPartnerChild.doSelfFlag && this.mode == Mode.I && this.task.taskId === undefined) {
+          this.task.taskPartnerList.push({ id: { userId: this.user.userId } });
+        }
         this.createNewTask(this.task);
       }
     }
@@ -185,7 +195,7 @@ export class TaskModalComponent implements AfterViewInit {
     )
   }
 
-  onConfirmModal(){
+  onConfirmModal() {
     let modal = new SpinModal();
     modal.initial('#confirmDeleteTask', { show: true, backdrop: 'true', keyboard: true });
 
@@ -213,7 +223,7 @@ export class TaskModalComponent implements AfterViewInit {
         }, error => {
           console.log(error);
           this.utilsService.loader(false);
-          this.eventMessageService.onCustomError('ไม่สามารถลบข้อมูลได้ ',error.error.description);
+          this.eventMessageService.onCustomError('ไม่สามารถลบข้อมูลได้ ', error.error.description);
         }, () => {
           this.oncloseModal();
           this.utilsService.loader(false);
