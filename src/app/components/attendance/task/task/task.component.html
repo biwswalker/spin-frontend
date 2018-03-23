@@ -6,12 +6,13 @@
          (click)="onselectTask()">
       <div class="card-body">
         <span>
-          <i class="fas fa-check"
+          <!-- <i class="fas fa-check"
              style="color:green;"
              *ngIf="source.referTaskId && isOwner"></i>
           <i class="fas fa-exclamation-triangle"
              style="color:yellow;"
-             *ngIf="!source.referTaskId && isOwner"></i> {{workStartTime | time}} - {{workEndTime | time}}
+             *ngIf="!source.referTaskId && isOwner"></i> -->
+          {{workStartTime | time}} - {{workEndTime | time}}
           <div class="create-owner"
                *ngIf="source.projectId!">#{{projectId | projectName | async}}</div>
         </span>
@@ -26,7 +27,8 @@
         <div class="float-right task-collaborators"
              *ngIf="(isCollaborator | async) as partner">
           <i class="fas fa-users"
-             *ngIf="partner.length > 0" style="font-size:1rem;"></i>
+             *ngIf="partner.length > 0"
+             style="font-size:1rem;"></i>
         </div>
       </div>
       <div class="card-footer"
