@@ -21,6 +21,13 @@ import { Observable } from "rxjs/Observable";
   styleUrls: ["./user-register.component.scss"]
 })
 export class UserRegisterComponent {
+  convertActiveFlag(activeFlag: string): boolean {
+    if(activeFlag === "A"){
+      return true;
+    }else{
+      return false;
+    }
+  }
   arrayBuffer: any;
   public users: User[] = [];
   message: string;
@@ -58,6 +65,8 @@ export class UserRegisterComponent {
         console.log("data:", data);
         if (data) {
           this.info.user = data;
+          this.userModal.isActive = this.convertActiveFlag(data.activeFlag);
+
           console.log(this.info.user);
           this.info.officer = new Officer();
           this.userRegisterService.findByOfficerId(data.officeId).subscribe(
