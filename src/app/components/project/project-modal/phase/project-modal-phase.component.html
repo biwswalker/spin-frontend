@@ -50,6 +50,7 @@
           data-provide="datepicker" data-date-language="th-th"
           summitDatePicker
           autocomplete="off"
+          [attr.data-date-start-date]="minDate"
           [(ngModel)]="projectPhase.startDate"
           formControlName="startDate"
           >
@@ -66,6 +67,7 @@
           data-provide="datepicker" data-date-language="th-th"
           summitDatePicker
           autocomplete="off"
+          [attr.data-date-start-date]="projectPhase.startDate"
           [(ngModel)]="projectPhase.endDate"
           formControlName="endDate"
           >

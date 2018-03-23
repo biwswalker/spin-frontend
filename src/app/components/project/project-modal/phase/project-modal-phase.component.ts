@@ -14,7 +14,7 @@ export class ProjectModalPhaseComponent implements OnInit {
   public projectPhaseGroup: FormGroup;
   public projectPhase: ProjectPhase = new ProjectPhase;
   public projectPhases: ProjectPhase[] = [];
-  // public minDate:any;
+  public minDate:any;
   constructor(private utilsService: UtilsService,
               private projectService:ProjectService) { }
 
@@ -38,6 +38,15 @@ export class ProjectModalPhaseComponent implements OnInit {
 
   onDeletePhase(index){
     this.projectPhases.splice(index, 1);
+
+    // this.minDate
+    if(this.projectPhases.length >0){
+      const items = this.projectPhases.length - 1;
+      console.log(this.projectPhases[items]);
+
+      this.minDate = this.projectPhases[items].endDate;
+    }
+
   }
 
 
@@ -50,12 +59,11 @@ export class ProjectModalPhaseComponent implements OnInit {
       this.projectPhase.endDate = this.utilsService.convertDatePickerToThDate(this.projectPhaseGroup.value.endDate);
       this.projectPhases.push(this.projectPhase);
 
-      // const yyyy = this.projectPhase.endDate.substring(0,4);
-      // const mm = this.projectPhase.endDate.substring(4,6);
-      // const dd = this.projectPhase.endDate.substring(6,8);
-      // this.minDate = {year:yyyy,month:mm,day:dd};
 
-      // console.log('min date is: ',this.minDate);
+
+      this.minDate = this.projectPhaseGroup.value.endDate;
+
+      console.log('min date is: ',this.minDate);
       this.projectPhase = new ProjectPhase;
       this.projectPhaseGroup.reset();
     }
@@ -69,6 +77,5 @@ export class ProjectModalPhaseComponent implements OnInit {
       }
     )
   }
-
 
 }

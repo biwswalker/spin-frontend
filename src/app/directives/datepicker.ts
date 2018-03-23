@@ -1,9 +1,9 @@
-import { Directive, ElementRef, ViewContainerRef,Input, HostListener,forwardRef} from "@angular/core";
+import { Directive, ElementRef, ViewContainerRef,Input, HostListener,forwardRef, NgZone} from "@angular/core";
 import { Format } from "../config/properties";
 import { ControlContainer, NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 declare var $: any;
 @Directive({
-  selector: "[summitDatePicker]",
+  selector: "[summitDatePicker],[min]",
   providers: [{
     provide: NG_VALUE_ACCESSOR,useExisting:
     forwardRef(() => DatePickerDirective),
@@ -14,18 +14,35 @@ declare var $: any;
 })
 export class DatePickerDirective implements ControlValueAccessor{
   value: string=null;
-  constructor(private el: ElementRef,
-    private controlContainer:ControlContainer,
-    ){
+  isFirstVisit = true;
 
+  private minDate:string;
+  private maxDate:string;
+  constructor(private el: ElementRef,
+    private ngZone: NgZone
+    ){
+    // this.minDateObserve =  setInterval(()=>{
+    //   this.minDate = this.el.nativeElement.dataset.dateStartDate;
+    //   console.log('min date: ',this.minDate);
+    // },1000)
   }
   ngAfterViewInit(){
-    $(this.el.nativeElement).datepicker({autoclose:true,format: 'dd/mm/yyyy'}).on('change', e => this.onModelChange(e.target.value));
+    console.log('ngAfterViewInit');
+    this.isFirstVisit = false;
+    $(this.el.nativeElement).datepicker({autoclose:true,format:'dd/mm/yyyy'}).on('change', e =>{
+      this.onModelChange(e.target.value);
+    }
+   );
+   $(this.el.nativeElement).datepicker().on('focus', e =>{
+    this.observeDate(e.target);
+    }
+    );
 
-
+    // this.observeDate();
   }
+
+
   onModelChange: Function = (e) => {
-    console.log('value is: ',e);
     if(!e){
       this.el.nativeElement.value = null;
     }else{
@@ -50,5 +67,41 @@ export class DatePickerDirective implements ControlValueAccessor{
 
   registerOnTouched(fn: Function): void {
       this.onModelTouched = fn;
+  }
+
+  observeDate(e){
+      // setTimeout(()=>{
+      this.minDate = this.el.nativeElement.dataset.dateStartDate;
+      this.maxDate = this.el.nativeElement.dataset.dateEndDate;
+
+
+      $(this.el.nativeElement).datepicker('setStartDate',-Infinity)
+      $(this.el.nativeElement).datepicker('setEndDate',Infinity)
+      if(this.minDate){
+        $(this.el.nativeElement).datepicker('setStartDate',this.setMinDate(this.minDate));
+      }
+      if(this.maxDate){
+        $(this.el.nativeElement).datepicker('setEndDate',this.setMaxDate(this.maxDate));
+      }
+
+
+
+      // },500)
+  }
+
+  setMinDate(date:string){
+    let yyyy = date.substring(6,10);
+    let mm = date.substring(4,5);
+    let dd = date.substring(0,2);
+    const newDate = `${(+dd+1)}/${mm}/${yyyy}`;
+    return newDate;
+  }
+
+  setMaxDate(date:string){
+    let yyyy = date.substring(7,10);
+    let mm = date.substring(4,5);
+    let dd = date.substring(0,2);
+    let newDate = `${(dd)}/${mm}/${yyyy}`;
+    return newDate;
   }
 }
