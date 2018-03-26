@@ -97,6 +97,7 @@ import { TimePipe } from './pipes/time.pipe';
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
 import { HelpComponent } from './components/help/help.component';
+import { UnstampedReportComponent } from './components/reports/unstamped-report/unstamped-report.component';
 
 
 @NgModule({
@@ -157,6 +158,7 @@ import { HelpComponent } from './components/help/help.component';
     PositionModalComponent,
     PositionSearchComponent,
     HelpComponent,
+    UnstampedReportComponent,
   ],
   imports: [
     BrowserModule,
