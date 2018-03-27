@@ -1,79 +1,127 @@
-<div class="modal fade" id="task-modal">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
+<div class="modal fade"
+     id="task-modal">
+  <div class="modal-dialog modal-md"
+       role="document">
+    <div class="modal-content">
 
             <!-- Header -->
-            <div class="modal-header" [ngClass]="bgColor">
-                    <button class="btn btn-link" id="close-modal" name="close-modal" (click)="onDismissModal()">
-                      <i class="fas fa-times fa-lg"></i>
-                    </button>
-                <div class="text-center header-text">
-                    ลงเวลางาน
-                </div>
-
-                <div class="d-flex" >
-                    <div class="ml-auto" *ngIf="mode == 'EDIT'">
-                        <!-- Delete Button -->
-                        <button class="btn btn-link text-white" id="del-btn" name="del-btn" (click)="onConfirmModal()">
-                                <!-- <i class="far fa-trash-alt mr-1 " data-toggle="modal" href="#confirmDeleteTask">ลบ</i> -->
-                                <i class="far fa-trash-alt mr-1 " data-toggle="modal" >ลบ</i>
-                            </button>
-                        </div>
-
-                        <!-- Save Button -->
-                        <button type="button" class="btn btn-save " id="save-btn" name="save-btn" (click)="onSubmit()" *ngIf="mode !== 'VIEW'">
-                            <i class="fas fa-check mr-1"></i>บันทึก
-                      </button>
-                </div>
-            </div>
-
-            <!-- Tab -->
-            <div>
-                <ul class="nav nav-pills nav-fill" id="main-tab-menu" role="tablist">
-                    <li class="nav-item" [ngClass]="bgColor">
-                        <a class="nav-link active" href="#tab-detail" role="tab" id="task-detail" data-toggle="tab">
-                            <i class="fas fa-info-circle fa-lg"></i>
-                            <br>รายละเอียด
-                        </a>
-                    </li>
-
-                    <li class="nav-item" [ngClass]="bgColor">
-                        <a class="nav-link" href="#tab-member" role="tab" id="task-member" data-toggle="tab">
-                            <i class="fas fa-users fa-lg"></i>
-                            <br>ผู้ร่วมงาน
-                        </a>
-                    </li>
-
-                    <li class="nav-item" [ngClass]="bgColor">
-                        <a class="nav-link" href="#tab-tag" role="tab" id="task-tag" data-toggle="tab">
-                            <i class="fas fa-tag fa-lg"></i>
-                            <br>ป้ายกำกับ
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Body -->
-            <div class="modal-body">
-                <div class="tab-content">
-                    <!-- Detail -->
-                    <div role="tabpanel" class="tab-pane in active fixed-modal" id="tab-detail">
-                        <app-task-detail (messageEvent)="receiveMessage($event)"></app-task-detail>
-                    </div>
-
-                    <!-- Member -->
-                    <div role="tabpanel" class="tab-pane fade fixed-modal" id="tab-member">
-                        <app-task-partner></app-task-partner>
-                    </div>
-
-                    <!-- Tag -->
-                    <div role="tabpanel" class="tab-pane fade fixed-modal" id="tab-tag">
-                        <app-task-tag></app-task-tag>
-                    </div>
-                </div>
-            </div>
+      <div class="modal-header"
+           [ngClass]="bgColor">
+        <button class="btn btn-link"
+                id="close-modal"
+                name="close-modal"
+                (click)="onDismissModal()">
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+        <div class="text-center header-text">
+          ลงเวลางาน
         </div>
+
+        <div class="d-flex" >
+          <div class="ml-auto" *ngIf="mode == 'EDIT'">
+            <!-- Delete Button -->
+            <button class="btn btn-link text-white"
+                    id="del-btn"
+                    name="del-btn"
+                    (click)="onConfirmModal()">
+              <i class="far fa-trash-alt mr-1 "
+                 data-toggle="modal" >
+                ลบ
+              </i>
+            </button>
+          </div>
+
+          <!-- Save Button -->
+          <button type="button"
+                  class="btn btn-save "
+                  id="save-btn"
+                  name="save-btn"
+                  (click)="onSubmit()"
+                  *ngIf="mode !== 'VIEW'">
+            <i class="fas fa-check mr-1">
+            </i>
+            บันทึก
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab -->
+      <div>
+        <ul class="nav nav-pills nav-fill"
+            id="main-tab-menu"
+            role="tablist">
+          <li class="nav-item"
+              [ngClass]="bgColor">
+            <a class="nav-link active"
+               href="#tab-detail"
+               role="tab"
+               id="task-detail"
+               data-toggle="tab">
+              <i class="fas fa-info-circle fa-lg">
+              </i>
+              <br>รายละเอียด
+            </a>
+          </li>
+
+          <li class="nav-item"
+              [ngClass]="bgColor">
+            <a class="nav-link"
+               href="#tab-member"
+               role="tab"
+               id="task-member"
+               data-toggle="tab">
+              <i class="fas fa-users fa-lg">
+              </i>
+              <br>ผู้ร่วมงาน
+            </a>
+          </li>
+
+          <li class="nav-item"
+              [ngClass]="bgColor">
+            <a class="nav-link"
+               id="task-tag"
+               href="#tab-tag"
+               role="tab"
+               data-toggle="tab">
+              <i class="fas fa-tag fa-lg">
+              </i>
+              <br>ป้ายกำกับ
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <div class="tab-content">
+          <!-- Detail -->
+          <div class="tab-pane in active fixed-modal"
+               role="tabpanel"
+               id="tab-detail">
+            <app-task-detail (messageEvent)="receiveMessage($event)">
+            </app-task-detail>
+          </div>
+
+          <!-- Member -->
+          <div class="tab-pane fade fixed-modal"
+               role="tabpanel"
+               id="tab-member">
+            <app-task-partner>
+            </app-task-partner>
+          </div>
+
+          <!-- Tag -->
+          <div class="tab-pane fade fixed-modal"
+               role="tabpanel"
+               id="tab-tag">
+            <app-task-tag>
+
+            </app-task-tag>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- <div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-hidden="true">

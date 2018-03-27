@@ -28,6 +28,7 @@ export class TaskPartnerComponent {
   public partner: any;
   public mode: string;
   public projectId: number;
+  public isHidden: boolean = false;
 
 
   constructor(
@@ -38,7 +39,6 @@ export class TaskPartnerComponent {
   }
 
   initTaskPartner(taskId: number, mode: string, user: User, taskOwner: string) {
-    // this.projectId = 0;
     this.taskId = taskId;
     this.mode = mode;
     this.owner = taskOwner;
@@ -49,6 +49,7 @@ export class TaskPartnerComponent {
     this.taskPartner = [];
     this.taskService.currentProjectId.subscribe((projectId: number) => {
       if (projectId) {
+        this.isHidden = true;
         this.projectId = projectId;
         if (isRepeat !== projectId) {
           this.getautoCompletePartner(projectId);
@@ -60,9 +61,6 @@ export class TaskPartnerComponent {
           }
           isRepeat = projectId;
         }
-      }else{
-        this.projectId;
-        console.log(this.projectId)
       }
     });
   }
@@ -70,7 +68,6 @@ export class TaskPartnerComponent {
   initialMember(projectId: number) {
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
-        console.log(members)
         if (members) {
           this.taskMember = [];
           for (let obj of members) {
@@ -119,7 +116,7 @@ export class TaskPartnerComponent {
         if (partners) {
           this.autocompletePartnerList = partners;
           for (let obj of this.autocompletePartnerList) {
-            if (obj.userId !== this.user.userId) {
+            if (obj.userId == this.user.userId) {
               this.autocompletePartnerList.splice(obj);
             }
           }

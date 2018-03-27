@@ -67,6 +67,7 @@ import { PositionComponent } from './components/admin/position/position.componen
 import { PositionInfoComponent } from './components/admin/position/position-info/position-info.component';
 import { PositionModalComponent } from './components/admin/position/position-modal/position-modal.component';
 import { PositionSearchComponent } from './components/admin/position/position-search/position-search.component';
+import { ReportPersonComponent } from './components/report/report-person/report-person.component'
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -157,6 +158,7 @@ import { HelpComponent } from './components/help/help.component';
     PositionModalComponent,
     PositionSearchComponent,
     HelpComponent,
+    ReportPersonComponent,
   ],
   imports: [
     BrowserModule,
