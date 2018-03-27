@@ -153,6 +153,10 @@ export class TaskService {
     }
     return taskAll;
   }
+
+  unstampedReport(projectId: number, startDate: string, endDate: string){
+    return this.request.requestMethodGET(`task-management/un-stamp-task-report/projectId=${projectId}?startDate=${startDate}?endDate=${endDate}`);
+  }
 }
 
 export class TaskAll {

@@ -32,10 +32,6 @@ export class TimetableDayComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spinTimestamp();
-
-    $('#timetable-task').on('click', '.child', function () {
-      console.log("click");
-    });
   }
 
   fecthWorkingTaskByDate(enDate: string) {

@@ -14,7 +14,12 @@ import { UserRegisterComponent } from '../components/admin/user-register/user-re
 import { OfficerComponent } from './../components/admin/officer/officer.component';
 import { DepartmentComponent } from '../components/admin/department/department.component';
 import { PositionComponent } from '../components/admin/position/position.component';
+<<<<<<< HEAD
 import { ReportPersonComponent } from '../components/report/report-person/report-person.component';
+=======
+import { ReportComponent } from '../components/reports/report.component';
+import { UnstampedReportComponent } from '../components/reports/unstamped-report/unstamped-report.component';
+>>>>>>> 4d18ea0d7247075859a1dee6f77c982a9b108567
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
@@ -31,7 +36,11 @@ const routes: Routes = [
   { path: 'department', component: DepartmentComponent },
   { path: 'position', component: PositionComponent },
   { path: 'help', component: HelpComponent },
+<<<<<<< HEAD
   { path: 'report-person', component: ReportPersonComponent}
+=======
+  { path: 'report', component: ReportComponent, children: [{ path: 'unstamped', component: UnstampedReportComponent }] }
+>>>>>>> 4d18ea0d7247075859a1dee6f77c982a9b108567
 ]
 
 @NgModule({

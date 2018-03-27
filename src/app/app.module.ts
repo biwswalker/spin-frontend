@@ -67,7 +67,13 @@ import { PositionComponent } from './components/admin/position/position.componen
 import { PositionInfoComponent } from './components/admin/position/position-info/position-info.component';
 import { PositionModalComponent } from './components/admin/position/position-modal/position-modal.component';
 import { PositionSearchComponent } from './components/admin/position/position-search/position-search.component';
+<<<<<<< HEAD
 import { ReportPersonComponent } from './components/report/report-person/report-person.component'
+=======
+import { HelpComponent } from './components/help/help.component';
+import { UnstampedReportComponent } from './components/reports/unstamped-report/unstamped-report.component';
+import { ReportComponent } from './components/reports/report.component';
+>>>>>>> 4d18ea0d7247075859a1dee6f77c982a9b108567
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -88,7 +94,7 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 import { UserRegisterService } from './providers/userregister.service';
 import { DepartmentService } from './providers/department.service';
 import { PositionService } from './providers/position.service';
-
+import { ReportService } from './providers/report.service';
 
 // Pipe
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
@@ -97,7 +103,6 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
-import { HelpComponent } from './components/help/help.component';
 
 
 @NgModule({
@@ -158,7 +163,12 @@ import { HelpComponent } from './components/help/help.component';
     PositionModalComponent,
     PositionSearchComponent,
     HelpComponent,
+<<<<<<< HEAD
     ReportPersonComponent,
+=======
+    UnstampedReportComponent,
+    ReportComponent
+>>>>>>> 4d18ea0d7247075859a1dee6f77c982a9b108567
   ],
   imports: [
     BrowserModule,
@@ -200,7 +210,8 @@ import { HelpComponent } from './components/help/help.component';
     EventMessagesService,
     UserRegisterService,
     DepartmentService,
-    PositionService
+    PositionService,
+    ReportService
   ],
   bootstrap: [AppComponent]
 })

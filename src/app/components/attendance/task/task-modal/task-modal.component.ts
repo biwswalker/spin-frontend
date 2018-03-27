@@ -171,6 +171,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.updateTask(task)
       }
     }
+    $('#workingDatePicker').datepicker('refresh');
   }
 
   createNewTask(task: Task) {

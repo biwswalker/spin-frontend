@@ -1,0 +1,136 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title d-flex">
+      <h2 class="d-inline-block">เวลาทำงาน</h2>
+    </div>
+  </div>
+  <div class="col-12 content-left">
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="unstampedReportGroup">
+          <div class="row">
+            <div class="form-group col-3 row">
+              <label for="project"
+                     class="col-12 col-form-label">โครงการ *</label>
+              <div class="col-12">
+                <ng-select [items]="projectList"
+                           bindLabel="projectName"
+                           bindValue="projectId"
+                           hideSelected="true"
+                           name="project"
+                           id="project"
+                           formControlName="project"
+                           [(ngModel)]="project">
+                </ng-select>
+              </div>
+            </div>
+            <div class="form-group col-3 row">
+              <label for="start-date"
+                     class="col-12 col-form-label">วันที่ *</label>
+              <div class="input-group col-12">
+                <input class="form-control datepicker"
+                       type="text"
+                       name="datepicker"
+                       id="start-date"
+                       formControlName="startDate"
+                       data-provide="datepicker"
+                       data-date-language="th-th"
+                       summitDatePicker
+                       autocomplete="off"
+                       [(ngModel)]="startDate"
+                       maxlength="10" />
+                <div class="input-group-append input-group-addon">
+                  <span class="input-group-text">
+                    <i class="fas fa-calendar-alt"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-3 row">
+              <label for="end-date"
+                     class="col-12 col-form-label">ถึงวันที่ *</label>
+              <div class="input-group col-12">
+                <input class="form-control datepicker"
+                       type="text"
+                       name="datepicker"
+                       data-provide="datepicker"
+                       data-date-language="th-th"
+                       summitDatePicker
+                       autocomplete="off"
+                       [(ngModel)]="endDate"
+                       [min]="startDate"
+                       maxlength="10"
+                       id="end-date"
+                       formControlName="endDate" />
+                <div class="input-group-append input-group-addon">
+                  <span class="input-group-text">
+                    <i class="fas fa-calendar-alt"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="submit"
+                      name="show-btn"
+                      id="show-btn"
+                      class="btn btn-success float-left mr-2"
+                      (click)="preview()">แสดงข้อมูล</button>
+              <button type="button"
+                      name="reset-btn"
+                      id="reset-btn"
+                      class="btn btn-warning float-left ml-2 mr-2"
+                      (click)="resetFormGroup()">เริ่มใหม่</button>
+              <button type="button"
+                      name="reported-btn"
+                      id="reported-btn"
+                      class="btn btn-info float-right ml-2 mr-2"
+                      (click)="reported()">พิมพ์</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Preview Unstamped List -->
+      <div class="col-12">
+        <div class="table">
+          <div class="thead">
+            <div class="th"></div>
+            <div class="th p-1 date">วันที่</div>
+            <div class="th p-1">ชื่อ - นามสกุล</div>
+          </div>
+          <div class="tr"
+               data-toggle="collapse"
+               data-target="#collapseExample">
+            <div class="td text-center p-1">
+              <button class="btn btn-link p-0 collapsed"
+                      data-toggle="collapse"
+                      data-target="#collapseExample">
+                <i class="fas"></i>
+              </button>
+            </div>
+            <div class="td date p-1">
+              10 มีนาคม 2559
+            </div>
+            <div class="td p-1">
+              <ol class="collapse"
+                  id="collapseExample">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
