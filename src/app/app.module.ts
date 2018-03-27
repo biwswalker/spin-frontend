@@ -67,13 +67,10 @@ import { PositionComponent } from './components/admin/position/position.componen
 import { PositionInfoComponent } from './components/admin/position/position-info/position-info.component';
 import { PositionModalComponent } from './components/admin/position/position-modal/position-modal.component';
 import { PositionSearchComponent } from './components/admin/position/position-search/position-search.component';
-<<<<<<< HEAD
-import { ReportPersonComponent } from './components/report/report-person/report-person.component'
-=======
+import { PersonReportComponent } from './components/reports/person-report/person-report.component'
 import { HelpComponent } from './components/help/help.component';
 import { UnstampedReportComponent } from './components/reports/unstamped-report/unstamped-report.component';
 import { ReportComponent } from './components/reports/report.component';
->>>>>>> 4d18ea0d7247075859a1dee6f77c982a9b108567
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -163,12 +160,9 @@ import { DatePickerDirective } from './directives/datepicker';
     PositionModalComponent,
     PositionSearchComponent,
     HelpComponent,
-<<<<<<< HEAD
-    ReportPersonComponent,
-=======
+    PersonReportComponent,
     UnstampedReportComponent,
     ReportComponent
->>>>>>> 4d18ea0d7247075859a1dee6f77c982a9b108567
   ],
   imports: [
     BrowserModule,
