@@ -67,6 +67,9 @@ import { PositionComponent } from './components/admin/position/position.componen
 import { PositionInfoComponent } from './components/admin/position/position-info/position-info.component';
 import { PositionModalComponent } from './components/admin/position/position-modal/position-modal.component';
 import { PositionSearchComponent } from './components/admin/position/position-search/position-search.component';
+import { HelpComponent } from './components/help/help.component';
+import { UnstampedReportComponent } from './components/reports/unstamped-report/unstamped-report.component';
+import { ReportComponent } from './components/reports/report.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -87,7 +90,7 @@ import { EventMessagesService } from './providers/utils/event-messages.service';
 import { UserRegisterService } from './providers/userregister.service';
 import { DepartmentService } from './providers/department.service';
 import { PositionService } from './providers/position.service';
-
+import { ReportService } from './providers/report.service';
 
 // Pipe
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
@@ -96,8 +99,6 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
-import { HelpComponent } from './components/help/help.component';
-import { UnstampedReportComponent } from './components/reports/unstamped-report/unstamped-report.component';
 
 
 @NgModule({
@@ -159,6 +160,7 @@ import { UnstampedReportComponent } from './components/reports/unstamped-report/
     PositionSearchComponent,
     HelpComponent,
     UnstampedReportComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -200,7 +202,8 @@ import { UnstampedReportComponent } from './components/reports/unstamped-report/
     EventMessagesService,
     UserRegisterService,
     DepartmentService,
-    PositionService
+    PositionService,
+    ReportService
   ],
   bootstrap: [AppComponent]
 })
