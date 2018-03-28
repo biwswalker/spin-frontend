@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'help', component: HelpComponent },
   { path: 'report', component: ReportComponent, children: [
     { path: 'unstamped', component: UnstampedReportComponent },
-    { path: 'person', component: PersonReportComponent}
+    { path: 'person', component: PersonReportComponent},
     { path: 'project-tag', component: ProjectTagReportComponent },
   ] }
 ]

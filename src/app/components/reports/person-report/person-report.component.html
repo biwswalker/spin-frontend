@@ -100,103 +100,57 @@
               <div class="th p-1">จำนวน (นาที)</div>
             </div>
             <!-- Body-->
-            <div class="tr">
+            <div class="tr" *ngFor="let rptPerson of reportPersonList; let i = index" >
               <div class="td text-center p-1">
                 <button class="btn btn-link p-0 collapsed"
                         data-toggle="collapse"
-                        data-target=".multi-collapse"
-                        aria-controls="collapse-project collapse-topic collapse-time collapse-times space">
+                        [attr.data-target]="'.collapse-group' + i">
                   <i class="fas"></i>
                 </button>
               </div>
               <div class="td date p-1">
-                  10 มีนาคม 2559(Date)
+                  {{utilsService.displayFullDate(rptPerson.date)}}
+                  <div class="" id="collapse-time" [attr.class]="'collapse collapse-group' + i">
+                      <button class="btn btn-link p-0 collapsed"
+                              data-toggle="collapse"
+                              data-target=".multi-collapse"
+                              aria-controls="detail-topic detail-project">
+                        <i class="fas"></i>
+                      </button>
+                      <label> 8.00-9.00 น.</label>
+                    </div>
               </div>
-              <div class="td p-1"></div>
-              <div class="td p-1"></div>
               <div class="td p-1">
-                300 นาที (เวลารวม)
+                  <div>&nbsp;</div>
+                  <ol style="padding-left:0px"
+                      *ngFor="let project of rptPerson.tasks"
+                      [attr.class]="'collapse collapse-group' + i">
+                    <li class="hide-index" id="detail-project">{{project.projectAbbr}}</li>
+                    <label class="collapse multi-collapse invisible" id="detail-project">hide_project</label>
+                  </ol>
               </div>
-              <div class="table">
-                <div class="td">asdfasdf</div>
+              <div class="td p-1">
+                  <div>&nbsp;</div>
+                  <ol *ngFor="let project of rptPerson.tasks"
+                      style="padding-left:0px"
+                      [attr.class]="'collapse collapse-group' + i">
+                <li class="hide-index">{{project.topic}}</li>
+                  <label class="collapse multi-collapse" id="detail-topic">{{project.activity}}</label>
+                </ol>
+              </div>
+              <div class="td p-1">
+                {{rptPerson.sumWorkTime}} นาที
+                <ol *ngFor="let project of rptPerson.tasks"
+                      style="padding-left:0px"
+                      [attr.class]="'collapse collapse-group' + i">
+                <li class="hide-index">{{project.workTime}} นาที</li>
+                <label class="collapse multi-collapse invisible" id="detail-project">hide_project</label>
+                </ol>
               </div>
             </div>
-            <!-- <div class="tr">
-              <div class="td p-1">
-                <div class="collapse multi-collapse" id ="space"></div>
-              </div>
-              <div class="td p-1">
-                <div class="collapse multi-collapse" id="collapse-time">
-                  <button class="btn btn-link p-0 collapsed"
-                          data-toggle="collapse"
-                          data-target="#detail-topic">
-                    <i class="fas"></i>
-                  </button>
-                  <label> 8.00-9.00 น.</label>
-                </div>
-              </div>
-              <div class="td p-1">
-                <div class="collapse multi-collapse" id="collapse-project">
-                  <label class="item">Project1</label>
-                  <label class="item">Project2</label>
-                  <label class="item">Project3</label>
-                </div>
-              </div>
-              <div class="td p-1">
-                <div class="collapse multi-collapse" id="collapse-topic">
-                  <label class="item">Topic1
-                    <label for="detail" class="item" id="detail-topic">- test ระบบ</label>
-                  </label>
-                  <label class="item">Topic2</label>
-                  <label class="item">Topic3</label>
-                </div>
-              </div>
-              <div class="td p-1">
-                <div class="collapse multi-collapse" id="collapse-times">
-                  <label class="item">Time1</label>
-                  <label class="item">Time2</label>
-                  <label class="item">Time3</label>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
-      <!-- <div class="row" id="orderByProject" *ngIf="tableOrderByProject" >
-        <div class="table">
-          <div class="thead">
-            <div class="th p-1"></div>
-            <div class="th p-1">โครงการ</div>
-            <div class="th p-1">ป้ายกำกับ (Tag)</div>
-            <div class="th p-1">จำนวน (นาที)</div>
-          </div>
-          <div class="tr">
-            <div class="td text-center p-1">
-              <button class="btn btn-link p-0 collapsed"
-                      data-toggle="collapse"
-                      data-target=".multi-collapse"
-                      aria-controls="collapse-project collapse-topic collapse-time">
-                <i class="fas"></i>
-              </button>
-            </div>
-            <div class="td p-1">Project</div>
-            <div class="td p-1"></div>
-            <div class="td p-1">
-              180 นาที
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- <div class="row" id="orderByTag" *ngIf="tableOrderByTag" >
-        <div class="table">
-          <div class="thead">
-            <div class="th p-1"></div>
-              <div class="th p-1">ป้ายกำกับ (Tag)</div>
-              <div class="th p-1">โครงการ</div>
-              <div class="th p-1">จำนวน (นาที)</div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>

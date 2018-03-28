@@ -158,6 +158,11 @@ export class TaskService {
   unstampedReport(projectId: number, startDate: string, endDate: string) {
     return this.request.requestMethodGET(`task-management/report-un-stamp/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`).toPromise().catch(err => this.messageService.onCustomError('เกิดข้อผิดพลาด', err.status));
   }
+
+  reportPersonByDate(startDate: string, endDate: string, userId: string){
+    return this.request.requestMethodGET(`task-management/report-person-by-date/start-date/${startDate}/end-date/${endDate}/user-id/${userId}`)
+  }
+
 }
 
 export class TaskAll {

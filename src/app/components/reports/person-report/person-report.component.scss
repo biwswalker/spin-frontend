@@ -38,16 +38,25 @@
 }
 
 [data-toggle="detail-collapse"] .fas:before {
-  color: firebrick;
-  content: "\f056";
+    color: firebrick;
+    content: "\f056";
 }
 
 [data-toggle="detail-collapse"].collapsed .fas:before {
-  color: mediumseagreen;
-  content: "\f055";
+    color: mediumseagreen;
+    content: "\f055";
 }
 
 label.item {
     width: 100%;
     margin-bottom: 0%;
+}
+
+.padding-l-0 {
+    padding-left: 0px;
+}
+
+li.hide-index {
+    list-style-type: none;
+    padding-left: 0px;
 }
