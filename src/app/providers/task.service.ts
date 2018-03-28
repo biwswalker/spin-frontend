@@ -8,6 +8,7 @@ import { ProjectService } from './project.service';
 import { Project } from '../models/project';
 import { UtilsService } from './utils/utils.service';
 import { Subject } from 'rxjs';
+import { EventMessagesService } from './utils/event-messages.service';
 
 @Injectable()
 export class TaskService {
@@ -34,7 +35,7 @@ export class TaskService {
   public currentTimetableDOW = this.timetableDOW.asObservable();
 
 
-  constructor(private request: HttpRequestService, private projectSerive: ProjectService, private utilsService: UtilsService) { }
+  constructor(private request: HttpRequestService, private projectSerive: ProjectService, private utilsService: UtilsService, private messageService: EventMessagesService) { }
 
   chageSelectedTask(selected: Task) {
     if (this.task.taskId) {
@@ -155,7 +156,7 @@ export class TaskService {
   }
 
   unstampedReport(projectId: number, startDate: string, endDate: string) {
-    return this.request.requestMethodGET(`task-management/report-un-stamp/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`).toPromise();
+    return this.request.requestMethodGET(`task-management/report-un-stamp/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`).toPromise().catch(err => this.messageService.onCustomError('เกิดข้อผิดพลาด', err.status));
   }
 }
 

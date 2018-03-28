@@ -1,0 +1,22 @@
+.th:first-child {
+    width: 80px;
+}
+
+[data-toggle="collapse"] .fas:before {  
+    color: firebrick;
+    content: "\f056";
+}
+  
+[data-toggle="collapse"].collapsed .fas:before {
+    color: mediumseagreen;
+    content: "\f055";
+}
+
+.table-border {
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.none-bullet {
+    list-style-type: none;
+}

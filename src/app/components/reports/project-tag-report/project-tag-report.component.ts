@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { User } from '../../../models/user';
-import { ProjectService } from '../../../providers/project.service';
-import { Observable } from 'rxjs/Observable';
 import { Project } from '../../../models/project';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UtilsService } from '../../../providers/utils/utils.service';
+import { ProjectService } from '../../../providers/project.service';
 import { TaskService } from '../../../providers/task.service';
 import { ReportService } from '../../../providers/report.service';
-import { resolve } from 'q';
 
 @Component({
-  selector: 'unstamped-report',
-  templateUrl: './unstamped-report.component.html',
-  styleUrls: ['./unstamped-report.component.scss']
+  selector: 'app-project-tag-report',
+  templateUrl: './project-tag-report.component.html',
+  styleUrls: ['./project-tag-report.component.scss']
 })
-export class UnstampedReportComponent implements OnInit {
+export class ProjectTagReportComponent implements OnInit {
 
   // Criteria
   public startDate = '';
@@ -25,12 +22,12 @@ export class UnstampedReportComponent implements OnInit {
   public projectList: Project[] = [];
 
   //  Form
-  public unstampedReportGroup: FormGroup;
+  public projectTagGroup: FormGroup;
 
   // Preview List
-  public unstampedList: any[] = [];
+  public projectTagList: any[] = [];
 
-  constructor(private utilsService: UtilsService, private projectService: ProjectService, private taskService: TaskService, private reportService: ReportService) {
+  constructor(private utilsService: UtilsService, private projectService: ProjectService, private reportService: ReportService) {
   }
 
   ngOnInit() {
@@ -45,7 +42,7 @@ export class UnstampedReportComponent implements OnInit {
     this.project = null;
     this.startDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.endDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
-    this.unstampedReportGroup = new FormGroup({
+    this.projectTagGroup = new FormGroup({
       project: new FormControl(this.project, Validators.required),
       startDate: new FormControl(this.startDate, Validators.required),
       endDate: new FormControl(this.endDate, Validators.required)
@@ -57,12 +54,13 @@ export class UnstampedReportComponent implements OnInit {
   }
 
   async preview() {
-    this.utilsService.findInvalidControls(this.unstampedReportGroup);
-    if (this.unstampedReportGroup.valid) {
+    this.utilsService.findInvalidControls(this.projectTagGroup);
+    if (this.projectTagGroup.valid) {
       let startDateStr = this.utilsService.convertDatePickerToThDate(this.startDate);
       let endDateStr = this.utilsService.convertDatePickerToThDate(this.endDate);
-      this.unstampedList = await this.taskService.unstampedReport(this.project, startDateStr, endDateStr);
-      console.log(this.unstampedList)
+      this.projectTagList = await this.projectService.projectTagReport(this.project, startDateStr, endDateStr);
+      console.log(this.projectTagList)
     }
   }
+
 }

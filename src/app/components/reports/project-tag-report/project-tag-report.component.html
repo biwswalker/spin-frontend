@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-12">
     <div class="page-title d-flex">
-      <h2 class="d-inline-block">รายงานผู้ที่ไม่ได้ลงเวลาทำงาน</h2>
+      <h2 class="d-inline-block">รายงานการทำงานของโครงการ</h2>
     </div>
   </div>
   <div class="col-12 content-left">
     <div class="row">
       <div class="col-12">
-        <form [formGroup]="unstampedReportGroup">
+        <form [formGroup]="projectTagGroup">
           <div class="row">
             <div class="form-group col-3 row">
               <label for="project"
@@ -91,38 +91,53 @@
           </div>
         </form>
       </div>
-      <!-- Preview Unstamped List -->
+      <!-- Preview projectTagList List -->
       <div class="col-12 table-border">
         <div class="table">
           <div class="thead">
             <div class="th"></div>
-            <div class="th p-1 date">วันที่</div>
+            <div class="th p-1">ป้ายกำกับ</div>
             <div class="th p-1">ชื่อ - นามสกุล</div>
+            <div class="th p-1 text-center">จำนวน(นาที)</div>
           </div>
-          <div *ngFor="let unstamped of unstampedList; let i = index"
+          <div *ngFor="let projectTag of projectTagList; let i = index"
                class="tr"
                data-toggle="collapse"
-               [attr.data-target]="'#collapse' + i">
+               [attr.data-target]="'.collapse-group' + i">
             <div class="td text-center p-1">
               <button class="btn btn-link p-0 collapsed"
                       data-toggle="collapse"
-                      [attr.data-target]="'#collapse' + i">
+                      [attr.data-target]="'.collapse-group' + i">
                 <i class="fas"></i>
               </button>
             </div>
-            <div class="td date p-1">
-              {{ unstamped.date | thaiDate:'full' }}
-            </div>
+            <div class="td date p-1 font-weight-bold">{{ projectTag.tagName }}</div>
             <div class="td p-1">
-              <ol class="collapse"
-                  [attr.id]="'collapse' + i">
-                <li *ngFor="let user of unstamped.users">{{user.nameTh}}</li>
+              <div>&nbsp;</div>
+              <ol [attr.class]="'collapse collapse-group' + i">
+                <li *ngFor="let user of projectTag.users">{{user.ownerUserId}}</li>
               </ol>
+            </div>
+            <div class="td text-center p-1">
+              <div class="font-weight-bold">นาที</div>
+              <dl [attr.class]="'collapse none-bullet collapse-group' + i">
+                <dt *ngFor="let user of projectTag.users">{{user.sumAsHour}} นาที</dt>
+              </dl>
+            </div>
+          </div>
+
+          <div class="tr">
+            <div class="td"></div>
+            <div class="td"></div>
+            <div class="td text-right font-weight-bold">
+              รวมทั้งหมด
+            </div>
+            <div class="td text-center p-1 font-weight-bold">
+
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
