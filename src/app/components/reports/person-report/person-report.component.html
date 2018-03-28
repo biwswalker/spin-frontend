@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-12">
+    <div class="page-title d-flex">
+      <h2 class="d-inline-block">
+        รายงานการทำงานรายบุคคล
+      </h2>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="row">
+      <div class="col">
+        <label>
+          พนักงาน *
+        </label>
+        <input class="form-control"
+          type="text"
+          id=""
+          name="">
+      </div>
+      <div class="col">
+        <label>
+          วันที่ *
+        </label>
+        <div class="input-group">
+          <input class="form-control datepicker"
+            type="text"
+            id="start-date"
+            name="startDate"
+            maxlength="10"
+            data-provide="datepicker"
+            data-date-language="th-th"
+            autocomplete="off"
+            [attr.data-date-start-date]="minDate"
+            [attr.data-date-end-date]="endDate"
+            [(ngModel)]="startDate"
+            summitDatePicker>
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fas fa-calendar-alt">
+
+                </i>
+              </span>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <label>
+          ถึงวันที่ *
+        </label>
+        <div class="input-group">
+          <input class="form-control datepicker"
+            type="text"
+            id="end-date"
+            name="endDate"
+            maxlength="10"
+            data-provide="datepicker"
+            data-date-language="th-th"
+            autocomplete="off"
+            [attr.data-date-start-date]="startDate"
+            [(ngModel)]="endDate"
+            summitDatePicker>
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fas fa-calendar-alt">
+
+                </i>
+              </span>
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <label>
+          แสดงตาม
+        </label>
+        <select class="form-control"
+          id=""
+          name="" >
+          <option value="">วันที่</option>
+          <option value="">โครงการ</option>
+          <option value="">ป้ายกำกับ</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary text-white" (click)="onSearch()">แสดงข้อมูล</button>
+        <button class="btn btn-primary text-white" (click)="onReset()">เริ่มใหม่</button>
+        <button class="btn btn-primary text-white" (click)="onReport()">พิมพ์</button>
+      </div>
+    </div>
+  </div>
+</div>

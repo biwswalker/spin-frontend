@@ -1,4 +1,4 @@
-<div class="container" *ngIf="projectId !== undefined">
+<div class="container" *ngIf="isHidden">
   <div class="row">
     <div class="col d-flex">
       <div class="ml-auto">
@@ -87,6 +87,6 @@
   </div>
 </div>
 
-<div class="text-center" *ngIf="projectId === undefined">
+<div class="text-center" *ngIf="!isHidden">
   <p>กรุณาเลือกโครงการ...</p>
 </div>

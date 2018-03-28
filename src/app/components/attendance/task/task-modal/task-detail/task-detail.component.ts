@@ -136,7 +136,7 @@ export class TaskDetailComponent implements OnInit {
   validateData() {
     this.taskDetailFormGroup = new FormGroup({
       taskDetailStatusFlag: new FormControl(this.taskObj.statusFlag == 'A' ? true : false),
-      taskDetailWorkDate: new FormControl(this.workDate, Validators.required),
+      taskDetailWorkDate: new FormControl(this.workDate , Validators.required),
       taskDetailStartTime: new FormControl(this.workStartTime, Validators.required),
       taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
       taskDetailTopic: new FormControl(this.topic, Validators.required),
@@ -157,13 +157,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   onFavoriteClick(event) {
+    this.onSelectProject(event);
     this.projectId = event.projectId;
-    this.taskService.changeProjectId(event.projectId);
   }
 
-  changeProjectId(prjId: number){
-    this.taskService.changeProjectId(prjId);
-  }
   onChangeTime() {
     let startTime = this.taskDetailFormGroup.value.taskDetailStartTime;
     let endTime = this.taskDetailFormGroup.value.taskDetailEndTime;

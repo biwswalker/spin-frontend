@@ -68,8 +68,8 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log('onTaskHasSelected | ', mode);
-    console.log('task', task);
+    // console.log('onTaskHasSelected | ', mode);
+    // console.log('task', task);
     const temp = task;
     this.task = new Task();
     this.taskForm.task = temp;
@@ -101,15 +101,15 @@ export class TaskModalComponent implements AfterViewInit {
           this.taskService.changeProjectId(project.projectId);
         }
       )
+    }else{
+      this.taskPartnerChild.isHidden = false;
     }
   }
 
   onSubmit() {
-    this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.utilsService.loader(true);
 
-      //taskDetail
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
       this.task.activity = this.taskDetailChild.taskDetailFormGroup.value.taskDetailActivity;
       this.task.color = this.taskDetailChild.taskObj.color;
@@ -140,24 +140,35 @@ export class TaskModalComponent implements AfterViewInit {
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
+      this.checkRequiredData(this.task, this.mode);
+    }else{
+      this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
+      this.eventMessageService.onWarning('กรุณาระบุข้อมูลในช่องที่มีเครื่องหมาย * ให้ครบ..')
+      this.utilsService.loader(false);
+    }
+  }
 
-      if (this.mode == Mode.E) {
-        this.task.taskId = this.taskForm.task.taskId;
-        this.task.versionId = this.taskForm.task.versionId;
-        this.updateTask(this.task);
-      } else if (this.mode == Mode.I) {
+  checkRequiredData(task: Task, mode: string) {
+    if (task.doSelfFlag == 'N' && task.taskPartnerList.length == 0) {
+      this.eventMessageService.onWarning('กรุณาระบุผู้ร่วมงาน..');
+      this.utilsService.loader(false);
+    } else {
+      if (mode == Mode.I) {
         if (this.taskForm.task.taskId) {
           if (this.taskForm.task.referTaskId) {
-            this.task.referTaskId = this.taskForm.task.referTaskId;
+            task.referTaskId = this.taskForm.task.referTaskId;
           } else {
-            this.task.referTaskId = this.taskForm.task.taskId;
+            task.referTaskId = this.taskForm.task.taskId;
           }
         }
-
-        if (this.taskPartnerChild.doSelfFlag && this.mode == Mode.I && this.task.taskId === undefined) {
-          this.task.taskPartnerList.push({ id: { userId: this.user.userId } });
+        if (this.taskPartnerChild.doSelfFlag && mode == Mode.I && this.taskForm.task.taskId === undefined) {
+          task.taskPartnerList.push({ id: { userId: this.user.userId } });
         }
-        this.createNewTask(this.task);
+        this.createNewTask(task)
+      } else {
+        task.taskId = this.taskForm.task.taskId;
+        task.versionId = this.taskForm.task.versionId;
+        this.updateTask(task)
       }
     }
     $('#workingDatePicker').datepicker('refresh');
@@ -211,7 +222,7 @@ export class TaskModalComponent implements AfterViewInit {
     this.task = new Task;
   }
 
-  onDismissModal(){
+  onDismissModal() {
     this.modal.close('#task-modal');
     this.taskService.chageSelectedTask(new Task());
     this.task = new Task;

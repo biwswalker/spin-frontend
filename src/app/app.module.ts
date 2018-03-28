@@ -67,6 +67,7 @@ import { PositionComponent } from './components/admin/position/position.componen
 import { PositionInfoComponent } from './components/admin/position/position-info/position-info.component';
 import { PositionModalComponent } from './components/admin/position/position-modal/position-modal.component';
 import { PositionSearchComponent } from './components/admin/position/position-search/position-search.component';
+import { PersonReportComponent } from './components/reports/person-report/person-report.component'
 import { HelpComponent } from './components/help/help.component';
 import { UnstampedReportComponent } from './components/reports/unstamped-report/unstamped-report.component';
 import { ReportComponent } from './components/reports/report.component';
@@ -159,6 +160,7 @@ import { DatePickerDirective } from './directives/datepicker';
     PositionModalComponent,
     PositionSearchComponent,
     HelpComponent,
+    PersonReportComponent,
     UnstampedReportComponent,
     ReportComponent
   ],
