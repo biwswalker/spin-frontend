@@ -33,8 +33,10 @@ const routes: Routes = [
   { path: 'department', component: DepartmentComponent },
   { path: 'position', component: PositionComponent },
   { path: 'help', component: HelpComponent },
-  { path: 'report-person', component: PersonReportComponent},
-  { path: 'report', component: ReportComponent, children: [{ path: 'unstamped', component: UnstampedReportComponent }] }
+  { path: 'report', component: ReportComponent, children: [
+    { path: 'unstamped', component: UnstampedReportComponent },
+    { path: 'person', component: PersonReportComponent}
+  ]}
 ]
 
 @NgModule({
