@@ -82,4 +82,7 @@ export class ProjectService {
     this.isProjectHaveChanged.next(1);
   }
 
+  projectTagReport(projectId: number, startDate: string, endDate: string) {
+    return this.request.requestMethodGET(`task-management/report-project-tag/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`)
+  }
 }

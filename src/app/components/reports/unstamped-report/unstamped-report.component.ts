@@ -7,6 +7,7 @@ import { Project } from '../../../models/project';
 import { UtilsService } from '../../../providers/utils/utils.service';
 import { TaskService } from '../../../providers/task.service';
 import { ReportService } from '../../../providers/report.service';
+import { resolve } from 'q';
 
 @Component({
   selector: 'unstamped-report',
@@ -27,7 +28,7 @@ export class UnstampedReportComponent implements OnInit {
   public unstampedReportGroup: FormGroup;
 
   // Preview List
-  public unstampedList = new Observable<any[]>();
+  public unstampedList: any[] = [];
 
   constructor(private utilsService: UtilsService, private projectService: ProjectService, private taskService: TaskService, private reportService: ReportService) {
   }
@@ -41,6 +42,7 @@ export class UnstampedReportComponent implements OnInit {
 
 
   resetFormGroup() {
+    this.unstampedList = [];
     this.project = null;
     this.startDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.endDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
@@ -55,10 +57,16 @@ export class UnstampedReportComponent implements OnInit {
     this.reportService.openReport();
   }
 
-  preview() {
+  async preview() {
     this.utilsService.findInvalidControls(this.unstampedReportGroup);
     if (this.unstampedReportGroup.valid) {
-      this.unstampedList = this.taskService.unstampedReport(this.project, this.startDate, this.endDate);
+      this.utilsService.loader(true);
+      let startDateStr = this.utilsService.convertDatePickerToThDate(this.startDate);
+      let endDateStr = this.utilsService.convertDatePickerToThDate(this.endDate);
+      this.unstampedList = await this.taskService.unstampedReport(this.project, startDateStr, endDateStr);
+      if(this.unstampedList){
+        this.utilsService.loader(false);
+      }
     }
   }
 }

@@ -2,15 +2,6 @@
     width: 80px;
 }
 
-.th.date {
-    width: 230px;
-}
-
-.td.date {
-    width: 230px;
-    font-weight: 600;
-}
-
 [data-toggle="collapse"] .fas:before {  
     color: firebrick;
     content: "\f056";
@@ -24,4 +15,20 @@
 .table-border {
     border-top: 1px solid #ccc;
     margin-top: 10px;
+}
+
+.none-bullet {
+    list-style-type: none;
+}
+
+.tag-name {
+    width: 200px;
+}
+
+.bold-text {
+    font-weight: 500;
+}
+
+ul, ol {
+    padding: 0;
 }

@@ -71,6 +71,7 @@ import { PersonReportComponent } from './components/reports/person-report/person
 import { HelpComponent } from './components/help/help.component';
 import { UnstampedReportComponent } from './components/reports/unstamped-report/unstamped-report.component';
 import { ReportComponent } from './components/reports/report.component';
+import { ProjectTagReportComponent } from './components/reports/project-tag-report/project-tag-report.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -162,7 +163,8 @@ import { DatePickerDirective } from './directives/datepicker';
     HelpComponent,
     PersonReportComponent,
     UnstampedReportComponent,
-    ReportComponent
+    ReportComponent,
+    ProjectTagReportComponent
   ],
   imports: [
     BrowserModule,

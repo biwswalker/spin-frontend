@@ -33,16 +33,6 @@ $row-border:4px;
     background-color: $tr-hover-color;
 }
 
-tr:first-child {
-    border-top-left-radius: $row-border;
-    border-bottom-left-radius: $row-border;
-}
-
-tr:last-child {
-    border-top-right-radius: $row-border;
-    border-bottom-right-radius: $row-border;
-}
-
 .th {
     display: table-cell;
 }
@@ -59,4 +49,14 @@ tr:last-child {
 
 .td {
     display: table-cell;
+}
+
+.td:first-child {
+    border-top-left-radius: $row-border;
+    border-bottom-left-radius: $row-border;
+}
+
+.td:last-child {
+    border-top-right-radius: $row-border;
+    border-bottom-right-radius: $row-border;
 }
