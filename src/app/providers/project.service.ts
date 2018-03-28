@@ -83,6 +83,6 @@ export class ProjectService {
   }
 
   projectTagReport(projectId: number, startDate: string, endDate: string) {
-    return this.request.requestMethodGET(`project-management/report-project-tag/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`).toPromise().catch(err => console.log(err));
+    return this.request.requestMethodGET(`task-management/report-project-tag/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`)
   }
 }

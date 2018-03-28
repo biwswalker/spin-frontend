@@ -96,7 +96,7 @@
         <div class="table">
           <div class="thead">
             <div class="th"></div>
-            <div class="th p-1">ป้ายกำกับ</div>
+            <div class="th p-1 tag-name">ป้ายกำกับ</div>
             <div class="th p-1">ชื่อ - นามสกุล</div>
             <div class="th p-1 text-center">จำนวน(นาที)</div>
           </div>
@@ -111,7 +111,7 @@
                 <i class="fas"></i>
               </button>
             </div>
-            <div class="td date p-1 font-weight-bold">{{ projectTag.tagName }}</div>
+            <div class="td date p-1 bold-text">{{ projectTag.tagName }}</div>
             <div class="td p-1">
               <div>&nbsp;</div>
               <ol [attr.class]="'collapse collapse-group' + i">
@@ -119,21 +119,21 @@
               </ol>
             </div>
             <div class="td text-center p-1">
-              <div class="font-weight-bold">นาที</div>
-              <dl [attr.class]="'collapse none-bullet collapse-group' + i">
-                <dt *ngFor="let user of projectTag.users">{{user.sumAsHour}} นาที</dt>
-              </dl>
+              <div class="bold-text">{{projectTag.totalTime | number}} นาที</div>
+              <ul [attr.class]="'collapse none-bullet collapse-group' + i">
+                <li *ngFor="let user of projectTag.users">{{(user.sumAsHour * 60) + user.sumAsMin | number}} นาที</li>
+              </ul>
             </div>
           </div>
 
           <div class="tr">
             <div class="td"></div>
             <div class="td"></div>
-            <div class="td text-right font-weight-bold">
+            <div class="td text-right bold-text">
               รวมทั้งหมด
             </div>
-            <div class="td text-center p-1 font-weight-bold">
-
+            <div class="td text-center p-1 bold-text">
+              {{totalSum | number}} นาที
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { UtilsService } from '../../../providers/utils/utils.service';
 import { ProjectService } from '../../../providers/project.service';
 import { TaskService } from '../../../providers/task.service';
 import { ReportService } from '../../../providers/report.service';
+import { OfficerService } from '../../../providers/officer.service';
 
 @Component({
   selector: 'app-project-tag-report',
@@ -25,9 +26,12 @@ export class ProjectTagReportComponent implements OnInit {
   public projectTagGroup: FormGroup;
 
   // Preview List
-  public projectTagList: any[] = [];
+  public projectTagList: ProjectTagForm[] = [];
+  public totalSum = 0;
 
-  constructor(private utilsService: UtilsService, private projectService: ProjectService, private reportService: ReportService) {
+  constructor(private utilsService: UtilsService, private projectService: ProjectService, private reportService: ReportService
+    // , private officerService: OfficerService
+  ) {
   }
 
   ngOnInit() {
@@ -39,6 +43,8 @@ export class ProjectTagReportComponent implements OnInit {
 
 
   resetFormGroup() {
+    this.projectTagList = [];
+    this.totalSum = 0;
     this.project = null;
     this.startDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.endDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
@@ -56,11 +62,42 @@ export class ProjectTagReportComponent implements OnInit {
   async preview() {
     this.utilsService.findInvalidControls(this.projectTagGroup);
     if (this.projectTagGroup.valid) {
+      this.utilsService.loader(true);
+      this.totalSum = 0;
       let startDateStr = this.utilsService.convertDatePickerToThDate(this.startDate);
       let endDateStr = this.utilsService.convertDatePickerToThDate(this.endDate);
-      this.projectTagList = await this.projectService.projectTagReport(this.project, startDateStr, endDateStr);
-      console.log(this.projectTagList)
+      this.projectTagList = await this.projectService.projectTagReport(this.project, startDateStr, endDateStr).map(async (callback: ProjectTagForm[]) => {
+        for (let projectTag of callback) {
+          let sum = 0;
+          for (let usr of projectTag.users) {
+            // let user = await this.officerService.findByOfficeId(usr.ownerUserId).toPromise();
+            // console.log(user)
+            // usr.fullName = 'Biwswalker'
+            let total = usr.sumAsMin;
+            total += (usr.sumAsHour * 60);
+            sum += total;
+          }
+          projectTag.totalTime = sum;
+          this.totalSum += sum;
+        }
+        return callback;
+      }).toPromise();
+      if(this.projectTagList){
+        this.utilsService.loader(false);
+      }
     }
   }
 
+}
+
+class ProjectTagForm {
+  public tagName: string;
+  public users: any[];
+  public totalTime: number;
+
+  constructor() {
+    this.tagName = '';
+    this.users = [];
+    this.totalTime = null;
+  }
 }

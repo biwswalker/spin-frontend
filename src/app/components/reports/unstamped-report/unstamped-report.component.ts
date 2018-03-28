@@ -42,6 +42,7 @@ export class UnstampedReportComponent implements OnInit {
 
 
   resetFormGroup() {
+    this.unstampedList = [];
     this.project = null;
     this.startDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.endDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
@@ -59,10 +60,13 @@ export class UnstampedReportComponent implements OnInit {
   async preview() {
     this.utilsService.findInvalidControls(this.unstampedReportGroup);
     if (this.unstampedReportGroup.valid) {
+      this.utilsService.loader(true);
       let startDateStr = this.utilsService.convertDatePickerToThDate(this.startDate);
       let endDateStr = this.utilsService.convertDatePickerToThDate(this.endDate);
       this.unstampedList = await this.taskService.unstampedReport(this.project, startDateStr, endDateStr);
-      console.log(this.unstampedList)
+      if(this.unstampedList){
+        this.utilsService.loader(false);
+      }
     }
   }
 }
