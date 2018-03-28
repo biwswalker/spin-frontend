@@ -13,10 +13,10 @@ import { Subject } from 'rxjs';
 export class TaskService {
 
   private task = new Task();
-  private selectedTask =  new Subject();
+  private selectedTask = new Subject();
   public currentTask = this.selectedTask.asObservable();
 
-  private isSelectTask =  new Subject();
+  private isSelectTask = new Subject();
   public currentIsSelectTask = this.isSelectTask.asObservable();
 
   private viewTask = new Subject();
@@ -74,7 +74,7 @@ export class TaskService {
     this.timetableDOW.next(dow);
   }
 
-  changeProjectId(projectId){
+  changeProjectId(projectId) {
     this.selectedProjectId.next(projectId);
   }
 
@@ -154,8 +154,8 @@ export class TaskService {
     return taskAll;
   }
 
-  unstampedReport(projectId: number, startDate: string, endDate: string){
-    return this.request.requestMethodGET(`task-management/un-stamp-task-report/projectId=${projectId}?startDate=${startDate}?endDate=${endDate}`);
+  unstampedReport(projectId: number, startDate: string, endDate: string) {
+    return this.request.requestMethodGET(`task-management/report-un-stamp/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`).toPromise();
   }
 }
 

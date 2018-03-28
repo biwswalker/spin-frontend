@@ -92,39 +92,31 @@
         </form>
       </div>
       <!-- Preview Unstamped List -->
-      <div class="col-12">
+      <div class="col-12 table-border">
         <div class="table">
           <div class="thead">
             <div class="th"></div>
             <div class="th p-1 date">วันที่</div>
             <div class="th p-1">ชื่อ - นามสกุล</div>
           </div>
-          <div class="tr"
+          <div *ngFor="let unstamped of unstampedList"
+               class="tr"
                data-toggle="collapse"
-               data-target="#collapseExample">
+               [attr.data-target]="'#collapse' + unstamped.date">
             <div class="td text-center p-1">
               <button class="btn btn-link p-0 collapsed"
                       data-toggle="collapse"
-                      data-target="#collapseExample">
+                      [attr.data-target]="'#collapse' + unstamped.date">
                 <i class="fas"></i>
               </button>
             </div>
             <div class="td date p-1">
-              10 มีนาคม 2559
+              {{ unstamped.date | thaiDate:'full' }}
             </div>
             <div class="td p-1">
               <ol class="collapse"
-                  id="collapseExample">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li>10</li>
+                  [attr.id]="'collapse' + unstamped.date">
+                <li *ngFor="let user of unstamped.users">{{user.nameTh}}</li>
               </ol>
             </div>
           </div>
