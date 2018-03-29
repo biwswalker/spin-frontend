@@ -88,8 +88,7 @@
         </div>
 
         <!-- orderByDate -->
-        <!-- <div class="row" id="orderByDate" *ngIf="tableOrderByDate" > -->
-        <div class="row" id="orderByDate">
+        <div class="row" id="orderByDate" *ngIf="tableOrderByDate">
           <div class="col">
           <div class="table">
             <div class="thead">
@@ -109,49 +108,75 @@
                 </button>
               </div>
               <div class="td date p-1">
-                  {{utilsService.displayFullDate(rptPerson.date)}}
-                  <div class="" id="collapse-time" [attr.class]="'collapse collapse-group' + i">
+                {{utilsService.displayFullDate(rptPerson.date)}}
+                <div id="collapse-time"
+                     [attr.class]="'collapse collapse-group' + i"
+                     *ngFor="let project of rptPerson.tasks; let d = index">
+                  <ol style="padding-left:0px"
+                      [attr.class]="'collapse collapse-group' + i">
+                    <li class="hide-index"
+                        id="detail-project">
+                        <!-- Time -->
                       <button class="btn btn-link p-0 collapsed"
                               data-toggle="collapse"
-                              data-target=".multi-collapse"
-                              aria-controls="detail-topic detail-project">
+                              [attr.data-target]="'.collapse-detail-group' + d">
                         <i class="fas"></i>
                       </button>
-                      <label> 8.00-9.00 น.</label>
+                      {{project.projectAbbr}}
+                    </li>
+                    <div class="collapse invisible"
+                           id="detail-time"
+                           [attr.class]="'collapse collapse-detail-group' + d">
+                      &nbsp;
                     </div>
-              </div>
-              <div class="td p-1">
-                  <div>&nbsp;</div>
-                  <ol style="padding-left:0px"
-                      *ngFor="let project of rptPerson.tasks"
-                      [attr.class]="'collapse collapse-group' + i">
-                    <li class="hide-index" id="detail-project">{{project.projectAbbr}}</li>
-                    <label class="collapse multi-collapse invisible" id="detail-project">hide_project</label>
                   </ol>
+                </div>
               </div>
               <div class="td p-1">
-                  <div>&nbsp;</div>
-                  <ol *ngFor="let project of rptPerson.tasks"
-                      style="padding-left:0px"
-                      [attr.class]="'collapse collapse-group' + i">
-                <li class="hide-index">{{project.topic}}</li>
-                  <label class="collapse multi-collapse" id="detail-topic">{{project.activity}}</label>
+                <div>&nbsp;</div>
+                <ol style="padding-left:0px"
+                    *ngFor="let project of rptPerson.tasks; let d = index"
+                    [attr.class]="'collapse collapse-group' + i">
+                  <li class="hide-index"
+                      id="detail-project">
+                    {{project.projectName}}
+                  </li>
+                  <label class="collapse invisible"
+                         id="detail-project"
+                         [attr.class]="'collapse collapse-detail-group' + d">
+                    &nbsp;
+                  </label>
+                </ol>
+              </div>
+              <div class="td p-1">
+                <div>&nbsp;</div>
+                <ol *ngFor="let project of rptPerson.tasks; let d = index"
+                    style="padding-left:0px"
+                    [attr.class]="'collapse collapse-group' + i">
+                  <li class="hide-index">
+                    {{project.topic}}
+                  </li>
+                  <label class="collapse"
+                         [attr.class]="'collapse collapse-detail-group' + d">
+                    {{project.activity}}
+                  </label>
                 </ol>
               </div>
               <div class="td p-1">
                 {{rptPerson.sumWorkTime}} นาที
-                <ol *ngFor="let project of rptPerson.tasks"
+                <ol *ngFor="let project of rptPerson.tasks; let d = index"
                       style="padding-left:0px"
                       [attr.class]="'collapse collapse-group' + i">
-                <li class="hide-index">{{project.workTime}} นาที</li>
-                <label class="collapse multi-collapse invisible" id="detail-project">hide_project</label>
+                  <li class="hide-index">{{project.workTime}} นาที</li>
+                  <label class="collapse multi-collapse invisible"
+                         [attr.class]="'collapse collapse-detail-group' + d">&nbsp;</label>
                 </ol>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
+      <app-by-project *ngIf="tableOrderByProject"></app-by-project>
     </div>
   </div>
 </div>

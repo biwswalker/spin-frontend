@@ -37,16 +37,6 @@
     content: "\f055";
 }
 
-[data-toggle="detail-collapse"] .fas:before {
-    color: firebrick;
-    content: "\f056";
-}
-
-[data-toggle="detail-collapse"].collapsed .fas:before {
-    color: mediumseagreen;
-    content: "\f055";
-}
-
 label.item {
     width: 100%;
     margin-bottom: 0%;

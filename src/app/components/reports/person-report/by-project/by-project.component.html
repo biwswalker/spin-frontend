@@ -1,0 +1,29 @@
+<div class="row" id="orderByProject">
+  <div class="col">
+    <div class="table">
+      <div class="thead">
+        <div class="th"></div>
+        <div class="th p-1 project">โครงการ</div>
+        <div class="th p-1 topic">ป้ายกำกับ</div>
+        <div class="th p-1">จำนวน (นาที)</div>
+      </div>
+      <!-- Body-->
+      <div class="tr" *ngFor="let rptPerson of reportByProject; let i = index" >
+        <div class="td text-center p-1">
+          <button class="btn btn-link p-0 collapsed"
+                  data-toggle="collapse"
+                  [attr.data-target]="'.collapse-group' + i">
+            <i class="fas"></i>
+          </button>
+        </div>
+        <div class="td date p-1">
+          {{rptPerson.name}}
+        </div>
+        <div class="td p-1"></div>
+        <div class="td p-1">
+          {{rptPerson.sumhour}} นาที
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

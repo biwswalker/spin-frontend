@@ -1,10 +1,11 @@
 import { TaskService } from './../../../providers/task.service';
 import { UtilsService } from './../../../providers/utils/utils.service';
 import { AuthenticationService } from './../../../providers/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '../../../models/user';
 import { PersonReport } from '../../../models/person-report';
+import { ByProjectComponent } from './by-project/by-project.component';
 
 @Component({
   selector: 'app-report-person',
@@ -24,6 +25,7 @@ export class PersonReportComponent implements OnInit {
   public tableOrderByTag: boolean = false;
   public reportPersonList: PersonReport[] = [];
 
+  @ViewChild(ByProjectComponent) byProject;
   constructor(
     private auth: AuthenticationService,
     private utilsService: UtilsService,
@@ -44,7 +46,7 @@ export class PersonReportComponent implements OnInit {
   onSearch() {
     this.utilsService.findInvalidControls(this.personReportFormGroup);
     if (this.personReportFormGroup.valid) {
-      console.log(this.sortBy)
+      // this.utilsService.loader(true);
       if (this.sortBy == 1) {
         this.orderByDate(this.personReportFormGroup.value);
       } else if (this.sortBy == 2) {
@@ -85,31 +87,30 @@ export class PersonReportComponent implements OnInit {
     this.taskService.reportPersonByDate(startDateStr, endDateStr, 'tiwakorn.ja').subscribe(
       result => {
         this.reportPersonList = result;
-        console.log(this.reportPersonList)
-        for(let rpt of this.reportPersonList){
-          console.log(rpt)
+        for (let rpt of this.reportPersonList) {
           rpt.sumWorkTime = 0;
-          for(let worktime of rpt.tasks){
+          for (let worktime of rpt.tasks) {
             worktime.workTime = 0;
-            let total = (worktime.sumAsHour*60) + worktime.sumAsMin
-            console.log(total)
-            console.log(rpt.sumWorkTime)
+            let total = (worktime.sumAsHour * 60) + worktime.sumAsMin
             worktime.workTime = total;
             rpt.sumWorkTime += total
-            console.log(rpt.sumWorkTime)
           }
         }
-
       }
     )
   }
 
-  orderByProject(form) {
+  async orderByProject(form) {
     this.tableOrderByDate = false;
     this.tableOrderByProject = true;
     this.tableOrderByTag = false;
-    console.log('orderByProject')
-    console.log(form)
+    let startDateStr = this.utilsService.convertDatePickerToThDate(form.startDate);
+    let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
+    let orderByProjectList = await this.taskService.reportPersonByProject(startDateStr, endDateStr, 'tiwakorn.ja')
+      .map(async (callbackList) => {
+        this.byProject.reportByProject = callbackList;
+        this.byProject.initialData(callbackList);
+      }).toPromise();
   }
 
   orderByTag(form) {

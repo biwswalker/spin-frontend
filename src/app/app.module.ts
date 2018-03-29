@@ -101,6 +101,7 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
+import { ByProjectComponent } from './components/reports/person-report/by-project/by-project.component';
 
 
 @NgModule({
@@ -164,7 +165,8 @@ import { DatePickerDirective } from './directives/datepicker';
     PersonReportComponent,
     UnstampedReportComponent,
     ReportComponent,
-    ProjectTagReportComponent
+    ProjectTagReportComponent,
+    ByProjectComponent
   ],
   imports: [
     BrowserModule,
