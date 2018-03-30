@@ -18,7 +18,7 @@ declare var $: any;
 export class TaskPartnerComponent {
 
   public taskId: number;
-  public user: User;
+  public user: User = new User();
   public owner: string = '';
   public selectPartner: any;
   public taskPartner: any[];
@@ -39,10 +39,11 @@ export class TaskPartnerComponent {
   }
 
   initTaskPartner(taskId: number, mode: string, user: User, taskOwner: string) {
+    this.user.fullName = "";
     this.taskId = taskId;
     this.mode = mode;
     this.owner = taskOwner;
-    this.user = user;
+    this.user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
     let isRepeat: number = 0;
     this.autocompletePartnerList = [];
     this.taskMember = [];
