@@ -103,9 +103,11 @@ export class PersonReportComponent implements OnInit {
     this.tableOrderByTag = false;
     let startDateStr = this.utilsService.convertDatePickerToThDate(form.startDate);
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
-    let byDate = await this.taskService.reportPersonByDate(startDateStr, endDateStr, form.officer)
+    let byDate = await this.taskService.reportPersonByDate(startDateStr, endDateStr, 'tiwakorn.ja')
       .map(async (result) => {
-        this.byDate.initialData(result);
+        if(result){
+          this.byDate.initialData(result);
+        }
       }).toPromise();
   }
 
@@ -117,7 +119,9 @@ export class PersonReportComponent implements OnInit {
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
     let orderByProjectList = await this.taskService.reportPersonByProject(startDateStr, endDateStr, 'tiwakorn.ja')
       .map(async (callbackList) => {
-        this.byProject.initialData(callbackList);
+        if(callbackList){
+          this.byProject.initialData(callbackList);
+        }
       }).toPromise();
   }
 
@@ -129,7 +133,9 @@ export class PersonReportComponent implements OnInit {
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
     let orderByTagList = await this.taskService.reportPersonByTag(startDateStr, endDateStr, 'tiwakorn.ja')
       .map(async (callbackList) => {
-        this.byTag.initialData(callbackList);
+        if(callbackList){
+          this.byTag.initialData(callbackList);
+        }
       }).toPromise();
   }
 

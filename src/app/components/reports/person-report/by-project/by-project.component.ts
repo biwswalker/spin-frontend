@@ -4,7 +4,7 @@ import { TaskTag } from '../../../../models/task-tag';
 @Component({
   selector: 'app-by-project',
   templateUrl: './by-project.component.html',
-  styleUrls: ['./by-project.component.scss', '../person-report.component.scss']
+  styleUrls: ['./by-project.component.scss']
 })
 export class ByProjectComponent implements OnInit {
 
