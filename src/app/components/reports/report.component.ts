@@ -14,7 +14,7 @@ import { User } from '../../models/user';
             <select class="form-control" name="report-page" (change)="onChangeReport($event.target.value)">
                     <option value="" disabled>กรุณาเลือกรายงาน</option>
                     <option *ngIf="user.userLevel === 'A'" [selected]="crrUrl === '/report/project-tag'" value="report/project-tag">การทำงานของโครงการ</option>
-                    <option *ngIf="user.userLevel === 'P'" [selected]="crrUrl === '/report/unstamped'" value="report/unstamped">ผู้ที่ไม่ได้ลงเวลาทำงาน</option>
+                    <option *ngIf="user.userLevel === 'P' || user.userLevel === 'A'" [selected]="crrUrl === '/report/unstamped'" value="report/unstamped">ผู้ที่ไม่ได้ลงเวลาทำงาน</option>
                 </select>
             </div>
         </div>
