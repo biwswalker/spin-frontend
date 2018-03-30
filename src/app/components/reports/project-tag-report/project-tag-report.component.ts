@@ -6,6 +6,8 @@ import { ProjectService } from '../../../providers/project.service';
 import { TaskService } from '../../../providers/task.service';
 import { ReportService } from '../../../providers/report.service';
 import { OfficerService } from '../../../providers/officer.service';
+import { AuthenticationService } from '../../../providers/authentication.service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-project-tag-report',
@@ -18,6 +20,7 @@ export class ProjectTagReportComponent implements OnInit {
   public startDate = '';
   public endDate = '';
   public project: any;
+  public user: User;
 
   // Project Atcp List 
   public projectList: Project[] = [];
@@ -29,12 +32,13 @@ export class ProjectTagReportComponent implements OnInit {
   public projectTagList: ProjectTagForm[] = [];
   public totalSum = 0;
 
-  constructor(private utilsService: UtilsService, private projectService: ProjectService, private reportService: ReportService
+  constructor(private auth: AuthenticationService, private utilsService: UtilsService, private projectService: ProjectService, private reportService: ReportService
     // , private officerService: OfficerService
   ) {
   }
 
   ngOnInit() {
+    this.auth.crrUser.subscribe(user => this.user = user);
     this.resetFormGroup();
     this.projectService.fetchProjectAutocomplete().subscribe(projects => {
       this.projectList = projects;
