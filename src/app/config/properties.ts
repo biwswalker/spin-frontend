@@ -1,7 +1,7 @@
-export const URL = 'http://10.1.87.224:8081/';
+// export const URL = 'http://10.1.87.224:8081/';
 
 //ip for deploy officer(BKK)
-// export const URL = 'http://172.17.3.49:8080/spin-s/';
+export const URL = 'http://172.17.3.49:8080/spin-s/';
 export const Method = {
     GET: 'GET',
     POST: 'POST'
@@ -41,11 +41,13 @@ export const Format = {
     MM: 'MM',
     YYYY: 'YYYY',
 }
+
 export const Mode = {
     V: 'VIEW',
     E: 'EDIT',
     I: 'INSERT'
 }
+
 export var Locale = 'th'
 export const Locales = {
     TH: 'th',

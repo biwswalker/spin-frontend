@@ -72,6 +72,9 @@ import { HelpComponent } from './components/help/help.component';
 import { UnstampedReportComponent } from './components/reports/unstamped-report/unstamped-report.component';
 import { ReportComponent } from './components/reports/report.component';
 import { ProjectTagReportComponent } from './components/reports/project-tag-report/project-tag-report.component';
+import { ByProjectComponent } from './components/reports/person-report/by-project/by-project.component';
+import { ByTagComponent } from './components/reports/person-report/by-tag/by-tag.component';
+import { ByDateComponent } from './components/reports/person-report/by-date/by-date.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -101,7 +104,7 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
-import { ByProjectComponent } from './components/reports/person-report/by-project/by-project.component';
+
 
 
 @NgModule({
@@ -166,7 +169,9 @@ import { ByProjectComponent } from './components/reports/person-report/by-projec
     UnstampedReportComponent,
     ReportComponent,
     ProjectTagReportComponent,
-    ByProjectComponent
+    ByProjectComponent,
+    ByTagComponent,
+    ByDateComponent
   ],
   imports: [
     BrowserModule,

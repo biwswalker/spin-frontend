@@ -11,13 +11,17 @@
           <div class="row">
             <div class="col">
               <label>พนักงาน *</label>
-                <input class="form-control"
-                       type="text"
-                       id="officer"
-                       [disabled]="user.userLevel !== 'A'"
-                       [(ngModel)]="officer"
-                       formControlName="officer"
-                       name="officer">
+              <ng-select [items]="userList"
+                         bindLabel="fullName"
+                         bindValue="userId"
+                         id="user"
+                         name="user"
+                         [disabled]="userLevel !== 'A'"
+                         hideSelected="true"
+                         [(ngModel)]="officer"
+                         (add)="onSelectUser($event)"
+                         formControlName="officer">
+              </ng-select>
             </div>
             <div class="col">
               <label>วันที่ *</label>
@@ -88,95 +92,9 @@
         </div>
 
         <!-- orderByDate -->
-        <div class="row" id="orderByDate" *ngIf="tableOrderByDate">
-          <div class="col">
-          <div class="table">
-            <div class="thead">
-              <div class="th"></div>
-              <div class="th p-1 date">วันที่ / เวลา</div>
-              <div class="th p-1 project">โครงการ</div>
-              <div class="th p-1 topic">หัวข้อ</div>
-              <div class="th p-1">จำนวน (นาที)</div>
-            </div>
-            <!-- Body-->
-            <div class="tr" *ngFor="let rptPerson of reportPersonList; let i = index" >
-              <div class="td text-center p-1">
-                <button class="btn btn-link p-0 collapsed"
-                        data-toggle="collapse"
-                        [attr.data-target]="'.collapse-group' + i">
-                  <i class="fas"></i>
-                </button>
-              </div>
-              <div class="td date p-1">
-                {{utilsService.displayFullDate(rptPerson.date)}}
-                <div id="collapse-time"
-                     [attr.class]="'collapse collapse-group' + i"
-                     *ngFor="let project of rptPerson.tasks; let d = index">
-                  <ol style="padding-left:0px"
-                      [attr.class]="'collapse collapse-group' + i">
-                    <li class="hide-index"
-                        id="detail-project">
-                        <!-- Time -->
-                      <button class="btn btn-link p-0 collapsed"
-                              data-toggle="collapse"
-                              [attr.data-target]="'.collapse-detail-group' + d">
-                        <i class="fas"></i>
-                      </button>
-                      {{project.projectAbbr}}
-                    </li>
-                    <div class="collapse invisible"
-                           id="detail-time"
-                           [attr.class]="'collapse collapse-detail-group' + d">
-                      &nbsp;
-                    </div>
-                  </ol>
-                </div>
-              </div>
-              <div class="td p-1">
-                <div>&nbsp;</div>
-                <ol style="padding-left:0px"
-                    *ngFor="let project of rptPerson.tasks; let d = index"
-                    [attr.class]="'collapse collapse-group' + i">
-                  <li class="hide-index"
-                      id="detail-project">
-                    {{project.projectName}}
-                  </li>
-                  <label class="collapse invisible"
-                         id="detail-project"
-                         [attr.class]="'collapse collapse-detail-group' + d">
-                    &nbsp;
-                  </label>
-                </ol>
-              </div>
-              <div class="td p-1">
-                <div>&nbsp;</div>
-                <ol *ngFor="let project of rptPerson.tasks; let d = index"
-                    style="padding-left:0px"
-                    [attr.class]="'collapse collapse-group' + i">
-                  <li class="hide-index">
-                    {{project.topic}}
-                  </li>
-                  <label class="collapse"
-                         [attr.class]="'collapse collapse-detail-group' + d">
-                    {{project.activity}}
-                  </label>
-                </ol>
-              </div>
-              <div class="td p-1">
-                {{rptPerson.sumWorkTime}} นาที
-                <ol *ngFor="let project of rptPerson.tasks; let d = index"
-                      style="padding-left:0px"
-                      [attr.class]="'collapse collapse-group' + i">
-                  <li class="hide-index">{{project.workTime}} นาที</li>
-                  <label class="collapse multi-collapse invisible"
-                         [attr.class]="'collapse collapse-detail-group' + d">&nbsp;</label>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-by-date *ngIf="tableOrderByDate"></app-by-date>
       <app-by-project *ngIf="tableOrderByProject"></app-by-project>
+      <app-by-tag *ngIf="tableOrderByTag"></app-by-tag>
     </div>
   </div>
 </div>

@@ -110,7 +110,7 @@ export class TaskPartnerComponent {
   }
 
   getautoCompletePartner(projectId) {
-    this.partnerService.findAllUser(projectId).subscribe(
+    this.partnerService.findAllUserByProjectId(projectId).subscribe(
       partners => {
         this.autocompletePartnerList = [];
         if (partners) {

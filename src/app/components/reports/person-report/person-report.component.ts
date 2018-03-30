@@ -1,3 +1,4 @@
+import { ByDateComponent } from './by-date/by-date.component';
 import { TaskService } from './../../../providers/task.service';
 import { UtilsService } from './../../../providers/utils/utils.service';
 import { AuthenticationService } from './../../../providers/authentication.service';
@@ -6,6 +7,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '../../../models/user';
 import { PersonReport } from '../../../models/person-report';
 import { ByProjectComponent } from './by-project/by-project.component';
+import { ByTagComponent } from './by-tag/by-tag.component';
+import { PartnerService } from '../../../providers/partner.service';
 
 @Component({
   selector: 'app-report-person',
@@ -24,29 +27,45 @@ export class PersonReportComponent implements OnInit {
   public tableOrderByProject: boolean = false;
   public tableOrderByTag: boolean = false;
   public reportPersonList: PersonReport[] = [];
+  public userList: User[] = [];
+  public userLevel: string;
 
+  @ViewChild(ByDateComponent) byDate;
   @ViewChild(ByProjectComponent) byProject;
+  @ViewChild(ByTagComponent) byTag;
+
   constructor(
     private auth: AuthenticationService,
     private utilsService: UtilsService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private partnerService: PartnerService
   ) {
     this.auth.crrUser.subscribe((user: User) => {
-      this.officer = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
-      if (user.userLevel === "A") {
-        this.officer = "";
-      }
+      this.officer = user.userId;
+      this.userLevel = user.userLevel;
+
     });
   }
 
   ngOnInit() {
     this.onReset();
+    this.initialUserList();
+  }
+
+  initialUserList(){
+    this.partnerService.findAllUser().subscribe(
+      userList=>{
+        this.userList = userList
+        for(let user of this.userList){
+          user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
+        }
+      }
+    )
   }
 
   onSearch() {
     this.utilsService.findInvalidControls(this.personReportFormGroup);
     if (this.personReportFormGroup.valid) {
-      // this.utilsService.loader(true);
       if (this.sortBy == 1) {
         this.orderByDate(this.personReportFormGroup.value);
       } else if (this.sortBy == 2) {
@@ -78,26 +97,16 @@ export class PersonReportComponent implements OnInit {
 
   }
 
-  orderByDate(form) {
+  async orderByDate(form) {
     this.tableOrderByDate = true;
     this.tableOrderByProject = false;
     this.tableOrderByTag = false;
     let startDateStr = this.utilsService.convertDatePickerToThDate(form.startDate);
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
-    this.taskService.reportPersonByDate(startDateStr, endDateStr, 'tiwakorn.ja').subscribe(
-      result => {
-        this.reportPersonList = result;
-        for (let rpt of this.reportPersonList) {
-          rpt.sumWorkTime = 0;
-          for (let worktime of rpt.tasks) {
-            worktime.workTime = 0;
-            let total = (worktime.sumAsHour * 60) + worktime.sumAsMin
-            worktime.workTime = total;
-            rpt.sumWorkTime += total
-          }
-        }
-      }
-    )
+    let byDate = await this.taskService.reportPersonByDate(startDateStr, endDateStr, form.officer)
+      .map(async (result) => {
+        this.byDate.initialData(result);
+      }).toPromise();
   }
 
   async orderByProject(form) {
@@ -108,16 +117,22 @@ export class PersonReportComponent implements OnInit {
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
     let orderByProjectList = await this.taskService.reportPersonByProject(startDateStr, endDateStr, 'tiwakorn.ja')
       .map(async (callbackList) => {
-        this.byProject.reportByProject = callbackList;
         this.byProject.initialData(callbackList);
       }).toPromise();
   }
 
-  orderByTag(form) {
+  async orderByTag(form) {
     this.tableOrderByDate = false;
     this.tableOrderByProject = false;
     this.tableOrderByTag = true;
-    console.log('orderByTag')
-    console.log(form)
+    let startDateStr = this.utilsService.convertDatePickerToThDate(form.startDate);
+    let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
+    let orderByTagList = await this.taskService.reportPersonByTag(startDateStr, endDateStr, 'tiwakorn.ja')
+      .map(async (callbackList) => {
+        this.byTag.initialData(callbackList);
+      }).toPromise();
+  }
+
+  onSelectUser(event){
   }
 }

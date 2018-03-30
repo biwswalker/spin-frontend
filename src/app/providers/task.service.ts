@@ -166,6 +166,10 @@ export class TaskService {
   reportPersonByProject(startDate: string, endDate: string, userId: string){
     return this.request.requestMethodGET(`task-management/report-person-by-project/start-date/${startDate}/end-date/${endDate}/user-id/${userId}`)
   }
+
+  reportPersonByTag(startDate: string, endDate: string, userId: string){
+    return this.request.requestMethodGET(`task-management/report-person-by-tag/start-date/${startDate}/end-date/${endDate}/user-id/${userId}`)
+  }
 }
 
 export class TaskAll {

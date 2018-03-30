@@ -20,4 +20,7 @@ class ReportTask{
   public sumAsMin: number;
   public topic: string;
   public workTime: number;
+  public startEndTime: string;
+  public startTime: string;
+  public endTime: string;
 }

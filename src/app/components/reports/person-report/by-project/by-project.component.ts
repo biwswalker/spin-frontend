@@ -16,13 +16,11 @@ export class ByProjectComponent implements OnInit {
   }
 
   initialData(data) {
+    console.log(data)
     this.reportByProject = data;
-    console.log(this.reportByProject)
     for (let obj of this.reportByProject) {
       obj.sumhour = 0;
-      console.log((obj.hour * 60) + obj.min);
-      obj.sumhour = (obj.hour * 60) + obj.min;
-      console.log(obj.sumhour);
+      obj.sumhour = (obj.hour * 60) + obj.minute;
     }
   }
 }
@@ -30,13 +28,14 @@ export class ByProjectComponent implements OnInit {
 class ReportByProject {
   public sumhour: number;
   public hour: number;
-  public min: number;
+  public minute: number;
   public name: string;
   public tagList: TaskTag[];
 
   constructor() {
+    this.sumhour = null;
     this.hour = null;
-    this.min = null;
+    this.minute = null;
     this.name = "";
     this.tagList = [];
   }
