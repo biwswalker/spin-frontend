@@ -1,140 +1,133 @@
-<div class="row">
-  <div class="col-12">
-    <div class="page-title d-flex">
-      <h2 class="d-inline-block">รายงานการทำงานของโครงการ</h2>
-    </div>
-  </div>
-  <div class="col-12 content-left">
-    <div class="row">
-      <div class="col-12">
-        <form [formGroup]="projectTagGroup">
-          <div class="row">
-            <div class="form-group col-3 row">
-              <label for="project"
-                     class="col-12 col-form-label">โครงการ *</label>
-              <div class="col-12">
-                <ng-select [items]="projectList"
-                           bindLabel="projectName"
-                           bindValue="projectId"
-                           hideSelected="true"
-                           name="project"
-                           id="project"
-                           formControlName="project"
-                           [(ngModel)]="project">
-                </ng-select>
-              </div>
-            </div>
-            <div class="form-group col-3 row">
-              <label for="start-date"
-                     class="col-12 col-form-label">วันที่ *</label>
-              <div class="input-group col-12">
-                <input class="form-control datepicker"
-                       type="text"
-                       name="datepicker"
-                       id="start-date"
-                       formControlName="startDate"
-                       data-provide="datepicker"
-                       data-date-language="th-th"
-                       summitDatePicker
-                       autocomplete="off"
-                       [(ngModel)]="startDate"
-                       maxlength="10" />
-                <div class="input-group-append input-group-addon">
-                  <span class="input-group-text">
-                    <i class="fas fa-calendar-alt"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="form-group col-3 row">
-              <label for="end-date"
-                     class="col-12 col-form-label">ถึงวันที่ *</label>
-              <div class="input-group col-12">
-                <input class="form-control datepicker"
-                       type="text"
-                       name="datepicker"
-                       data-provide="datepicker"
-                       data-date-language="th-th"
-                       summitDatePicker
-                       autocomplete="off"
-                       [(ngModel)]="endDate"
-                       [min]="startDate"
-                       maxlength="10"
-                       id="end-date"
-                       formControlName="endDate" />
-                <div class="input-group-append input-group-addon">
-                  <span class="input-group-text">
-                    <i class="fas fa-calendar-alt"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
+<div class="col-12 content-left"  *ngIf="user.userLevel === 'A'">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="projectTagGroup">
+        <div class="row">
+          <div class="form-group col-3 row">
+            <label for="project"
+                   class="col-12 col-form-label">โครงการ *</label>
             <div class="col-12">
-              <button type="submit"
-                      name="show-btn"
-                      id="show-btn"
-                      class="btn btn-success float-left mr-2"
-                      (click)="preview()">แสดงข้อมูล</button>
-              <button type="button"
-                      name="reset-btn"
-                      id="reset-btn"
-                      class="btn btn-warning float-left ml-2 mr-2"
-                      (click)="resetFormGroup()">เริ่มใหม่</button>
-              <button type="button"
-                      name="reported-btn"
-                      id="reported-btn"
-                      class="btn btn-info float-right ml-2 mr-2"
-                      (click)="reported()">พิมพ์</button>
+              <ng-select [items]="projectList"
+                         bindLabel="projectName"
+                         bindValue="projectId"
+                         hideSelected="true"
+                         name="project"
+                         id="project"
+                         formControlName="project"
+                         [(ngModel)]="project">
+              </ng-select>
             </div>
           </div>
-        </form>
-      </div>
-      <!-- Preview projectTagList List -->
-      <div class="col-12 table-border">
-        <div class="table">
-          <div class="thead">
-            <div class="th"></div>
-            <div class="th p-1 tag-name">ป้ายกำกับ</div>
-            <div class="th p-1">ชื่อ - นามสกุล</div>
-            <div class="th p-1 text-center">จำนวน(นาที)</div>
-          </div>
-          <div *ngFor="let projectTag of projectTagList; let i = index"
-               class="tr"
-               data-toggle="collapse"
-               [attr.data-target]="'.collapse-group' + i">
-            <div class="td text-center p-1">
-              <button class="btn btn-link p-0 collapsed"
-                      data-toggle="collapse"
-                      [attr.data-target]="'.collapse-group' + i">
-                <i class="fas"></i>
-              </button>
-            </div>
-            <div class="td date p-1 bold-text">{{ projectTag.tagName }}</div>
-            <div class="td p-1">
-              <div>&nbsp;</div>
-              <ol [attr.class]="'collapse collapse-group' + i">
-                <li *ngFor="let user of projectTag.users">{{user.ownerUserId}}</li>
-              </ol>
-            </div>
-            <div class="td text-center p-1">
-              <div class="bold-text">{{projectTag.totalTime | number}} นาที</div>
-              <ul [attr.class]="'collapse none-bullet collapse-group' + i">
-                <li *ngFor="let user of projectTag.users">{{(user.sumAsHour * 60) + user.sumAsMin | number}} นาที</li>
-              </ul>
+          <div class="form-group col-3 row">
+            <label for="start-date"
+                   class="col-12 col-form-label">วันที่ *</label>
+            <div class="input-group col-12">
+              <input class="form-control datepicker"
+                     type="text"
+                     name="datepicker"
+                     id="start-date"
+                     formControlName="startDate"
+                     data-provide="datepicker"
+                     data-date-language="th-th"
+                     summitDatePicker
+                     autocomplete="off"
+                     [(ngModel)]="startDate"
+                     maxlength="10" />
+              <div class="input-group-append input-group-addon">
+                <span class="input-group-text">
+                  <i class="fas fa-calendar-alt"></i>
+                </span>
+              </div>
             </div>
           </div>
+          <div class="form-group col-3 row">
+            <label for="end-date"
+                   class="col-12 col-form-label">ถึงวันที่ *</label>
+            <div class="input-group col-12">
+              <input class="form-control datepicker"
+                     type="text"
+                     name="datepicker"
+                     data-provide="datepicker"
+                     data-date-language="th-th"
+                     summitDatePicker
+                     autocomplete="off"
+                     [(ngModel)]="endDate"
+                     [min]="startDate"
+                     maxlength="10"
+                     id="end-date"
+                     formControlName="endDate" />
+              <div class="input-group-append input-group-addon">
+                <span class="input-group-text">
+                  <i class="fas fa-calendar-alt"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button type="submit"
+                    name="show-btn"
+                    id="show-btn"
+                    class="btn btn-success float-left mr-2"
+                    (click)="preview()">แสดงข้อมูล</button>
+            <button type="button"
+                    name="reset-btn"
+                    id="reset-btn"
+                    class="btn btn-warning float-left ml-2 mr-2"
+                    (click)="resetFormGroup()">เริ่มใหม่</button>
+            <button type="button"
+                    name="reported-btn"
+                    id="reported-btn"
+                    class="btn btn-info float-right ml-2 mr-2"
+                    (click)="reported()">พิมพ์</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Preview projectTagList List -->
+    <div class="col-12 table-border">
+      <div class="table">
+        <div class="thead">
+          <div class="th"></div>
+          <div class="th p-1 tag-name">ป้ายกำกับ</div>
+          <div class="th p-1">ชื่อ - นามสกุล</div>
+          <div class="th p-1 text-center">จำนวน(นาที)</div>
+        </div>
+        <div *ngFor="let projectTag of projectTagList; let i = index"
+             class="tr"
+             data-toggle="collapse"
+             [attr.data-target]="'.collapse-group' + i">
+          <div class="td text-center p-1">
+            <button class="btn btn-link p-0 collapsed"
+                    data-toggle="collapse"
+                    [attr.data-target]="'.collapse-group' + i">
+              <i class="fas"></i>
+            </button>
+          </div>
+          <div class="td date p-1 bold-text">{{ projectTag.tagName }}</div>
+          <div class="td p-1">
+            <div>&nbsp;</div>
+            <ol [attr.class]="'collapse collapse-group' + i">
+              <li *ngFor="let user of projectTag.users">{{user.ownerUserId}}</li>
+            </ol>
+          </div>
+          <div class="td text-center p-1">
+            <div class="bold-text">{{projectTag.totalTime | number}} นาที</div>
+            <ul [attr.class]="'collapse none-bullet collapse-group' + i">
+              <li *ngFor="let user of projectTag.users">{{(user.sumAsHour * 60) + user.sumAsMin | number}} นาที</li>
+            </ul>
+          </div>
+        </div>
 
-          <div class="tr">
-            <div class="td"></div>
-            <div class="td"></div>
-            <div class="td text-right bold-text">
-              รวมทั้งหมด
-            </div>
-            <div class="td text-center p-1 bold-text">
-              {{totalSum | number}} นาที
-            </div>
+        <div class="tr">
+          <div class="td"></div>
+          <div class="td"></div>
+          <div class="td text-right bold-text">
+            รวมทั้งหมด
+          </div>
+          <div class="td text-center p-1 bold-text">
+            {{totalSum | number}} นาที
           </div>
         </div>
       </div>

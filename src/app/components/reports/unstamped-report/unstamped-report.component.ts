@@ -8,6 +8,7 @@ import { UtilsService } from '../../../providers/utils/utils.service';
 import { TaskService } from '../../../providers/task.service';
 import { ReportService } from '../../../providers/report.service';
 import { resolve } from 'q';
+import { AuthenticationService } from '../../../providers/authentication.service';
 
 @Component({
   selector: 'unstamped-report',
@@ -20,6 +21,7 @@ export class UnstampedReportComponent implements OnInit {
   public startDate = '';
   public endDate = '';
   public project: any;
+  public user: User;
 
   // Project Atcp List 
   public projectList: Project[] = [];
@@ -30,10 +32,11 @@ export class UnstampedReportComponent implements OnInit {
   // Preview List
   public unstampedList: any[] = [];
 
-  constructor(private utilsService: UtilsService, private projectService: ProjectService, private taskService: TaskService, private reportService: ReportService) {
+  constructor(private auth: AuthenticationService, private utilsService: UtilsService, private projectService: ProjectService, private taskService: TaskService, private reportService: ReportService) {
   }
 
   ngOnInit() {
+    this.auth.crrUser.subscribe(user => this.user = user);
     this.resetFormGroup();
     this.projectService.fetchProjectAutocomplete().subscribe(projects => {
       this.projectList = projects;
@@ -64,7 +67,7 @@ export class UnstampedReportComponent implements OnInit {
       let startDateStr = this.utilsService.convertDatePickerToThDate(this.startDate);
       let endDateStr = this.utilsService.convertDatePickerToThDate(this.endDate);
       this.unstampedList = await this.taskService.unstampedReport(this.project, startDateStr, endDateStr);
-      if(this.unstampedList){
+      if (this.unstampedList) {
         this.utilsService.loader(false);
       }
     }
