@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { TimestampComponent } from './timestamp/timestamp.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-attendance',
@@ -8,9 +9,13 @@ import { TimestampComponent } from './timestamp/timestamp.component';
   <div class="col-12">
         <div class="page-title d-flex">
             <h2 class="d-inline-block">เวลาทำงาน</h2>
+            <button type="button" id="btn-person-report"
+            class="btn btn-link p-0 ml-auto"
+            (click)="onClickPersonReport()">
+            <i class="fas fa-file-alt"></i>
+            รายงานการทำงาน
+          </button>
         </div>
-
-
   </div>
   <div class="col-12 col-md-6 col-lg-6 col-xl-5 content-left">
   <div class="box">
@@ -30,17 +35,21 @@ export class AttendanceComponent implements OnInit {
 
   @ViewChild(TaskComponent) tasksChild;
   @ViewChild(TimestampComponent) timestampChild;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
 
   }
 
-  insertComplete(event){
+  insertComplete(event) {
     this.tasksChild.onInsertTaskCompleted(event);
   }
 
-  isDateUnstamped(date){
+  isDateUnstamped(date) {
     this.timestampChild.changeSelectedDate(date);
+  }
+
+  onClickPersonReport() {
+    this.router.navigateByUrl('report/person');
   }
 }

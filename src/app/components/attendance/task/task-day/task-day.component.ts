@@ -45,6 +45,10 @@ export class TaskDayComponent implements AfterViewInit {
 
   onTaskCompleted(date) {
     this.subjectDate.next(date);
+    let enDate = this.utilsService.convertThDateToEn(date)
+    let month = this.utilsService.getThMonth(enDate);
+    let year = this.utilsService.getThYear(enDate);
+    this.fetchSpecialDate(year, month)
   }
 
   ngAfterViewInit(): void {

@@ -1,0 +1,52 @@
+.th:first-child {
+    width: 40px;
+}
+
+.th.date {
+    width: 200px;
+}
+
+.td.date {
+    width: 200px;
+    font-weight: 600;
+}
+
+.th.project {
+    width: 350px;
+}
+
+.td.project {
+    width: 350px;
+}
+
+.th.topic {
+    width: 230px;
+}
+
+.td.topic {
+    width: 230px;
+}
+
+[data-toggle="collapse"] .fas:before {
+    color: firebrick;
+    content: "\f056";
+}
+
+[data-toggle="collapse"].collapsed .fas:before {
+    color: mediumseagreen;
+    content: "\f055";
+}
+
+label.item {
+    width: 100%;
+    margin-bottom: 0%;
+}
+
+.padding-l-0 {
+    padding-left: 0px;
+}
+
+li.hide-index {
+    list-style-type: none;
+    padding-left: 0px;
+}

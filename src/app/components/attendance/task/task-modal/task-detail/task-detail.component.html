@@ -101,6 +101,8 @@
           <ng-select [items]="projectList"
                      bindLabel="projectName"
                      bindValue="projectId"
+                     id="taskDetailProject"
+                     name="taskDetailProject"
                      [disabled]="mode !== 'INSERT'"
                      hideSelected="true"
                      [(ngModel)]="projectId"

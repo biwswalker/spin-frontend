@@ -8,15 +8,16 @@ import { ProjectService } from './project.service';
 import { Project } from '../models/project';
 import { UtilsService } from './utils/utils.service';
 import { Subject } from 'rxjs';
+import { EventMessagesService } from './utils/event-messages.service';
 
 @Injectable()
 export class TaskService {
 
   private task = new Task();
-  private selectedTask =  new Subject();
+  private selectedTask = new Subject();
   public currentTask = this.selectedTask.asObservable();
 
-  private isSelectTask =  new Subject();
+  private isSelectTask = new Subject();
   public currentIsSelectTask = this.isSelectTask.asObservable();
 
   private viewTask = new Subject();
@@ -34,7 +35,7 @@ export class TaskService {
   public currentTimetableDOW = this.timetableDOW.asObservable();
 
 
-  constructor(private request: HttpRequestService, private projectSerive: ProjectService, private utilsService: UtilsService) { }
+  constructor(private request: HttpRequestService, private projectSerive: ProjectService, private utilsService: UtilsService, private messageService: EventMessagesService) { }
 
   chageSelectedTask(selected: Task) {
     if (this.task.taskId) {
@@ -74,7 +75,7 @@ export class TaskService {
     this.timetableDOW.next(dow);
   }
 
-  changeProjectId(projectId){
+  changeProjectId(projectId) {
     this.selectedProjectId.next(projectId);
   }
 
@@ -152,6 +153,22 @@ export class TaskService {
       }
     }
     return taskAll;
+  }
+
+  unstampedReport(projectId: number, startDate: string, endDate: string) {
+    return this.request.requestMethodGET(`task-management/report-un-stamp/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`).toPromise().catch(err => this.messageService.onCustomError('เกิดข้อผิดพลาด', err.status));
+  }
+
+  reportPersonByDate(startDate: string, endDate: string, userId: string){
+    return this.request.requestMethodGET(`task-management/report-person-by-date/start-date/${startDate}/end-date/${endDate}/user-id/${userId}`)
+  }
+
+  reportPersonByProject(startDate: string, endDate: string, userId: string){
+    return this.request.requestMethodGET(`task-management/report-person-by-project/start-date/${startDate}/end-date/${endDate}/user-id/${userId}`)
+  }
+
+  reportPersonByTag(startDate: string, endDate: string, userId: string){
+    return this.request.requestMethodGET(`task-management/report-person-by-tag/start-date/${startDate}/end-date/${endDate}/user-id/${userId}`)
   }
 }
 

@@ -14,6 +14,10 @@ import { UserRegisterComponent } from '../components/admin/user-register/user-re
 import { OfficerComponent } from './../components/admin/officer/officer.component';
 import { DepartmentComponent } from '../components/admin/department/department.component';
 import { PositionComponent } from '../components/admin/position/position.component';
+import { PersonReportComponent } from '../components/reports/person-report/person-report.component';
+import { ReportComponent } from '../components/reports/report.component';
+import { UnstampedReportComponent } from '../components/reports/unstamped-report/unstamped-report.component';
+import { ProjectTagReportComponent } from '../components/reports/project-tag-report/project-tag-report.component';
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
@@ -29,7 +33,12 @@ const routes: Routes = [
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'department', component: DepartmentComponent },
   { path: 'position', component: PositionComponent },
-  { path: 'help', component: HelpComponent }
+  { path: 'help', component: HelpComponent },
+  { path: 'report', component: ReportComponent, children: [
+    { path: 'unstamped', component: UnstampedReportComponent },
+    { path: 'person', component: PersonReportComponent},
+    { path: 'project-tag', component: ProjectTagReportComponent },
+  ] }
 ]
 
 @NgModule({

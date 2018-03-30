@@ -16,7 +16,7 @@ export class PartnerService {
     return this.request.requestMethodGET('user-management/users/' + 'Y');
   }
 
-  findAllUser(prjId: number): Observable<any[]> {
+  findAllUserByProjectId(prjId: number): Observable<any[]> {
     return new Observable(observer => {
       return this.request.requestMethodGET('user-management/users/project-id/' + prjId).subscribe(partner => {
         let atpPartners = []
@@ -39,5 +39,9 @@ export class PartnerService {
 
   findMemberByProjectId(prjId: number, taskId: number) {
     return this.request.requestMethodGET('taskpartner-management/taskpartners/project-member/' + prjId + '/task-id/' + taskId);
+  }
+
+  findAllUser(){
+    return this.request.requestMethodGET('user-management/users/active-flag/A');
   }
 }

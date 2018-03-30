@@ -32,10 +32,6 @@ export class TimetableDayComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spinTimestamp();
-
-    $('#timetable-task').on('click', '.child', function () {
-      console.log("click");
-    });
   }
 
   fecthWorkingTaskByDate(enDate: string) {
@@ -48,8 +44,18 @@ export class TimetableDayComponent implements AfterViewInit {
         let repeated = isRepeat.find(id => id === task.taskId);
         if (!repeated) {
           if (task.activeFlag === 'A') {
-            const start = Number(task.workStartTime);
-            const end = Number(task.workEndTime) - 30;
+            let start = Number(task.workStartTime);
+            let end = Number(task.workEndTime) - 30;
+
+            // If time is over 1900 and less than 600
+            if(start < 600){
+              start = 600
+            }
+            if(end >= 1900){
+              end = 1830
+            }
+
+            // Find index of timetable
             let startIndex = -1;
             let endIndex = -1;
             if (start === end) {
@@ -64,6 +70,8 @@ export class TimetableDayComponent implements AfterViewInit {
                 endIndex = this.worktable.findIndex(time => time === end)
               }
             }
+
+            // set css class and append tag and class to timetable
             let groupClass = `stamped${index}`
             let overlapClass = `overlap${index}`
             let overlayClass = `overlay${index}`

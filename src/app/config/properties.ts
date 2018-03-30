@@ -41,11 +41,13 @@ export const Format = {
     MM: 'MM',
     YYYY: 'YYYY',
 }
+
 export const Mode = {
     V: 'VIEW',
     E: 'EDIT',
     I: 'INSERT'
 }
+
 export var Locale = 'th'
 export const Locales = {
     TH: 'th',

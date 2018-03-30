@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer } from '@angular/core';
 import { Format } from '../../config/properties';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup } from '@angular/forms';
@@ -9,7 +9,7 @@ declare var moment: any;
 export class UtilsService {
 
   public isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  
+
   constructor() {
     moment.locale('th');
   }

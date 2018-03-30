@@ -1,0 +1,18 @@
+<div class="row" id="orderByProject">
+  <div class="col">
+    <div class="table">
+      <div class="thead">
+        <div class="th"></div>
+        <div class="th p-1 project">โครงการ</div>
+        <div class="th p-1">จำนวน (นาที)</div>
+      </div>
+      <div class="tr" *ngFor="let rptPerson of reportByProject">
+        <div class="td text-center p-1"></div>
+        <div class="td p-1">{{rptPerson.name}}</div>
+        <div class="td p-1">
+          <label class="margin-b-0">{{rptPerson.sumhour}} นาที</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

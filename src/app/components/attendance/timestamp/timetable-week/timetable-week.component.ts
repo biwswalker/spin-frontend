@@ -52,10 +52,18 @@ export class TimetableWeekComponent {
       let index = 0;
       for (let task of tasks) {
         if (task.activeFlag === 'A') {
-          const start = Number(task.workStartTime);
-          const end = Number(task.workEndTime) - 30;
+          let start = Number(task.workStartTime);
+          let end = Number(task.workEndTime) - 30;
           let startIndex = -1;
           let endIndex = -1;
+
+           // If time is over 1900 and less than 600
+           if(start < 600){
+            start = 600
+          }
+          if(end >= 1900){
+            end = 1830
+          }
           if (start === end) {
             startIndex = this.worktable.findIndex(time => time === start)
             endIndex = startIndex;
