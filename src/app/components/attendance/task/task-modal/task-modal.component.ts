@@ -70,7 +70,7 @@ export class TaskModalComponent implements AfterViewInit {
   onTaskHasSelected(task: Task, mode: string) {
     // console.log('onTaskHasSelected | ', mode);
     // console.log('task', task);
-    const temp = task;
+    const temp = Object.assign({}, task);
     this.task = new Task();
     this.taskForm.task = temp;
     this.mode = mode;
