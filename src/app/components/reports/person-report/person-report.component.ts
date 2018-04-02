@@ -29,6 +29,7 @@ export class PersonReportComponent implements OnInit {
   public reportPersonList: PersonReport[] = [];
   public userList: User[] = [];
   public userLevel: string;
+  public minDate: string;
 
   @ViewChild(ByDateComponent) byDate;
   @ViewChild(ByProjectComponent) byProject;
