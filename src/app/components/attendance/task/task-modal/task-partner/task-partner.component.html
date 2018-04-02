@@ -25,7 +25,7 @@
           <input type="checkbox"
                  name="{{obj.userId}}"
                  id="{{obj.userId}}"
-                 [hidden]="mode == 'VIEW'"
+                 [hidden]="hiddenCheckBox"
                  autocomplete="off"
                  [(ngModel)]="obj.status">
                    {{obj.fullName}}

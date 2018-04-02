@@ -40,13 +40,13 @@ export class HttpRequestService {
 
   requestMethodPOSTWithHeader(path: string, param: any, options: any): Observable<any> {
     console.log(`POST URL => ${URL + path}`);
-    console.log(param);
+    console.log(`param => ${param}`);
     return this.http.post(URL + path, param, options);
   }
 
   requestMethodPUTWithHeader(path: string, param: any, options: any): Observable<any> {
     console.log(`PUT URL => ${URL + path}`);
-    console.log(param);
+    console.log(`param => ${param}`);
     return this.http.put(URL + path, param, options);
   }
 

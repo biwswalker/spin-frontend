@@ -29,6 +29,7 @@ export class TaskPartnerComponent {
   public mode: string;
   public projectId: number;
   public isHidden: boolean = false;
+  public hiddenCheckBox: boolean = false;
 
 
   constructor(
@@ -39,6 +40,7 @@ export class TaskPartnerComponent {
   }
 
   initTaskPartner(taskId: number, mode: string, user: User, taskOwner: string) {
+    this.user = user;
     this.user.fullName = "";
     this.taskId = taskId;
     this.mode = mode;
@@ -55,6 +57,11 @@ export class TaskPartnerComponent {
         if (isRepeat !== projectId) {
           this.getautoCompletePartner(projectId);
           if (this.taskId) {
+            if (this.user.userId == this.owner) {
+              this.hiddenCheckBox = false;
+            } else {
+              this.hiddenCheckBox = true;
+            }
             this.initialMember(projectId);
             this.initialPartner(projectId);
           } else {
@@ -72,10 +79,12 @@ export class TaskPartnerComponent {
         if (members) {
           this.taskMember = [];
           for (let obj of members) {
-            if (obj.isPartner == "Y") {
-              this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
-            } else {
-              this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
+            if (obj.userId !== this.user.userId) {
+              if (obj.isPartner == "Y") {
+                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
+              } else {
+                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
+              }
             }
           }
         }

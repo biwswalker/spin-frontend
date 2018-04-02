@@ -64,8 +64,11 @@ export class TaskDetailComponent implements OnInit {
     // Find project
     this.projectService.fetchProjectAutocomplete().subscribe(
       projects => {
-        this.projectList = projects;
-        console.log(this.projectList)
+        this.projectList = [];
+        for(let obj of projects){
+          obj.projectName = obj.projectAbbr + ' : ' + obj.projectName;
+          this.projectList.push(obj);
+        }
       }
     )
   }
