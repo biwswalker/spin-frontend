@@ -1,4 +1,4 @@
-<div class="col-12 content-left" *ngIf="user.userLevel === 'P'">
+<div class="col-12 content-left" *ngIf="user.userLevel === 'P' || user.userLevel === 'A'">
   <div class="row">
     <div class="col-12">
       <form [formGroup]="unstampedReportGroup">
