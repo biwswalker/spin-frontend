@@ -96,6 +96,10 @@ export class ProjectModalDetailComponent implements OnInit{
         this.project = data;
         this.project.isVisble = (this.project.visibilityFlag == 'Y'?false:true);
         this.resizedImageTrusted =  this.project.projectThumbnail;
+        if(this.resizedImageTrusted){
+          this.resizedImage = './assets/img/ico/startup.png';
+          this.resizedImageTrusted = this.sanitizer.bypassSecurityTrustUrl(this.resizedImage);
+        }
       }
     )
 
