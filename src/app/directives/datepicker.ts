@@ -27,7 +27,7 @@ export class DatePickerDirective implements ControlValueAccessor{
     // },1000)
   }
   ngAfterViewInit(){
-    console.log('ngAfterViewInit');
+    // console.log('ngAfterViewInit');
     this.isFirstVisit = false;
     $(this.el.nativeElement).datepicker({autoclose:true,format:'dd/mm/yyyy'}).on('change', e =>{
       this.onModelChange(e.target.value);

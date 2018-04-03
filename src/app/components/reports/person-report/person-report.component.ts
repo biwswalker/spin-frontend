@@ -42,7 +42,6 @@ export class PersonReportComponent implements OnInit {
     private partnerService: PartnerService
   ) {
     this.auth.crrUser.subscribe((user: User) => {
-      console.log(user)
       this.officer = user.userId;
       this.userLevel = user.userLevel;
 
