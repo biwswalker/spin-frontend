@@ -16,6 +16,7 @@ export class ByTagComponent implements OnInit {
   }
 
   initialData(data) {
+    console.log(data);
     if (data) {
       this.tagReport = data;
       this.tagReport.maxSpentSummaryTime = 0;

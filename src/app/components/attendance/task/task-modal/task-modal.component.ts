@@ -30,6 +30,7 @@ export class TaskModalComponent implements AfterViewInit {
   private modal = new SpinModal();
   private user: User = new User();
   public mode = '';
+  private owner: String;
 
   @Output() onCompleteEmit = new EventEmitter<string>();
   @ViewChild(TaskDetailComponent) taskDetailChild;
@@ -74,12 +75,13 @@ export class TaskModalComponent implements AfterViewInit {
     this.task = new Task();
     this.taskForm.task = temp;
     this.mode = mode;
+    this.owner = task.ownerUserId;
     this.bgColor = task.color ? task.color : 'blue';
     const objTask = this.taskForm.task;
     objTask.color = (task.color ? task.color : 'blue');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     this.checkProjectId(this.taskForm.task.projectId);
-    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user, task.ownerUserId);
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user, this.owner);
     this.taskTagChild.tagList = [];
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
@@ -101,7 +103,7 @@ export class TaskModalComponent implements AfterViewInit {
           this.taskService.changeProjectId(project.projectId);
         }
       )
-    }else{
+    } else {
       this.taskPartnerChild.isHidden = false;
     }
   }
@@ -127,21 +129,28 @@ export class TaskModalComponent implements AfterViewInit {
         this.task.taskPartnerList.push({ id: { userId: this.user.userId } });
       }
 
-      for (let obj of this.taskPartnerChild.taskMember) {
-        if (obj.status == true) {
-          this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+      if (this.user.userId == this.owner) {
+        for (let obj of this.taskPartnerChild.taskMember) {
+          if (obj.status == true) {
+            this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+          }
         }
-      }
-      if (this.taskPartnerChild.taskPartner) {
-        for (let obj of this.taskPartnerChild.taskPartner) {
-          this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+        if (this.taskPartnerChild.taskPartner) {
+          for (let obj of this.taskPartnerChild.taskPartner) {
+            this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+          }
         }
+      }else{
+        this.task.taskPartnerList.push({ id: { userId: this.user.userId } });
       }
+
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
+
       this.checkRequiredData(this.task, this.mode);
-    }else{
+
+    } else {
       this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
       this.eventMessageService.onWarning('กรุณาระบุข้อมูลในช่องที่มีเครื่องหมาย * ให้ครบ..')
       this.utilsService.loader(false);
@@ -161,9 +170,9 @@ export class TaskModalComponent implements AfterViewInit {
             task.referTaskId = this.taskForm.task.taskId;
           }
         }
-        if (this.taskPartnerChild.doSelfFlag && mode == Mode.I && this.taskForm.task.taskId === undefined) {
-          task.taskPartnerList.push({ id: { userId: this.user.userId } });
-        }
+        // if (this.taskPartnerChild.doSelfFlag && mode == Mode.I && this.taskForm.task.taskId === undefined) {
+        //   task.taskPartnerList.push({ id: { userId: this.user.userId } });
+        // }
         this.createNewTask(task)
       } else {
         task.taskId = this.taskForm.task.taskId;

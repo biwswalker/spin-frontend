@@ -42,6 +42,7 @@ export class PersonReportComponent implements OnInit {
     private partnerService: PartnerService
   ) {
     this.auth.crrUser.subscribe((user: User) => {
+      console.log(user)
       this.officer = user.userId;
       this.userLevel = user.userLevel;
 
@@ -53,11 +54,11 @@ export class PersonReportComponent implements OnInit {
     this.initialUserList();
   }
 
-  initialUserList(){
+  initialUserList() {
     this.partnerService.findAllUser().subscribe(
-      userList=>{
+      userList => {
         this.userList = userList
-        for(let user of this.userList){
+        for (let user of this.userList) {
           user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
         }
       }
@@ -90,8 +91,13 @@ export class PersonReportComponent implements OnInit {
         officer: new FormControl(this.officer, Validators.required),
         startDate: new FormControl(this.startDate, Validators.required),
         endDate: new FormControl(this.endDate, Validators.required)
-      }
-    )
+      });
+
+    if (this.userLevel == 'A') {
+      this.personReportFormGroup.controls['officer'].enable();
+    } else {
+      this.personReportFormGroup.controls['officer'].disable();
+    }
   }
 
   onSubmitReport() {
@@ -104,9 +110,9 @@ export class PersonReportComponent implements OnInit {
     this.tableOrderByTag = false;
     let startDateStr = this.utilsService.convertDatePickerToThDate(form.startDate);
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
-    let byDate = await this.taskService.reportPersonByDate(startDateStr, endDateStr, 'tiwakorn.ja')
+    let byDate = await this.taskService.reportPersonByDate(startDateStr, endDateStr, this.officer)
       .map(async (result) => {
-        if(result){
+        if (result) {
           this.byDate.initialData(result);
         }
       }).toPromise();
@@ -118,9 +124,9 @@ export class PersonReportComponent implements OnInit {
     this.tableOrderByTag = false;
     let startDateStr = this.utilsService.convertDatePickerToThDate(form.startDate);
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
-    let orderByProjectList = await this.taskService.reportPersonByProject(startDateStr, endDateStr, 'tiwakorn.ja')
+    let orderByProjectList = await this.taskService.reportPersonByProject(startDateStr, endDateStr, this.officer)
       .map(async (callbackList) => {
-        if(callbackList){
+        if (callbackList) {
           this.byProject.initialData(callbackList);
         }
       }).toPromise();
@@ -132,14 +138,14 @@ export class PersonReportComponent implements OnInit {
     this.tableOrderByTag = true;
     let startDateStr = this.utilsService.convertDatePickerToThDate(form.startDate);
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
-    let orderByTagList = await this.taskService.reportPersonByTag(startDateStr, endDateStr, 'tiwakorn.ja')
+    let orderByTagList = await this.taskService.reportPersonByTag(startDateStr, endDateStr, this.officer)
       .map(async (callbackList) => {
-        if(callbackList){
+        if (callbackList) {
           this.byTag.initialData(callbackList);
         }
       }).toPromise();
   }
 
-  onSelectUser(event){
+  onSelectUser(event) {
   }
 }
