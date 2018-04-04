@@ -183,7 +183,7 @@ export class UtilsService {
   }
 
   displayTimestampDate(enDate: string): string {
-    return `${this.getThDayWord(enDate)} ${this.getThGetDate(enDate)}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`
+    return `${this.getThDayWord(enDate)} ${Number(this.getThGetDate(enDate))}  ${this.getThMonthWord(enDate)} ${this.convertToThYearStrByEnDate(enDate)}`
   }
 
   displayCalendarDate(thDate: string): string {
@@ -211,7 +211,7 @@ export class UtilsService {
     let enDate = this.convertThDateToEn(thDate);
     var day = moment(enDate, Format.DATE_DB).format('dd');
     let date = this.getThGetDate(enDate);
-    return `${day}${date}`
+    return `${day} ${Number(date)}`
   }
 
   calcurateHours(hour: number, mins: number): number {
@@ -222,6 +222,12 @@ export class UtilsService {
 
   getTimeList() {
     let time = [
+      "00:00", "00:30",
+      "01:00", "01:30",
+      "02:00", "02:30",
+      "03:00", "03:30",
+      "04:00", "04:30",
+      "05:00", "05:30",
       "06:00", "06:30",
       "07:00", "07:30",
       "08:00", "08:30",

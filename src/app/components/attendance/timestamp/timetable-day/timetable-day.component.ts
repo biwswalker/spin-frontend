@@ -2,6 +2,8 @@ import { Component, AfterViewInit } from '@angular/core';
 import { TaskService } from '../../../../providers/task.service';
 import { WorkingTime } from '../../../../config/properties';
 import { UtilsService } from '../../../../providers/utils/utils.service';
+import { HolidayService } from '../../../../providers/holiday.service';
+import { Holiday } from '../../../../models/holiday';
 declare var SpinModal: any;
 declare var convertTimeString: any;
 declare var $: any;
@@ -16,15 +18,25 @@ export class TimetableDayComponent implements AfterViewInit {
   // Get time list
   public worktable = WorkingTime
   public enDateStr = '';
+  public holidayName = '';
 
-  constructor(private taskService: TaskService, private utilsService: UtilsService) {
+  constructor(private taskService: TaskService, private utilsService: UtilsService, private holidayService: HolidayService) {
     let checkDubplicated: string[] = [];
     // Async
-    this.taskService.currentTimetableDate.subscribe(enDate => {
+    this.taskService.currentTimetableDate.subscribe(async enDate => {
       let isDup = checkDubplicated.find(date => date === enDate);
       if (!isDup) {
         this.enDateStr = enDate;
-        this.fecthWorkingTaskByDate(enDate)
+        this.fecthWorkingTaskByDate(enDate);
+
+        // If have find holiday by date method ==> can replace this method
+        // Get Holiday
+        let holidaysFetch = await this.holidayService.findHolidayByMonth(this.utilsService.getThYear(enDate), this.utilsService.getThMonth(enDate)).toPromise();
+        let holiday = holidaysFetch.filter(item => item.holDate === this.utilsService.convertEnDateToTh(enDate) && item.activeFlag === 'A');
+        this.holidayName = '';
+        for (let hol of holiday) {
+          this.holidayName = hol.holName;
+        }
       }
     })
     // End Async
@@ -48,12 +60,12 @@ export class TimetableDayComponent implements AfterViewInit {
             let end = Number(task.workEndTime) - 30;
 
             // If time is over 1900 and less than 600
-            if(start < 600){
-              start = 600
-            }
-            if(end >= 1900){
-              end = 1830
-            }
+            // if(start < 600){
+            //   start = 600
+            // }
+            // if(end >= 1900){
+            //   end = 1830
+            // }
 
             // Find index of timetable
             let startIndex = -1;

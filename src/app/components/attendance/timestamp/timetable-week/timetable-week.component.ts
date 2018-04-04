@@ -58,12 +58,12 @@ export class TimetableWeekComponent {
           let endIndex = -1;
 
            // If time is over 1900 and less than 600
-           if(start < 600){
-            start = 600
-          }
-          if(end >= 1900){
-            end = 1830
-          }
+          //  if(start < 600){
+          //   start = 600
+          // }
+          // if(end >= 1900){
+          //   end = 1830
+          // }
           if (start === end) {
             startIndex = this.worktable.findIndex(time => time === start)
             endIndex = startIndex;
@@ -87,11 +87,11 @@ export class TimetableWeekComponent {
           }
           // Step 2
           $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:101;'></div>`);
-          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
+          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0; overflow: hidden;'>
               <div class="m-0 stamp-topic text-truncate"><div class="d-inline">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
               ${task.projectAbbr ? `<div class="d-inline topic-task"> #${task.projectAbbr}</div>` : ''}</div>
-              ${totalInd > 0 ? `<div class="stamp-topic text-truncate m-0"><div class="topic-task">${task.topic}</div></div>` : ''}
-              ${totalInd > 1 ? `<div class="stamp-activity text-truncate m-0">${task.activity}</div>` : ''}
+              ${totalInd > 0 ? `<div class="stamp-topic m-0"><div class="topic-task">${task.topic}</div></div>` : ''}
+              ${totalInd > 1 ? `<div class="stamp-activity m-0">${task.activity}</div>` : ''}
               <p class="text-truncate colla-display m-0">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
             </div>`);
           // Step 3
