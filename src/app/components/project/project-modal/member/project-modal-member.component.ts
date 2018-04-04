@@ -46,10 +46,15 @@ export class ProjectModalMemberComponent implements OnInit {
     this.officerService.fetchAllAutocomplete('A').subscribe(
 
       users=>{
+        console.log(users);
         this.users = [];
         for (let user of users){
-          user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
-          this.users = this.users.concat(user);
+          if(user.officer){
+            user.fullName = user.officer.firstNameTh +' '+user.officer.lastNameTh;
+            this.users = this.users.concat(user);
+          }
+
+
         }
 
         // this.usersdata;
@@ -60,6 +65,7 @@ export class ProjectModalMemberComponent implements OnInit {
 
     this.respService.fetchResponsibilityAutocomplete('A').subscribe(
       data=>{
+
         this.responsibilities = data;
       },err=>{
         console.log(err);
