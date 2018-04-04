@@ -46,7 +46,6 @@ export class ProjectModalMemberComponent implements OnInit {
     this.officerService.fetchAllAutocomplete('A').subscribe(
 
       users=>{
-        console.log(users);
         this.users = [];
         for (let user of users){
           if(user.officer){
