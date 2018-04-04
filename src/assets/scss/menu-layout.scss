@@ -154,17 +154,11 @@ $white: #fff;
       margin-left: 2.5rem;
     }
   }
-}
-
-@include media-breakpoint-down(sm){
 
   .spin-link{
     margin-top: 8rem !important;
     max-height: calc(100vh - 8rem) !important;
   }
-}
-@include media-breakpoint-down(sm){
-
   #sidebar{
     position: -webkit-fixed;
     position: fixed;
