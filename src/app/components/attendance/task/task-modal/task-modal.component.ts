@@ -125,11 +125,31 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
 
-      if (this.taskPartnerChild.doSelfFlag && this.mode == Mode.I && this.task.taskId) {
+      //check userId is member
+
+      if (this.taskPartnerChild.doSelfFlag) {
         this.task.taskPartnerList.push({ id: { userId: this.user.userId } });
       }
 
-      if (this.user.userId == this.owner) {
+      //check condition for add prjmember on Mode.I
+      if (this.mode == Mode.I) {
+
+        //create new task
+        if (!this.taskForm.task.taskId) {
+          for (let obj of this.taskPartnerChild.taskMember) {
+            if (obj.status == true) {
+              this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+            }
+          }
+
+          if (this.taskPartnerChild.taskPartner) {
+            for (let obj of this.taskPartnerChild.taskPartner) {
+              this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+            }
+          }
+        }//if taskId => copytask not add prjmember
+
+      } else if (this.mode == Mode.E) {
         for (let obj of this.taskPartnerChild.taskMember) {
           if (obj.status == true) {
             this.task.taskPartnerList.push({ id: { userId: obj.userId } });
@@ -140,14 +160,13 @@ export class TaskModalComponent implements AfterViewInit {
             this.task.taskPartnerList.push({ id: { userId: obj.userId } });
           }
         }
-      }else{
-        this.task.taskPartnerList.push({ id: { userId: this.user.userId } });
       }
 
       for (let obj of this.taskTagChild.tagList) {
         this.task.taskTagList.push({ tag: { tagName: obj['display'] } });
       }
 
+      console.log(this.task)
       this.checkRequiredData(this.task, this.mode);
 
     } else {
@@ -170,14 +189,10 @@ export class TaskModalComponent implements AfterViewInit {
             task.referTaskId = this.taskForm.task.taskId;
           }
         }
-        // if (this.taskPartnerChild.doSelfFlag && mode == Mode.I && this.taskForm.task.taskId === undefined) {
-        //   task.taskPartnerList.push({ id: { userId: this.user.userId } });
-        // }
-        this.createNewTask(task)
+        this.createNewTask(task);
       } else {
-        task.taskId = this.taskForm.task.taskId;
-        task.versionId = this.taskForm.task.versionId;
-        this.updateTask(task)
+        task.referTaskId = this.taskForm.task.referTaskId;
+        this.updateTask(task);
       }
     }
     $('#workingDatePicker').datepicker('refresh');
@@ -201,6 +216,13 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   updateTask(task: Task) {
+    if (this.taskForm.task.taskId) {
+      task.taskId = this.taskForm.task.taskId;
+    }
+
+    if (this.taskForm.task.versionId) {
+      task.versionId = this.taskForm.task.versionId;
+    }
     this.taskService.updateTask(task).subscribe(
       res => {
         console.log(res);
@@ -246,7 +268,8 @@ export class TaskModalComponent implements AfterViewInit {
     if (this.taskForm.task.taskId) {
       this.taskService.removeTask(this.taskForm.task.taskId).subscribe(
         res => {
-          console.log(res);
+          this.eventMessageService.onDeleteSuccess('');
+          // console.log(res);
         }, error => {
           console.log(error);
           this.utilsService.loader(false);
