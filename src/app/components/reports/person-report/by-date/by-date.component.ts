@@ -26,11 +26,13 @@ export class ByDateComponent implements OnInit {
       for (let worktime of rpt.tasks) {
         rpt.sumWorkH += worktime.sumAsHour;
         rpt.sumWorkM += worktime.sumAsMin;
-        if(rpt.sumWorkM == 60){
-          rpt.sumWorkH += 1;
-          rpt.sumWorkM = 0;
-        }
         worktime.startEndTime = (this.utilsService.convertDisplayTime(worktime.startTime) + '-' + this.utilsService.convertDisplayTime(worktime.endTime));
+      }
+      if((rpt.sumWorkM%60) !== 0){
+        console.log('rpt.sumWorkM => ', rpt.sumWorkM);
+        // rpt.sumWorkH += rpt.sumWorkM/60;
+        rpt.sumWorkH += Math.floor(rpt.sumWorkM/60);
+        rpt.sumWorkM = rpt.sumWorkM%60;
       }
     }
   }

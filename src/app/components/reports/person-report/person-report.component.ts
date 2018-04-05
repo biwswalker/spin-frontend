@@ -42,6 +42,7 @@ export class PersonReportComponent implements OnInit {
     private partnerService: PartnerService
   ) {
     this.auth.crrUser.subscribe((user: User) => {
+      // console.log(user);
       this.officer = user.userId;
       this.userLevel = user.userLevel;
     });
@@ -57,7 +58,9 @@ export class PersonReportComponent implements OnInit {
       userList => {
         this.userList = userList
         for (let user of this.userList) {
-          user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
+          if(user.officer){
+            user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
+          }
         }
       }
     )
