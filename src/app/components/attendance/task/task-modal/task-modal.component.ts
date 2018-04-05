@@ -246,8 +246,13 @@ export class TaskModalComponent implements AfterViewInit {
 
   oncloseModal() {
     let stampDate = this.taskForm.task.workDate;
+    let stampEnDate = this.utilsService.convertThDateToEn(stampDate);
+    let firstDate = this.utilsService.getStartOfWeek(stampEnDate, true);
+    let endDate = this.utilsService.getEndOfWeek(stampEnDate, true);
     this.modal.close('#task-modal');
-    this.taskService.changeTimetableDate(this.utilsService.convertThDateToEn(stampDate));
+    this.taskService.changeTimetableDate(stampEnDate);
+    let weekDateObj = { start: firstDate, end: endDate };
+    this.taskService.changeTimetableDOW(weekDateObj);
     this.taskService.chageSelectedTask(new Task());
     this.onCompleteEmit.emit(stampDate);
     this.task = new Task;

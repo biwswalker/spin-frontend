@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { WorkingTime } from '../../../../config/properties';
 import { TaskService } from '../../../../providers/task.service';
 import { UtilsService } from '../../../../providers/utils/utils.service';
@@ -13,7 +13,8 @@ declare var convertTimeString: any;
   templateUrl: './timetable-week.component.html',
   styleUrls: ['./timetable-week.component.scss']
 })
-export class TimetableWeekComponent {
+export class TimetableWeekComponent implements AfterViewInit {
+
 
   // Get time list
   public worktable = WorkingTime
@@ -37,6 +38,10 @@ export class TimetableWeekComponent {
     // End Async
   }
 
+  ngAfterViewInit(): void {
+    this.spinTimestamp();
+  }
+
   fecthWorkingTaskByWeek() {
     let dataDate = this.firstDOW
     for (let i = 1; i <= 7; i++) {
@@ -57,7 +62,7 @@ export class TimetableWeekComponent {
           let startIndex = -1;
           let endIndex = -1;
 
-           // If time is over 1900 and less than 600
+          // If time is over 1900 and less than 600
           //  if(start < 600){
           //   start = 600
           // }
@@ -133,4 +138,82 @@ export class TimetableWeekComponent {
     this.taskService.onViewTask(task);
   }
 
+
+  spinTimestamp() {
+    // this of .ts file
+    let self = this;
+    // Start jquery func
+    for (let i = 1; i < 8; i++) {
+      let selectorName = `.timestamp-week${i}`
+      $(selectorName).selectable({
+        filter: '.stamp:not(".unavailable")',
+        stop: () => self.onStopFucn(selectorName),
+      });
+    }
+
+  }
+
+  onStopFucn(selector: string) {
+    let timeList = [];
+    let indexList = [];
+    const selected = $(`${selector} .ui-selected`)
+    let preIndex: number = null;
+    let dateIndex: number = null;
+    // fecth value form table
+    for (let element of selected) {
+      let index = element.dataset.index;
+      let value = element.dataset.value;
+      let col = element.dataset.col;
+      if (preIndex == null) {
+        timeList.push(value);
+        indexList.push(index);
+        preIndex = index;
+        dateIndex = col;
+      } else {
+        let prevInd: number = index - 1;
+        if (prevInd == preIndex) {
+          timeList.push(value);
+          indexList.push(index);
+          preIndex = index;
+          dateIndex = col;
+        }
+      }
+    }
+    // Get time from slide
+    if (timeList.length > 0) {
+      let startWorkingTime = '';
+      let endWorkingTime = '';
+
+      if (timeList.length == 1) {
+        let starttime = Number(timeList[0])
+        let endtime = Number(timeList[0]) + 30
+        let min = convertTimeString(endtime).substr(2, 1);
+        if (min === '6') {
+          endtime = endtime + 40;
+        }
+        startWorkingTime = convertTimeString(starttime);
+        endWorkingTime = convertTimeString(endtime);
+      } else {
+        let starttime = Number(timeList[0])
+        // +70 is => 0630+70=0700
+        let endtime = Number(timeList[timeList.length - 1]) + 30
+        let min = convertTimeString(endtime).substr(2, 1);
+        if (min === '6') {
+          endtime = endtime + 40;
+        }
+        startWorkingTime = convertTimeString(starttime);
+        endWorkingTime = convertTimeString(endtime);
+      }
+      let selectDate = '';
+      const dateObj = this.dates[dateIndex];
+      dateObj.subscribe(date => selectDate = date);
+      let modal = new SpinModal();
+      modal.initial('#task-modal', { show: true, backdrop: 'static', keyboard: true })
+      $('#task-modal').on("hidden.bs.modal", function () {
+        $(`${selector} .ui-selected`).removeClass('ui-selected');
+      })
+      // Call TS fucntion
+      this.taskService.updateCurrentTimeTask(selectDate, startWorkingTime, endWorkingTime)
+    }
+  }
 }
