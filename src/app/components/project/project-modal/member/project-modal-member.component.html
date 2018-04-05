@@ -1,3 +1,37 @@
+<form [formGroup]="projectMemberGroup" id="project-member-insert">
+    <div class="row">
+      <div class="col-12 d-flex">
+          <h4>เพิ่มสมาชิก</h4>
+          <button type="button" class="btn btn-link ml-auto" (click)="onSubmit()"><i class="fas fa-check fa-lg"></i></button>
+      </div>
+      <div class="col-12">
+          <div class="form-group">
+              <label for="member-name">ชื่อ - นามสกุล *</label>
+              <ng-select [items]="users"
+             bindLabel="fullName"
+             bindValue="userId"
+             [(ngModel)]="userId"
+             (add)="onSelectedMember($event)"
+             formControlName="userName"
+             >
+            </ng-select>
+          </div>
+      </div>
+      <div class="col-12">
+          <div class="form-group">
+              <label for="responsibility">ตำแหน่ง *</label>
+              <ng-select [items]="responsibilities"
+              bindLabel="respName"
+              bindValue="respId"
+              [(ngModel)]="respId"
+              (add)="onSelectedResp($event)"
+              formControlName="respId"
+              ></ng-select>
+          </div>
+      </div>
+
+    </div>
+    </form>
 <div class="row phase-list-row">
     <div class="col-12">
       <ul   class="list-group list-group-flush member-list mb-4">
@@ -20,37 +54,4 @@
   </div>
 
 
-  <form [formGroup]="projectMemberGroup" id="project-member-insert">
-  <div class="row">
-    <div class="col-12 d-flex">
-        <h4>เพิ่มสมาชิก</h4>
-        <button type="button" class="btn btn-link ml-auto" (click)="onSubmit()"><i class="fas fa-check fa-lg"></i></button>
-    </div>
-    <div class="col-12">
-        <div class="form-group">
-            <label for="member-name">ชื่อ - นามสกุล *</label>
-            <ng-select [items]="users"
-           bindLabel="fullName"
-           bindValue="userId"
-           [(ngModel)]="userId"
-           (add)="onSelectedMember($event)"
-           formControlName="userName"
-           >
-          </ng-select>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="form-group">
-            <label for="responsibility">ตำแหน่ง *</label>
-            <ng-select [items]="responsibilities"
-            bindLabel="respName"
-            bindValue="respId"
-            [(ngModel)]="respId"
-            (add)="onSelectedResp($event)"
-            formControlName="respId"
-            ></ng-select>
-        </div>
-    </div>
 
-  </div>
-  </form>

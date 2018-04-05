@@ -15,15 +15,32 @@
         border-bottom-left-radius: .25rem;
         border-bottom-right-radius: .25rem;
     }
-    .img-thumbnail.project-image{
-      min-height: 8rem !important;
-      color: $white;
-      background: #fff;
-    }
-
-    #upload-project-label{
-      cursor: pointer;
-      margin-bottom: 0rem !important;
+    .project-image{
+      width: 150px;
+      height: 150px;
+      margin: 10px auto;
+      #upload-project-label{
+        cursor: pointer;
+        margin-bottom: 0rem !important;
+        display: block;
+        .img-thumbnail{
+          min-height: 8rem !important;
+          color: $white;
+          background: #fff;
+          width: 100%;
+          height: 100%;
+          }
+          .upload-label{
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            font-weight: 400;
+            color: white;
+            padding: 5px 10px;
+            margin: -95px auto;
+            position: relative;
+            width: 100px;
+          }
+      }
     }
     #upload-project{
       opacity: 0;
