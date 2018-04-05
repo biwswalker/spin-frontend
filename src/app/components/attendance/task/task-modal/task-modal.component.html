@@ -33,7 +33,7 @@
 
           <!-- Save Button -->
           <button type="button"
-                  class="btn btn-save "
+                  class="btn btn-success "
                   id="save-btn"
                   name="save-btn"
                   (click)="onSubmit()"
@@ -95,7 +95,7 @@
       <div class="modal-body">
         <div class="tab-content">
           <!-- Detail -->
-          <div class="tab-pane in active fixed-modal"
+          <div class="tab-pane in active"
                role="tabpanel"
                id="tab-detail">
             <app-task-detail (messageEvent)="receiveMessage($event)">
