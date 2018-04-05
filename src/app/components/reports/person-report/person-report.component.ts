@@ -44,7 +44,6 @@ export class PersonReportComponent implements OnInit {
     this.auth.crrUser.subscribe((user: User) => {
       this.officer = user.userId;
       this.userLevel = user.userLevel;
-
     });
   }
 
@@ -81,7 +80,6 @@ export class PersonReportComponent implements OnInit {
     this.startDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.endDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.sortBy = 1;
-    this.officer = null;
     this.tableOrderByDate = false;
     this.tableOrderByProject = false;
     this.tableOrderByTag = false;

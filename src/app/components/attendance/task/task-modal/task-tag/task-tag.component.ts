@@ -14,7 +14,7 @@ export class TaskTagComponent implements OnInit {
   public usedTagList: any[] = [];
   public tagList: any[] = [];
   public autoCompleteTagList: any[] = [];
-  public mode: string;
+  // public mode: string;
   public task: Task = new Task();
 
   constructor(
@@ -26,9 +26,10 @@ export class TaskTagComponent implements OnInit {
   }
 
   findUsedTag() {
+    this.usedTagList = [];
     this.tagService.findUsedTag().subscribe(
       data => {
-        this.usedTagList = [];
+        // this.usedTagList = [];
         for (let obj of data) {
           this.usedTagList.push({ display: obj.tagName, value: obj.tagName });
         }
@@ -37,13 +38,14 @@ export class TaskTagComponent implements OnInit {
   }
 
   initialTag(taskId: number) {
+    this.tagList = [];
     this.findUsedTag();
     this.initialAutocompleteTagList();
     if (taskId) {
       this.tagService.findByTaskId(taskId).subscribe(
         tags => {
           if (tags) {
-            this.tagList = [];
+            // this.tagList = [];
             for (let tag of tags) {
               this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
             }
@@ -55,9 +57,10 @@ export class TaskTagComponent implements OnInit {
 
 
   initialAutocompleteTagList() {
+    this.autoCompleteTagList = []
     this.tagService.findAll().subscribe(
       data => {
-        this.autoCompleteTagList = []
+        // this.autoCompleteTagList = []
         this.autoCompleteTagList = data;
       }
     )

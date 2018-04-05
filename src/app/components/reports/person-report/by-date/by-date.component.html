@@ -6,7 +6,7 @@
         <div class="th p-1 date">วันที่ / เวลา</div>
         <div class="th p-1 project">โครงการ</div>
         <div class="th p-1 topic">หัวข้อ</div>
-        <div class="th p-1">จำนวน (นาที)</div>
+        <div class="th p-1">จำนวน</div>
       </div>
       <!-- Body-->
       <div class="tr" *ngFor="let rptPerson of reportPersonList; let i = index" >
@@ -28,13 +28,13 @@
                   <!-- Time -->
                 <button class="btn btn-link p-0 collapsed"
                         data-toggle="collapse"
-                        [attr.data-target]="'.collapse-detail-group' + d">
+                        [attr.data-target]="'.collapse-detail-group' + i + d">
                   <i class="fas"></i>
                 </button>
                 {{project.startEndTime}}
               </li>
               <div id="detail-time"
-                   [attr.class]="'invisible collapse collapse-detail-group' + d">
+                   [attr.class]="'invisible collapse collapse-detail-group' + i + d">
                 &nbsp;
               </div>
             </ol>
@@ -49,7 +49,7 @@
               {{project.projectName}}
             </li>
             <label id="detail-project"
-                   [attr.class]="'invisible collapse collapse-detail-group' + d">
+                   [attr.class]="'invisible collapse collapse-detail-group' + i + d">
               &nbsp;
             </label>
           </ol>
@@ -61,17 +61,17 @@
             <li class="hide-index">
               {{project.topic}}
             </li>
-            <label [attr.class]="'activity-detail collapse collapse-detail-group' + d">
+            <label [attr.class]="'activity-detail collapse collapse-detail-group' + i + d">
               {{project.activity}}
             </label>
           </ol>
         </div>
         <div class="td date p-1">
-          {{rptPerson.sumWorkTime}} นาที
+          {{rptPerson.sumWorkH}} ชั่วโมง {{rptPerson.sumWorkM}} นาที
           <ol *ngFor="let project of rptPerson.tasks; let d = index"
                 [attr.class]="'padding-l-0 collapse collapse-group' + i">
-            <li class="hide-index time">{{project.workTime}} นาที</li>
-            <label [attr.class]="'multi-collapse invisible collapse collapse-detail-group' + d">&nbsp;</label>
+            <li class="hide-index time">{{project.sumAsHour}} ชั่วโมง {{project.sumAsMin}} นาที</li>
+            <label [attr.class]="'multi-collapse invisible collapse collapse-detail-group' + i + d">&nbsp;</label>
           </ol>
         </div>
       </div>
