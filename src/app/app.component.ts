@@ -1,28 +1,28 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { AuthenticationService } from './providers/authentication.service';
 import { UtilsService } from './providers/utils/utils.service';
-declare var $:any;
+import { Status } from './config/properties';
+declare var $: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  
+
   public loading = false;
   public isAccess = false;
   private isRequested = false;
 
-  constructor(private authService: AuthenticationService, private zone: NgZone, private utilService: UtilsService) {
-    this.authService.crrAccess.subscribe(accesses => {
+  constructor(private authService: AuthenticationService, private utilService: UtilsService) {
+    this.authService.crrAccess.subscribe(async accesses => {
       if (this.authService.isInSession()) {
-        if (!this.isRequested) {
-          // this.zone.run(() => { // <== added
-          this.authService.accessUser();
-          this.isRequested = true;
-          // });
+        let status = await this.authService.accessUser();
+        if (status === Status.SUCCESS) {
+          this.isAccess = true;
+        } else {
+          this.isAccess = false;
         }
-        this.isAccess = true;
         $('#task-modal').on("hidden.bs.modal");
         $('#project-modal').on("hidden.bs.modal");
       } else {
