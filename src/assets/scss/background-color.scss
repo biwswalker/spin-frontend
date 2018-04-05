@@ -1,6 +1,4 @@
-.blue {
-  background-color: $blue !important;
-}
+
 .primary {
   background-color: $primary !important;
 }
@@ -9,33 +7,6 @@
 }
 .danger {
   background-color: $danger !important;
-}
-.indigo {
-  background-color: $indigo !important;
-}
-.purple {
-  background-color: $purple !important;
-}
-.pink {
-  background-color: $pink !important;
-}
-.red {
-  background-color: $red !important;
-}
-.orange {
-  background-color: $orange !important;
-}
-.green {
-  background-color: $green !important;
-}
-.teal {
-  background-color: $teal !important;
-}
-.cyan {
-  background-color: $cyan !important;
-}
-.yellow {
-  background-color: $yellow !important;
 }
 .warning {
   background-color: $warning !important;
@@ -46,6 +17,84 @@
 .info {
   background-color: $info !important;
 }
+
+.indigo {
+  background-color: $indigo !important;
+}
+.purple {
+  background-color: $purple !important;
+}
+.teal {
+  background-color: $teal !important;
+}
 .dark {
   background-color: $dark !important;
+}
+
+.blue {
+  background-color: $blue !important;
+}
+.pink {
+  background-color: $pink !important;
+}
+.red {
+  background-color: $red !important;
+}
+.orange {
+  background-color: $orange !important;
+}
+.cyan {
+  background-color: $cyan !important;
+}
+.yellow {
+  background-color: $yellow !important;
+}
+.green {
+  background-color: $green !important;
+}
+
+//light pattern
+.light-blue{
+  background-color: #448AFF !important;
+}
+.light-pink{
+  background-color: #FF4081 !important;
+}
+.light-red{
+  background-color: #FF5252 !important;
+}
+.light-orange{
+  background-color: #FFAB40 !important;
+}
+.light-cyan{
+  background-color: #18FFFF !important;
+}
+.light-yellow{
+  background-color: #FFFF00 !important;
+}
+.light-green{
+  background-color: #B2FF59 !important;
+}
+
+//pastel pattern
+.p-blue{
+  background-color: #90CAF9 !important;
+}
+.p-pink{
+  background-color: #F48FB1 !important;
+}
+.p-red{
+  background-color: #EF9A9A !important;
+}
+.p-orange{
+  background-color: #FFCC80 !important;
+}
+.p-cyan{
+  background-color: #80DEEA !important;
+}
+.p-yellow{
+  background-color: #FFF59D !important;
+}
+.p-green{
+  background-color: #A5D6A7 !important;
 }

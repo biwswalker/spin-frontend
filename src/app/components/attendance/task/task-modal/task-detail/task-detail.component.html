@@ -131,20 +131,20 @@
   </div>
 </form>
 
-    <div class="row" *ngIf="mode !== 'VIEW'">
+  <div class="row" *ngIf="mode !== 'VIEW'">
     <div class="col-12">
-    <label class="label-task-modal">สีพื้นหลัง</label>
+      <label class="label-task-modal">สีพื้นหลัง</label>
+    </div>
+    <div class="col-12">
+      <a class="btn p-blue color-picker" (click)="onColorPick('p-blue')" id="blue" [class.active]="taskObj.color == 'p-blue'"></a>
+      <a class="btn p-pink color-picker" (click)="onColorPick('p-pink')" id="pink" [class.active]="taskObj.color == 'p-pink'"></a>
+      <a class="btn p-red color-picker" (click)="onColorPick('p-red')" id="red" [class.active]="taskObj.color == 'p-red'"></a>
+      <a class="btn p-orange color-picker" (click)="onColorPick('p-orange')" id="orange" [class.active]="taskObj.color == 'p-orange'"></a>
+      <a class="btn p-cyan color-picker" (click)="onColorPick('p-cyan')" id="cyan" [class.active]="taskObj.color == 'p-cyan'"></a>
+      <a class="btn p-yellow color-picker" (click)="onColorPick('p-yellow')" id="yellow" [class.active]="taskObj.color == 'p-yellow'"></a>
+      <a class="btn p-green color-picker" (click)="onColorPick('p-green')" id="green" [class.active]="taskObj.color == 'p-green'"></a>
+    </div>
   </div>
-  <div class="col-12">
-    <a class="btn blue color-picker" (click)="onColorPick('blue')" id="blue" [class.active]="taskObj.color == 'blue'"></a>
-    <a class="btn pink color-picker" (click)="onColorPick('pink')" id="pink" [class.active]="taskObj.color == 'pink'"></a>
-    <a class="btn red color-picker" (click)="onColorPick('red')" id="red" [class.active]="taskObj.color == 'red'"></a>
-    <a class="btn orange color-picker" (click)="onColorPick('orange')" id="orange" [class.active]="taskObj.color == 'orange'"></a>
-    <a class="btn cyan color-picker" (click)="onColorPick('cyan')" id="cyan" [class.active]="taskObj.color == 'cyan'"></a>
-    <a class="btn yellow color-picker" (click)="onColorPick('yellow')" id="yellow" [class.active]="taskObj.color == 'yellow'"></a>
-    <a class="btn green color-picker" (click)="onColorPick('green')" id="green" [class.active]="taskObj.color == 'green'"></a>
-  </div>
-</div>
 </div>
 
 <!-- <div class="row row">

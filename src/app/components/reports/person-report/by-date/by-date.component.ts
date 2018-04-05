@@ -21,14 +21,16 @@ export class ByDateComponent implements OnInit {
   initialData(data) {
     this.reportPersonList = data;
     for (let rpt of this.reportPersonList) {
-      rpt.sumWorkTime = 0;
+      rpt.sumWorkH = 0;
+      rpt.sumWorkM = 0;
       for (let worktime of rpt.tasks) {
-        worktime.workTime = 0;
-        let total = (worktime.sumAsHour * 60) + worktime.sumAsMin;
-        worktime.workTime = total;
-        rpt.sumWorkTime += total;
-        worktime.startEndTime = (this.utilsService.convertDisplayTime(worktime.startTime) + '-' + this.utilsService
-        .convertDisplayTime(worktime.endTime));
+        rpt.sumWorkH += worktime.sumAsHour;
+        rpt.sumWorkM += worktime.sumAsMin;
+        if(rpt.sumWorkM == 60){
+          rpt.sumWorkH += 1;
+          rpt.sumWorkM = 0;
+        }
+        worktime.startEndTime = (this.utilsService.convertDisplayTime(worktime.startTime) + '-' + this.utilsService.convertDisplayTime(worktime.endTime));
       }
     }
   }

@@ -25,9 +25,9 @@ p{
           display: inline-block;
           text-align: center;
           img{
-            max-width: 90%;
-            max-height: 120px;
-            width: auto;
+            display: block;
+            max-width: 100px;
+            max-height:100px;
             height: auto;
           }
         }
@@ -45,9 +45,11 @@ p{
         }
         .project-name{
           border:0.1rem solid $second-bg-color;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          p{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
         }
         .phase{
           text-align: center;
@@ -79,8 +81,8 @@ p{
 
 .favorite{
   position: absolute;
-    right: 1rem;
-    top: 0.5rem;
+    right: 0rem;
+    top: 0rem;
     z-index: 1;
     font-size: 1.5rem;
     cursor: pointer;

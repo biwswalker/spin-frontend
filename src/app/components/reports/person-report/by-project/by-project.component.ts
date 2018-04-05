@@ -16,12 +16,11 @@ export class ByProjectComponent implements OnInit {
   }
 
   initialData(data) {
-    console.log(data)
     this.reportByProject = data;
-    for (let obj of this.reportByProject) {
-      obj.sumhour = 0;
-      obj.sumhour = (obj.hour * 60) + obj.minute;
-    }
+    // for (let obj of this.reportByProject) {
+    //   obj.sumhour = 0;
+    //   obj.sumhour = obj.hour + obj.minute;
+    // }
   }
 }
 

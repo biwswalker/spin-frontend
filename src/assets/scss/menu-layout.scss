@@ -147,6 +147,10 @@ $white: #fff;
   }
 }
 
+.software-v{
+  color: white;
+}
+
 @include media-breakpoint-down(sm) {
 
   .navbar{

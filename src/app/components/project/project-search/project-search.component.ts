@@ -17,7 +17,6 @@ export class ProjectSearchComponent implements OnInit {
   public throttle = 1000;
   public scrollDistance = 1;
   public onlyMember = false;
-
   // Send value back to parent
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -36,15 +35,19 @@ export class ProjectSearchComponent implements OnInit {
         this.onScrollDown();
       }
     )
-
   }
 
   onScrollDown() {
     this.projectService.findProjects((this.onlyMember?'Y':'N'),this.page,this.size).subscribe(
       data=>{
-        if(data!){
-          this.projectList = this.projectList.concat(data);
+        if(data){
+          let newProject = [];
+          for(let pj of data){
+            if(!pj.projectThumbnail)
+            pj.projectThumbnail = './assets/img/ico/startup.png';
+          }
 
+          this.projectList = [...this.projectList,...data]
           if(this.projectList.length != 0 && this.page == 1){
             this.onProjectSelected(this.projectList[0]);
           }
@@ -68,6 +71,7 @@ export class ProjectSearchComponent implements OnInit {
   onProjectSelected(project){
     this.projectSelected = project;
     this.messageEvent.emit(project.projectId);
+    // window.scrollTo(0, 0);
   }
 
   toggleFavoriteProject(projectId){
