@@ -75,6 +75,10 @@ import { ProjectTagReportComponent } from './components/reports/project-tag-repo
 import { ByProjectComponent } from './components/reports/person-report/by-project/by-project.component';
 import { ByTagComponent } from './components/reports/person-report/by-tag/by-tag.component';
 import { ByDateComponent } from './components/reports/person-report/by-date/by-date.component';
+import { TagComponent } from './components/admin/tag/tag.component';
+import { TagInfoComponent } from './components/admin/tag/tag-info/tag-info.component';
+import { TagSearchComponent } from './components/admin/tag/tag-search/tag-search.component';
+import { TagModalComponent } from './components/admin/tag/tag-modal/tag-modal.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -171,7 +175,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ProjectTagReportComponent,
     ByProjectComponent,
     ByTagComponent,
-    ByDateComponent
+    ByDateComponent,
+    TagComponent,
+    TagInfoComponent,
+    TagSearchComponent,
+    TagModalComponent
   ],
   imports: [
     BrowserModule,
