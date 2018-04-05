@@ -3,12 +3,14 @@ import { Task } from "./task";
 export class PersonReport{
   public date: string;
   public tasks: ReportTask[];
-  public sumWorkTime: number;
+  public sumWorkH: number;
+  public sumWorkM: number;
 
   constructor(){
     this.date = "";
     this.tasks = [];
-    this.sumWorkTime = null;
+    this.sumWorkH = null;
+    this.sumWorkM = null;
   }
 }
 

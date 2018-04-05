@@ -1,16 +1,18 @@
-<div class="row" id="orderByTag">
+<div class="row" id="orderByProject">
   <div class="col">
     <div class="table">
       <div class="thead">
         <div class="th"></div>
         <div class="th p-1 project">ป้ายกำกับ</div>
-        <div class="th p-1">จำนวน (นาที)</div>
+        <div class="th blank"></div>
+        <div class="th p-1">จำนวน</div>
       </div>
       <div class="tr" *ngFor="let tagRpt of tagReport.summary">
         <div class="td text-center p-1"></div>
         <div class="td p-1">{{tagRpt.name}}</div>
+        <div class="th blank"></div>
         <div class="td p-1">
-          <label class="margin-b-0">{{tagRpt.summaryTime}} นาที</label>
+          <label class="margin-b-0">{{tagRpt.hour}} ชั่วโมง {{tagRpt.minute}} นาที</label>
         </div>
       </div>
     </div>

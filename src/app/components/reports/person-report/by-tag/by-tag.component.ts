@@ -16,14 +16,13 @@ export class ByTagComponent implements OnInit {
   }
 
   initialData(data) {
-    console.log(data);
     if (data) {
       this.tagReport = data;
-      this.tagReport.maxSpentSummaryTime = 0;
-      this.tagReport.maxSpentSummaryTime = (this.tagReport.maxSpentTime.hour * 60) + this.tagReport.maxSpentTime.minute;
-      for (let time of this.tagReport.summary) {
-        time.summaryTime = (time.hour * 60) + time.minute;
-      }
+      // this.tagReport.maxSpentSummaryTime = 0;
+      // this.tagReport.maxSpentSummaryTime = this.tagReport.maxSpentTime.hour + this.tagReport.maxSpentTime.minute;
+      // for (let time of this.tagReport.summary) {
+      //   time.summaryTime = (time.hour * 60) + time.minute;
+      // }
     }
   }
 }
