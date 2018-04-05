@@ -1,17 +1,15 @@
-@import '~assets/scss/modal.scss';
-@import '~assets/scss/toggle.scss';
+// @import '~assets/scss/modal.scss';
+// @import '~assets/scss/toggle.scss';
 
 .color-picker {
-    height: 2rem;
-    width: 2rem;
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .position-r {
     text-align: right;
-}
-
-.modal-h {
-    height: 600px;
 }
 
 .thumbnail-size {
@@ -19,12 +17,21 @@
     text-align: center;
     background-color: white;
     border: 3px;
+    padding: 6px;
+
     img {
         // max-width: 30px;
         // max-height: 30px;
+        display: block;
         width: 35px;
         height: 35px;
     }
+}
+
+.thumbnail-fav{
+  width: 40px;
+  height: 40px;
+  margin: 10px;
 }
 
 a.active {
@@ -33,10 +40,6 @@ a.active {
 
 a:hover {
   border: 2px solid white;
-}
-
-.thumbnail-img{
-  padding-bottom: 10px;
 }
 
 .project-list{
