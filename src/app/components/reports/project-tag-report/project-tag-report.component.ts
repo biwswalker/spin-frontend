@@ -37,12 +37,10 @@ export class ProjectTagReportComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.auth.crrUser.subscribe(user => this.user = user);
     this.resetFormGroup();
-    this.projectService.fetchProjectAutocomplete().subscribe(projects => {
-      this.projectList = projects;
-    });
+    this.projectList = await this.projectService.fetchProjectAutocomplete().toPromise();
   }
 
 

@@ -70,7 +70,12 @@ export class ProjectService {
   }
 
   fetchProjectAutocomplete() {
-    return this.request.requestMethodGET('project-management/projects/find-autocomplete-project/N');
+    return this.request.requestMethodGET('project-management/projects/find-autocomplete-project/N').map(projects => {
+      for (let obj of projects) {
+        obj.projectName = obj.projectAbbr + ' : ' + obj.projectName;
+      }
+      return projects
+    })
   }
 
 

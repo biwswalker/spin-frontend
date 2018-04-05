@@ -54,7 +54,7 @@ export class TaskDetailComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // Get User
     this.user = this.auth.getUser();
     this.taskObj = new Task();
@@ -62,15 +62,7 @@ export class TaskDetailComponent implements OnInit {
     // Initial Fav Project
     this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
     // Find project
-    this.projectService.fetchProjectAutocomplete().subscribe(
-      projects => {
-        this.projectList = [];
-        for(let obj of projects){
-          obj.projectName = obj.projectAbbr + ' : ' + obj.projectName;
-          this.projectList.push(obj);
-        }
-      }
-    )
+    this.projectList = await this.projectService.fetchProjectAutocomplete().toPromise();
   }
 
   resetData() {
