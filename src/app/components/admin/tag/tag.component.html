@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-12 col-md-6 col-xl-5">
+    <h2 class="d-inline-block mt-2 mb-0">ป้ายกำกับ</h2>
+    <button type="button" class="btn btn-link" (click)="createTag()">
+      <i class="fas fa-plus-circle"></i> เพิ่มใหม่</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-6 col-xl-6 content-left">
+    <div class="row">
+      <div class="col-12">
+        <app-tag-search (messageEvent)=getData($event)></app-tag-search>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-6 content-right">
+    <div class="row">
+      <div class="col-12">
+        <app-tag-info></app-tag-info>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-tag-modal (changeState)="onCheckState($event)"> </app-tag-modal>
