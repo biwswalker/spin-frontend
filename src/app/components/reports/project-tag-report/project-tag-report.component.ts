@@ -30,10 +30,11 @@ export class ProjectTagReportComponent implements OnInit {
 
   // Preview List
   public projectTagList: ProjectTagForm[] = [];
-  public totalSum = 0;
+  public totalHrSum = 0;
+  public totalMinSum = 0;
 
   constructor(private auth: AuthenticationService, private utilsService: UtilsService, private projectService: ProjectService, private reportService: ReportService
-    // , private officerService: OfficerService
+    , private officerService: OfficerService
   ) {
   }
 
@@ -46,7 +47,8 @@ export class ProjectTagReportComponent implements OnInit {
 
   resetFormGroup() {
     this.projectTagList = [];
-    this.totalSum = 0;
+    this.totalHrSum = 0;
+    this.totalMinSum = 0;
     this.project = null;
     this.startDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.endDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
@@ -65,26 +67,55 @@ export class ProjectTagReportComponent implements OnInit {
     this.utilsService.findInvalidControls(this.projectTagGroup);
     if (this.projectTagGroup.valid) {
       this.utilsService.loader(true);
-      this.totalSum = 0;
+      this.totalHrSum = 0;
+      this.totalMinSum = 0;
       let startDateStr = this.utilsService.convertDatePickerToThDate(this.startDate);
       let endDateStr = this.utilsService.convertDatePickerToThDate(this.endDate);
       this.projectTagList = await this.projectService.projectTagReport(this.project, startDateStr, endDateStr).map(async (callback: ProjectTagForm[]) => {
         for (let projectTag of callback) {
-          let sum = 0;
+          let totalHr = 0;
+          let totalMin = 0;
           for (let usr of projectTag.users) {
             // let user = await this.officerService.findByOfficeId(usr.ownerUserId).toPromise();
             // console.log(user)
             // usr.fullName = 'Biwswalker'
-            let total = usr.sumAsMin;
-            total += (usr.sumAsHour * 60);
-            sum += total;
+            let hr = usr.sumAsHour;
+            let min = usr.sumAsMin;
+            totalHr += hr;
+            totalMin += min;
           }
-          projectTag.totalTime = sum;
-          this.totalSum += sum;
+          projectTag.totalHr = totalHr;
+          projectTag.totalMin = totalMin;
+          if (totalMin > 59) {
+            let tMin: number = totalMin / 60;
+            let splited = tMin.toString().split('.');
+            let hr = Number(splited[0]);
+            projectTag.totalHr += hr;
+            if (splited[1]) {
+              let min = Number(`0.${splited[1]}`) * 60;
+              projectTag.totalMin = min;
+            } else {
+              projectTag.totalMin = 0;
+            }
+          }
+          this.totalHrSum += totalHr;
+          this.totalMinSum += totalMin;
+          if (this.totalMinSum > 59) {
+            let tMin: number = this.totalMinSum / 60;
+            let splited = tMin.toString().split('.');
+            let hr = Number(splited[0]);
+            this.totalHrSum += hr;
+            if (splited[1]) {
+              let min = Number(`0.${splited[1]}`) * 60;
+              this.totalMinSum = min;
+            } else {
+              this.totalMinSum = 0;
+            }
+          }
         }
         return callback;
       }).toPromise();
-      if(this.projectTagList){
+      if (this.projectTagList) {
         this.utilsService.loader(false);
       }
     }
@@ -95,11 +126,13 @@ export class ProjectTagReportComponent implements OnInit {
 class ProjectTagForm {
   public tagName: string;
   public users: any[];
-  public totalTime: number;
+  public totalMin: number;
+  public totalHr: number;
 
   constructor() {
     this.tagName = '';
     this.users = [];
-    this.totalTime = null;
+    this.totalMin = null;
+    this.totalHr = null;
   }
 }
