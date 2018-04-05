@@ -1,7 +1,8 @@
 
 .phase-list{
   display: block !important;
-  max-height: 20rem;
+  margin-top:5px;
+  max-height: 23rem;
   overflow-y: auto;
   padding-bottom: 1rem;
   li.list-group-item{
@@ -26,9 +27,9 @@
   }
 }
 
-#project-phase-insert{
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
-  position: absolute;
-}
+// #project-phase-insert{
+//   bottom: 1rem;
+//   left: 1rem;
+//   right: 1rem;
+//   position: absolute;
+// }

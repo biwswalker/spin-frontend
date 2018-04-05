@@ -39,6 +39,14 @@ body{
     }
 }
 
+label{
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+input,textarea{
+  font-weight: 300;
+}
+
 @include media-breakpoint-down(sm){
   .content-right{
     padding-top: 1rem !important;

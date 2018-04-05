@@ -19,6 +19,7 @@ $white: #FFFFFF;
 .modal-header {
   background-color: $bghead;
   border-bottom: none;
+  padding: 0.5rem;
   .header-text {
       color: $white;
       font-size: 20px;
@@ -49,6 +50,10 @@ $white: #FFFFFF;
 .modal-body {
   background-color: $bgbody;
   height: 600px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 }
 
