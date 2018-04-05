@@ -92,7 +92,7 @@
           <div class="th"></div>
           <div class="th p-1 tag-name">ป้ายกำกับ</div>
           <div class="th p-1">ชื่อ - นามสกุล</div>
-          <div class="th p-1 text-center">จำนวน(นาที)</div>
+          <div class="th p-1 text-center">จำนวน</div>
         </div>
         <div *ngFor="let projectTag of projectTagList; let i = index"
              class="tr"
@@ -113,9 +113,9 @@
             </ol>
           </div>
           <div class="td text-center p-1">
-            <div class="bold-text">{{projectTag.totalTime | number}} นาที</div>
+            <div class="bold-text">{{projectTag.totalHr | number}} ชั่วโมง {{projectTag.totalMin | number}} นาที</div>
             <ul [attr.class]="'collapse none-bullet collapse-group' + i">
-              <li *ngFor="let user of projectTag.users">{{(user.sumAsHour * 60) + user.sumAsMin | number}} นาที</li>
+              <li *ngFor="let user of projectTag.users">{{ user.sumAsHour | number}} ชั่วโมง {{ user.sumAsMin | number}} นาที</li>
             </ul>
           </div>
         </div>
@@ -127,7 +127,7 @@
             รวมทั้งหมด
           </div>
           <div class="td text-center p-1 bold-text">
-            {{totalSum | number}} นาที
+            {{totalHrSum | number}} ชั่วโมง {{totalMinSum | number}} นาที
           </div>
         </div>
       </div>
