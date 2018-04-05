@@ -104,7 +104,7 @@ import { TimePipe } from './pipes/time.pipe';
 
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -195,6 +195,7 @@ import { DatePickerDirective } from './directives/datepicker';
       tertiaryColour: '#ffc107'
     }),
     NgSelectModule,
+    PdfViewerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
