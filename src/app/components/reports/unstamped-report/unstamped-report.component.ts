@@ -35,12 +35,10 @@ export class UnstampedReportComponent implements OnInit {
   constructor(private auth: AuthenticationService, private utilsService: UtilsService, private projectService: ProjectService, private taskService: TaskService, private reportService: ReportService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.auth.crrUser.subscribe(user => this.user = user);
     this.resetFormGroup();
-    this.projectService.fetchProjectAutocomplete().subscribe(projects => {
-      this.projectList = projects;
-    });
+    this.projectList = await this.projectService.fetchProjectAutocomplete().toPromise();
   }
 
 
