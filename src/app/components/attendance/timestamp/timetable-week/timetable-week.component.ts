@@ -106,8 +106,8 @@ export class TimetableWeekComponent implements AfterViewInit {
           }
           // Step 2
           $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:101;'></div>`);
-          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0; overflow: hidden;'>
-              <div class="m-0 stamp-topic text-truncate"><div class="d-inline" style="color:white;">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
+          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0; overflow: hidden;word-wrap: break-word;font-size: 14px;'>
+              <div class="m-0 stamp-topic"><div class="d-inline" style="color:white;">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
               ${task.projectAbbr ? `<div class="d-inline topic-task" style="color:white;"> #${task.projectAbbr}</div>` : ''}</div>
               ${totalInd > 0 ? `<div class="stamp-topic m-0"><div class="topic-task" style="color:white;">${task.topic}</div></div>` : ''}
               ${totalInd > 1 ? `<div class="stamp-activity m-0" style="color:white;">${task.activity}</div>` : ''}

@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     $('.modal').modal('hide');
+    $(".modal-backdrop").hide();
   }
 
   onLogin() {
