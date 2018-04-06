@@ -55,41 +55,38 @@
           <ul class="nav flex-column">
             <li class="nav-item" [ngClass]="currentUrl =='/'||currentUrl ==''?'active':''">
               <a class="nav-link" [routerLink]="['/']" (mouseover)="onMouseOver(0)" (mouseleave)="onMouseLeave()">
-                <img
-                [src]="worktimeIcon" width="50"/>
+                <img [src]="worktimeIcon" width="50" />
                 <span class="menu-title">เวลาทำงาน</span>
               </a>
             </li>
-            <li class="nav-item"  [ngClass]="currentUrl =='/project'?'active':''">
+            <li class="nav-item" [ngClass]="currentUrl =='/project'?'active':''">
               <a class="nav-link" [routerLink]="['/project']" (mouseover)="onMouseOver(1)" (mouseleave)="onMouseLeave()">
-                <img [src]="projectIcon" width="50"/>
+                <img [src]="projectIcon" width="50" />
                 <span class="menu-title">โครงการ</span>
               </a>
             </li>
             <li class="nav-item disabled">
               <a class="nav-link">
-                <img [src]="leaveIcon" width="50"/>
+                <img [src]="leaveIcon" width="50" />
                 <span class="menu-title">ระบบลา</span>
               </a>
             </li>
             <li class="nav-item disabled">
               <a class="nav-link">
-                <img [src]="inoutIcon" width="50"/>
+                <img [src]="inoutIcon" width="50" />
                 <span class="menu-title">เข้า-ออก</span>
               </a>
             </li>
             <li class="nav-item disabled">
               <a class="nav-link">
-                <img [src]="newsIcon" width="50"/>
+                <img [src]="newsIcon" width="50" />
                 <span class="menu-title">ข่าวสาร</span>
               </a>
             </li>
             <li class="nav-item dropright" *ngIf="user.userLevel == 'A'">
-              <a class="nav-link dropdown-toggle" id="admin-menu-dropdown"
-              data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false"
-              (mouseover)="onMouseOver(5)" (mouseleave)="onMouseLeave()">
-                <img [src]="adminIcon" width="50"/>
+              <a class="nav-link dropdown-toggle" id="admin-menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                (mouseover)="onMouseOver(5)" (mouseleave)="onMouseLeave()">
+                <img [src]="adminIcon" width="50" />
                 <span class="menu-title">Admin</span>
 
               </a>
@@ -101,6 +98,7 @@
                 <a class="dropdown-item" [ngClass]="currentUrl =='/holiday'?'active':''" [routerLink]="['/holiday']">วันหยุด</a>
                 <a class="dropdown-item" [ngClass]="currentUrl =='/department'?'active':''" [routerLink]="['/department']">แผนก</a>
                 <a class="dropdown-item" [ngClass]="currentUrl =='/position'?'active':''" [routerLink]="['/position']">ตำแหน่ง</a>
+                <a class="dropdown-item" [ngClass]="currentUrl =='/tag'?'active':''" [routerLink]="['/tag']">ป้ายกำกับ</a>
               </div>
 
             </li>
@@ -113,7 +111,7 @@
         <div class="col-12">
           <router-outlet></router-outlet>
         </div>
-        </div>
       </div>
     </div>
   </div>
+</div>
