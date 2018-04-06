@@ -4,7 +4,7 @@
 <!-- Page Content -->
 <div class="container-fluid">
 
-  <nav class="navbar navbar-expand-xs navbar-light position-sticky sticky-top spin-navbar py-0" style=" background: #90000e;">
+  <nav class="navbar navbar-expand-xs navbar-light position-sticky sticky-top spin-navbar py-1" style=" background: #90000e;">
     <ul class="nav left-section">
       <li class="nav-item d-inline-block d-sm-none">
         <a class="btn" id="toggle-sidebar">
@@ -46,46 +46,50 @@
 
   </nav>
 
-  <div class="row main">
-    <div class="spin-sidebar col-sm-2 col-md-1 col-lg-1">
+  <div class="main d-flex  justify-content-start">
+    <div class="spin-sidebar">
       <div id="sidebar">
 
         <!-- Sidebar Links -->
         <nav class="spin-link">
           <ul class="nav flex-column">
             <li class="nav-item" [ngClass]="currentUrl =='/'||currentUrl ==''?'active':''">
-              <a class="nav-link" [routerLink]="['/']">
-                <i class="fas fa-pen-square"></i>
+              <a class="nav-link" [routerLink]="['/']" (mouseover)="onMouseOver(0)" (mouseleave)="onMouseLeave()">
+                <img
+                [src]="worktimeIcon" width="50"/>
                 <span class="menu-title">เวลาทำงาน</span>
               </a>
             </li>
             <li class="nav-item"  [ngClass]="currentUrl =='/project'?'active':''">
-              <a class="nav-link" [routerLink]="['/project']">
-                <i class="fas fa-folder-open"></i>
+              <a class="nav-link" [routerLink]="['/project']" (mouseover)="onMouseOver(1)" (mouseleave)="onMouseLeave()">
+                <img [src]="projectIcon" width="50"/>
                 <span class="menu-title">โครงการ</span>
               </a>
             </li>
             <li class="nav-item disabled">
               <a class="nav-link">
-                <i class="fas fa-suitcase"></i>
+                <img [src]="leaveIcon" width="50"/>
                 <span class="menu-title">ระบบลา</span>
               </a>
             </li>
             <li class="nav-item disabled">
               <a class="nav-link">
-                <i class="fas fa-history"></i>
+                <img [src]="inoutIcon" width="50"/>
                 <span class="menu-title">เข้า-ออก</span>
               </a>
             </li>
             <li class="nav-item disabled">
               <a class="nav-link">
-                <i class="fas fa-newspaper"></i>
+                <img [src]="newsIcon" width="50"/>
                 <span class="menu-title">ข่าวสาร</span>
               </a>
             </li>
             <li class="nav-item dropright" *ngIf="user.userLevel == 'A'">
-              <a class="nav-link dropdown-toggle" id="admin-menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-cogs"></i>
+              <a class="nav-link dropdown-toggle" id="admin-menu-dropdown"
+              data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false"
+              (mouseover)="onMouseOver(5)" (mouseleave)="onMouseLeave()">
+                <img [src]="adminIcon" width="50"/>
                 <span class="menu-title">Admin</span>
 
               </a>
@@ -104,9 +108,12 @@
         </nav>
       </div>
     </div>
-    <div class="col-12 col-sm-10 col-md-11">
-      <!-- Sub Header -->
-      <router-outlet></router-outlet>
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-12">
+          <router-outlet></router-outlet>
+        </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>

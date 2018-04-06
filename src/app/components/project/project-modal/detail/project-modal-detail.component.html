@@ -50,14 +50,16 @@
         </div>
         <div class="row">
           <div class="col-12 form-group">
-            <label for="project-name">ชื่อโครงการ *</label>
-            <input type="text"
+            <label >ชื่อโครงการ *</label>
+            <textarea
+                  row="2"
                    class="form-control"
                    id="project-name"
                    name="project-name"
                    maxlength="200"
+                   style="resize: none;"
                    formControlName="projectName"
-                   [(ngModel)]="project.projectName">
+                   [(ngModel)]="project.projectName"></textarea>
           </div>
         </div>
       </div>
@@ -116,7 +118,7 @@
                id="tab-detail">
             <div class="form-group">
               <textarea class="form-control"
-                        rows="5"
+                        rows="4"
                         id="project-detail"
                         name="project-detail"
                         maxlength="1000"
@@ -131,7 +133,7 @@
                id="tab-hardware">
             <div class="form-group">
               <textarea class="form-control"
-                        rows="5"
+                        rows="4"
                         id="hardware"
                         name="hardware"
                         maxlength="1000"
@@ -146,7 +148,7 @@
                id="tab-software">
             <div class="form-group">
               <textarea class="form-control"
-                        rows="5"
+                        rows="4"
                         id="software"
                         name="software"
                         maxlength="1000"
