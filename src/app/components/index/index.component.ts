@@ -56,8 +56,6 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.email = this.user.email;
       }
       if (this.user.officer) {
-        $('#task-modal').on("hidden.bs.modal");
-        $('#project-modal').on("hidden.bs.modal");
         this.fullname = `${this.user.officer.firstNameEn} ${this.user.officer.lastNameEn}`;
       }
     });

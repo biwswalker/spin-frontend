@@ -1,7 +1,7 @@
 <div class="col-12 content-left"  *ngIf="user.userLevel === 'A'">
   <div class="row">
     <div class="col-12">
-      <form [formGroup]="projectTagGroup">
+      <form [formGroup]="projectPersonGroup">
         <div class="row">
           <div class="form-group col-3 row">
             <label for="project"
@@ -89,39 +89,18 @@
     <div class="col-12 table-border">
       <div class="table">
         <div class="thead">
-          <div class="th"></div>
-          <div class="th p-1 tag-name">ป้ายกำกับ</div>
-          <div class="th p-1">ชื่อ - นามสกุล</div>
+          <div class="th p-1 tag-name">ชื่อ - นามสกุล</div>
           <div class="th p-1 text-center">จำนวน</div>
+          <div class="th p-1 text-center"></div>
         </div>
-        <div *ngFor="let projectTag of projectTagList; let i = index"
-             class="tr"
-             data-toggle="collapse"
-             [attr.data-target]="'.collapse-group' + i">
-          <div class="td text-center p-1">
-            <button class="btn btn-link p-0 collapsed"
-                    data-toggle="collapse"
-                    [attr.data-target]="'.collapse-group' + i">
-              <i class="fas"></i>
-            </button>
-          </div>
-          <div class="td date p-1 bold-text">{{ projectTag.tagName }}</div>
-          <div class="td p-1">
-            <div>&nbsp;</div>
-            <ol [attr.class]="'collapse collapse-group' + i">
-              <!-- <li *ngFor="let user of projectTag.users"> </li> -->
-            </ol>
-          </div>
-          <div class="td text-center p-1">
-            <div class="bold-text">{{projectTag.totalHr | number}} ชั่วโมง {{projectTag.totalMin | number}} นาที</div>
-            <ul [attr.class]="'collapse none-bullet collapse-group' + i">
-              <li *ngFor="let user of projectTag.users">{{ user.sumAsHour | number}} ชั่วโมง {{ user.sumAsMin | number}} นาที</li>
-            </ul>
-          </div>
+        <div *ngFor="let projectPerson of projectPersonList; let i = index"
+             class="tr">
+          <div class="td date p-1 bold-text">{{ projectPerson.fullName }}</div>
+          <div class="td text-center p-1">{{ user.sumAsHour | number}} ชั่วโมง {{ user.sumAsMin | number}} นาที</div>
+          <div class="td text-center p-1">%</div>
         </div>
 
         <div class="tr">
-          <div class="td"></div>
           <div class="td"></div>
           <div class="td text-right bold-text">
             รวมทั้งหมด

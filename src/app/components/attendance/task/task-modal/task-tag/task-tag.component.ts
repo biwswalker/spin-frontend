@@ -66,9 +66,7 @@ export class TaskTagComponent implements OnInit {
     this.tagByUserId = [];
     this.tagService.findByUserId().subscribe(
       listTags => {
-        console.log(listTags)
         this.tagByUserId = listTags;
-        // this.tagByUserId.push({activeFlag: null, tagId: 99, tagName: "TEST", versionId: 99});
       }
     )
   }

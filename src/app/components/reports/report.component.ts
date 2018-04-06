@@ -12,8 +12,8 @@ import { User } from '../../models/user';
         <h2 class="d-inline-block">รายงาน</h2>
             <div style="padding-left:10px;">
             <select class="form-control" name="report-page" (change)="onChangeReport($event.target.value)">
-                    <option value="" disabled>กรุณาเลือกรายงาน</option>
-                    <option *ngIf="user.userLevel === 'A'" [selected]="crrUrl === '/report/project-tag'" value="report/project-tag">การทำงานของโครงการ</option>
+                    <option *ngIf="user.userLevel === 'A'" [selected]="crrUrl === '/report/project-tag'" value="report/project-tag">การทำงานของโครงการแยกตามป้ายกำกับ</option>
+                    <option *ngIf="user.userLevel === 'A'" [selected]="crrUrl === '/report/project-person'" value="report/project-person">รายงานการทำงานของโครงการแยกตามพนักงาน</option>
                     <option *ngIf="user.userLevel === 'P' || user.userLevel === 'A'" [selected]="crrUrl === '/report/unstamped'" value="report/unstamped">ผู้ที่ไม่ได้ลงเวลาทำงาน</option>
                 </select>
             </div>
@@ -31,16 +31,23 @@ export class ReportComponent implements OnInit {
     public user: User;
 
     constructor(private router: Router, private auth: AuthenticationService) {
+    }
+
+    async ngOnInit() {
+        await this.auth.crrUser.subscribe(user => this.user = user)
         this.crrUrl = this.router.url;
         if (this.crrUrl === '/report/person') {
             this.isShow = false;
         } else {
             this.isShow = true;
+            if (this.crrUrl === '/report') {
+                if (this.user.userLevel === 'P') {
+                    this.onChangeReport('/report/unstamped');
+                } else {
+                    this.onChangeReport('/report/project-tag');
+                }
+            }
         }
-    }
-
-    ngOnInit() {
-        this.auth.crrUser.subscribe(user => this.user = user);
     }
 
     onChangeReport(value) {

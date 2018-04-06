@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../../models/user';
 import { Project } from '../../../models/project';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../../providers/authentication.service';
 import { UtilsService } from '../../../providers/utils/utils.service';
 import { ProjectService } from '../../../providers/project.service';
-import { TaskService } from '../../../providers/task.service';
 import { ReportService } from '../../../providers/report.service';
-import { AuthenticationService } from '../../../providers/authentication.service';
-import { User } from '../../../models/user';
 
 @Component({
-  selector: 'app-project-tag-report',
-  templateUrl: './project-tag-report.component.html',
-  styleUrls: ['./project-tag-report.component.scss']
+  selector: 'app-project-person-report',
+  templateUrl: './project-person-report.component.html',
+  styleUrls: ['./project-person-report.component.scss']
 })
-export class ProjectTagReportComponent implements OnInit {
+export class ProjectPersonReportComponent implements OnInit {
 
   // Criteria
   public startDate = '';
@@ -25,10 +24,10 @@ export class ProjectTagReportComponent implements OnInit {
   public projectList: Project[] = [];
 
   //  Form
-  public projectTagGroup: FormGroup;
+  public projectPersonGroup: FormGroup;
 
   // Preview List
-  public projectTagList: ProjectTagForm[] = [];
+  public projectPersonList: ProjectPersonForm[] = [];
   public totalHrSum = 0;
   public totalMinSum = 0;
 
@@ -44,13 +43,14 @@ export class ProjectTagReportComponent implements OnInit {
 
 
   resetFormGroup() {
-    this.projectTagList = [];
+    this.projectPersonList = [];
     this.totalHrSum = 0;
     this.totalMinSum = 0;
+    
     this.project = null;
     this.startDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.endDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
-    this.projectTagGroup = new FormGroup({
+    this.projectPersonGroup = new FormGroup({
       project: new FormControl(this.project, Validators.required),
       startDate: new FormControl(this.startDate, Validators.required),
       endDate: new FormControl(this.endDate, Validators.required)
@@ -62,14 +62,14 @@ export class ProjectTagReportComponent implements OnInit {
   }
 
   async preview() {
-    this.utilsService.findInvalidControls(this.projectTagGroup);
-    if (this.projectTagGroup.valid) {
+    this.utilsService.findInvalidControls(this.projectPersonGroup);
+    if (this.projectPersonGroup.valid) {
       this.utilsService.loader(true);
       this.totalHrSum = 0;
       this.totalMinSum = 0;
       let startDateStr = this.utilsService.convertDatePickerToThDate(this.startDate);
       let endDateStr = this.utilsService.convertDatePickerToThDate(this.endDate);
-      this.projectTagList = await this.projectService.projectTagReport(this.project, startDateStr, endDateStr).map(async (callback: ProjectTagForm[]) => {
+      this.projectPersonList = await this.projectService.projectTagReport(this.project, startDateStr, endDateStr).map(async (callback: ProjectPersonForm[]) => {
         for (let projectTag of callback) {
           let totalHr = 0;
           let totalMin = 0;
@@ -110,7 +110,7 @@ export class ProjectTagReportComponent implements OnInit {
         }
         return callback;
       }).toPromise();
-      if (this.projectTagList) {
+      if (this.projectPersonList) {
         this.utilsService.loader(false);
       }
     }
@@ -118,7 +118,7 @@ export class ProjectTagReportComponent implements OnInit {
 
 }
 
-class ProjectTagForm {
+class ProjectPersonForm {
   public tagName: string;
   public users: any[];
   public totalMin: number;

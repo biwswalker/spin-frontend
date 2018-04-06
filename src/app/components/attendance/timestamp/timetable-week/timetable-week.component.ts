@@ -4,6 +4,7 @@ import { TaskService } from '../../../../providers/task.service';
 import { UtilsService } from '../../../../providers/utils/utils.service';
 import { Task } from '../../../../models/task';
 import { Observable } from 'rxjs/Observable';
+import { HolidayService } from '../../../../providers/holiday.service';
 
 declare var $: any;
 declare var SpinModal: any;
@@ -21,8 +22,9 @@ export class TimetableWeekComponent implements AfterViewInit {
   public firstDOW = '';
   public endDOW = '';
   public dates: Observable<string>[] = [];
+  public holidays: Observable<string>[] = [];
 
-  constructor(private taskService: TaskService, private utilsService: UtilsService) {
+  constructor(private taskService: TaskService, private utilsService: UtilsService, private holidayService: HolidayService) {
     let checkDubplicated: string[] = [];
     // Async
     this.taskService.currentTimetableDOW.subscribe((dow: any) => {
@@ -40,15 +42,26 @@ export class TimetableWeekComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spinTimestamp();
-    $( ".scrolling" ).scrollTop(242);
+    $(".scrolling").scrollTop(242);
   }
 
-  fecthWorkingTaskByWeek() {
+  async fecthWorkingTaskByWeek() {
     let dataDate = this.firstDOW
+    let holidaysFetch = await this.holidayService.findHolidayByMonth(this.utilsService.getThYear(this.utilsService.convertThDateToEn(dataDate)), this.utilsService.getThMonth(this.utilsService.convertThDateToEn(dataDate))).toPromise();
     for (let i = 1; i <= 7; i++) {
       this.fecthWorkingTaskByDate(dataDate, i);
       this.dates[i - 1] = Observable.of(dataDate);
-      dataDate = this.utilsService.getNextDay(dataDate)
+
+      // If have find holiday by date method ==> can replace this method
+      // Get Holiday
+      let holiday = holidaysFetch.filter(item => item.holDate === this.utilsService.convertEnDateToTh(this.utilsService.convertThDateToEn(dataDate)) && item.activeFlag === 'A');
+      this.holidays[i - 1] = Observable.of('');
+      for (let hol of holiday) {
+        if (hol.holName) {
+          this.holidays[i - 1] = Observable.of(hol.holName);
+        }
+      }
+      dataDate = this.utilsService.getNextDay(dataDate);
     }
   }
 
@@ -93,8 +106,8 @@ export class TimetableWeekComponent implements AfterViewInit {
           }
           // Step 2
           $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:101;'></div>`);
-          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0; overflow: hidden;'>
-              <div class="m-0 stamp-topic text-truncate"><div class="d-inline" style="color:white;">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
+          $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0; overflow: hidden;word-wrap: break-word;font-size: 14px;'>
+              <div class="m-0 stamp-topic"><div class="d-inline" style="color:white;">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
               ${task.projectAbbr ? `<div class="d-inline topic-task" style="color:white;"> #${task.projectAbbr}</div>` : ''}</div>
               ${totalInd > 0 ? `<div class="stamp-topic m-0"><div class="topic-task" style="color:white;">${task.topic}</div></div>` : ''}
               ${totalInd > 1 ? `<div class="stamp-activity m-0" style="color:white;">${task.activity}</div>` : ''}

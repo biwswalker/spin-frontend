@@ -44,7 +44,7 @@ export class TimetableDayComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spinTimestamp();
-    $( ".scrolling" ).scrollTop(242);
+    $(".scrolling").scrollTop(242);
   }
 
   fecthWorkingTaskByDate(enDate: string) {
@@ -92,14 +92,17 @@ export class TimetableDayComponent implements AfterViewInit {
             for (let i = startIndex; i <= endIndex; i++) {
               $($($(`.timestamp`).find('.stamp'))[i]).addClass(`unavailable ${groupClass}`);
             }
+            // Step
             $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:101;'></div>`);
-            $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0;'>
+            $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0; overflow: hidden;word-wrap: break-word;'>
               <div class="m-0 stamp-topic text-truncate"><div class="d-inline" style="color:white;">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
               ${task.projectAbbr ? `<div class="d-inline topic-task" style="color:white;"> #${task.projectAbbr}</div>` : ''}</div>
-              ${totalInd > 0 ? `<div class="stamp-topic text-truncate m-0"><div class="topic-task" style="color:white;">${task.topic}</div></div>` : ''}
-              ${totalInd > 1 ? `<div class="stamp-activity text-truncate m-0" style="color:white;">${task.activity}</div>` : ''}
+              ${totalInd > 0 ? `<div class="stamp-topic m-0"><div class="topic-task" style="color:white;">${task.topic}</div></div>` : ''}
+              ${totalInd > 1 ? `<div class="stamp-activity m-0" style="color:white;">${task.activity}</div>` : ''}
               <p class="text-truncate colla-display m-0" style="color:white;">${task.taskPartnerList ? '<i class="fas fa-users"></i>' : ''}</p>        
             </div>`);
+
+            // Step
             $(`.${overlayClass}`).addClass('stamp-box')
             $(`.${overlapClass}`).click(() => this.onViewTask(task));
             isRepeat.push(task.taskId)

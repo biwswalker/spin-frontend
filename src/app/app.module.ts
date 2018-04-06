@@ -79,6 +79,7 @@ import { TagComponent } from './components/admin/tag/tag.component';
 import { TagInfoComponent } from './components/admin/tag/tag-info/tag-info.component';
 import { TagSearchComponent } from './components/admin/tag/tag-search/tag-search.component';
 import { TagModalComponent } from './components/admin/tag/tag-modal/tag-modal.component';
+import { ProjectPersonReportComponent } from './components/reports/project-person-report/project-person-report.component';
 
 // service
 import { HttpRequestService } from './providers/utils/http-request.service';
@@ -183,7 +184,8 @@ import { DisableControlDirective } from './directives/DisableControlDirective';
     TagInfoComponent,
     TagSearchComponent,
     TagModalComponent,
-    DisableControlDirective
+    DisableControlDirective,
+    ProjectPersonReportComponent
   ],
   imports: [
     BrowserModule,
