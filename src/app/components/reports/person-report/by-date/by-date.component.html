@@ -10,6 +10,8 @@
       </div>
       <!-- Body-->
 
+
+
       <div class="tr" *ngFor="let rptPerson of reportPersonList; let i = index">
         <div class="td text-center p-1">
           <button class="btn btn-link p-0 collapsed"
@@ -26,7 +28,7 @@
             <ol [attr.class]="'padding-l-0 collapse collapse-group' + i">
               <li class="hide-index"
                   id="detail-project">
-                  <!-- Time -->
+
                 <button class="btn btn-link p-0 collapsed"
                         data-toggle="collapse"
                         [attr.data-target]="'.collapse-detail-group' + i + d">
@@ -62,9 +64,9 @@
             <li class="hide-index">
               {{project.topic}}
             </li>
-            <label [attr.class]="'activity-detail collapse collapse-detail-group' + i + d">
+            <p [attr.class]="'activity-detail collapse collapse-detail-group' + i + d">
               {{project.activity}}
-            </label>
+            </p>
           </ol>
         </div>
         <div class="td date p-1">
@@ -77,5 +79,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
