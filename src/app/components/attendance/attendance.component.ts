@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   template: `<div class="row">
   <div class="col-12">
         <div class="page-title d-flex">
-            <h2 class="d-inline-block">เวลาทำงาน</h2>
+            <h4 class="d-inline-block">เวลาทำงาน</h4>
             <button type="button" id="btn-person-report"
             class="btn btn-link p-0 ml-auto"
             (click)="onClickPersonReport()">

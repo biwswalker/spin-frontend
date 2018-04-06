@@ -122,6 +122,7 @@ export class TaskPartnerComponent {
   getautoCompletePartner(projectId) {
     this.partnerService.findAllUserByProjectId(projectId).subscribe(
       partners => {
+        console.log(partners)
         this.autocompletePartnerList = [];
         if (partners) {
           this.autocompletePartnerList = partners;
@@ -129,6 +130,7 @@ export class TaskPartnerComponent {
             if (obj.userId == this.user.userId) {
               this.autocompletePartnerList.splice(obj);
             }
+
           }
         }
       }

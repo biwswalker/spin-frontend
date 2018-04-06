@@ -42,6 +42,7 @@ export class TaskDetailComponent implements OnInit {
   public endTimeList: any[];
   public datePattern: any[] = [];
   public showFavPrj: boolean = false;
+  public isDisableCalendar: boolean = false;
 
   constructor(
     private projectService: ProjectService,
@@ -78,6 +79,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
+    console.log(task)
     this.mode = mode;
     this.taskObj = new Task();
     this.taskObj = task;
@@ -92,14 +94,14 @@ export class TaskDetailComponent implements OnInit {
         this.showFavPrj = false;
         this.taskDetailFormGroup.controls['taskDetailProject'].disable();
         this.taskDetailFormGroup.controls['taskDetailActivity'].enable();
-        if (task.ownerUserId == this.user.userId) {
-          this.taskDetailFormGroup.controls['taskDetailTopic'].enable();
-        }
+        // if (task.ownerUserId == this.user.userId) {
+        //   this.taskDetailFormGroup.controls['taskDetailTopic'].enable();
+        // }
       }
     } else {
       this.showFavPrj = false;
       this.taskDetailFormGroup.controls['taskDetailActivity'].enable();
-      this.taskDetailFormGroup.controls['taskDetailTopic'].enable();
+      // this.taskDetailFormGroup.controls['taskDetailTopic'].enable();
       this.taskDetailFormGroup.controls['taskDetailProject'].disable();
     }
 
