@@ -43,6 +43,8 @@ export class TaskDetailComponent implements OnInit {
   public datePattern: any[] = [];
   public showFavPrj: boolean = false;
   public isDisableCalendar: boolean = false;
+  public isDisableProject: boolean = false;
+  public isDisableTopic: boolean = false;
 
   constructor(
     private projectService: ProjectService,
@@ -79,31 +81,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
-    console.log(task)
+    // console.log('task=> ', task)
     this.mode = mode;
     this.taskObj = new Task();
     this.taskObj = task;
-
-    if (this.mode === 'VIEW') {
-      this.showFavPrj = false;
-      this.taskDetailFormGroup.disable();
-    } else if (this.mode == Mode.I) {
-      this.showFavPrj = true;
-      this.taskDetailFormGroup.enable();
-      if (task.taskId) {
-        this.showFavPrj = false;
-        this.taskDetailFormGroup.controls['taskDetailProject'].disable();
-        this.taskDetailFormGroup.controls['taskDetailActivity'].enable();
-        // if (task.ownerUserId == this.user.userId) {
-        //   this.taskDetailFormGroup.controls['taskDetailTopic'].enable();
-        // }
-      }
-    } else {
-      this.showFavPrj = false;
-      this.taskDetailFormGroup.controls['taskDetailActivity'].enable();
-      // this.taskDetailFormGroup.controls['taskDetailTopic'].enable();
-      this.taskDetailFormGroup.controls['taskDetailProject'].disable();
-    }
 
     this.resetData();
     this.initialTime();
@@ -132,6 +113,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   validateData() {
+    // this.taskDetailFormGroup.reset();
     this.taskDetailFormGroup = new FormGroup({
       taskDetailStatusFlag: new FormControl(this.taskObj.statusFlag == 'A' ? true : false),
       taskDetailWorkDate: new FormControl(this.workDate , Validators.required),
