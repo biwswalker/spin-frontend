@@ -119,6 +119,20 @@ export class ProjectModalComponent{
     }
   }
 
+  async onSubmitDelete(projectId){
+    console.log("process delete");
+    let result = await this.projectService.removeProject(projectId);
+    console.log("delete done");
+    console.log(result);
+    if(result.status == 200){
+      this.eventMessageService.onDeleteSuccess('');
+    }else{
+      this.eventMessageService.onCustomError('ไม่สามารถลบข้อมูลได้',result.error.message);
+    }
+    this.oncloseModal();
+    this.projectService.onProjectHaveChanged();
+  }
+
   initChild(){
     this.projectModalDetail.ngOnInit();
     this.projectModalPhase.ngOnInit();
@@ -140,6 +154,7 @@ export class ProjectModalComponent{
     this.projectModalMember.prepareDataForEdit(project.projectId);
 
   }
+
 
   oncloseModal(){
     this.modal.close('#project-modal');

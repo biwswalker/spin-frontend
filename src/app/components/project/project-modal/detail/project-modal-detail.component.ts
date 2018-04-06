@@ -38,6 +38,7 @@ export class ProjectModalDetailComponent implements OnInit{
   validateForm(){
     this.projectDetailGroup = new FormGroup({
       projectAbbr: new FormControl(this.project.projectAbbr, Validators.required),
+      activeFlag: new FormControl(this.project.activeFlag, Validators.required),
       projectName: new FormControl(this.project.projectName, Validators.required),
       customerName: new FormControl(this.project.customerName, Validators.required),
       projectDetail: new FormControl(this.project.detail),

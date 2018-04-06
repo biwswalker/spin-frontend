@@ -47,6 +47,10 @@ input,textarea{
   font-weight: 400;
 }
 
+.form-group{
+  margin-bottom: 0.5rem !important;
+}
+
 @include media-breakpoint-down(sm){
   .content-right{
     padding-top: 1rem !important;

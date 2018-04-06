@@ -28,6 +28,21 @@ export class ProjectService {
     return this.request.requestMethodPOST('project-management/projects', project);
   }
 
+  async removeProject(projectId){
+    let promise = await new Promise((resolve)=>{
+      this.request.requestMethodDelete(`/project-management/projects/${projectId}`).subscribe(
+        data =>{
+          resolve({status:200});
+        },
+        error=>{
+          console.log(error)
+          resolve(error)
+        }
+      )
+    })
+    return promise;
+  }
+
   toggleFavorite(projectId) {
     return this.request.requestMethodGET('favorite-project-management/favorite-projects/' + projectId);
   }
