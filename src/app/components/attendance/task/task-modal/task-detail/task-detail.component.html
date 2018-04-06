@@ -30,7 +30,7 @@
                  data-date-language="th-th"
                  summitDatePicker
                  autocomplete="off"
-                 [attr.disabled]="mode == 'VIEW' ? '':null"
+                 [attr.disabled]="isDisableCalendar == true ? '':null"
                  [(ngModel)]="workDate"
                  maxlength="10"
                  formControlName="taskDetailWorkDate"

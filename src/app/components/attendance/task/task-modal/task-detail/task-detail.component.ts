@@ -42,6 +42,7 @@ export class TaskDetailComponent implements OnInit {
   public endTimeList: any[];
   public datePattern: any[] = [];
   public showFavPrj: boolean = false;
+  public isDisableCalendar: boolean = false;
 
   constructor(
     private projectService: ProjectService,

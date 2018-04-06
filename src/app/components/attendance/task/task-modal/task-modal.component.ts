@@ -81,6 +81,27 @@ export class TaskModalComponent implements AfterViewInit {
     this.checkProjectId(this.taskForm.task.projectId);
     this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user, this.owner);
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
+
+    console.log('owner=> ', this.owner)
+    if (this.mode == Mode.I) {
+      if (this.owner && this.user.userId !== this.owner) {
+        console.log('copy task')
+        this.taskDetailChild.taskDetailFormGroup.controls['taskDetailTopic'].disable();
+        this.taskDetailChild.taskDetailFormGroup.controls['taskDetailWorkDate'].disable();
+        this.taskDetailChild.showFavPrj = false;
+        this.taskDetailChild.isDisableCalendar = true;
+        //hide edit partner
+
+      } else {
+        console.log('my task')
+        this.taskDetailChild.taskDetailFormGroup.controls['taskDetailTopic'].enable();
+        this.taskDetailChild.taskDetailFormGroup.controls['taskDetailWorkDate'].enable();
+        this.taskDetailChild.showFavPrj = true;
+        this.taskDetailChild.isDisableCalendar = false;
+        //hide edit partner
+      }
+
+    }
     // if(objTask.ownerUserId !== this.user.userId){
     //   this.taskDetailChild.taskDetailFormGroup.controls['taskDetailTopic'].disable();
     //   this.taskDetailChild.taskDetailFormGroup.controls['taskDetailWorkDate'].disable();
@@ -186,7 +207,7 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   createNewTask(task: Task) {
-    if(this.taskForm.task.ownerUserId !== this.user.userId){
+    if (this.taskForm.task.ownerUserId !== this.user.userId) {
       task.referTaskId = this.taskForm.task.taskId;
     }
     this.taskService.insertTask(task).subscribe(
