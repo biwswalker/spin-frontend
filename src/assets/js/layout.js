@@ -1,5 +1,6 @@
   var winddowsW = window.innerWidth; // New width
-  menuDisplay(winddowsW);
+  this.menuDisplay(winddowsW);
+  this.toggleSidebar();
   $(window).resize(function () {
     // This will execute whenever the window is resized
     // var winddowsH = $(window).height(); // New height
@@ -9,13 +10,11 @@
     inlineDatepicker();
   });
 
-  $(function() {
-    $('#toggle-sidebar').on('click',function(){
+  function toggleSidebar(){
+    $(document).on('click','#toggle-sidebar',function(){
       $('#sidebar').toggleClass('active');
     });
-  });
-
-
+  }
 
   function menuDisplay($width) {
     if ($width > 576) {
