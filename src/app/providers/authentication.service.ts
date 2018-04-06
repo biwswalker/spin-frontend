@@ -11,7 +11,7 @@ import { EventMessagesService } from './utils/event-messages.service';
 @Injectable()
 export class AuthenticationService {
 
-  private isAccess = new BehaviorSubject<boolean>(false);
+  public isAccess = new BehaviorSubject<boolean>(false);
   public crrAccess = this.isAccess.asObservable();
   private userSubject = new BehaviorSubject<User>(new User());
   public crrUser = this.userSubject.asObservable();
@@ -50,8 +50,8 @@ export class AuthenticationService {
       .catch(error => {
         this.notAuthorization = false;
         console.log(error)
-        if(error.status != 0)
-        this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error.error.description);
+        if (error.status != 0)
+          this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error.error.description);
 
         sessionStorage.removeItem(Default.ACTOKN);
         sessionStorage.removeItem(Default.TOKNTY);
@@ -83,7 +83,7 @@ export class AuthenticationService {
         }
       }).catch(error => {
         console.log(error)
-        alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+        // alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
         this.logout();
         return Status.ERROR;
       });
@@ -160,25 +160,30 @@ export class AuthenticationService {
       "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
     })
     const options = { headers: headers }
-    return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).map(token => {
-      this.notAuthorization = false;
-      if (token) {
-        sessionStorage.setItem(Default.ACTOKN, btoa(token.access_token));
-        sessionStorage.setItem(Default.TOKNTY, btoa(token.token_type));
-        sessionStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
-        this.isAccess.next(true);
-        this.accessUser();
-        return this.getNowToken();
-      } else {
-        console.log('Refresh Error')
-        this.removeToken();
-        this.isAccess.next(false)
-        return Status.ERROR;
-      }
-    }, error => {
+    if (this.getRefreshToken()) {
+      return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).map(token => {
+        this.notAuthorization = false;
+        if (token) {
+          sessionStorage.setItem(Default.ACTOKN, btoa(token.access_token));
+          sessionStorage.setItem(Default.TOKNTY, btoa(token.token_type));
+          sessionStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
+          this.isAccess.next(true);
+          this.accessUser();
+          return this.getNowToken();
+        } else {
+          console.log('Refresh Error')
+          this.removeToken();
+          this.isAccess.next(false)
+          return Status.ERROR;
+        }
+      }, error => {
+        this.notAuthorization = false
+        alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+        this.logout();
+      })
+    } else {
       this.notAuthorization = false
-      alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
-      this.logout();
-    })
+      return Observable.of(Status.ERROR)
+    }
   }
 }

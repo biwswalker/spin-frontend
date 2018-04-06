@@ -18,6 +18,7 @@ import { PersonReportComponent } from '../components/reports/person-report/perso
 import { ReportComponent } from '../components/reports/report.component';
 import { UnstampedReportComponent } from '../components/reports/unstamped-report/unstamped-report.component';
 import { ProjectTagReportComponent } from '../components/reports/project-tag-report/project-tag-report.component';
+import { TagComponent } from '../components/admin/tag/tag.component';
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
@@ -34,11 +35,14 @@ const routes: Routes = [
   { path: 'department', component: DepartmentComponent },
   { path: 'position', component: PositionComponent },
   { path: 'help', component: HelpComponent },
-  { path: 'report', component: ReportComponent, children: [
-    { path: 'unstamped', component: UnstampedReportComponent },
-    { path: 'person', component: PersonReportComponent},
-    { path: 'project-tag', component: ProjectTagReportComponent },
-  ] }
+  {
+    path: 'report', component: ReportComponent, children: [
+      { path: 'unstamped', component: UnstampedReportComponent },
+      { path: 'person', component: PersonReportComponent },
+      { path: 'project-tag', component: ProjectTagReportComponent },
+    ]
+  },
+  { path: 'tag', component: TagComponent },
 ]
 
 @NgModule({

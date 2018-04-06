@@ -1,0 +1,32 @@
+<div id="resp-info">
+  <div class="row info-header">
+    <div class="col-9 text-left">
+      <h5 class="mb-0">
+        <label>รายละเอียดป้ายกำกับ</label>
+      </h5>
+    </div>
+    <div class="col-3 text-right">
+      <button type="button" class="btn btn-link" (click)="editTag($event)">
+        <i class="fas fa-pencil-alt"> แก้ไข</i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <label class="info-body-bold">ชื่อป้ายกำกับ</label>
+      <p class="info-body">{{tag.tagName}}</p>
+    </div>
+    <div class="col-3">
+      <label class="info-body-bold">สถานะ</label>
+      <p class="info-body">{{tag.activeFlag === 'A' ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <label class="info-body-bold">ประเภท</label>
+      <p class="info-body">{{tag.tagType == 'A' ? 'ประเภทการทำงาน' : 'ไม่ระบุ'}}</p>
+    </div>
+  </div>
+
+</div>
