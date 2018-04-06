@@ -32,6 +32,12 @@ $stamped:rgb(44, 111, 246);
     font-weight: 300;
 }
 
+.scrolling {
+    overflow:scroll; 
+    overflow-x: hidden!important;
+    height: 540px;
+}
+
 .time-body {
     display: table;
     .col-fixed-100 {
