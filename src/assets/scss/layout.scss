@@ -41,10 +41,10 @@ body{
 
 label{
   font-size: 0.9rem;
-  font-weight: 200;
+  font-weight: 400;
 }
 input,textarea{
-  font-weight: 300;
+  font-weight: 400;
 }
 
 @include media-breakpoint-down(sm){
