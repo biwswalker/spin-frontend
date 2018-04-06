@@ -12,7 +12,7 @@ export class HelpComponent implements OnInit {
   qrCode:string=null;
   qrCodeTrusted:SafeUrl=null;
 
-  pdfSrc: string = '../assets/pdf/user-manaul.pdf';
+  pdfSrc: string = './assets/pdf/user-manaul.pdf';
   constructor( private sanitizer: DomSanitizer,) { }
 
   ngOnInit() {
