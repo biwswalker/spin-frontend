@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequestService } from './utils/http-request.service';
 import { Observable } from 'rxjs/Observable';
+import { Officer } from '../models/officer';
 
 @Injectable()
 export class PartnerService {
@@ -21,7 +22,9 @@ export class PartnerService {
       return this.request.requestMethodGET('user-management/users/project-id/' + prjId).subscribe(partner => {
         let atpPartners = []
         for (let obj of partner) {
-          atpPartners.push({ userId: obj.userId, email: obj.email, fullName: obj.officer.firstNameTh + ' ' + obj.officer.lastNameTh });
+          if(obj.officer){
+            atpPartners.push({ userId: obj.userId, email: obj.email, fullName: obj.officer.firstNameTh + ' ' + obj.officer.lastNameTh });
+          }
         }
         observer.next(atpPartners);
         return observer;

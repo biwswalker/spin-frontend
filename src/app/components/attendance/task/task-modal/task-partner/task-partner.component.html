@@ -69,10 +69,12 @@
     <div class="col-12 scroll-auto bg-white rounded text-dark" *ngIf="taskPartner.length == 0">ยังไม่ได้เพิ่มผู้ร่วมงาน...</div>
   </div>
   <div class="row" *ngIf="mode !== 'VIEW'">
+    <!-- <div class="row" *ngIf="hiddenCheckBox" > -->
     <div class="col">
       <ng-select [items]="autocompletePartnerList"
                  bindLabel="fullName"
                  bindValue="userId"
+                 hideSelected="true"
                  (add)="onSelect($event)">
       </ng-select>
     </div>

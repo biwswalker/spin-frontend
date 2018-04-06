@@ -70,23 +70,24 @@ export class TaskModalComponent implements AfterViewInit {
 
   onTaskHasSelected(task: Task, mode: string) {
     this.task = new Task();
-    // console.log('onTaskHasSelected | ', mode);
-    // console.log('task', task);
     console.log('onTaskHasSelected.mode => ', mode)
     const temp = Object.assign({}, task);
     this.taskForm.task = temp;
     this.mode = mode;
     this.owner = task.ownerUserId;
-    // this.bgColor = task.color ? task.color : 'blue';
     const objTask = this.taskForm.task;
-    objTask.color = (task.color ? task.color : 'p-blue');
+    objTask.color = (task.color ? task.color : 'l-blue');
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     this.checkProjectId(this.taskForm.task.projectId);
     this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user, this.owner);
-    // this.taskTagChild.tagList = [];
-    // this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
-    // this.taskTagChild.ngOnInit();
+    // if(objTask.ownerUserId !== this.user.userId){
+    //   this.taskDetailChild.taskDetailFormGroup.controls['taskDetailTopic'].disable();
+    //   this.taskDetailChild.taskDetailFormGroup.controls['taskDetailWorkDate'].disable();
+    // }else{
+    //   this.taskDetailChild.taskDetailFormGroup.controls['taskDetailTopic'].enable();
+    //   this.taskDetailChild.taskDetailFormGroup.controls['taskDetailWorkDate'].enable();
+    // }
   }
 
   // checkTaskId(taskId: number) {
@@ -125,11 +126,6 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
       this.task.taskPartnerList = [];
-
-      //check userId is member
-      if (this.taskPartnerChild.doSelfFlag) {
-        this.task.taskPartnerList.push({ id: { userId: this.user.userId } });
-      }
 
       //check condition for add prjmember on Mode.I
       if (this.mode == Mode.I) {
@@ -180,18 +176,9 @@ export class TaskModalComponent implements AfterViewInit {
       this.utilsService.loader(false);
     } else {
       if (mode == Mode.I) {
-        if (this.taskForm.task.taskId) {
-          if (this.taskForm.task.referTaskId) {
-            task.referTaskId = this.taskForm.task.referTaskId;
-          } else {
-            task.referTaskId = this.taskForm.task.taskId;
-          }
-        }
-        // console.log(task)
         this.createNewTask(task);
       } else {
         task.referTaskId = this.taskForm.task.referTaskId;
-        // console.log(task)
         this.updateTask(task);
       }
     }
@@ -199,6 +186,9 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   createNewTask(task: Task) {
+    if(this.taskForm.task.ownerUserId !== this.user.userId){
+      task.referTaskId = this.taskForm.task.taskId;
+    }
     this.taskService.insertTask(task).subscribe(
       res => {
         console.log(res)
