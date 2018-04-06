@@ -19,6 +19,7 @@ import { ReportComponent } from '../components/reports/report.component';
 import { UnstampedReportComponent } from '../components/reports/unstamped-report/unstamped-report.component';
 import { ProjectTagReportComponent } from '../components/reports/project-tag-report/project-tag-report.component';
 import { TagComponent } from '../components/admin/tag/tag.component';
+import { ProjectPersonReportComponent } from '../components/reports/project-person-report/project-person-report.component';
 
 const routes: Routes = [
   { path: '', component: AttendanceComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'unstamped', component: UnstampedReportComponent },
       { path: 'person', component: PersonReportComponent },
       { path: 'project-tag', component: ProjectTagReportComponent },
+      { path: 'project-person', component: ProjectPersonReportComponent },
     ]
   },
   { path: 'tag', component: TagComponent },

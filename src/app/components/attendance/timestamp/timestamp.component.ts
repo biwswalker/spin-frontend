@@ -35,7 +35,8 @@ export class TimestampComponent implements OnInit {
   public enDateStr = '';
   public firstDOW = '';
   public endDOW = '';
-
+  public monthWord = '';
+  public year = '';
   constructor(private utilsService: UtilsService, private taskService: TaskService) { }
 
   ngOnInit() {
