@@ -39,11 +39,13 @@ export class TimestampComponent implements OnInit {
   constructor(private utilsService: UtilsService, private taskService: TaskService) { }
 
   ngOnInit() {
+    console.log('Biwswalker ngOnInit')
     this.enDateStr = this.utilsService.getCurrentEnDate();
     if (this.nowView === 'week') {
       this.firstDOW = this.utilsService.getStartOfWeek(this.enDateStr, true);
       this.endDOW = this.utilsService.getEndOfWeek(this.enDateStr, true);
     }
+    this.taskService.changeTimetableDate(this.enDateStr);
   }
 
   onChangeDate(control) {
