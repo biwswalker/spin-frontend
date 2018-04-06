@@ -29,7 +29,10 @@ export class TaskPartnerComponent {
   public mode: string;
   public projectId: number;
   public isHidden: boolean = false;
-  public hiddenCheckBox: boolean = false;
+  public isHiddenCheckBox: boolean = false;
+  public isDisableAddPartner: boolean = false;
+  public isHiddenDeletePartner: boolean = false;
+  public isDisableDoSelfFlag: boolean = false;
 
 
   constructor(
@@ -57,11 +60,6 @@ export class TaskPartnerComponent {
         if (isRepeat !== projectId) {
           this.getautoCompletePartner(projectId);
           if (this.taskId) {
-            if (this.user.userId == this.owner) {
-              this.hiddenCheckBox = false;
-            } else {
-              this.hiddenCheckBox = true;
-            }
             this.initialMember(projectId);
             this.initialPartner(projectId);
           } else {
@@ -122,7 +120,7 @@ export class TaskPartnerComponent {
   getautoCompletePartner(projectId) {
     this.partnerService.findAllUserByProjectId(projectId).subscribe(
       partners => {
-        console.log(partners)
+        // console.log(partners)
         this.autocompletePartnerList = [];
         if (partners) {
           this.autocompletePartnerList = partners;

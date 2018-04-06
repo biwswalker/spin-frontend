@@ -6,7 +6,7 @@
                  theme='pink-theme'
                  [(ngModel)]='tagList'
                  id="tag-name"
-                 [disable]="mode == 'VIEW'"
+                 [disableControl]="mode == 'VIEW'"
                  [removable]='true'
                  [maxItems]='10'
                  [onlyFromAutocomplete]="false">
@@ -18,12 +18,22 @@
       </tag-input>
     </div>
   </div>
-  <div class="row" *ngIf="mode !== 'VIEW'">
-      <label class="label-task-modal max-width">ป้ายกำกับที่เคยใช้</label>
+  <!-- <div class="row" *ngIf="mode !== 'VIEW'">
+    <label class="label-task-modal max-width">ป้ายกำกับที่เคยใช้</label>
       <div *ngFor="let tag of usedTagList">
-    <div class="col-2">
-        <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.value}}" name="{{tag.value}}">{{tag.value}}</a>
+        <div class="col-2">
+          <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.value}}" name="{{tag.value}}" [class.background-colo]="">{{tag.value}}</a>
+        </div>
+      </div>
+  </div> -->
+
+  <div class="row" *ngIf="mode !== 'VIEW'">
+      <label class="label-task-modal max-width">ป้ายกำกับที่แนะนำและป้ายกำกับที่เคยใช้</label>
+        <div *ngFor="let tag of tagByUserId">
+          <div class="col-2">
+            <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.tagId}}" name="{{tag.tagName}}" [class.bg-yellow]="tag.activeFlag == 'A'">{{tag.tagName}}</a>
+          </div>
+        </div>
     </div>
-  </div>
-  </div>
+
 </div>
