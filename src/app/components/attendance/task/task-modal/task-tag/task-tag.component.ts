@@ -44,6 +44,7 @@ export class TaskTagComponent implements OnInit {
     if (taskId) {
       this.tagService.findByTaskId(taskId).subscribe(
         tags => {
+          console.log(tags)
           if (tags) {
             // this.tagList = [];
             for (let tag of tags) {
