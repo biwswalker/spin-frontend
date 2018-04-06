@@ -30,7 +30,7 @@
                  data-date-language="th-th"
                  summitDatePicker
                  autocomplete="off"
-                 [attr.disabled]="isDisableCalendar == true ? '':null"
+                 [attr.disabled]="mode == 'VIEW' ? '':null"
                  [(ngModel)]="workDate"
                  maxlength="10"
                  formControlName="taskDetailWorkDate"
@@ -46,6 +46,7 @@
                 <select class="form-control"
                         id="workStartTime"
                         name="workStartTime"
+                        [attr.disabled]="mode == 'VIEW' ? '':null"
                         (change)="onChangeTime()"
                         formControlName="taskDetailStartTime">
                   <option *ngFor="let time of timeList"
@@ -61,6 +62,7 @@
                 <select class="form-control"
                         id="workEndTime"
                         name="workEndTime"
+                        [attr.disabled]="mode == 'VIEW' ? '':null"
                         formControlName="taskDetailEndTime">
                   <option *ngFor="let time of endTimeList"
                           [value]="time">
@@ -75,11 +77,13 @@
       <label class="label-task-modal" >หัวข้อ *</label>
       <input class="form-control"
         type="text"
-        name="topic"
+        name="taskDetailTopic"
         autocomplete="off"
         maxlength="500"
+        [disableControl]="isDisableTopic"
+        [(ngModel)]="topic"
         formControlName="taskDetailTopic"
-        id="topic">
+        id="taskDetailTopic">
     </div>
   </div>
   <div class="row">
@@ -87,10 +91,11 @@
       <label class="label-task-modal">กิจกรรม *</label>
       <textarea class="form-control"
         rows="3"
-        id="activity"
+        id="taskDetailActivity"
         autocomplete="off"
-        name="activity"
+        name="taskDetailActivity"
         maxlength="1000"
+        [attr.disabled]="mode == 'VIEW' ? '':null"
         formControlName="taskDetailActivity">
       </textarea>
     </div>
@@ -103,7 +108,7 @@
                      bindValue="projectId"
                      id="taskDetailProject"
                      name="taskDetailProject"
-                     [disabled]="mode !== 'INSERT'"
+                     [disableControl]="isDisableProject"
                      hideSelected="true"
                      [(ngModel)]="projectId"
                      (add)="onSelectProject($event)"
@@ -141,7 +146,7 @@
       <a class="btn l-red color-picker" (click)="onColorPick('l-red')" id="red" [class.active]="taskObj.color == 'l-red'"></a>
       <a class="btn l-orange color-picker" (click)="onColorPick('l-orange')" id="orange" [class.active]="taskObj.color == 'l-orange'"></a>
       <a class="btn l-cyan color-picker" (click)="onColorPick('l-cyan')" id="cyan" [class.active]="taskObj.color == 'l-cyan'"></a>
-      <a class="btn l-yellow color-picker" (click)="onColorPick('l-yellow')" id="yellow" [class.active]="taskObj.color == 'l-yellow'"></a>
+      <a class="btn l-violet color-picker" (click)="onColorPick('l-violet')" id="yellow" [class.active]="taskObj.color == 'l-violet'"></a>
       <a class="btn l-green color-picker" (click)="onColorPick('l-green')" id="green" [class.active]="taskObj.color == 'l-green'"></a>
     </div>
   </div>

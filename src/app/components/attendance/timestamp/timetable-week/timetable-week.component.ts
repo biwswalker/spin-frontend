@@ -40,6 +40,7 @@ export class TimetableWeekComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spinTimestamp();
+    $( ".scrolling" ).scrollTop(242);
   }
 
   fecthWorkingTaskByWeek() {

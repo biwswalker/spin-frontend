@@ -44,6 +44,7 @@ export class TimetableDayComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spinTimestamp();
+    $( ".scrolling" ).scrollTop(242);
   }
 
   fecthWorkingTaskByDate(enDate: string) {

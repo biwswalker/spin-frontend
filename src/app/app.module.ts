@@ -110,6 +110,7 @@ import { TimePipe } from './pipes/time.pipe';
 // Directive
 import { DatePickerDirective } from './directives/datepicker';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { DisableControlDirective } from './directives/DisableControlDirective';
 
 
 
@@ -181,7 +182,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     TagComponent,
     TagInfoComponent,
     TagSearchComponent,
-    TagModalComponent
+    TagModalComponent,
+    DisableControlDirective
   ],
   imports: [
     BrowserModule,

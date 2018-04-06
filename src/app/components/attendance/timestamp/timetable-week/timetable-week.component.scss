@@ -76,3 +76,9 @@ $stamped:rgb(44, 111, 246);
 .ui-selected {
     background: $stamped !important;
 }
+
+.scrolling {
+    overflow:scroll; 
+    overflow-x: hidden!important;
+    height: 540px;
+}
