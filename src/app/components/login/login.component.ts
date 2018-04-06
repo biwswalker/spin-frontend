@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../providers/authentication.service';
 import { Status, Default } from '../../config/properties';
 import { EventMessagesService } from '../../providers/utils/event-messages.service';
 declare var spin: any;
-
+declare var $: any
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
+
 
   private
 
@@ -24,6 +25,10 @@ export class LoginComponent implements OnInit {
       password: new FormControl(localStorage.getItem(Default.PWD) ? atob(localStorage.getItem(Default.PWD)) : null, Validators.required),
       remember: new FormControl(localStorage.getItem(Default.RMB) === Default.YES ? true : false)
     })
+  }
+
+  ngAfterViewInit() {
+    $('.modal').modal('hide');
   }
 
   onLogin() {
