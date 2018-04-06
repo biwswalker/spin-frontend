@@ -21,6 +21,10 @@ export class TagService {
     return this.request.requestMethodGET('tasktag-management/tasktags/' + taskId);
   }
 
+  findByUserId(){
+    return this.request.requestMethodGET('tag-management/tags')
+  }
+
   findAllPageable(page, size) {
     return this.request.requestMethodGET(
       "tag-management/tags/all/?p=" + page + "&s=" + size
