@@ -9,7 +9,6 @@
 
 //custom components style
 @import 'tags-input-theme';
-@import 'modal';
 @import 'background-color';
 @import 'toggle';
 @import 'navs';
@@ -20,4 +19,11 @@
 @import 'timetable';
 @import 'admin';
 @import 'button';
-@import 'report-table'
+@import 'report-table';
+@import 'modal';
+
+@include media-breakpoint-only(md) {
+  .modal-md{
+    max-width: 700px;
+  }
+}

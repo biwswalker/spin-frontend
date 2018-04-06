@@ -31,15 +31,26 @@
           height: 100%;
           }
           .upload-label{
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 123, 255, 1);
             border-radius: 10px;
             font-weight: 400;
             color: white;
-            padding: 5px 10px;
-            margin: -95px auto;
+            padding: 5px 0 2px 5px;
+            margin-top: -145px;
+            margin-left: 3px;
             position: relative;
-            width: 100px;
+            width: 90px;
+            opacity: 0.1;
+            filter: alpha(opacity=10);
+            transition: all,0.3s;
           }
+      }
+      #upload-project-label:hover{
+        .upload-label{
+          opacity: 0.5;
+          filter: alpha(opacity=50);
+          transition: all,0.3s;
+        }
       }
     }
     #upload-project{
