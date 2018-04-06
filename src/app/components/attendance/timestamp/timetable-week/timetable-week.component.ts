@@ -4,6 +4,7 @@ import { TaskService } from '../../../../providers/task.service';
 import { UtilsService } from '../../../../providers/utils/utils.service';
 import { Task } from '../../../../models/task';
 import { Observable } from 'rxjs/Observable';
+import { HolidayService } from '../../../../providers/holiday.service';
 
 declare var $: any;
 declare var SpinModal: any;
@@ -21,8 +22,9 @@ export class TimetableWeekComponent implements AfterViewInit {
   public firstDOW = '';
   public endDOW = '';
   public dates: Observable<string>[] = [];
+  public holidays: Observable<string>[] = [];
 
-  constructor(private taskService: TaskService, private utilsService: UtilsService) {
+  constructor(private taskService: TaskService, private utilsService: UtilsService, private holidayService: HolidayService) {
     let checkDubplicated: string[] = [];
     // Async
     this.taskService.currentTimetableDOW.subscribe((dow: any) => {
@@ -40,15 +42,26 @@ export class TimetableWeekComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spinTimestamp();
-    $( ".scrolling" ).scrollTop(242);
+    $(".scrolling").scrollTop(242);
   }
 
-  fecthWorkingTaskByWeek() {
+  async fecthWorkingTaskByWeek() {
     let dataDate = this.firstDOW
+    let holidaysFetch = await this.holidayService.findHolidayByMonth(this.utilsService.getThYear(this.utilsService.convertThDateToEn(dataDate)), this.utilsService.getThMonth(this.utilsService.convertThDateToEn(dataDate))).toPromise();
     for (let i = 1; i <= 7; i++) {
       this.fecthWorkingTaskByDate(dataDate, i);
       this.dates[i - 1] = Observable.of(dataDate);
-      dataDate = this.utilsService.getNextDay(dataDate)
+
+      // If have find holiday by date method ==> can replace this method
+      // Get Holiday
+      let holiday = holidaysFetch.filter(item => item.holDate === this.utilsService.convertEnDateToTh(this.utilsService.convertThDateToEn(dataDate)) && item.activeFlag === 'A');
+      this.holidays[i - 1] = Observable.of('');
+      for (let hol of holiday) {
+        if (hol.holName) {
+          this.holidays[i - 1] = Observable.of(hol.holName);
+        }
+      }
+      dataDate = this.utilsService.getNextDay(dataDate);
     }
   }
 
