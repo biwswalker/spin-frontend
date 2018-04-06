@@ -1,5 +1,6 @@
+
 $bghead: rgb(44, 111, 246);
-$bghov: rgba(0, 0, 0, 0.2);
+$bghov: rgb(0, 0, 0);
 
 $bgbody: rgb(217, 217, 217);
 $white: #FFFFFF;
@@ -43,7 +44,10 @@ $white: #FFFFFF;
 }
 
 .nav-link.active {
-  background-color: $bghov;
+  background-color: rgba($bghov,0.2);
+}
+.nav-item:hover>a {
+  background-color: rgba($bghov,0.1);
 }
 
 // Body
@@ -56,4 +60,6 @@ $white: #FFFFFF;
   overflow-x: hidden;
 }
 }
+
+
 

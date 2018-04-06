@@ -9,12 +9,10 @@ $white: #fff;
 #sidebar {
   background: #bf0013;
   transition: all 0.3s;
-  min-width: 85px;
+  width: 110px;
   z-index: 70;
-  position: sticky;
-  top:0rem;
-  margin-top: -5rem;
-  padding-top: 5rem;
+  position: -webkit-fixed;
+  position: fixed;
   height: calc(100vh + 10px) !important;
 
 
@@ -60,8 +58,8 @@ $white: #fff;
 
         }
         span.menu-title{
-          font-size: 0.8rem;
-          font-weight: 200;
+          font-size: 1rem;
+          font-weight: 400;
           display: inline-block;
         }
       }
@@ -100,14 +98,14 @@ $white: #fff;
 }
 
 #toggle-sidebar{
-  padding: 0.25rem 0.75rem;
+  padding: 1rem 0.75rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
   transition: all 0.3s;
   margin-top: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 1;
   color:$white;
   background-color: transparent;
@@ -118,7 +116,7 @@ $white: #fff;
 
 }
 .spin-navbar{
-  z-index: 120;
+  z-index: 120 !important;
 }
 .navbar{
   min-height: 70px;
@@ -146,7 +144,9 @@ $white: #fff;
     color:$white;
   }
 }
-
+.content-wrapper{
+  margin-left:100px;
+}
 .software-v{
   color: white;
 }
@@ -159,14 +159,11 @@ $white: #fff;
     }
   }
 
-  .spin-link{
-    margin-top: 8rem !important;
-    max-height: calc(100vh - 8rem) !important;
-  }
-  #sidebar{
-    position: -webkit-fixed;
-    position: fixed;
-    height: calc(100vh + 5rem) !important;
+}
+
+@include media-breakpoint-down(xs){
+  .content-wrapper{
+    margin-left:0 !important;
   }
 }
 
