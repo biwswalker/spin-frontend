@@ -16,18 +16,23 @@ export class AppComponent implements OnInit {
 
   constructor(private authService: AuthenticationService, private utilService: UtilsService) {
     this.authService.crrAccess.subscribe(async accesses => {
-      if (this.authService.isInSession()) {
-        let status = await this.authService.accessUser();
-        if (status === Status.SUCCESS) {
-          this.isAccess = true;
-        } else {
-          this.isAccess = false;
-        }
-        $('#task-modal').on("hidden.bs.modal");
-        $('#project-modal').on("hidden.bs.modal");
-      } else {
+      if (accesses) {
+        this.isAccess = true;
+      }else{
         this.isAccess = false;
       }
+      // if (this.authService.isInSession()) {
+      //   let status = await this.authService.accessUser();
+      //   if (status === Status.SUCCESS) {
+      //     this.isAccess = true;
+      //   } else {
+      //     this.isAccess = false;
+      //   }
+      //   $('#task-modal').on("hidden.bs.modal");
+      //   $('#project-modal').on("hidden.bs.modal");
+      // } else {
+      //   this.isAccess = false;
+      // }
 
     })
   }

@@ -120,7 +120,6 @@ export class TaskDayComponent implements AfterViewInit {
     let unstampedFetch = this.taskService.findUnStamped(year, month).map(unstampeds => {
       this.unstamped = [];
       this.unstamped = unstampeds;
-      console.log(this.unstamped)
     });
 
     // Get Holiday
