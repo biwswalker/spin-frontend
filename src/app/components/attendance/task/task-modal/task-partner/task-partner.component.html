@@ -7,7 +7,7 @@
             <input class="switch"
                    type="checkbox"
                    id="do-self-flag"
-                   [disabled]="mode == 'VIEW'"
+                   [disableControl]="isDisableDoSelfFlag"
                    name="do-self-flag"
                    [(ngModel)]="doSelfFlag">
               <label for="do-self-flag">
@@ -25,7 +25,7 @@
           <input type="checkbox"
                  name="{{obj.userId}}"
                  id="{{obj.userId}}"
-                 [hidden]="hiddenCheckBox"
+                 [hidden]="isHiddenCheckBox"
                  autocomplete="off"
                  [(ngModel)]="obj.status">
                    {{obj.fullName}}
@@ -53,7 +53,7 @@
            <div class="row">
              <div class="col width-fit">
              <a class="btn fas fa-times-circle"
-                *ngIf="mode !== 'VIEW'"
+                *ngIf="mode !== 'VIEW' && isHiddenDeletePartner"
                 id="{{obj.userId}}"
                 name="{{obj.userId}}"
                 (click)="deletePartner(obj)">
@@ -68,8 +68,7 @@
     </div>
     <div class="col-12 scroll-auto bg-white rounded text-dark" *ngIf="taskPartner.length == 0">ยังไม่ได้เพิ่มผู้ร่วมงาน...</div>
   </div>
-  <div class="row" *ngIf="mode !== 'VIEW'">
-    <!-- <div class="row" *ngIf="hiddenCheckBox" > -->
+  <div class="row" *ngIf="isDisableAddPartner">
     <div class="col">
       <ng-select [items]="autocompletePartnerList"
                  bindLabel="fullName"
