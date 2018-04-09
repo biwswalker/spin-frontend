@@ -28,10 +28,10 @@ export class EventMessagesService {
     this.notify.initialError(title, 'เนื่องจาก'+detail);
   }
   onInsertError(detail) {
-    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.message);
+    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.description);
   }
   onUpdateError(detail) {
-    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.message);
+    this.notify.initialError('เกิดข้อผิดพลาด', detail.error.description);
   }
   onUploadError(detail) {
     this.notify.initialError('เกิดข้อผิดพลาด พบข้อมูลไม่สมบูรณ์', detail);

@@ -3,7 +3,7 @@ $(document).on('click','.data-can-select-list li',function(event) {
   var target = $(event.target);
  if(!target.is('.fa-heart')){
     $(this).addClass('active').siblings().removeClass('active');
-    $(this).animate({ scrollTop: 0 }, 'slow');
+    $('html,body').animate({ scrollTop: 0 }, 'slow');
  }
 });
 
@@ -13,7 +13,7 @@ var SpinCustomListUI = (function(){
   selectOne:function(selector){
     $(selector).on('click','.data-item',function(event) {
         $(this).addClass('active').siblings().removeClass('active');
-        $(this).animate({ scrollTop: 0 }, 'slow');
+        $('html,body').animate({ scrollTop: 0 }, 'slow');
       });
   }
 
