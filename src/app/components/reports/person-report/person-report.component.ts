@@ -23,7 +23,7 @@ export class PersonReportComponent implements OnInit {
   public endDate: string = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
   public sortBy: number = 1;
   public user: User = new User;
-  public tableOrderByDate: boolean = false;
+  public tableOrderByDate: boolean = true;
   public tableOrderByProject: boolean = false;
   public tableOrderByTag: boolean = false;
   public reportPersonList: PersonReport[] = [];
@@ -83,7 +83,7 @@ export class PersonReportComponent implements OnInit {
     this.startDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.endDate = this.utilsService.displayCalendarDate(this.utilsService.getCurrentThDate());
     this.sortBy = 1;
-    this.tableOrderByDate = false;
+    this.tableOrderByDate = true;
     this.tableOrderByProject = false;
     this.tableOrderByTag = false;
     this.personReportFormGroup = new FormGroup(

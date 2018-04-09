@@ -1,13 +1,14 @@
-$tr-color:#d3d3d380;
-$tr-hover-color:#d3d3d3e0;
-$tr-even-color:#d3d3d33d;
-$thead-color:#ffbcbc6e;
-
+$tr-color:#d3d3d3;
+$tr-hover-color:#d3d3d3;
+$tr-even-color:#d3d3d3;
+$thead-color:#ffbcbc;
 $row-border:4px;
 .table {
     display: table;
     border-collapse: separate;
     border-spacing: 0 8px;
+    width: 100%;
+    table-layout: fixed;
 }
 
 .thead {
@@ -25,11 +26,11 @@ $row-border:4px;
     background-color: $tr-hover-color;
 }
 
-.tr:nth-child(even){
+.tr:nth-child(even) {
     background-color: $tr-even-color;
 }
 
-.tr:hover:nth-child(even){
+.tr:hover:nth-child(even) {
     background-color: $tr-hover-color;
 }
 
@@ -60,3 +61,54 @@ $row-border:4px;
     border-top-right-radius: $row-border;
     border-bottom-right-radius: $row-border;
 }
+
+// $tr-color:#d3d3d380;
+// $tr-hover-color:#d3d3d3e0;
+// $tr-even-color:#d3d3d33d;
+// $thead-color:#ffbcbc6e;
+// $row-border:4px;
+// .table {
+//     display: table;
+//     border-collapse: separate;
+//     border-spacing: 0 8px;
+// }
+// .thead {
+//     display: table-row;
+//     background-color: $thead-color;
+//     font-weight: 600;
+// }
+// .tr {
+//     display: table-row;
+//     background-color: $tr-color;
+// }
+// .tr:hover {
+//     background-color: $tr-hover-color;
+// }
+// .tr:nth-child(even){
+//     background-color: $tr-even-color;
+// }
+// .tr:hover:nth-child(even){
+//     background-color: $tr-hover-color;
+// }
+// .th {
+//     display: table-cell;
+// }
+// .th:first-child {
+//     border-top-left-radius: $row-border;
+//     border-bottom-left-radius: $row-border;
+// }
+// .th:last-child {
+//     border-top-right-radius: $row-border;
+//     border-bottom-right-radius: $row-border;
+// }
+// .td {
+//     display: table-cell;
+// }
+// .td:first-child {
+//     border-top-left-radius: $row-border;
+//     border-bottom-left-radius: $row-border;
+// }
+// .td:last-child {
+//     border-top-right-radius: $row-border;
+//     border-bottom-right-radius: $row-border;
+// }

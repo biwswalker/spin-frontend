@@ -1,4 +1,4 @@
-<div class="col-12 content-left"  *ngIf="user.userLevel === 'A'">
+<div class="col-12 content-left" *ngIf="user.userLevel === 'A'">
   <div class="row">
     <div class="col-12">
       <form [formGroup]="projectPersonGroup">
@@ -89,24 +89,29 @@
     <div class="col-12 table-border">
       <div class="table">
         <div class="thead">
+          <div class="th p-1"></div>
           <div class="th p-1 tag-name">ชื่อ - นามสกุล</div>
+          <div class="th"></div>
           <div class="th p-1 text-center">จำนวน</div>
-          <div class="th p-1 text-center"></div>
+          <div class="th p-1 text-center">เปอร์เซ็น</div>
         </div>
-        <div *ngFor="let projectPerson of projectPersonList; let i = index"
+        <div *ngFor="let summary of projectPerson?.summary"
              class="tr">
-          <div class="td date p-1 bold-text">{{ projectPerson.fullName }}</div>
-          <div class="td text-center p-1">{{ user.sumAsHour | number}} ชั่วโมง {{ user.sumAsMin | number}} นาที</div>
-          <div class="td text-center p-1">%</div>
+          <div class="td"></div>
+          <div class="td date p-1">{{ summary.name }}</div>
+          <div class="td"></div>
+          <div class="td text-center p-1">{{ summary.hour | number}} ชั่วโมง {{ summary.minute | number}} นาที</div>
+          <div class="td text-center p-1">{{ summary.percent | number}}%</div>
         </div>
 
         <div class="tr">
           <div class="td"></div>
-          <div class="td text-right bold-text">
-            รวมทั้งหมด
+          <div class="td"></div>
+          <div class="td text-center bold-text">รวมทั้งหมด</div>
+          <div class="td text-center bold-text">
+            {{projectPerson?.summaryHour | number}} ชั่วโมง {{projectPerson?.summaryMinute | number}} นาที
           </div>
-          <div class="td text-center p-1 bold-text">
-            {{totalHrSum | number}} ชั่วโมง {{totalMinSum | number}} นาที
+          <div class="td text-center">
           </div>
         </div>
       </div>

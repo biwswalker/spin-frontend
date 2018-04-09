@@ -16,7 +16,7 @@ export class ByProjectComponent implements OnInit {
   }
 
   initialData(data) {
-    console.log(data);
+    // console.log(data);
     this.reportByProject = data;
     // for (let obj of this.reportByProject) {
     //   obj.sumhour = 0;

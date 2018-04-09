@@ -6,67 +6,67 @@
   </div>
   <div class="col-12 content-left">
     <div class="row">
-      <div class="col">
-        <form [formGroup]="personReportFormGroup" >
+      <div class="col-12">
+        <form [formGroup]="personReportFormGroup">
           <div class="row">
             <div class="col">
               <label>พนักงาน *</label>
-              <ng-select [items]="userList"
-                         bindLabel="fullName"
-                         bindValue="userId"
-                         id="user"
-                         name="user"
-                         hideSelected="true"
-                         [(ngModel)]="officer"
-                         (add)="onSelectUser($event)"
-                         formControlName="officer">
-              </ng-select>
+                <ng-select [items]="userList"
+                           bindLabel="fullName"
+                           bindValue="userId"
+                           id="user"
+                           name="user"
+                           hideSelected="true"
+                           [(ngModel)]="officer"
+                           (add)="onSelectUser($event)"
+                           formControlName="officer">
+                  </ng-select>
             </div>
             <div class="col">
               <label>วันที่ *</label>
-              <div class="input-group">
-                <input class="form-control datepicker"
-                       type="text"
-                       id="start-date"
-                       name="startDate"
-                       maxlength="10"
-                       data-provide="datepicker"
-                       data-date-language="th-th"
-                       autocomplete="off"
-                       [attr.data-date-start-date]="minDate"
-                       [attr.data-date-end-date]="endDate"
-                       [(ngModel)]="startDate"
-                       formControlName="startDate"
-                       summitDatePicker>
-                <div class="input-group-append">
-                  <span class="input-group-text">
-                    <i class="fas fa-calendar-alt"></i>
-                  </span>
+                <div class="input-group">
+                  <input class="form-control datepicker"
+                         type="text"
+                         id="start-date"
+                         name="startDate"
+                         maxlength="10"
+                         data-provide="datepicker"
+                         data-date-language="th-th"
+                         autocomplete="off"
+                         [attr.data-date-start-date]="minDate"
+                         [attr.data-date-end-date]="endDate"
+                         [(ngModel)]="startDate"
+                         formControlName="startDate"
+                         summitDatePicker>
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="fas fa-calendar-alt"></i>
+                      </span>
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="col">
               <label>ถึงวันที่ *</label>
-              <div class="input-group">
-                <input class="form-control datepicker"
-                       type="text"
-                       id="end-date"
-                       name="endDate"
-                       maxlength="10"
-                       data-provide="datepicker"
-                       data-date-language="th-th"
-                       autocomplete="off"
-                       [attr.data-date-start-date]="startDate"
-                       [(ngModel)]="endDate"
-                       [min]="startDate"
-                       formControlName="endDate"
-                       summitDatePicker>
-                <div class="input-group-append">
-                  <span class="input-group-text">
-                    <i class="fas fa-calendar-alt"></i>
-                  </span>
+                <div class="input-group">
+                  <input class="form-control datepicker"
+                         type="text"
+                         id="end-date"
+                         name="endDate"
+                         maxlength="10"
+                         data-provide="datepicker"
+                         data-date-language="th-th"
+                         autocomplete="off"
+                         [attr.data-date-start-date]="startDate"
+                         [(ngModel)]="endDate"
+                         [min]="startDate"
+                         formControlName="endDate"
+                         summitDatePicker>
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="fas fa-calendar-alt"></i>
+                      </span>
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="col float-right">
               <label>แสดงตาม</label>
@@ -74,7 +74,7 @@
                         id="sort-by"
                         [ngModelOptions]="{standalone: true}"
                         [(ngModel)]="sortBy"
-                        name="sort-by" >
+                        name="sort-by">
                   <option value="1">วันที่</option>
                   <option value="2">โครงการ</option>
                   <option value="3">ป้ายกำกับ</option>
@@ -82,19 +82,17 @@
             </div>
           </div>
         </form>
-        <div class="row">
-          <div class="col-12">
-            <button class="btn btn-primary text-white" (click)="onSearch()">แสดงข้อมูล</button>
-            <button class="btn btn-primary text-white" (click)="onReset()">เริ่มใหม่</button>
-            <button class="btn btn-primary text-white float-right" (click)="onSubmitReport()">พิมพ์</button>
-          </div>
-        </div>
-
-        <!-- orderByDate -->
-      <app-by-date *ngIf="tableOrderByDate"></app-by-date>
-      <app-by-project *ngIf="tableOrderByProject"></app-by-project>
-      <app-by-tag *ngIf="tableOrderByTag"></app-by-tag>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-success text-white" (click)="onSearch()">แสดงข้อมูล</button>
+        <button class="btn btn-warning text-white" (click)="onReset()">เริ่มใหม่</button>
+        <button class="btn btn-info text-white float-right" (click)="onSubmitReport()">พิมพ์</button>
+      </div>
+      <div class="col-12">
+        <app-by-date *ngIf="tableOrderByDate"></app-by-date>
+        <app-by-project *ngIf="tableOrderByProject"></app-by-project>
+        <app-by-tag *ngIf="tableOrderByTag"></app-by-tag>
+      </div>
     </div>
   </div>
 </div>
-

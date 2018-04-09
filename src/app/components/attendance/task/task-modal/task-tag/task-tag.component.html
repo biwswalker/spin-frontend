@@ -31,7 +31,7 @@
       <label class="label-task-modal max-width">ป้ายกำกับที่แนะนำและป้ายกำกับที่เคยใช้</label>
         <div *ngFor="let tag of tagByUserId">
           <div class="col-2">
-            <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.tagId}}" name="{{tag.tagName}}" [class.bg-yellow]="tag.activeFlag == 'A'">{{tag.tagName}}</a>
+            <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.tagId}}" name="{{tag.tagName}}" [class.bg-yellow]="tag.tagType == 'A'">{{tag.tagName}}</a>
           </div>
         </div>
     </div>
