@@ -75,6 +75,7 @@ export class ProjectModalComponent{
         data => {
           this.oncloseModal();
           this.eventMessageService.onInsertSuccess('');
+          this.projectService.onProjectHaveChanged();
         },
         err=>{
           console.log("Exception: ",err);
@@ -85,7 +86,7 @@ export class ProjectModalComponent{
 
         },
         ()=>{
-          this.projectService.onProjectHaveChanged();
+
         }
       );
     }
@@ -106,6 +107,7 @@ export class ProjectModalComponent{
         data => {
           this.oncloseModal();
           this.eventMessageService.onUpdateSuccess('');
+          this.projectService.onProjectHaveChanged();
         },
         err=>{
           console.log("Exception: ",err);
@@ -114,9 +116,20 @@ export class ProjectModalComponent{
           }
         },
         ()=>{
-          this.projectService.onProjectHaveChanged();
+
         });
     }
+  }
+
+  async onSubmitDelete(projectId){
+    let result:any = await this.projectService.removeProject(projectId);
+    if(result.status == 200){
+      this.eventMessageService.onDeleteSuccess('');
+    }else{
+      this.eventMessageService.onCustomError('ไม่สามารถลบข้อมูลได้',result.error.message);
+    }
+    this.oncloseModal();
+    this.projectService.onProjectHaveChanged();
   }
 
   initChild(){
@@ -141,6 +154,7 @@ export class ProjectModalComponent{
 
   }
 
+
   oncloseModal(){
     this.modal.close('#project-modal');
   }
@@ -148,7 +162,4 @@ export class ProjectModalComponent{
   onOpenModal(){
     this.modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
   }
-
-
-
 }

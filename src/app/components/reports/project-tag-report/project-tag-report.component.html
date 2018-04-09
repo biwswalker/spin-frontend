@@ -1,4 +1,5 @@
-<div class="col-12 content-left"  *ngIf="user.userLevel === 'A'">
+<div class="col-12 content-left"
+     *ngIf="user.userLevel === 'A'">
   <div class="row">
     <div class="col-12">
       <form [formGroup]="projectTagGroup">
@@ -109,7 +110,7 @@
           <div class="td p-1">
             <div>&nbsp;</div>
             <ol [attr.class]="'collapse collapse-group' + i">
-              <!-- <li *ngFor="let user of projectTag.users"> </li> -->
+              <li *ngFor="let user of projectTag.users">{{user.ownerUserId}}</li>
             </ol>
           </div>
           <div class="td text-center p-1">

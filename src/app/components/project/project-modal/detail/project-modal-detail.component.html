@@ -36,7 +36,7 @@
       <!-- Project ABBR $$ Project Name-->
       <div class="col-12 col-md-9">
         <div class="row">
-          <div class="col-12 form-group">
+          <div class="col-7 form-group">
             <label for="project-abbr">ชื่อย่อโครงการ *</label>
             <input type="text"
                    class="form-control"
@@ -46,6 +46,17 @@
                    formControlName="projectAbbr"
                    [(ngModel)]="project.projectAbbr"
                    >
+          </div>
+          <div class="col-1" ></div>
+          <div class="col-4 form-group">
+            <label for="active-flag">สถานะ</label>
+            <select class="form-control" id="active-flag"
+            formControlName="activeFlag"
+            [(ngModel)]="project.activeFlag"
+            [attr.disabled]="!project.projectId?'disabled':null">
+              <option value="A">ใช้งาน</option>
+              <option value="I">ไม่ใช้งาน</option>
+            </select>
           </div>
         </div>
         <div class="row">

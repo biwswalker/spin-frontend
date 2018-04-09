@@ -266,7 +266,14 @@ export class UtilsService {
     }
   }
 
-  loader(isLoading: boolean){
+  loader(isLoading: boolean) {
     this.isLoading.next(isLoading);
+  }
+
+
+  displayDay(thDate: string): string {
+    let enDate = this.convertThDateToEn(thDate);
+    var day = moment(enDate, Format.DATE_DB).format('dd');
+    return `${day}`
   }
 }

@@ -10,7 +10,19 @@
         <div class="text-center header-text">
           {{project.projectId == null?'เพิ่มโครงการ':'แก้ไขโครงการ'}}
         </div>
-        <button type="button" class="btn btn-success" (click)="onSubmit()"><i class="fas fa-check mr-1"></i>บันทึก</button>
+        <div>
+            <button *ngIf="project.projectId"
+            class="btn btn-link text-white"
+            id="del-btn"  name="del-btn"
+            (click)="onSubmitDelete(project.projectId)"
+            >
+            <i class="far fa-trash-alt mr-1 ">
+              ลบ
+            </i>
+            </button>
+          <button type="button" class="btn btn-success" (click)="onSubmit()"><i class="fas fa-check mr-1"></i>บันทึก</button>
+        </div>
+
 
       </div>
 
