@@ -1,12 +1,25 @@
-.blank{
-  width: 55%;
-}
-.th:first-child{
-  width: 2.5%;
+.blank {
+    width: 45%;
 }
 
-.th.project{
-  width: 30%;
+.th:first-child {
+    width: 2.5%;
 }
 
+.th.project {
+    width: 30%;
+}
 
+.percent {
+  width: 7.5%;
+  text-align: center;
+}
+
+.float-r{
+  text-align: right;
+  padding-right: 10px;
+}
+
+.font-b{
+  font-weight: 600;
+}

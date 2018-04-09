@@ -94,7 +94,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    console.log('logout')
+    // console.log('logout')
     // this.notAuthorization = true;
     // let acces_token: any = sessionStorage.getItem(Default.ACTOKN);
     // if (acces_token) {

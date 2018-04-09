@@ -1,38 +1,29 @@
 <div class="container">
-  <div class="row">
-    <label class="label-task-modal">ป้ายกำกับ</label>
-    <div class="col-12">
-      <tag-input class="form-control"
-                 theme='pink-theme'
-                 [(ngModel)]='tagList'
-                 id="tag-name"
-                 [disableControl]="mode == 'VIEW'"
-                 [removable]='true'
-                 [maxItems]='10'
-                 [onlyFromAutocomplete]="false">
-        <tag-input-dropdown [showDropdownIfEmpty]="false"
-                            [autocompleteItems]="autoCompleteTagList"
-                            identifyBy="tagName"
-                            displayBy="tagName">
-        </tag-input-dropdown>
-      </tag-input>
-    </div>
-  </div>
-  <!-- <div class="row" *ngIf="mode !== 'VIEW'">
-    <label class="label-task-modal max-width">ป้ายกำกับที่เคยใช้</label>
-      <div *ngFor="let tag of usedTagList">
-        <div class="col-2">
-          <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.value}}" name="{{tag.value}}" [class.background-colo]="">{{tag.value}}</a>
+    <div class="row" *ngIf="mode == 'VIEW'">
+        <label class="label-task-modal">ป้ายกำกับ</label>
+        <div class="col-12">
+            <div *ngFor="let tag of tagList">
+                <div class="col">
+                    <label class="view-tag inline" id="{{tag.value}}">{{tag.value}}</label>
+                </div>
+            </div>
         </div>
-      </div>
-  </div> -->
-
-  <div class="row" *ngIf="mode !== 'VIEW'">
-      <label class="label-task-modal max-width">ป้ายกำกับที่แนะนำและป้ายกำกับที่เคยใช้</label>
+    </div>
+    <div class="row" *ngIf="mode !== 'VIEW'">
+        <label class="label-task-modal">ป้ายกำกับ</label>
+        <div class="col-12">
+            <tag-input class="form-control" theme='pink-theme' [(ngModel)]='tagList' id="tag-name" [removable]='true' [maxItems]='10' [onlyFromAutocomplete]="false">
+                <tag-input-dropdown [showDropdownIfEmpty]="false" [autocompleteItems]="autoCompleteTagList" identifyBy="tagName" displayBy="tagName">
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+    </div>
+    <div class="row" *ngIf="mode !== 'VIEW'">
+        <label class="label-task-modal max-width">ป้ายกำกับที่แนะนำและป้ายกำกับที่เคยใช้</label>
         <div *ngFor="let tag of tagByUserId">
-          <div class="col-2">
-            <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.tagId}}" name="{{tag.tagName}}" [class.bg-yellow]="tag.tagType == 'A'">{{tag.tagName}}</a>
-          </div>
+            <div class="col-2">
+                <a (click)="onSelected(tag)" class="btn btn-tag" id="{{tag.tagId}}" name="{{tag.tagName}}" [class.bg-yellow]="tag.tagType == 'A'">{{tag.tagName}}</a>
+            </div>
         </div>
     </div>
 

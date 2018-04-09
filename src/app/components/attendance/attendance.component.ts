@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
             class="btn btn-link p-0 ml-auto"
             (click)="onClickPersonReport()">
             <i class="fas fa-file-alt"></i>
-            รายงานการทำงาน
+            รายงาน
           </button>
         </div>
   </div>
