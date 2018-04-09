@@ -68,7 +68,7 @@ export class TaskModalComponent implements AfterViewInit {
 
   onTaskHasSelected(task: Task, mode: string) {
     this.task = new Task();
-    console.log('onTaskHasSelected.mode => ', mode)
+    // console.log('onTaskHasSelected.mode => ', mode)
     const temp = Object.assign({}, task);
     this.taskForm.task = temp;
     this.mode = mode;
@@ -139,7 +139,6 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    console.log('onSubmit.mode => ', this.mode);
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.utilsService.loader(true);
       this.task.statusFlag = (this.taskDetailChild.taskDetailFormGroup.value.taskDetailStatusFlag == true ? 'D' : 'I');
@@ -220,7 +219,7 @@ export class TaskModalComponent implements AfterViewInit {
     if (this.taskForm.task.ownerUserId !== this.user.userId) {
       task.referTaskId = this.taskForm.task.taskId;
     }
-    console.log(task)
+    // console.log(task)
     this.taskService.insertTask(task).subscribe(
       res => {
         console.log(res)
@@ -244,7 +243,7 @@ export class TaskModalComponent implements AfterViewInit {
     if (this.taskForm.task.versionId) {
       task.versionId = this.taskForm.task.versionId;
     }
-    console.log(task)
+    // console.log(task)
     this.taskService.updateTask(task).subscribe(
       res => {
         console.log(res);
