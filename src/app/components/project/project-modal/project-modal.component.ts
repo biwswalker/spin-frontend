@@ -126,7 +126,7 @@ export class ProjectModalComponent{
     if(result.status == 200){
       this.eventMessageService.onDeleteSuccess('');
     }else{
-      this.eventMessageService.onCustomError('ไม่สามารถลบข้อมูลได้',result.error.message);
+      this.eventMessageService.onCustomError('ไม่สามารถลบข้อมูลได้',result.error.description);
     }
     this.oncloseModal();
     this.projectService.onProjectHaveChanged();
