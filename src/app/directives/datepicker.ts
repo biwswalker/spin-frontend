@@ -71,7 +71,7 @@ export class DatePickerDirective implements ControlValueAccessor{
 
   observeDate(e){
       // setTimeout(()=>{
-        console.log('el:',this.el);
+        // console.log('el:',this.el);
       this.minDate = this.el.nativeElement.dataset.dateStartDate;
       this.maxDate = this.el.nativeElement.dataset.dateEndDate;
 

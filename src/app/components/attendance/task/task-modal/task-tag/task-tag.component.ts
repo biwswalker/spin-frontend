@@ -66,7 +66,7 @@ export class TaskTagComponent implements OnInit {
     this.tagByUserId = [];
     this.tagService.findByUserId().subscribe(
       listTags => {
-        console.log(listTags)
+        // console.log(listTags)
         this.tagByUserId = listTags;
       }
     )
@@ -83,8 +83,7 @@ export class TaskTagComponent implements OnInit {
   }
 
   onSelected(event) {
-    // console.log(event)
-    if (this.tagList.indexOf(event) == -1) {
+    if (this.tagList.indexOf(event.tagName) == -1) {
       this.tagList.push(event.tagName);
     }
   }
