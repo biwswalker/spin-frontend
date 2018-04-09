@@ -27,6 +27,9 @@ export class ThaiDatePipe implements PipeTransform {
           case 'day': {
             return this.utilsService.displayDayDate(value);
           }
+          case 'dayfull': {
+            return this.utilsService.displayDay(value);
+          }
         }
       }
       return '';

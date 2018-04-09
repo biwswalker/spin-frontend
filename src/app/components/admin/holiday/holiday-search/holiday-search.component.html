@@ -27,7 +27,7 @@
           <p>{{holiday.holName}}</p>
         </div>
         <div class="col-sm-4 text-left media">
-          <p>{{holiday.holDate | thaiDate:'full' || '' }}</p>
+          <p>{{holiday.holDate | thaiDate:'full' || '' }} ({{holiday.holDate | thaiDate:'dayfull' || '' }})</p>
         </div>
       </div>
     </button>
