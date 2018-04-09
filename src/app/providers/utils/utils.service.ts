@@ -273,7 +273,7 @@ export class UtilsService {
 
   displayDay(thDate: string): string {
     let enDate = this.convertThDateToEn(thDate);
-    var day = moment(enDate, Format.DATE_DB).format('dd');
+    var day = moment(enDate, Format.DATE_DB).format('dddd');
     return `${day}`
   }
 }
