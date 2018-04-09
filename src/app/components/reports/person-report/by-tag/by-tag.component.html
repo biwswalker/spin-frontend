@@ -3,15 +3,15 @@
     <div class="table">
       <div class="thead">
         <div class="th"></div>
-        <div class="th p-1 project">ป้ายกำกับ</div>
+        <div class="thtag">ป้ายกำกับ</div>
         <div class="th blank"></div>
-        <div class="th p-1">จำนวน</div>
+        <div class="th">จำนวน</div>
       </div>
       <div class="tr" *ngFor="let tagRpt of tagReport.summary">
-        <div class="td text-center p-1"></div>
-        <div class="td p-1">{{tagRpt.name}}</div>
+        <div class="td"></div>
+        <div class="td tag">{{tagRpt.name}}</div>
         <div class="th blank"></div>
-        <div class="td p-1">
+        <div class="td">
           <label class="margin-b-0">{{tagRpt.hour}} ชั่วโมง {{tagRpt.minute}} นาที</label>
         </div>
       </div>
