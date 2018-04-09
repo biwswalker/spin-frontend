@@ -75,6 +75,7 @@ export class ProjectModalComponent{
         data => {
           this.oncloseModal();
           this.eventMessageService.onInsertSuccess('');
+          this.projectService.onProjectHaveChanged();
         },
         err=>{
           console.log("Exception: ",err);
@@ -85,7 +86,7 @@ export class ProjectModalComponent{
 
         },
         ()=>{
-          this.projectService.onProjectHaveChanged();
+
         }
       );
     }
@@ -106,6 +107,7 @@ export class ProjectModalComponent{
         data => {
           this.oncloseModal();
           this.eventMessageService.onUpdateSuccess('');
+          this.projectService.onProjectHaveChanged();
         },
         err=>{
           console.log("Exception: ",err);
@@ -114,16 +116,13 @@ export class ProjectModalComponent{
           }
         },
         ()=>{
-          this.projectService.onProjectHaveChanged();
+
         });
     }
   }
 
   async onSubmitDelete(projectId){
-    console.log("process delete");
-    let result = await this.projectService.removeProject(projectId);
-    console.log("delete done");
-    console.log(result);
+    let result:any = await this.projectService.removeProject(projectId);
     if(result.status == 200){
       this.eventMessageService.onDeleteSuccess('');
     }else{
@@ -163,7 +162,4 @@ export class ProjectModalComponent{
   onOpenModal(){
     this.modal.initial('#project-modal', { show: true, backdrop: 'static', keyboard: true });
   }
-
-
-
 }
