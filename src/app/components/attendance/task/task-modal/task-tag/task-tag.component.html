@@ -1,11 +1,9 @@
 <div class="container">
     <div class="row" *ngIf="mode == 'VIEW'">
-        <label class="label-task-modal">ป้ายกำกับ</label>
-        <div class="col-12">
+        <label class="label-task-modal max-width">ป้ายกำกับ</label>
             <div *ngFor="let tag of tagList">
-                <div class="col">
-                    <label class="view-tag inline" id="{{tag.value}}">{{tag.value}}</label>
-                </div>
+              <div class="col-2">
+              <label class="view-tag" id="{{tag.value}}">{{tag.value}}</label>
             </div>
         </div>
     </div>
