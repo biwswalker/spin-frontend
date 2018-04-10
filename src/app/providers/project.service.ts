@@ -30,7 +30,7 @@ export class ProjectService {
 
   async removeProject(projectId){
     let promise = await new Promise((resolve)=>{
-      this.request.requestMethodDelete(`/project-management/projects/${projectId}`).subscribe(
+      this.request.requestMethodDelete(`project-management/projects/${projectId}`).subscribe(
         data =>{
           resolve({status:200});
         },

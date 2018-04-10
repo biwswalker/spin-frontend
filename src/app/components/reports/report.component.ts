@@ -19,8 +19,9 @@ import { User } from '../../models/user';
             </div>
         </div>
     </div>
-        <router-outlet></router-outlet>
     </div>
+        <router-outlet></router-outlet>
+
     `,
 })
 export class ReportComponent implements OnInit {
