@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if (this.loginGroup.valid) {
       spin(true);
       setTimeout(() => {
+        localStorage.setItem(Default.RFPWD, btoa(this.loginGroup.value.password));
         if (this.loginGroup.value.remember) {
           localStorage.setItem(Default.USR, btoa(this.loginGroup.value.username))
           localStorage.setItem(Default.PWD, btoa(this.loginGroup.value.password))

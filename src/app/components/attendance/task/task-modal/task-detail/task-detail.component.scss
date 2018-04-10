@@ -31,7 +31,7 @@
 .thumbnail-fav{
   width: 40px;
   height: 40px;
-  margin: 10px;
+  margin: 5px;
 }
 
 a.active {
@@ -45,4 +45,8 @@ a:hover {
 .project-list{
   max-width: 425px;
   display: block;
+}
+
+textarea {
+  resize: none;
 }
