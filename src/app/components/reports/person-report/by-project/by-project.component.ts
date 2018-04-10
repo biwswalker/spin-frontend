@@ -8,6 +8,8 @@ import { TaskTag } from '../../../../models/task-tag';
 })
 export class ByProjectComponent implements OnInit {
 
+  public sumProjectH: number = 0;
+  public sumProjectM: number = 0;
   public reportByProject: ReportByProject[] = [];
 
   constructor() { }
@@ -16,12 +18,16 @@ export class ByProjectComponent implements OnInit {
   }
 
   initialData(data) {
-    // console.log(data);
+    console.log(data)
     this.reportByProject = data;
-    // for (let obj of this.reportByProject) {
-    //   obj.sumhour = 0;
-    //   obj.sumhour = obj.hour + obj.minute;
-    // }
+    for (let obj of this.reportByProject) {
+      this.sumProjectH += obj.hour;
+      this.sumProjectM += obj.minute;
+    }
+    if((this.sumProjectM%60) !== 0 ){
+      this.sumProjectH += Math.floor(this.sumProjectM /60 );
+      this.sumProjectM += this.sumProjectM % 60;
+    }
   }
 }
 

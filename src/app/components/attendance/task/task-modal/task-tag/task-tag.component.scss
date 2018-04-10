@@ -1,21 +1,35 @@
-.modal-h{
-  height: 30rem;
+.modal-h {
+    height: 30rem;
 }
 
-.btn-tag{
-  background-color: white;
-  border-radius: 10px;
-  margin-bottom: 10px;
+.btn-tag {
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-.max-width{
-  width: 100%;
+.max-width {
+    width: 100%;
 }
 
-a:hover{
-  border: 2px solid black;
+a:hover {
+    border: 2px solid black;
 }
 
-.bg-yellow{
-  background-color: yellow !important;
+.bg-yellow {
+    background-color: yellow !important;
+}
+
+.view-tag {
+    background-color: #ff0076;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    margin-right: 5px;
+    margin-bottom: 10px;
 }

@@ -42,11 +42,10 @@ export class TaskPartnerComponent {
   ) {
   }
 
-  initTaskPartner(taskId: number, mode: string, user: User, taskOwner: string) {
+  initTaskPartner(taskId: number, user: User, taskOwner: string) {
     this.user = user;
     this.user.fullName = "";
     this.taskId = taskId;
-    this.mode = mode;
     this.owner = taskOwner;
     this.user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
     let isRepeat: number = 0;

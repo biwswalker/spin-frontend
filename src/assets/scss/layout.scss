@@ -51,6 +51,25 @@ input,textarea{
   margin-bottom: 0.5rem !important;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #bf0a13;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(123, 0, 6);
+}
+
 @include media-breakpoint-down(sm){
   .content-right{
     padding-top: 1rem !important;

@@ -5,6 +5,7 @@
 
 // SSL service
 export const URL = 'https://spin.summitthai.com/spin-s/';
+
 export const Method = {
     GET: 'GET',
     POST: 'POST'

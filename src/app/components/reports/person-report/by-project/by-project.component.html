@@ -1,19 +1,30 @@
 <div class="row" id="orderByProject">
-  <div class="col">
+  <div class="col-12 table-border">
     <div class="table">
       <div class="thead">
         <div class="th"></div>
-        <div class="th p-1 project">โครงการ</div>
+        <div class="th project">โครงการ</div>
         <div class="th blank"></div>
-        <div class="th p-1">จำนวน</div>
+        <div class="th">จำนวน</div>
+        <div class="th percent">เปอร์เซ็นต์</div>
       </div>
       <div class="tr" *ngFor="let rptPerson of reportByProject">
-        <div class="td text-center p-1"></div>
-        <div class="td p-1">{{rptPerson.name}}</div>
+        <div class="td"></div>
+        <div class="td">{{rptPerson.name}}</div>
         <div class="th blank"></div>
-        <div class="td p-1">
+        <div class="td">
           <label class="margin-b-0">{{rptPerson.hour}} ชั่วโมง {{rptPerson.minute}} นาที</label>
         </div>
+        <div class="td percent">
+          {{rptPerson.percent}} %
+        </div>
+      </div>
+      <div class="tr font-b">
+        <div class="td"></div>
+        <div class="td project"></div>
+        <div class="td blank float-r">รวม </div>
+        <div class="td "> {{sumProjectH}} ชั่วโมง {{sumProjectM}} นาที</div>
+        <div class="td percent"></div>
       </div>
     </div>
   </div>

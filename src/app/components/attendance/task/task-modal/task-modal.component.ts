@@ -67,17 +67,19 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
+
     this.task = new Task();
-    // console.log('onTaskHasSelected.mode => ', mode)
     const temp = Object.assign({}, task);
     this.taskForm.task = temp;
     this.mode = mode;
     this.owner = task.ownerUserId;
     const objTask = this.taskForm.task;
     objTask.color = (task.color ? task.color : 'l-blue');
-    this.taskDetailChild.initTaskDetail(objTask, this.mode);
     this.checkProjectId(this.taskForm.task.projectId);
-    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.mode, this.user, this.owner);
+    this.taskDetailChild.initTaskDetail(objTask, this.mode);
+    this.taskPartnerChild.mode = this.mode;
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.user, this.owner);
+    this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
     //Mode Insert
     if (this.mode == Mode.I) {
@@ -122,6 +124,7 @@ export class TaskModalComponent implements AfterViewInit {
       this.taskDetailChild.isDisableTopic = true;
       this.taskDetailChild.isDisableProject = true;
       this.taskPartnerChild.isDisableDoSelfFlag = true;
+      this.taskPartnerChild.isDisableAddPartner = false;
     }
   }
 
