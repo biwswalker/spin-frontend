@@ -5,7 +5,6 @@
 
 // SSL service
 export const URL = 'https://spin.summitthai.com/spin-s/';
-
 export const Method = {
     GET: 'GET',
     POST: 'POST'
@@ -30,7 +29,8 @@ export const Default = {
     NO: btoa('spin:no'),
     ACTOKN: btoa('spin:access_token'),
     TOKNTY: btoa('spin:token_type'),
-    RFTOKN: btoa('spin:refresh_token')
+    RFTOKN: btoa('spin:refresh_token'),
+    RFPWD: btoa('spin:refresh_pwd')
 }
 
 export const Format = {
