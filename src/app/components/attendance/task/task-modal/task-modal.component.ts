@@ -84,7 +84,6 @@ export class TaskModalComponent implements AfterViewInit {
     this.taskTagChild.initialTag(this.taskForm.task.taskId);
     //Mode Insert
     if (this.mode == Mode.I) {
-      console.log('INSERT')
       if (this.owner && this.user.userId !== this.owner) {
         this.taskDetailChild.isDisableTopic = true;
         this.taskDetailChild.isDisableProject = true;
