@@ -45,6 +45,8 @@ export class TaskDetailComponent implements OnInit {
   public isDisableCalendar: boolean = false;
   public isDisableProject: boolean = false;
   public isDisableTopic: boolean = false;
+  public categoryList: any[];
+  public category: number;
 
   constructor(
     private projectService: ProjectService,
@@ -110,6 +112,7 @@ export class TaskDetailComponent implements OnInit {
     this.activity = this.taskObj.activity;
     this.projectId = this.taskObj.projectId;
     this.messageEvent.emit(this.taskObj.color);
+    this.category = this.taskObj.categoryId;
   }
 
   validateData() {
@@ -121,7 +124,8 @@ export class TaskDetailComponent implements OnInit {
       taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
       taskDetailTopic: new FormControl(this.topic, Validators.required),
       taskDetailActivity: new FormControl(this.activity, Validators.required),
-      taskDetailProject: new FormControl(this.projectId, Validators.required)
+      taskDetailProject: new FormControl(this.projectId, Validators.required),
+      taskCatagory: new FormControl(this.category)
     });
   }
 

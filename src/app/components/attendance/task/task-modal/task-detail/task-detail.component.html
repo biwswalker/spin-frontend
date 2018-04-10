@@ -105,17 +105,16 @@
       <label class="label-task-modal">ประเภทโครงการ</label>
       <div class="input-group">
         <select class="form-control"
-                id="task-catagory"
-                name="task-catagory"
-                [attr.disabled]="mode == 'VIEW' ? '':null">
+                id="task-category"
+                name="task-category"
+                [disableControl]="isDissableCatagory"
+                formControlName="taskCatagory">
             <!-- <option *ngFor="let time of endTimeList"
                     [value]="time">
                       {{time}}
             </option> -->
-          <option value="CATAGORY"></option>
-          <option value="CATAGORY">CATAGORY</option>
-          <option value="CATAGORY">CATAGORY</option>
-          <option value="CATAGORY">CATAGORY</option>
+          <option value=""></option>
+          <option [value]="cat.categoryId" *ngFor="let cat of catagoryList">{{cat.categoryName}}</option>
         </select>
       </div>
     </div>

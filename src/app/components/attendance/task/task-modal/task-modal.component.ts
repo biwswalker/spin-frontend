@@ -31,6 +31,7 @@ export class TaskModalComponent implements AfterViewInit {
   private user: User = new User();
   public mode = '';
   private owner: String;
+  public catagoryList: any[];
 
   @Output() onCompleteEmit = new EventEmitter<string>();
   @ViewChild(TaskDetailComponent) taskDetailChild;
@@ -52,7 +53,7 @@ export class TaskModalComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // Get task on stamp
-
+    this.getCatagory();
     this.taskService.currentTask.subscribe((task: Task) => {
       if (task.taskId || (task.workDate && task.workStartTime && task.workEndTime)) {
         this.onTaskHasSelected(task, Mode.I);
@@ -88,6 +89,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskDetailChild.isDisableTopic = true;
         this.taskDetailChild.isDisableProject = true;
         this.taskDetailChild.showFavPrj = false;
+        this.taskDetailChild.isDissableCatagory = true;
         this.taskPartnerChild.isHiddenCheckBox = true;
         this.taskPartnerChild.isDisableAddPartner = false;
         this.taskPartnerChild.isHiddenDeletePartner = false;
@@ -97,6 +99,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDisableProject = false;
         this.taskDetailChild.showFavPrj = true;
+        this.taskDetailChild.isDissableCatagory = false;
         this.taskPartnerChild.isHiddenCheckBox = false;
         this.taskPartnerChild.isDisableAddPartner = true;
         this.taskPartnerChild.isHiddenDeletePartner = true;
@@ -108,12 +111,14 @@ export class TaskModalComponent implements AfterViewInit {
       this.taskDetailChild.showFavPrj = false;
       if (this.taskForm.task.referTaskId) {
         this.taskDetailChild.isDisableTopic = true;
+        this.taskDetailChild.isDissableCatagory = true;
         this.taskPartnerChild.isHiddenDeletePartner = false;
         this.taskPartnerChild.isHiddenCheckBox = true;
         this.taskPartnerChild.isDisableDoSelfFlag = true;
         this.taskPartnerChild.isDisableAddPartner = false;
       } else {
         this.taskDetailChild.isDisableTopic = false;
+        this.taskDetailChild.isDissableCatagory = false;
         this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isHiddenCheckBox = false;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
@@ -125,6 +130,7 @@ export class TaskModalComponent implements AfterViewInit {
       this.taskDetailChild.isDisableProject = true;
       this.taskPartnerChild.isDisableDoSelfFlag = true;
       this.taskPartnerChild.isDisableAddPartner = false;
+      this.taskDetailChild.isDissableCatagory = true;
     }
   }
 
@@ -141,6 +147,11 @@ export class TaskModalComponent implements AfterViewInit {
     }
   }
 
+  async getCatagory(){
+    this.taskDetailChild.catagoryList = await this.taskService.getCatagory().toPromise();
+    console.log(this.taskDetailChild.catagoryList);
+  }
+
   onSubmit() {
     if (this.taskDetailChild.taskDetailFormGroup.valid) {
       this.utilsService.loader(true);
@@ -152,6 +163,7 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.projectId = this.taskDetailChild.projectId;
       this.task.ownerUserId = this.user.userId;
       this.task.activeFlag = 'A';
+      this.task.categoryId = this.taskDetailChild.taskDetailFormGroup.value.taskCatagory;
       this.task.workDate = this.utilsService.convertDatePickerToThDate(this.taskDetailChild.taskDetailFormGroup.value.taskDetailWorkDate);
       this.task.workStartTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailStartTime);
       this.task.workEndTime = this.utilsService.convertTimeToDb(this.taskDetailChild.taskDetailFormGroup.value.taskDetailEndTime);
@@ -222,7 +234,7 @@ export class TaskModalComponent implements AfterViewInit {
     if (this.taskForm.task.ownerUserId !== this.user.userId) {
       task.referTaskId = this.taskForm.task.taskId;
     }
-    // console.log(task)
+    console.log(task)
     this.taskService.insertTask(task).subscribe(
       res => {
         console.log(res)
@@ -246,7 +258,7 @@ export class TaskModalComponent implements AfterViewInit {
     if (this.taskForm.task.versionId) {
       task.versionId = this.taskForm.task.versionId;
     }
-    // console.log(task)
+    console.log(task)
     this.taskService.updateTask(task).subscribe(
       res => {
         console.log(res);

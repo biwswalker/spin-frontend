@@ -18,6 +18,7 @@ export class Task {
   public remark: string;
   public activeFlag: string;
   public versionId: number;
+  public categoryId: number;
   public taskTagList: any[] = [];
   public taskPartnerList: any[] = [];
 }
