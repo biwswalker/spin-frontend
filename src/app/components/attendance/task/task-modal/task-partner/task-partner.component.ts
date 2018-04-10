@@ -42,12 +42,12 @@ export class TaskPartnerComponent {
   ) {
   }
 
-  initTaskPartner(taskId: number, user: User, taskOwner: string) {
-    this.user = user;
-    this.user.fullName = "";
+  initTaskPartner(taskId: number, taskOwner: string) {
+    // this.user = user;
+    // this.user.fullName = "";
     this.taskId = taskId;
     this.owner = taskOwner;
-    this.user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
+    // this.user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
     let isRepeat: number = 0;
     this.autocompletePartnerList = [];
     this.taskMember = [];
