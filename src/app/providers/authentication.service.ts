@@ -36,9 +36,9 @@ export class AuthenticationService {
       .then(token => {
         this.notAuthorization = false;
         if (token) {
-          sessionStorage.setItem(Default.ACTOKN, btoa(token.access_token));
-          sessionStorage.setItem(Default.TOKNTY, btoa(token.token_type));
-          sessionStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
+          localStorage.setItem(Default.ACTOKN, btoa(token.access_token));
+          localStorage.setItem(Default.TOKNTY, btoa(token.token_type));
+          localStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
           this.isAccess.next(true);
           return this.accessUser();
         } else {
@@ -53,9 +53,9 @@ export class AuthenticationService {
         if (error.status != 0)
           this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error.error.description);
 
-        sessionStorage.removeItem(Default.ACTOKN);
-        sessionStorage.removeItem(Default.TOKNTY);
-        sessionStorage.removeItem(Default.RFTOKN);
+        localStorage.removeItem(Default.ACTOKN);
+        localStorage.removeItem(Default.TOKNTY);
+        localStorage.removeItem(Default.RFTOKN);
         this.isAccess.next(false)
         return Status.ERROR;
       })
@@ -94,42 +94,24 @@ export class AuthenticationService {
   }
 
   logout() {
-    // console.log('logout')
-    // this.notAuthorization = true;
-    // let acces_token: any = sessionStorage.getItem(Default.ACTOKN);
-    // if (acces_token) {
-    //   return this.request.requestMethodGET(`log-out/${acces_token}`).subscribe((response: Response) => {
-    //     this.notAuthorization = false;
-    //     this.removeToken();
-    //     this.isAccess.next(false)
-    //   },
-    //     error => {
-    //       this.notAuthorization = false;
-    //       this.removeToken();
-    //       this.isAccess.next(false)
-    //     });
-    // } else {
-    // this.notAuthorization = false;
     this.removeToken();
     this.isAccess.next(false)
-    // }
   }
 
   changePassword(passwordObject: any) {
-    console.log('changePassword')
     return this.request.requestMethodPOST('user-management/users/change-password', passwordObject);
   }
 
   isInSession(): boolean {
-    if (sessionStorage.getItem(Default.ACTOKN)) {
+    if (localStorage.getItem(Default.ACTOKN)) {
       return true;
     }
     return false;
   }
 
   getNowToken(): string {
-    let access_token: any = sessionStorage.getItem(Default.ACTOKN);
-    let token_type: any = sessionStorage.getItem(Default.TOKNTY);
+    let access_token: any = localStorage.getItem(Default.ACTOKN);
+    let token_type: any = localStorage.getItem(Default.TOKNTY);
     if (access_token) {
       return `${atob(token_type)} ${atob(access_token)}`;
     }
@@ -137,7 +119,7 @@ export class AuthenticationService {
   }
 
   getRefreshToken(): string {
-    let refresh_token: any = sessionStorage.getItem(Default.RFTOKN);
+    let refresh_token: any = localStorage.getItem(Default.RFTOKN);
     if (refresh_token) {
       return `${atob(refresh_token)}`;
     }
@@ -149,24 +131,28 @@ export class AuthenticationService {
   }
 
   removeToken() {
-    sessionStorage.removeItem(Default.ACTOKN)
-    sessionStorage.removeItem(Default.TOKNTY)
-    sessionStorage.removeItem(Default.RFTOKN)
+    localStorage.removeItem(Default.ACTOKN)
+    localStorage.removeItem(Default.TOKNTY)
+    localStorage.removeItem(Default.RFTOKN)
+    localStorage.removeItem(Default.RFPWD);
   }
 
   refreshToken(): Observable<string> {
     this.notAuthorization = true;
+    var data = new FormData();
+    data.append("grant_type", "refresh_token");
+    data.append("password", atob(localStorage.getItem(Default.RFPWD)));
     const headers = new HttpHeaders({
       "Authorization": `Basic ${btoa('spin-s-clientid:spin-s-secret')}`
     })
     const options = { headers: headers }
     if (this.getRefreshToken()) {
-      return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, '', options).map(token => {
+      return this.request.requestMethodPOSTWithHeader(`oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`, data, options).map(token => {
         this.notAuthorization = false;
         if (token) {
-          sessionStorage.setItem(Default.ACTOKN, btoa(token.access_token));
-          sessionStorage.setItem(Default.TOKNTY, btoa(token.token_type));
-          sessionStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
+          localStorage.setItem(Default.ACTOKN, btoa(token.access_token));
+          localStorage.setItem(Default.TOKNTY, btoa(token.token_type));
+          localStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
           this.isAccess.next(true);
           this.accessUser();
           return this.getNowToken();

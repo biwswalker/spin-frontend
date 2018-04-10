@@ -9,7 +9,7 @@ export class Initializer {
     }
 
     async load() {
-        let stateUser = await this.authService.accessUser();
+        let stateUser = await this.authService.accessUser().catch(err => console.log('Initializer Error : ', err));
         if (stateUser === Status.SUCCESS) {
             this.authService.isAccess.next(true);
         } else {

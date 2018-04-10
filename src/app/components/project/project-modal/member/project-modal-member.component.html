@@ -4,7 +4,7 @@
           <h4>เพิ่มสมาชิก</h4>
           <button type="button" class="btn btn-link ml-auto" (click)="onSubmit()"><i class="fas fa-check fa-lg"></i></button>
       </div>
-      <div class="col-12">
+      <div class="col-12 col-xl-6">
           <div class="form-group">
               <label for="member-name">ชื่อ - นามสกุล *</label>
               <ng-select [items]="users"
@@ -17,7 +17,7 @@
             </ng-select>
           </div>
       </div>
-      <div class="col-12">
+      <div class="col-12 col-xl-6">
           <div class="form-group">
               <label for="responsibility">ตำแหน่ง *</label>
               <ng-select [items]="responsibilities"

@@ -1,10 +1,10 @@
 // export const URL = 'http://10.1.87.224:8081/';
 
 //ip for deploy officer(BKK)
-export const URL = 'http://172.17.3.49:8080/spin-s/';
+// export const URL = 'http://172.17.3.49:8080/spin-s/';
 
 // SSL service
-// export const URL = 'https://spin.summitthai.com/spin-s/';
+export const URL = 'https://spin.summitthai.com/spin-s/';
 
 export const Method = {
     GET: 'GET',
@@ -30,7 +30,8 @@ export const Default = {
     NO: btoa('spin:no'),
     ACTOKN: btoa('spin:access_token'),
     TOKNTY: btoa('spin:token_type'),
-    RFTOKN: btoa('spin:refresh_token')
+    RFTOKN: btoa('spin:refresh_token'),
+    RFPWD: btoa('spin:refresh_pwd')
 }
 
 export const Format = {
