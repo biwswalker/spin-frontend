@@ -45,6 +45,7 @@ export class TaskDetailComponent implements OnInit {
   public isDisableCalendar: boolean = false;
   public isDisableProject: boolean = false;
   public isDisableTopic: boolean = false;
+  public isDissableCatagory: boolean = false;
   public categoryList: any[];
   public category: number;
 
@@ -128,6 +129,7 @@ export class TaskDetailComponent implements OnInit {
       taskCatagory: new FormControl(this.category)
     });
   }
+
 
   onColorPick(color) {
     this.taskObj.color = color;

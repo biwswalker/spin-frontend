@@ -20,7 +20,7 @@
   <div class="row">
     <!-- Tab List-->
     <div class="col-12">
-      <ul class="nav nav-pills nav-justified"
+      <ul class="nav nav-pills nav-fill"
           id="myTab"
           role="tablist">
         <li class="nav-item">
@@ -31,7 +31,7 @@
              role="tab"
              aria-controls="member"
              aria-selected="true">
-            สมาชิก
+             สมาชิกโครงการ
           </a>
         </li>
         <li class="nav-item">
@@ -42,7 +42,7 @@
              role="tab"
              aria-controls="partner"
              aria-selected="false">
-            ผู้ร่วมงาน
+             ผู้ร่วมงาน
           </a>
         </li>
       </ul>
@@ -58,9 +58,9 @@
              aria-labelledby="member-tab">
           <div class="row"
                *ngIf="mode !== 'VIEW'">
-            <label class="label-task-modal">
+            <!-- <label class="label-task-modal">
               สมาชิกโครงการ
-            </label>
+            </label> -->
             <div class="col-12 rounded bg-white text-dark scroll-auto">
               <div id="member-list"
                    *ngFor="let obj of taskMember">
@@ -81,7 +81,7 @@
              aria-labelledby="partner-tab">
           <div class="row"
                *ngIf="mode == 'VIEW'">
-            <label class="label-task-modal">สมาชิกโครงการ</label>
+            <!-- <label class="label-task-modal">สมาชิกโครงการ</label> -->
             <div class="col-12 rounded bg-white text-dark scroll-auto">
               <div id="member-list"
                    *ngFor="let obj of taskMember">
@@ -92,7 +92,7 @@
           <div class="row"
                *ngIf="mode !== 'VIEW'">
             <div class="col-12">
-              <label class="label-task-modal">ผู้ร่วมงาน</label>
+              <!-- <label class="label-task-modal">ผู้ร่วมงาน</label> -->
             </div>
             <div class="col-10" *ngIf="isDisableAddPartner">
               <ng-select [items]="autocompletePartnerList"

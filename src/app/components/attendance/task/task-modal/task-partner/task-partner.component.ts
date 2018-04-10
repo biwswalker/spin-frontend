@@ -1,5 +1,5 @@
 import { PartnerService } from './../../../../../providers/partner.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
 import { TaskPartner } from '../../../../../models/task-partner';
 import { TaskService } from '../../../../../providers/task.service';

@@ -149,7 +149,6 @@ export class TaskModalComponent implements AfterViewInit {
 
   async getCatagory(){
     this.taskDetailChild.catagoryList = await this.taskService.getCatagory().toPromise();
-    console.log(this.taskDetailChild.catagoryList);
   }
 
   onSubmit() {
