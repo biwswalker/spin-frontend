@@ -2,6 +2,11 @@
 
 @include custom-spin-pills('tasks-criteria-tab', white, blue);
 
+.member-list,.tags-list{
+    li{
+      padding: 0rem;
+    }
+  }
 // tags criteria
 .row.header{
   border-bottom: 1px solid #6c757d;

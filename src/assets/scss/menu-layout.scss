@@ -1,10 +1,12 @@
 $white: #fff;
+
+
 #sidebar.active {
   margin-left: -250px;
 }
 
 .spin-sidebar{
-  padding: 0 1rem 0 0 !important;
+  padding: 0 !important;
 }
 #sidebar {
   background: #bf0013;
@@ -35,9 +37,9 @@ $white: #fff;
 
   .spin-link{
     display: block!important;
-    max-height: calc(100vh - 5rem);
+    max-height: calc(100vh - 8rem);
     overflow-y: auto;
-    // padding-bottom: 3rem;
+    margin-top: 100px;
 
     p {
       color: rgba(0, 0, 0, 0.6);;
@@ -117,6 +119,9 @@ $white: #fff;
 }
 .spin-navbar{
   z-index: 120 !important;
+  position: fixed;
+  left: 0;
+  right: 0;
 }
 .navbar{
   min-height: 70px;
@@ -145,8 +150,9 @@ $white: #fff;
   }
 }
 .content-wrapper{
-  margin-left:100px;
+  padding-left:110px;
   width:100%;
+  margin-top: 100px;
 }
 .software-v{
   color: white;
@@ -163,11 +169,16 @@ $white: #fff;
 }
 
 @include media-breakpoint-down(xs){
+  .spin-link{
+    margin-top: 150px !important;
+    max-height: calc(100vh - 10rem) !important;
+  }
   .spin-sidebar{
     padding: 0 !important;
   }
   .content-wrapper{
-    margin-left:0 !important;
+    padding-left:0 !important;
+    margin-top: 150px !important;
   }
 }
 
