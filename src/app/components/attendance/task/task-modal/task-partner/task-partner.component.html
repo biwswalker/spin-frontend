@@ -3,91 +3,144 @@
     <div class="col d-flex">
       <div class="ml-auto">
         <label>{{user.fullName}}</label>
-          <span class="do-self-flag">
-            <input class="switch"
-                   type="checkbox"
-                   id="do-self-flag"
-                   [disableControl]="isDisableDoSelfFlag"
-                   name="do-self-flag"
-                   [(ngModel)]="doSelfFlag">
-              <label for="do-self-flag">
-                <span></span>
-              </label>
-          </span>
+        <span class="do-self-flag">
+          <input class="switch"
+                 type="checkbox"
+                 id="do-self-flag"
+                 [disableControl]="isDisableDoSelfFlag"
+                 name="do-self-flag"
+                 [(ngModel)]="doSelfFlag">
+            <label for="do-self-flag">
+              <span></span>
+            </label>
+        </span>
       </div>
     </div>
   </div>
-  <div class="row" *ngIf="mode !== 'VIEW'">
-    <label class="label-task-modal">สมาชิกโครงการ</label>
-      <div class="col-12 rounded bg-white text-dark scroll-auto">
-        <div id="member-list"
-             *ngFor="let obj of taskMember">
-          <input type="checkbox"
-                 name="{{obj.userId}}"
-                 id="{{obj.userId}}"
-                 [hidden]="isHiddenCheckBox"
-                 autocomplete="off"
-                 [(ngModel)]="obj.status">
-                   {{obj.fullName}}
-        </div>
-      </div>
-  </div>
+  <div class="row">
+    <!-- Tab List-->
+    <div class="col-12">
+      <ul class="nav nav-pills nav-justified"
+          id="myTab"
+          role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active"
+             id="member-tab"
+             data-toggle="tab"
+             href="#member"
+             role="tab"
+             aria-controls="member"
+             aria-selected="true">
+            สมาชิก
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             id="partner-tab"
+             data-toggle="tab"
+             href="#partner"
+             role="tab"
+             aria-controls="partner"
+             aria-selected="false">
+            ผู้ร่วมงาน
+          </a>
+        </li>
+      </ul>
+    </div>
 
-  <!-- VIEW MODE -->
-  <div class="row" *ngIf="mode == 'VIEW'">
-      <label class="label-task-modal">สมาชิกโครงการ</label>
-        <div class="col-12 rounded bg-white text-dark scroll-auto">
-          <div id="member-list"
-               *ngFor="let obj of taskMember">
-                     {{obj.fullName}}
+    <!-- Tab Body-->
+    <div class="col-12">
+      <div class="tab-content"
+           id="myTabContent">
+        <div class="tab-pane fade show active"
+             id="member"
+             role="tabpanel"
+             aria-labelledby="member-tab">
+          <div class="row"
+               *ngIf="mode !== 'VIEW'">
+            <label class="label-task-modal">
+              สมาชิกโครงการ
+            </label>
+            <div class="col-12 rounded bg-white text-dark scroll-auto">
+              <div id="member-list"
+                   *ngFor="let obj of taskMember">
+                <input type="checkbox"
+                       name="{{obj.userId}}"
+                       id="{{obj.userId}}"
+                       [hidden]="isHiddenCheckBox"
+                       autocomplete="off"
+                       [(ngModel)]="obj.status">
+                  {{obj.fullName}}
+              </div>
+            </div>
           </div>
         </div>
-    </div>
-
-  <div class="row" *ngIf="mode !== 'VIEW'" >
-    <label class="label-task-modal" >ผู้ร่วมงาน</label>
-    <div class="col-12 scroll-auto bg-white rounded text-dark" *ngIf="taskPartner.length !== 0">
-      <div id="partner-list"
-           name="partner-list"
-           *ngFor="let obj of taskPartner">
-           <div class="row">
-             <div class="col width-fit">
-             <a class="btn fas fa-times-circle"
-                *ngIf="mode !== 'VIEW' && isHiddenDeletePartner"
-                id="{{obj.userId}}"
-                name="{{obj.userId}}"
-                (click)="deletePartner(obj)">
-             </a>
-            </div>
-             <div class="col">
-               {{obj.fullName}}<br>
-               ({{obj.email}})
-               </div>
+        <div class="tab-pane fade"
+             id="partner"
+             role="tabpanel"
+             aria-labelledby="partner-tab">
+          <div class="row"
+               *ngIf="mode == 'VIEW'">
+            <label class="label-task-modal">สมาชิกโครงการ</label>
+            <div class="col-12 rounded bg-white text-dark scroll-auto">
+              <div id="member-list"
+                   *ngFor="let obj of taskMember">
+                {{obj.fullName}}
               </div>
-      </div>
-    </div>
-    <div class="col-12 scroll-auto bg-white rounded text-dark" *ngIf="taskPartner.length == 0">ยังไม่ได้เพิ่มผู้ร่วมงาน...</div>
-  </div>
-  <div class="row" *ngIf="isDisableAddPartner">
-    <div class="col">
-      <ng-select [items]="autocompletePartnerList"
-                 bindLabel="fullName"
-                 bindValue="userId"
-                 hideSelected="true"
-                 (add)="onSelect($event)">
-      </ng-select>
-    </div>
-    <div class="col-2">
-      <button type="button"
-              class="btn btn-success"
-              id="add-partner-btn"
-              (click)="addPartner()">
+            </div>
+          </div>
+          <div class="row"
+               *ngIf="mode !== 'VIEW'">
+            <div class="col-12">
+              <label class="label-task-modal">ผู้ร่วมงาน</label>
+            </div>
+            <div class="col-10" *ngIf="isDisableAddPartner">
+              <ng-select [items]="autocompletePartnerList"
+                         bindLabel="fullName"
+                         bindValue="userId"
+                         hideSelected="true"
+                         (add)="onSelect($event)">
+              </ng-select>
+            </div>
+            <div class="col-2">
+              <button type="button"
+                      class="btn btn-success"
+                      id="add-partner-btn"
+                      (click)="addPartner()">
                 เพิ่ม
-      </button>
+              </button>
+            </div>
+            &nbsp;
+            <div class="col-12 scroll-auto bg-white rounded text-dark"
+                 *ngIf="taskPartner.length !== 0">
+              <div id="partner-list"
+                   name="partner-list"
+                   *ngFor="let obj of taskPartner">
+                <div class="row">
+                  <div class="col width-fit">
+                    <a class="btn fas fa-times-circle"
+                       *ngIf="mode !== 'VIEW' && isHiddenDeletePartner"
+                       id="{{obj.userId}}"
+                       name="{{obj.userId}}"
+                       (click)="deletePartner(obj)">
+                    </a>
+                  </div>
+                  <div class="col">
+                    {{obj.fullName}} <br> ({{obj.email}})
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 scroll-auto bg-white rounded text-dark"
+                 *ngIf="taskPartner.length == 0">
+              ยังไม่ได้เพิ่มผู้ร่วมงาน...
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
 <div class="text-center" *ngIf="!isHidden">
-  <p>กรุณาเลือกโครงการ...</p>
+    <p>กรุณาเลือกโครงการ...</p>
 </div>
