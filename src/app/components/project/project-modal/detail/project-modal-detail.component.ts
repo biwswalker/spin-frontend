@@ -95,7 +95,7 @@ export class ProjectModalDetailComponent implements OnInit{
     this.projectService.findProjectById(projectId).subscribe(
       data=>{
         this.project = data;
-        this.project.isVisble = (this.project.visibilityFlag == 'Y'?false:true);
+        this.project.isVisble = (this.project.visibilityFlag == 'Y'?true:false);
         this.resizedImageTrusted =  this.project.projectThumbnail;
         if(!this.resizedImageTrusted){
           this.resizedImage = './assets/img/ico/startup.png';
