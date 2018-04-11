@@ -23,6 +23,10 @@ import { TagComponent } from '../components/admin/tag/tag.component';
 import { ProjectPersonReportComponent } from '../components/reports/project-person-report/project-person-report.component';
 
 const routes: Routes = [
+  { path: '',
+    redirectTo: '/attendance',
+    pathMatch: 'full'
+  },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'attendance', component: AttendanceComponent },
