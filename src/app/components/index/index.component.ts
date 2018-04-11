@@ -67,7 +67,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   this.onChangeRoute();
       this.router.events.subscribe((val) => {
       if(val['url']){
-        this.currentUrl = val['url'];
+        this.currentUrl = val['url'].trim();
         this.onChangeRoute();
       }
   })
@@ -75,6 +75,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   onChangeRoute(){
+    console.log('current url:',this.currentUrl)
     this.worktimeIcon = (this.currentUrl =='/attendance'?this.worktimeIconWhite:this.worktimeIconBlack);
     this.projectIcon = (this.currentUrl =='/project'?this.projectIconWhite:this.projectIconBlack);
     this.leaveIcon = this.leaveIconRed;
