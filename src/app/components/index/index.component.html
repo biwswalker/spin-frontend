@@ -53,8 +53,8 @@
         <!-- Sidebar Links -->
         <nav class="spin-link">
           <ul class="nav flex-column">
-            <li class="nav-item" [ngClass]="currentUrl =='/'||currentUrl ==''?'active':''">
-              <a class="nav-link" [routerLink]="['/']" (mouseover)="onMouseOver(0)" (mouseleave)="onMouseLeave()">
+            <li class="nav-item" [ngClass]="currentUrl =='/attendance'?'active':''">
+              <a class="nav-link" [routerLink]="['/attendance']" (mouseover)="onMouseOver(0)" (mouseleave)="onMouseLeave()">
                 <img [src]="worktimeIcon" width="50" />
                 <span class="menu-title">เวลาทำงาน</span>
               </a>

@@ -75,7 +75,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   onChangeRoute(){
-    this.worktimeIcon = (this.currentUrl.trim() =='/'||!this.currentUrl.trim()||this.currentUrl.trim() =='#'?this.worktimeIconWhite:this.worktimeIconBlack);
+    this.worktimeIcon = (this.currentUrl =='/attendance'?this.worktimeIconWhite:this.worktimeIconBlack);
     this.projectIcon = (this.currentUrl =='/project'?this.projectIconWhite:this.projectIconBlack);
     this.leaveIcon = this.leaveIconRed;
     this.inoutIcon = this.inoutIconRed;
