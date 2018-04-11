@@ -94,6 +94,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isDisableAddPartner = false;
         this.taskPartnerChild.isHiddenDeletePartner = false;
         this.taskPartnerChild.isDisableDoSelfFlag = true;
+        this.taskTagChild.isReadonly = true;
         //hide edit partner
       } else {
         this.taskDetailChild.isDisableTopic = false;
@@ -104,6 +105,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isDisableAddPartner = true;
         this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
+        this.taskTagChild.isReadonly = false;
         //hide edit partner
       }
     } else if (this.mode == Mode.E) {
@@ -116,6 +118,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isHiddenCheckBox = true;
         this.taskPartnerChild.isDisableDoSelfFlag = true;
         this.taskPartnerChild.isDisableAddPartner = true;
+        this.taskTagChild.isReadonly = true;
       } else {
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDissableCatagory = false;
@@ -123,6 +126,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isHiddenCheckBox = false;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
         this.taskPartnerChild.isDisableAddPartner = false;
+        this.taskTagChild.isReadonly = false;
       }
     }else{
       this.taskDetailChild.showFavPrj = false;

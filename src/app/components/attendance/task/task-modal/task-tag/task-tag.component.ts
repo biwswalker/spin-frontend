@@ -17,7 +17,7 @@ export class TaskTagComponent implements OnInit {
   public mode: string;
   public task: Task = new Task();
   public tagByUserId: tagByUserId[] = [];
-  public notOwnerTagList: any[];
+  private isReadonly: boolean = true;
 
   constructor(
     private tagService: TagService
@@ -58,7 +58,7 @@ export class TaskTagComponent implements OnInit {
         if (tags) {
           this.tagList = [];
           for (let tag of tags) {
-            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
+            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName, "readonly": this.isReadonly});
           }
         }
       }
