@@ -117,7 +117,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isHiddenDeletePartner = false;
         this.taskPartnerChild.isHiddenCheckBox = true;
         this.taskPartnerChild.isDisableDoSelfFlag = true;
-        this.taskPartnerChild.isDisableAddPartner = true;
+        this.taskPartnerChild.isDisableAddPartner = false;
         this.taskTagChild.isReadonly = true;
       } else {
         this.taskDetailChild.isDisableTopic = false;
@@ -125,7 +125,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isHiddenCheckBox = false;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
-        this.taskPartnerChild.isDisableAddPartner = false;
+        this.taskPartnerChild.isDisableAddPartner = true;
         this.taskTagChild.isReadonly = false;
       }
     }else{
