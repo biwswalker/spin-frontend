@@ -79,9 +79,9 @@ export class TaskModalComponent implements AfterViewInit {
     this.checkProjectId(this.taskForm.task.projectId);
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     this.taskPartnerChild.mode = this.mode;
-    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.owner);
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.user,  this.owner);
     this.taskTagChild.mode = this.mode;
-    this.taskTagChild.initialTag(this.taskForm.task.taskId);
+    this.taskTagChild.initialTag(this.taskForm.task, this.user.userId);
 
     //Mode Insert
     if (this.mode == Mode.I) {
@@ -115,14 +115,14 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isHiddenDeletePartner = false;
         this.taskPartnerChild.isHiddenCheckBox = true;
         this.taskPartnerChild.isDisableDoSelfFlag = true;
-        this.taskPartnerChild.isDisableAddPartner = false;
+        this.taskPartnerChild.isDisableAddPartner = true;
       } else {
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDissableCatagory = false;
         this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isHiddenCheckBox = false;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
-        this.taskPartnerChild.isDisableAddPartner = true;
+        this.taskPartnerChild.isDisableAddPartner = false;
       }
     }else{
       this.taskDetailChild.showFavPrj = false;
@@ -148,7 +148,7 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   async getCatagory(){
-    this.taskDetailChild.catagoryList = await this.taskService.getCatagory().toPromise();
+    this.taskDetailChild.categoryList = await this.taskService.getCatagory().toPromise();
   }
 
   onSubmit() {

@@ -108,12 +108,10 @@
                 name="task-category"
                 [disableControl]="isDissableCatagory"
                 formControlName="taskCatagory">
-            <!-- <option *ngFor="let time of endTimeList"
-                    [value]="time">
-                      {{time}}
-            </option> -->
-          <option value="">ไม่ระบุ</option>
-          <option [value]="cat.categoryId" *ngFor="let cat of catagoryList">{{cat.categoryName}}</option>
+          <option value="0" selected>ไม่ระบุ</option>
+          <option [value]="cat.categoryId"
+                  *ngFor="let cat of categoryList"
+                  pre-selected>{{cat.categoryName}}</option>
         </select>
       </div>
     </div>

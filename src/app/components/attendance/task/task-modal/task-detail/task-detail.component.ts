@@ -47,7 +47,7 @@ export class TaskDetailComponent implements OnInit {
   public isDisableTopic: boolean = false;
   public isDissableCatagory: boolean = false;
   public categoryList: any[];
-  public category: number;
+  public category: number = 0;
 
   constructor(
     private projectService: ProjectService,
@@ -113,7 +113,7 @@ export class TaskDetailComponent implements OnInit {
     this.activity = this.taskObj.activity;
     this.projectId = this.taskObj.projectId;
     this.messageEvent.emit(this.taskObj.color);
-    this.category = this.taskObj.categoryId;
+    this.category = (this.taskObj.categoryId)? this.taskObj.categoryId: 0;
   }
 
   validateData() {
