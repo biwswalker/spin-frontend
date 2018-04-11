@@ -17,6 +17,7 @@ export class TaskTagComponent implements OnInit {
   public mode: string;
   public task: Task = new Task();
   public tagByUserId: tagByUserId[] = [];
+  private isReadonly: boolean = true;
 
   constructor(
     private tagService: TagService
@@ -38,35 +39,49 @@ export class TaskTagComponent implements OnInit {
     )
   }
 
-  initialTag(taskId: number) {
+  initialTag(task: Task, userId: string) {
     this.tagList = [];
     this.findUsedTag();
     this.initialAutocompleteTagList();
     this.findByUserId();
-    if (taskId) {
-      this.findByTaskId(taskId);
+    if (task.taskId) {
+      this.findByTaskId(task.taskId);
     }
+    // if(task.ownerUserId !== userId){
+    //   this.findByTaskIdNotOwner(task.taskId);
+    // }
   }
 
   findByTaskId(id: number) {
-    // this.tagList = [];
     this.tagService.findByTaskId(id).subscribe(
       tags => {
         if (tags) {
           this.tagList = [];
           for (let tag of tags) {
-            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
+            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName, "readonly": this.isReadonly});
           }
         }
       }
     );
   }
 
+  // findByTaskIdNotOwner(id: number) {
+  //   this.tagService.findByTaskId(id).subscribe(
+  //     tags => {
+  //       if (tags) {
+  //         this.tagList = [];
+  //         for (let tag of tags) {
+  //           this.notOwnerTagList.push({ display: tag.tag.tagName, value: tag.tag.tagName });
+  //         }
+  //       }
+  //     }
+  //   );
+  // }
+
   findByUserId() {
     this.tagByUserId = [];
     this.tagService.findByUserId().subscribe(
       listTags => {
-        // console.log(listTags)
         this.tagByUserId = listTags;
       }
     )
@@ -76,15 +91,16 @@ export class TaskTagComponent implements OnInit {
     this.autoCompleteTagList = []
     this.tagService.findAll().subscribe(
       data => {
-        // this.autoCompleteTagList = []
-        this.autoCompleteTagList = data;
+        for (let tag of data) {
+          this.autoCompleteTagList.push({ display: tag.tagName, value: tag.tagName });
+        }
       }
     )
   }
 
   onSelected(event) {
-    if (this.tagList.indexOf(event.tagName) == -1) {
-      this.tagList.push(event.tagName);
+    if (this.tagList.findIndex(tag => tag.display == event.tagName) == -1) {
+      this.tagList.push({ display: event.tagName, value: event.tagName });
     }
   }
 }

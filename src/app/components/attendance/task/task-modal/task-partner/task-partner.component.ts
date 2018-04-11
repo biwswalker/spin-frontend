@@ -42,8 +42,9 @@ export class TaskPartnerComponent {
   ) {
   }
 
-  initTaskPartner(taskId: number, taskOwner: string) {
-    // this.user = user;
+  initTaskPartner(taskId: number,user: User, taskOwner: string) {
+    this.user = user;
+    // console.log(this.user)
     // this.user.fullName = "";
     this.taskId = taskId;
     this.owner = taskOwner;
