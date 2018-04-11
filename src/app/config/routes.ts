@@ -1,3 +1,4 @@
+import { LoginComponent } from './../components/login/login.component';
 import { HelpComponent } from './../components/help/help.component';
 import { ChangePasswordComponent } from './../components/change-password/change-password.component';
 import { TaskModalComponent } from './../components/attendance/task/task-modal/task-modal.component';
@@ -22,7 +23,7 @@ import { TagComponent } from '../components/admin/tag/tag.component';
 import { ProjectPersonReportComponent } from '../components/reports/project-person-report/project-person-report.component';
 
 const routes: Routes = [
-  { path: '', component: AttendanceComponent },
+  { path: 'attendance', component: AttendanceComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'task', component: TaskComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'department', component: DepartmentComponent },
   { path: 'position', component: PositionComponent },
   { path: 'help', component: HelpComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 'report', component: ReportComponent, children: [
       { path: 'unstamped', component: UnstampedReportComponent },
