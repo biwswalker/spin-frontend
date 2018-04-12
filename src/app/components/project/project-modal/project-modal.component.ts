@@ -100,7 +100,7 @@ export class ProjectModalComponent{
       this.project = this.projectModalDetail.project;
       this.project.projectPhaseList = this.projectModalPhase.projectPhases;
       this.project.projectMemberList = this.projectModalMember.projectMembers;
-      this.project.visibilityFlag = (this.project.isVisble == true ? 'N' : 'Y');
+      this.project.visibilityFlag = (this.project.isVisble == true ? 'Y' : 'N');
 
       // Call Provider
       this.projectService.updateProject(this.project).subscribe(

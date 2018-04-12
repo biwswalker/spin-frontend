@@ -35,7 +35,7 @@ export class TaskAllComponent implements OnInit {
   }
 
   onScrollDown() {
-    this.taskService.findCriteriaTask(this.keyword,this.page,this.size).subscribe(
+    this.taskService.findCriteriaAllTask(this.keyword,this.page,this.size).subscribe(
       data=>{
         if(data!){
           this.tasks = this.tasks.concat(this.taskService.reformTasks(data));

@@ -5,15 +5,16 @@ $.notifyDefaults({
 });
 var MessageNotify = (function(){
   return {
-    initialSuccess :function(title) {
+    initialSuccess :function(title,detail) {
     $.notify({
       title: '<strong>'+title+'</strong>',
+      message: detail
     },{
       type: 'success',
       template:''+
       '<div data-notify="container" class="col-8 col-md-4 col-xl-2 alert alert-{0}" role="alert">' +
 
-      '{1}'+
+      '{1} {2}'+
       '</div>',
       delay: 2000,
       animate: {

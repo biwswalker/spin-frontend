@@ -129,8 +129,12 @@ export class TaskService {
   // findCriteriaTask(cri: string, page: number, size: number, reform: boolean): Observable<any> {
   //   return this.request.requestMethodGET(`task-management/tasks/${cri}?p=${page}?&s=${size}`).map(tasks => { return reform ? this.reformTasks(tasks) : tasks });
   // }
-  findCriteriaTask(cri: string, page: number, size: number) {
-    return this.request.requestMethodGET(`task-management/tasks/${cri}?p=${page}&s=${size}`);
+  // findCriteriaTask(cri: string, page: number, size: number) {
+  //   return this.request.requestMethodGET(`task-management/tasks/${cri}?p=${page}&s=${size}`);
+  // }
+
+  findCriteriaAllTask(cri: string, page: number, size: number) {
+    return this.request.requestMethodGET(`task-management/all-tasks/${cri}?p=${page}&s=${size}`);
   }
 
   reformTasks(tasks: Task[]): TaskAll[] {

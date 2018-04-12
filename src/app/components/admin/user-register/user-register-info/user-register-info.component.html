@@ -8,7 +8,7 @@
               </h5>
               </div>
               <div class="col-3">
-                 <button class="btn btn-link p-0 mb-1"
+                 <button class="btn btn-link p-0 mb-1 float-right"
                     (click)="updateUserRegister($event)"
                     id="btn-new-user-register" type="button">
                     <i class="fas fa-pencil-alt"></i>
@@ -21,57 +21,37 @@
   <div class="container"  *ngIf="found==='Y'">
   <div class="row">
 
-                <div class="col-3 info-body-bold">
-                  รหัสผู้ใช้งาน
+                <div class="col-8 form-group">
+                  <label>รหัสผู้ใช้งาน</label>
+                  <p>{{userId}}</p>
                 </div>
-                <div class="col-3 info-body">
-                  {{userId}}
-                </div>
-                <div class="col-3 info-body-bold">
-                  สถานะ
-                </div>
-                <div class="col-3 info-body">
-                  {{user.activeFlag=='A'?'Active':'In Active'}}
+                <div class="col-4 form-group">
+                  <label>สถานะ</label>
+                  <p>{{user.activeFlag=='A'?'ใช้งาน':'ไม่ใช้งาน'}}</p>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 info-body-bold">
+                <div class="col-12 form-group">
                   <label>ชื่อผู้ใช้งาน</label>
+                  <p>{{officer.firstNameTh||''}} {{officer.lastNameTh||''}}</p>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 info-body">
-                  <label>{{officer.firstNameTh}} {{officer.lastNameTh}}</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 info-body-bold">
+                <div class="col-12 form-group">
                   <label>Email</label>
+                  <p>{{user.email}}</p>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 info-body">
-                  <label>{{user.email}}</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 info-body-bold">
+                <div class="col-12 form-group">
                   <label>ระดับการใช้งาน</label>
+                  <p>{{user.userLevel=='A'?'Admin':user.userLevel=='P'?'Project Editor':'User'}}</p>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 info-body">
-                  <label>{{user.userLevel=='A'?'Admin':user.userLevel=='P'?'Project Editor':'User'}}</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 info-body-bold">
+                <div class="col-12 form-group">
                   <label>หมายเหตุ</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 info-body">
-                  <label>{{user.remark}}</label>
+                  <p [innerText]="user.remark||''"></p>
                 </div>
               </div>
   </div>

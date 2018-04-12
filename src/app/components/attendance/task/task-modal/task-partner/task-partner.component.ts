@@ -33,6 +33,8 @@ export class TaskPartnerComponent {
   public isDisableAddPartner: boolean = false;
   public isHiddenDeletePartner: boolean = false;
   public isDisableDoSelfFlag: boolean = false;
+  public sumMember: number;
+  public sumPartner: number;
 
 
   constructor(
@@ -42,13 +44,10 @@ export class TaskPartnerComponent {
   ) {
   }
 
-  initTaskPartner(taskId: number,user: User, taskOwner: string) {
+  initTaskPartner(taskId: number, user: User, taskOwner: string) {
     this.user = user;
-    // console.log(this.user)
-    // this.user.fullName = "";
     this.taskId = taskId;
     this.owner = taskOwner;
-    // this.user.fullName = user.officer.firstNameTh + ' ' + user.officer.lastNameTh;
     let isRepeat: number = 0;
     this.autocompletePartnerList = [];
     this.taskMember = [];
@@ -72,6 +71,7 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
+    this.sumMember = 0;
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
@@ -80,23 +80,27 @@ export class TaskPartnerComponent {
             if (obj.userId !== this.user.userId) {
               if (obj.isPartner == "Y") {
                 this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
+                this.sumMember++;
               } else {
                 this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
               }
             }
-          }
+          };
+          (this.doSelfFlag) ? this.sumMember++ : null;
         }
       }
     );
   }
 
   initialPartner(projectId: number) {
+    this.sumPartner = 0;
     this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
           this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
+            this.sumPartner++;
           }
         }
       }

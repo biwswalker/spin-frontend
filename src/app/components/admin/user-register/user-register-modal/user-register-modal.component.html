@@ -6,69 +6,53 @@
 			<div class="modal-header">
 				<button class="btn btn-link" type="button" (click)="onCloseModal()"><i class="fas fa-times fa-lg"></i></button>
 				<div class="text-center header-text info-body-bold">
-          {{headerText}}ผู้ใช้งาน
+          แก้ไขสิทธิ์การใช้งาน
         </div>
 
-        <button class="btn btn-save modal-btn" type="button" (click)="onSubmit()">
-          <i class="fas {{mode === 'INSERT' ? 'fa-plus-circle' : 'fa-pencil-alt'}}"> {{headerText}}</i>
+        <button class="btn btn-success" type="button" (click)="onSubmit()">
+          <i class="fas fa-pencil-alt"></i> บันทึก
         </button>
 			</div>
 
 			<!-- BODY -->
 			<div class="modal-body">
-				<form>
-          <div class="row">
-								<div class="col-12 d-flex">
-									<div class="ml-auto ">
-                <label class="mx-auto info-body-bold">ใช้งาน</label>
-                <span class="status-flag">
-                  <input class="switch" id="active"
-                  [checked]="isActive" (change)="onChangeActiveFlag()"
-                  name="active" type="checkbox">
-                  <label for="active">
-                    <span></span>
-                  </label>
-                  <!-- <input id="active-flag" name="active-flag" type="hidden" [(ngModel)]="activeFlag"> -->
-                </span>
-              </div>
-						</div>
-					</div>
+				<form [formGroup]="formGroup">
           	<div class="row">
-								<div class="col-12 form-group">
+								<div class="col-4 form-group">
 									<label for="user-name" class="info-body-bold">รหัสผู้ใช้งาน</label>
-									<input class="form-control" id="user-id" name="user-id" type="text" maxlength="30" [(ngModel)]="user.userId">
-								</div>
+									<p>{{user.userId}}</p>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4 form-group">
+                  <label for="active-flag">สถานะ</label>
+                  <select class="form-control" id="active-flag"
+                  formControlName="activeFlag"
+                  [(ngModel)]="user.activeFlag">
+                    <option value="A">ใช้งาน</option>
+                    <option value="I">ไม่ใช้งาน</option>
+                  </select>
+                </div>
           </div>
 
       	<div class="row">
 								<div class="col-12 form-group">
                   <label for="user-name" class="info-body-bold">ชื่อผู้ใช้งาน</label>
-                  <input name="fullName"
-                         [(ngModel)]="fullName"
-                         [typeahead]="officerList"
-                         [typeaheadOptionsLimit]="10"
-                         [typeaheadMinLength]="0"
-                         typeaheadOptionField="officer.fullName"
-                         [typeaheadItemTemplate]="customItemTemplate"
-                         [typeaheadOptionsInScrollableView]="10"
-                         (typeaheadOnSelect)="onSelectedOfficer($event)"
-                         class="form-control">
-                     <ng-template #customItemTemplate let-model="item" let-index="index">
-                        <h6>{{model.firstNameTh}} {{model.lastNameTh}}</h6>
-                      </ng-template>
+                  <p>{{officer.firstNameTh||''}} {{officer.lastNameTh||''}}</p>
 
               </div>
         </div>
       	<div class="row">
 								<div class="col-12 form-group">
 									<label for="email" class="info-body-bold">Email</label>
-									<input class="form-control" id="email" name="email" type="text" maxlength="30" [(ngModel)]="user.email">
+									<p>{{user.email||''}}</p>
 								</div>
         </div>
         	<div class="row">
 								<div class="col-12 form-group">
                   <label for="user-level" class="info-body-bold">ระดับการใช้งาน</label>
-                  <select class="form-control" id="user-level" name="user-level" [(ngModel)]="user.userLevel">
+                  <select class="form-control" id="user-level" name="user-level"
+                  formControlName="userLevel"
+                  [(ngModel)]="user.userLevel">
                   <option  value="A">Admin</option>
                   <option value="P">ProjectEditor</option>
                   <option value="U">User</option>
@@ -81,7 +65,8 @@
                   <textarea class="form-control"
                           id="remark"
                           name="remark"
-                          maxlength="30"
+                          maxlength="500"
+                          formControlName="remark"
                           rows="5"
                           col="50"
                           [(ngModel)]="user.remark"></textarea>

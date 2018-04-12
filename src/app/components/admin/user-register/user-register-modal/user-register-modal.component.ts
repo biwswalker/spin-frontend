@@ -17,18 +17,10 @@ declare var SpinModal: any;
   styleUrls: ["./user-register-modal.component.scss"]
 })
 export class UserRegisterModalComponent implements OnInit {
-  public isActive: boolean = true;
+  public formGroup: FormGroup;
   public user: User = new User();
   public officer: Officer = new Officer();
   public modal = new SpinModal();
-  public userName: string;
-  public users: User[] = [];
-
-  public officerList: Officer[] = [];
-  public fullName: string = "";
-
-  public mode: string;
-  public headerText: string = "";
 
   constructor(
     private userRegisterService: UserRegisterService,
@@ -39,86 +31,27 @@ export class UserRegisterModalComponent implements OnInit {
   ) {
     this.userRegisterService.key.subscribe(res => {
       this.getUserById(res);
-      console.log(this.user);
-      this.mode = Mode.E;
-      this.headerText = "แก้ไข";
-      console.log(this.user.userId);
     });
   }
 
   ngOnInit() {
-    if (this.mode === Mode.I) {
-      this.headerText = "เพิ่ม";
-    } else {
-      this.headerText = "แก้ไข";
-    }
-
-    this.officerService.fetchAllOfficerAutocomplete("A").subscribe(
-      data => {
-        this.officerList = [];
-        for (let officer of data) {
-          officer.fullName = officer.firstNameTh + " " + officer.lastNameTh;
-          this.officerList = this.officerList.concat(officer);
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-    console.log("ngOnInit mode: ", this.mode);
+    this.validateForm();
   }
 
-  reset() {
-    console.log("reset..............");
-    this.fullName = "";
-    this.user = new User();
-    this.headerText = "";
-  }
-
-  onSelectedOfficer(event) {
-    console.log("onSelectedOfficer...");
-    this.officer = event.item;
-    this.fullName = this.officer.firstNameTh + " " + this.officer.lastNameTh;
-    console.log("selected: ", this.fullName);
+  validateForm(){
+    this.formGroup = new FormGroup({
+      userLevel: new FormControl(this.user.userLevel, Validators.required),
+      activeFlag: new FormControl(this.user.activeFlag, Validators.required),
+      remark: new FormControl(this.user.remark),
+    })
   }
 
   onSubmit() {
-    console.log("mode: ", this.mode);
-    if (this.mode == Mode.I) {
-      this.onSubmitInsert();
-    } else if (this.mode == Mode.E) {
-      this.onSubmitUpdate();
-    }
-  }
-
-  onChangeOfficer(event) {
-    console.log("onChangeOfficer...");
-  }
-
-  onSubmitInsert() {
-    console.log("onSubmitInsert.....");
-    this.user.officeId = this.officer.officeId;
-    console.log("user", this.user);
-    this.userRegisterService.createUser(this.user).subscribe(
-      res => {
-        console.log(res);
-        this.eventMessageService.onInsertSuccess(res.userId);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    this.userRegisterService.onCloseModal();
-  }
-
-  onSubmitUpdate() {
     console.log("onSubmitUpdate.....");
     this.user.officeId = this.officer.officeId;
 
-    console.log("user", this.user);
     this.userRegisterService.updateUser(this.user).subscribe(
       res => {
-        console.log(res);
         this.eventMessageService.onUpdateSuccess(res.userId);
       },
       error => {
@@ -139,16 +72,8 @@ export class UserRegisterModalComponent implements OnInit {
         .findByOfficerId(this.user.officeId)
         .subscribe(officer => {
           this.officer = officer;
-          this.fullName =
-            this.officer.firstNameTh + " " + this.officer.lastNameTh;
         });
     });
   }
 
-  onChangeActiveFlag() {
-    this.isActive = !this.isActive;
-     console.log("active_flag: " + this.isActive);
-     this.user.activeFlag = this.isActive?'A':'I';
-     console.log("useractiveflag: "+this.user.activeFlag);
-  }
 }
