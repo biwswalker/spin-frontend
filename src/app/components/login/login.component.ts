@@ -12,9 +12,6 @@ declare var $: any
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
-
-  private
-
   public loginGroup: FormGroup;
 
   constructor(private authService: AuthenticationService, private eventMessageService: EventMessagesService) { }
