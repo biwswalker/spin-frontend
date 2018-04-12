@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskTag } from '../../../../models/task-tag';
+import { UtilsService } from '../../../../providers/utils/utils.service';
 
 @Component({
   selector: 'app-by-project',
@@ -12,22 +13,26 @@ export class ByProjectComponent implements OnInit {
   public sumProjectM: number = 0;
   public reportByProject: ReportByProject[] = [];
 
-  constructor() { }
+  constructor(
+    private utilsService: UtilsService
+  ) { }
 
   ngOnInit() {
   }
 
   initialData(data) {
-    console.log(data)
+    this.sumProjectH = 0;
+    this.sumProjectM = 0;
     this.reportByProject = data;
     for (let obj of this.reportByProject) {
       this.sumProjectH += obj.hour;
       this.sumProjectM += obj.minute;
     }
-    if((this.sumProjectM%60) !== 0 ){
-      this.sumProjectH += Math.floor(this.sumProjectM /60 );
-      this.sumProjectM += this.sumProjectM % 60;
+    if ((this.sumProjectM % 60) !== 0) {
+      this.sumProjectH += Math.floor(this.sumProjectM / 60);
+      this.sumProjectM = this.sumProjectM % 60;
     }
+    this.utilsService.loader(false);
   }
 }
 

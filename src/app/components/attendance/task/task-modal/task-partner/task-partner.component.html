@@ -6,6 +6,7 @@
           <input class="switch"
                  type="checkbox"
                  id="do-self-flag"
+                 (ngModelChange)="onSelectedCheckBox($event)"
                  [disableControl]="isDisableDoSelfFlag"
                  name="do-self-flag"
                  [(ngModel)]="doSelfFlag">
@@ -41,7 +42,7 @@
            role="tab"
            aria-controls="partner"
            aria-selected="false">
-           ผู้ร่วมงาน ({{sumPartner}})
+           ผู้ร่วมงาน ({{taskPartner.length}})
         </a>
       </li>
     </ul>
@@ -66,6 +67,7 @@
               <input type="checkbox"
                      name="{{obj.userId}}"
                      id="{{obj.userId}}"
+                     (ngModelChange)="countTaskMember($event)"
                      [disabled]="isHiddenCheckBox"
                      autocomplete="off"
                      [(ngModel)]="obj.status">

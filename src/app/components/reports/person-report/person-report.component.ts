@@ -67,6 +67,7 @@ export class PersonReportComponent implements OnInit {
   }
 
   onSearch() {
+    this.utilsService.loader(true);
     this.utilsService.findInvalidControls(this.personReportFormGroup);
     if (this.personReportFormGroup.valid) {
       if (this.sortBy == 1) {

@@ -12,7 +12,7 @@ export class ByDateComponent implements OnInit {
   public reportPersonList: PersonReport[] = [];
 
   constructor(
-    public utilsService: UtilsService
+    private utilsService: UtilsService
   ) { }
 
   ngOnInit() {
@@ -32,5 +32,6 @@ export class ByDateComponent implements OnInit {
         rpt.sumWorkH += Math.floor(rpt.sumWorkM/60);
         rpt.sumWorkM = rpt.sumWorkM%60;
     }
+    this.utilsService.loader(false);
   }
 }

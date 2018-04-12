@@ -89,7 +89,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskDetailChild.isDisableTopic = true;
         this.taskDetailChild.isDisableProject = true;
         this.taskDetailChild.showFavPrj = false;
-        this.taskDetailChild.isDissableCatagory = true;
+        // this.taskDetailChild.isDissableCatagory = true;
         this.taskPartnerChild.isHiddenCheckBox = true;
         this.taskPartnerChild.isDisableAddPartner = false;
         this.taskPartnerChild.isHiddenDeletePartner = false;
@@ -113,20 +113,20 @@ export class TaskModalComponent implements AfterViewInit {
       this.taskDetailChild.showFavPrj = false;
       if (this.taskForm.task.referTaskId) {
         this.taskDetailChild.isDisableTopic = true;
-        this.taskDetailChild.isDissableCatagory = true;
-        this.taskPartnerChild.isHiddenDeletePartner = false;
-        this.taskPartnerChild.isHiddenCheckBox = true;
-        this.taskPartnerChild.isDisableDoSelfFlag = true;
+        // this.taskDetailChild.isDissableCatagory = true;
+        // this.taskPartnerChild.isHiddenDeletePartner = false;
+        // this.taskPartnerChild.isHiddenCheckBox = true;
+        // this.taskPartnerChild.isDisableDoSelfFlag = true;
         this.taskPartnerChild.isDisableAddPartner = false;
-        this.taskTagChild.isReadonly = true;
+        // this.taskTagChild.isReadonly = true;
       } else {
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDissableCatagory = false;
-        this.taskPartnerChild.isHiddenDeletePartner = true;
+        // this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isHiddenCheckBox = false;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
-        this.taskPartnerChild.isDisableAddPartner = true;
-        this.taskTagChild.isReadonly = false;
+        // this.taskPartnerChild.isDisableAddPartner = true;
+        // this.taskTagChild.isReadonly = false;
       }
     }else{
       this.taskDetailChild.showFavPrj = false;

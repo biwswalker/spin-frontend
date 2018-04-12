@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilsService } from '../../../../providers/utils/utils.service';
 
 @Component({
   selector: 'app-by-tag',
@@ -9,7 +10,9 @@ export class ByTagComponent implements OnInit {
 
   public tagReport: TagReport;
 
-  constructor() { }
+  constructor(
+    private utilsService: UtilsService
+  ) { }
 
   ngOnInit() {
     this.tagReport = new TagReport();
@@ -18,11 +21,7 @@ export class ByTagComponent implements OnInit {
   initialData(data) {
     if (data) {
       this.tagReport = data;
-      // this.tagReport.maxSpentSummaryTime = 0;
-      // this.tagReport.maxSpentSummaryTime = this.tagReport.maxSpentTime.hour + this.tagReport.maxSpentTime.minute;
-      // for (let time of this.tagReport.summary) {
-      //   time.summaryTime = (time.hour * 60) + time.minute;
-      // }
+      this.utilsService.loader(false);
     }
   }
 }

@@ -4,7 +4,7 @@ import { TaskModalComponent } from '../task-modal.component';
 import { TaskPartner } from '../../../../../models/task-partner';
 import { TaskService } from '../../../../../providers/task.service';
 import { Task } from '../../../../../models/task';
-import { Mode } from '../../../../../config/properties';
+import { Mode, Status } from '../../../../../config/properties';
 import { Observable } from 'rxjs/Observable';
 import { UtilsService } from '../../../../../providers/utils/utils.service';
 import { User } from '../../../../../models/user';
@@ -34,7 +34,7 @@ export class TaskPartnerComponent {
   public isHiddenDeletePartner: boolean = false;
   public isDisableDoSelfFlag: boolean = false;
   public sumMember: number;
-  public sumPartner: number;
+  public sumPartner: number = 0;
 
 
   constructor(
@@ -45,10 +45,12 @@ export class TaskPartnerComponent {
   }
 
   initTaskPartner(taskId: number, user: User, taskOwner: string) {
+    this.sumMember = 0;
     this.user = user;
     this.taskId = taskId;
     this.owner = taskOwner;
     let isRepeat: number = 0;
+    (this.doSelfFlag == true) ? this.sumMember++ : this.sumMember--;
     this.autocompletePartnerList = [];
     this.taskMember = [];
     this.taskPartner = [];
@@ -71,36 +73,38 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
-    this.sumMember = 0;
+    // this.sumMember = 0;
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
+          console.log(members)
           this.taskMember = [];
           for (let obj of members) {
             if (obj.userId !== this.user.userId) {
               if (obj.isPartner == "Y") {
                 this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
                 this.sumMember++;
-              } else {
-                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
               }
+
+              // else {
+              //   this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
+              // }
+
             }
           };
-          (this.doSelfFlag) ? this.sumMember++ : null;
+          // (this.doSelfFlag) ? this.sumMember++ : null;
         }
       }
     );
   }
 
   initialPartner(projectId: number) {
-    this.sumPartner = 0;
     this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
           this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
-            this.sumPartner++;
           }
         }
       }
@@ -139,6 +143,14 @@ export class TaskPartnerComponent {
     );
   }
 
+  countTaskMember(event) {
+    if (event == true) {
+      this.sumMember++;
+    } else {
+      this.sumMember--;
+    }
+  }
+
   addPartner() {
     if (this.selectPartner != null) {
       let sPartner = this.selectPartner;
@@ -160,5 +172,10 @@ export class TaskPartnerComponent {
       this.taskPartner.splice(this.taskPartner.indexOf(obj), 1);
       this.autocompletePartnerList.push(obj);
     }
+  }
+
+  onSelectedCheckBox(event) {
+    console.log(event);
+    (event == true) ? this.sumMember++ : this.sumMember--;
   }
 }
