@@ -109,4 +109,8 @@ export class ProjectService {
   projectPersonReport(projectId: number, startDate: string, endDate: string) {
     return this.request.requestMethodGET(`task-management/report-project-person/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`)
   }
+
+  findByTaskId(refId: number){
+    return this.request.requestMethodGET(`project-member-management/project-members/task-id/${refId}`);
+  }
 }
