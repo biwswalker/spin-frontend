@@ -14,14 +14,15 @@ export class AppComponent implements OnInit {
   public loading = false;
   public isAccess = false;
   private isRequested = false;
+  private currentUrl;
 
   constructor(private router: Router,private authService: AuthenticationService, private utilService: UtilsService) {
+    const url = localStorage.getItem('currentUrl');
     this.authService.crrAccess.subscribe(async accesses => {
       if (accesses) {
         this.isAccess = true;
-        this.router.navigate(['/attendance']);
+        this.router.navigate([url=='/login'?'':url]);
       } else {
-
         this.isAccess = false;
         this.router.navigate(['/login']);
       }
