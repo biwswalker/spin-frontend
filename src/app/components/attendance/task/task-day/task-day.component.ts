@@ -94,7 +94,7 @@ export class TaskDayComponent implements AfterViewInit {
       let thDate = self.utilsService.convertEnDateToTh(enDate)
       let isUnstamped = self.unstamped.find(unstampedDate => unstampedDate === thDate);
       self.subjectDate.next(thDate);
-      if (isUnstamped) {
+      if (isUnstamped || self.checkIsFutureDate(enDate)) {
         self.changeDateEvent.emit(enDate);
       }
     });
@@ -144,5 +144,14 @@ export class TaskDayComponent implements AfterViewInit {
     Observable.forkJoin(unstampedFetch, holidaysFetch, leavesFetch).subscribe(successes => { }, err => { }, () => {
       $('#workingDatePicker').datepicker('refresh');
     })
+  }
+
+  checkIsFutureDate(date: string): boolean {
+    let selectDate = Number(date);
+    let nowDatte = Number(this.utilsService.getCurrentEnDate());
+    if (selectDate > nowDatte) {
+      return true;
+    }
+    return false;
   }
 }
