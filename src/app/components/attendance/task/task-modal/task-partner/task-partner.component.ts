@@ -76,7 +76,6 @@ export class TaskPartnerComponent {
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
-          // console.log(members)
           this.taskMember = [];
           for (let obj of members) {
             if (obj.userId !== this.user.userId) {
