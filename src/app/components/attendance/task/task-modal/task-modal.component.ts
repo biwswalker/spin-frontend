@@ -68,7 +68,7 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-
+    // console.log(task)
     this.task = new Task();
     const temp = Object.assign({}, task);
     this.taskForm.task = temp;
@@ -79,24 +79,27 @@ export class TaskModalComponent implements AfterViewInit {
     this.checkProjectId(this.taskForm.task.projectId);
     this.taskDetailChild.initTaskDetail(objTask, this.mode);
     this.taskPartnerChild.mode = this.mode;
-    this.taskPartnerChild.initTaskPartner(this.taskForm.task.taskId, this.user,  this.owner);
+    this.taskPartnerChild.initTaskPartner(this.taskForm.task, this.user,  this.owner);
     this.taskTagChild.mode = this.mode;
     this.taskTagChild.initialTag(this.taskForm.task, this.user.userId);
 
     //Mode Insert
     if (this.mode == Mode.I) {
+
+      //copy task
       if (this.owner && this.user.userId !== this.owner) {
+        // if (this.user.userId !== this.owner) {
         this.taskDetailChild.isDisableTopic = true;
         this.taskDetailChild.isDisableProject = true;
         this.taskDetailChild.showFavPrj = false;
-        // this.taskDetailChild.isDissableCatagory = true;
         this.taskPartnerChild.isHiddenCheckBox = true;
         this.taskPartnerChild.isDisableAddPartner = false;
         this.taskPartnerChild.isHiddenDeletePartner = false;
         this.taskPartnerChild.isDisableDoSelfFlag = true;
         this.taskTagChild.isReadonly = true;
-        //hide edit partner
       } else {
+        //create my task
+        this.taskDetailChild.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDisableProject = false;
         this.taskDetailChild.showFavPrj = true;
@@ -106,11 +109,24 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
         this.taskTagChild.isReadonly = false;
+        if(task.taskId){
+          //สร้าง task จาก my task
+          this.taskDetailChild.showFavPrj = false;
+          this.taskDetailChild.isDisableProject = true;
+        }
+        if(task.referTaskId){
+          //insert copt task สร้าง task จากcopy task
+          this.taskDetailChild.isDisableTopic = true;
+          this.taskPartnerChild.isHiddenCheckBox = true;
+          this.taskPartnerChild.isHiddenDeletePartner = false;
+          this.taskPartnerChild.isDisableAddPartner = false;
+        }
         //hide edit partner
       }
     } else if (this.mode == Mode.E) {
       this.taskDetailChild.isDisableProject = true;
       this.taskDetailChild.showFavPrj = false;
+      //edit copy task
       if (this.taskForm.task.referTaskId) {
         this.taskDetailChild.isDisableTopic = true;
         // this.taskDetailChild.isDissableCatagory = true;
@@ -118,15 +134,14 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskPartnerChild.isHiddenCheckBox = true;
         // this.taskPartnerChild.isDisableDoSelfFlag = true;
         this.taskPartnerChild.isDisableAddPartner = false;
-        // this.taskTagChild.isReadonly = true;
       } else {
+        //edit my task
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDissableCatagory = false;
-        // this.taskPartnerChild.isHiddenDeletePartner = true;
+        this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isHiddenCheckBox = false;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
         this.taskPartnerChild.isDisableAddPartner = true;
-        // this.taskTagChild.isReadonly = false;
       }
     }else{
       this.taskDetailChild.showFavPrj = false;
