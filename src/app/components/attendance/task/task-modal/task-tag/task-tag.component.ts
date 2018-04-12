@@ -58,7 +58,7 @@ export class TaskTagComponent implements OnInit {
         if (tags) {
           this.tagList = [];
           for (let tag of tags) {
-            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName, "readonly": this.isReadonly});
+            this.tagList.push({ display: tag.tag.tagName, value: tag.tag.tagName});
           }
         }
       }

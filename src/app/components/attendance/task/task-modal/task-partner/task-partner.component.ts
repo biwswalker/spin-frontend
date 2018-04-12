@@ -50,7 +50,7 @@ export class TaskPartnerComponent {
     this.taskId = taskId;
     this.owner = taskOwner;
     let isRepeat: number = 0;
-    (this.doSelfFlag == true) ? this.sumMember++ : this.sumMember--;
+    // (this.doSelfFlag == true) ? this.sumMember++ : this.sumMember--;
     this.autocompletePartnerList = [];
     this.taskMember = [];
     this.taskPartner = [];
@@ -73,26 +73,22 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
-    // this.sumMember = 0;
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
-          console.log(members)
+          // console.log(members)
           this.taskMember = [];
           for (let obj of members) {
             if (obj.userId !== this.user.userId) {
               if (obj.isPartner == "Y") {
                 this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: true });
                 this.sumMember++;
+              } else {
+                this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
               }
-
-              // else {
-              //   this.taskMember.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh, status: false });
-              // }
-
             }
-          };
-          // (this.doSelfFlag) ? this.sumMember++ : null;
+          }
+          // console.log(this.sumMember)
         }
       }
     );
@@ -144,11 +140,7 @@ export class TaskPartnerComponent {
   }
 
   countTaskMember(event) {
-    if (event == true) {
-      this.sumMember++;
-    } else {
-      this.sumMember--;
-    }
+    (event == true) ? this.sumMember++ : this.sumMember--;
   }
 
   addPartner() {
@@ -176,6 +168,6 @@ export class TaskPartnerComponent {
 
   onSelectedCheckBox(event) {
     console.log(event);
-    (event == true) ? this.sumMember++ : this.sumMember--;
+    // (event == true) ? this.sumMember++ : this.sumMember--;
   }
 }
