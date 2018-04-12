@@ -39,10 +39,12 @@ img {
         border-right: 0;
     }
     .username.input-group-text {
+        border: 0px;
         width: 42px;
         border-bottom-left-radius: 0;
     }
     .password.input-group-text {
+        border: 0px;        
         width: 42px;
         border-top-left-radius: 0;
     }
@@ -64,12 +66,21 @@ img {
         z-index: 2;
     }
     input[type="text"] {
-        border-left: 0;
+        outline: none;
+        outline-style:none;
+        box-shadow:none;
+        border-color:transparent;
+        // border-left: 0;
+        border: 0px;
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
     }
     input[type="password"] {
-        border-left: 0;
+        outline-style:none;
+        box-shadow:none;
+        border-color:transparent;
+        // border-left: 0;
+        border: 0px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
