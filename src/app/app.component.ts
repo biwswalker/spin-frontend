@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     this.authService.crrAccess.subscribe(async accesses => {
       if (accesses) {
         this.isAccess = true;
-        this.router.navigate([url=='/login'?'':url]);
+        this.router.navigate([url=='/login'?'/attendance':url]);
       } else {
         this.isAccess = false;
         this.router.navigate(['/login']);
