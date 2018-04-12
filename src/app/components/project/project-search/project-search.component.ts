@@ -40,16 +40,17 @@ export class ProjectSearchComponent implements OnInit {
   onScrollDown() {
     this.projectService.findProjects((this.onlyMember?'Y':'N'),this.page,this.size).subscribe(
       data=>{
+        console.log(data)
         if(data){
           let newProject = [];
-          for(let pj of data){
+          for(let pj of data.projects){
             if(!pj.projectThumbnail)
             pj.projectThumbnail = './assets/img/ico/startup.png';
           }
 
-          this.projectList = [...this.projectList,...data]
+          this.projectList = [...this.projectList,...data.projects]
           if(this.projectList.length != 0 && this.page == 1){
-            this.onProjectSelected(this.projectList[0]);
+            // this.onProjectSelected(this.projectList[0]);
           }
           this.page += 1;
         }
@@ -71,7 +72,6 @@ export class ProjectSearchComponent implements OnInit {
   onProjectSelected(project){
     this.projectSelected = project;
     this.messageEvent.emit(project.projectId);
-    // window.scrollTo(0, 0);
   }
 
   toggleFavoriteProject(projectId){

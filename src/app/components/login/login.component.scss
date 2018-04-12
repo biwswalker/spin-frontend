@@ -131,4 +131,17 @@ img {
             -webkit-transform: rotate(359deg);
         }
     }
+
+    @supports (-ms-ime-align: auto) {
+        /* Microsoft EdgeV13&14 CSS styles go here */
+        .group-username {
+            margin-bottom:-1px !important; 
+            border-bottom: 2px solid #ccc !important;
+       }
+     }
+
+     .group-username {
+        margin-bottom:-2px; 
+        border-bottom: 4px solid #ccc
+     }
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
 import { Subject } from 'rxjs';
 import { EventMessagesService } from './utils/event-messages.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -41,6 +42,7 @@ export class AuthenticationService {
           localStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
           this.isAccess.next(true);
           return this.accessUser();
+
         } else {
           console.log('error token')
           this.isAccess.next(false)
