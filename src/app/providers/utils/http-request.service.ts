@@ -9,7 +9,7 @@ export class HttpRequestService {
   constructor(private http: HttpClient) { }
 
   requestMethodGET(path: string): Observable<any> {
-    // console.log(`GET URL => ${URL + path}`);
+    console.log(`GET URL => ${URL + path}`);
     return this.http.get(URL + path);
   }
 

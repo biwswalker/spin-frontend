@@ -43,6 +43,9 @@ p{
 
         .customer-name{
           margin: -0.5rem 0rem 0rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
           opacity: 0.8;
           filter: opacity(80);
         }

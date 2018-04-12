@@ -5,6 +5,7 @@
   <div class="col-7">
       <div class="project-abbr mt-md-3">{{project.projectAbbr}}</div>
       <div class="customer-name">{{project.customerName}}</div>
+      <p [ngClass]="project.activeFlag=='A'?'text-success':'text-black-50'"><strong> {{project.activeFlag=='A'?'ใช้งาน':'ไม่ใช้งาน'}}</strong></p>
   </div>
   <div class="col-2">
       <button type="button" class="btn btn-link float-right"

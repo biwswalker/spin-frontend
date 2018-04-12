@@ -13,10 +13,11 @@ export class ProjectSearchComponent implements OnInit {
   public projectList: any[] = [];
   public page = 1;
   public size = 5;
-
+  public total = 0;
   public throttle = 1000;
   public scrollDistance = 1;
   public onlyMember = false;
+  public keyword = '';
   // Send value back to parent
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -28,29 +29,23 @@ export class ProjectSearchComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.projectService.projectHaveChanged.subscribe(
-      ()=>{
-        this.projectList = [];
-        this.page = 1;
-        this.onScrollDown();
-      }
-    )
+    this.doSearch();
   }
 
   onScrollDown() {
-    this.projectService.findProjects((this.onlyMember?'Y':'N'),this.page,this.size).subscribe(
+    this.projectService.findProjects((this.onlyMember?'Y':'N'),this.keyword,this.page,this.size).subscribe(
       data=>{
-        console.log(data)
-        if(data){
+        this.total = data.totalElements;
+        if(data.content){
           let newProject = [];
-          for(let pj of data.projects){
+          for(let pj of data.content){
             if(!pj.projectThumbnail)
             pj.projectThumbnail = './assets/img/ico/startup.png';
           }
 
-          this.projectList = [...this.projectList,...data.projects]
+          this.projectList = [...this.projectList,...data.content]
           if(this.projectList.length != 0 && this.page == 1){
-            // this.onProjectSelected(this.projectList[0]);
+            this.onProjectSelected(this.projectList[0]);
           }
           this.page += 1;
         }
@@ -61,6 +56,16 @@ export class ProjectSearchComponent implements OnInit {
       }
     )
 
+  }
+
+  doSearch(){
+    this.projectService.projectHaveChanged.subscribe(
+      ()=>{
+        this.projectList = [];
+        this.page = 1;
+        this.onScrollDown();
+      }
+    )
   }
 
   onChangeProjectFilter(){

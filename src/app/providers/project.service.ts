@@ -50,8 +50,8 @@ export class ProjectService {
 
 
   // Begin find for display action
-  findProjects(isMember, page, size) {
-    return this.request.requestMethodGET('project-management/projects/find-allow-project/' + isMember + '?p=' + page + '&s=' + size);
+  findProjects(isMember,term, page, size) {
+    return this.request.requestMethodGET(`project-management/projects/find-allow-project?isMember=${isMember}&p=${page}&s=${size}&term=${term}`);
   }
   findProjectById(projectId) {
     return this.request.requestMethodGET('project-management/projects/' + projectId);
