@@ -11,7 +11,7 @@ import { BsDropdownModule, TypeaheadModule } from 'ngx-bootstrap';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { NgSelectModule } from '@ng-select/ng-select';
 // config
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
 import { Interceptor } from './config/interceptor';
 import { RoutesModule } from './config/routes';
 
@@ -209,7 +209,11 @@ import { DisableControlDirective } from './directives/DisableControlDirective';
       tertiaryColour: '#ffc107'
     }),
     NgSelectModule,
-    PdfViewerModule
+    PdfViewerModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-XSRF-TOKEN'
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },

@@ -1,62 +1,62 @@
 <div class="background">
-<div class="centered login-box">
-  <div class="d-flex justify-content-center">
-    <img src="./assets/img/brand/spin.png"
-         class="spinning"
-         width="150px"
-         height="150px">
-  </div>
-  <div class="d-flex justify-content-center">
-    <img src="./assets/img/brand/logo_spin_text.png"
-         height="80px">
-  </div>
+  <div class="centered login-box">
+    <div class="d-flex justify-content-center">
+      <img src="./assets/img/brand/spin.png"
+           class="spinning"
+           width="150px"
+           height="150px">
+    </div>
+    <div class="d-flex justify-content-center">
+      <img src="./assets/img/brand/logo_spin_text.png"
+           height="80px">
+    </div>
 
-  <form class="form-signin"
-        [formGroup]="loginGroup">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="username input-group-text">
-          <i class="fas fa-user"></i>
-        </span>
+    <form class="form-signin"
+          [formGroup]="loginGroup">
+      <div class="input-group group-username">
+        <div class="input-group-prepend">
+          <span class="username input-group-text">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+        <input type="text"
+               id="username"
+               formControlName="username"
+               name="username"
+               class="form-control input-sm"
+               placeholder="ชื่อผู้ใช้งาน">
       </div>
-      <input type="text"
-             id="username"
-             formControlName="username"
-             name="username"
-             class="form-control input-sm"
-             placeholder="ชื่อผู้ใช้งาน">
-    </div>
 
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="password input-group-text">
-          <i class="fas fa-lock"></i>
-        </span>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="password input-group-text">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+        <input type="password"
+               id="password"
+               formControlName="password"
+               name="password"
+               class="form-control input-sm"
+               placeholder="รหัสผ่าน">
       </div>
-      <input type="password"
-             id="password"
-             formControlName="password"
-             name="password"
-             class="form-control input-sm"
-             placeholder="รหัสผ่าน">
-    </div>
 
-    <div class="checkbox">
-      <label>
-        <input type="checkbox"
-               formControlName="remember"
-               id="remember"
-               name="remember"
-               value="remember"> จดจำรหัสผ่าน?
-      </label>
-    </div>
-    <div class="d-block">
-      <button class="btn btn btn-block"
-              id="login-submit"
-              (click)="onLogin()"
-              type="submit">เข้าสู่ระบบ</button>
-    </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 formControlName="remember"
+                 id="remember"
+                 name="remember"
+                 value="remember"> จดจำรหัสผ่าน?
+        </label>
+      </div>
+      <div class="d-block">
+        <button class="btn btn btn-block"
+                id="login-submit"
+                (click)="onLogin()"
+                type="submit">เข้าสู่ระบบ</button>
+      </div>
 
-  </form>
-</div>
+    </form>
+  </div>
 </div>

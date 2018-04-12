@@ -22,10 +22,10 @@ export class Interceptor implements HttpInterceptor {
         let local = Locale;
         if (token) {
             if (!this.authService.isRefresh()) {
-                return req.clone({ setHeaders: { Authorization: token, "Accept-Language": local } });
+                req = req.clone({ setHeaders: { Authorization: token, "Accept-Language": local, 'X-Requested-With': 'XMLHttpRequest' } });
             }
         }
-        return req.clone({ setHeaders: { "Accept-Language": local } });
+        return req;
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {

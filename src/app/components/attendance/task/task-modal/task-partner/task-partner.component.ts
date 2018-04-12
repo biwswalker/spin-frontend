@@ -1,3 +1,4 @@
+import { ProjectService } from './../../../../../providers/project.service';
 import { PartnerService } from './../../../../../providers/partner.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TaskModalComponent } from '../task-modal.component';
@@ -35,22 +36,24 @@ export class TaskPartnerComponent {
   public isDisableDoSelfFlag: boolean = false;
   public sumMember: number;
   public sumPartner: number = 0;
+  public refTask: number = 0;
 
 
   constructor(
     private taskService: TaskService,
     private partnerService: PartnerService,
-    public utilsService: UtilsService
+    public utilsService: UtilsService,
+    public projectService: ProjectService
   ) {
   }
 
-  initTaskPartner(taskId: number, user: User, taskOwner: string) {
+  initTaskPartner(task: Task, user: User, taskOwner: string) {
     this.sumMember = 0;
     this.user = user;
-    this.taskId = taskId;
+    this.taskId = task.taskId;
+    this.refTask = task.referTaskId;
     this.owner = taskOwner;
     let isRepeat: number = 0;
-    // (this.doSelfFlag == true) ? this.sumMember++ : this.sumMember--;
     this.autocompletePartnerList = [];
     this.taskMember = [];
     this.taskPartner = [];
@@ -61,8 +64,13 @@ export class TaskPartnerComponent {
         if (isRepeat !== projectId) {
           this.getautoCompletePartner(projectId);
           if (this.taskId) {
-            this.initialMember(projectId);
-            this.initialPartner(projectId);
+            if (this.refTask) {
+              this.findMemberByTaskId(this.refTask);
+              this.initialPartner(projectId ,this.refTask);
+            } else {
+              this.findMemberByTaskId(this.taskId);
+              this.initialPartner(projectId, this.taskId);
+            }
           } else {
             this.getProjectMember(projectId);
           }
@@ -87,16 +95,16 @@ export class TaskPartnerComponent {
               }
             }
           }
-          // console.log(this.sumMember)
         }
       }
     );
   }
 
-  initialPartner(projectId: number) {
-    this.partnerService.findNotMemberByProjectId(projectId, this.taskId).subscribe(
+  initialPartner(projectId: number, taskId: number) {
+    this.partnerService.findNotMemberByProjectId(projectId, taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
+          console.log(nonMembers)
           this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
@@ -120,22 +128,51 @@ export class TaskPartnerComponent {
       })
   }
 
-  getautoCompletePartner(projectId) {
-    this.partnerService.findAllUserByProjectId(projectId).subscribe(
+  async getautoCompletePartner(projectId) {
+    // this.partnerService.findAllUserByProjectId(projectId).subscribe(
+    //   partners => {
+    //     // console.log(partners)
+    //     this.autocompletePartnerList = [];
+    //     if (partners) {
+    //       this.autocompletePartnerList = partners;
+    //       for (let obj of this.autocompletePartnerList) {
+    //         if (obj.userId == this.user.userId) {
+    //           this.autocompletePartnerList.splice(obj);
+    //         }
+
+    //       }
+    //     }
+    //   }
+    // );
+    this.autocompletePartnerList = [];
+    await this.partnerService.findAllUserByProjectId(projectId).map(
       partners => {
-        // console.log(partners)
-        this.autocompletePartnerList = [];
         if (partners) {
           this.autocompletePartnerList = partners;
           for (let obj of this.autocompletePartnerList) {
             if (obj.userId == this.user.userId) {
               this.autocompletePartnerList.splice(obj);
             }
-
           }
         }
       }
-    );
+    ).toPromise();
+  }
+
+  findMemberByTaskId(refId: number) {
+    this.taskMember = [];
+    this.projectService.findByTaskId(refId).subscribe(
+      members => {
+        for (let member of members) {
+          if (member.isPartner == "Y") {
+            this.taskMember.push({ userId: member.userId, email: member.email, fullName: member.userName, status: true });
+            this.sumMember++;
+          } else {
+            this.taskMember.push({ userId: member.userId, email: member.email, fullName: member.userName, status: false });
+          }
+        }
+      }
+    )
   }
 
   countTaskMember(event) {

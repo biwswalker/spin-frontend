@@ -66,7 +66,7 @@ export class TaskDetailComponent implements OnInit {
     this.taskObj = new Task();
     this.validateData();
     // Initial Fav Project
-    this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
+    // this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
     // Find project
     this.projectList = await this.projectService.fetchProjectAutocomplete().toPromise();
   }
