@@ -60,14 +60,6 @@ export class TimetableDayComponent implements AfterViewInit {
             let start = Number(task.workStartTime);
             let end = Number(task.workEndTime) - 30;
 
-            // If time is over 1900 and less than 600
-            // if(start < 600){
-            //   start = 600
-            // }
-            // if(end >= 1900){
-            //   end = 1830
-            // }
-
             // Find index of timetable
             let startIndex = -1;
             let endIndex = -1;
@@ -114,7 +106,6 @@ export class TimetableDayComponent implements AfterViewInit {
       console.log(err)
     })
   }
-  // <p class="text-truncate m-0 stamp-activity">${task.activity}</p>   
 
   refreshTimeTable() {
     // Move to top overlap

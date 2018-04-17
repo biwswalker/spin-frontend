@@ -75,14 +75,6 @@ export class TimetableWeekComponent implements AfterViewInit {
           let end = Number(task.workEndTime) - 30;
           let startIndex = -1;
           let endIndex = -1;
-
-          // If time is over 1900 and less than 600
-          //  if(start < 600){
-          //   start = 600
-          // }
-          // if(end >= 1900){
-          //   end = 1830
-          // }
           if (start === end) {
             startIndex = this.worktable.findIndex(time => time === start)
             endIndex = startIndex;
@@ -105,7 +97,7 @@ export class TimetableWeekComponent implements AfterViewInit {
             $($($(`.timestamp-week${dateIndex}`).find('.stamp'))[i]).addClass(`unavailable ${groupClass}`);
           }
           // Step 2
-          $(`.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:101;'></div>`);
+          $(`.unavailable.${groupClass}`).wrapAll(`<div class='${overlapClass} timegroup position-relative' style='cursor: pointer;z-index:101;'></div>`);
           $(`.${overlapClass}`).append(`<div class='${overlayClass} ${task.color} position-absolute' style='top: 0;bottom: 0;left: 0;right: 0; overflow: hidden;word-wrap: break-word;font-size: 14px;'>
               <div class="m-0 stamp-topic"><div class="d-inline" style="color:white;">${this.utilsService.convertDisplayTime(task.workStartTime)} - ${this.utilsService.convertDisplayTime(task.workEndTime)}  </div>
               ${task.projectAbbr ? `<div class="d-inline topic-task" style="color:white;"> #${task.projectAbbr}</div>` : ''}</div>
