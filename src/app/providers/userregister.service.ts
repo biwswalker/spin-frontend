@@ -25,7 +25,7 @@ export class UserRegisterService {
 
   findAllByCriteria(term, page, size) {
     return this.request.requestMethodGET(
-      "user-management/find-by-criteria/" + term + "?p=" + page + "&s=" + size
+      "user-management/find-by-criteria?term=" + term + "&p=" + page + "&s=" + size
     );
   }
 
