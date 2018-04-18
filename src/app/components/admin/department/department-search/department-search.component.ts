@@ -19,73 +19,45 @@ export class DepartmentSearchComponent implements OnInit {
   public throttle = 1000;
   public scrollDistance = 1;
   protected criteriaValue: string;
+
+  public totalElements = 0;
   constructor(protected departmentService: DepartmentService) { }
 
 
   ngOnInit() {
     this.departments = [];
-    this.getAllDepartment();
-  }
-
-  getAllDepartment() {
-    console.log('getAllDepartment');
-    this.page = 1;
-    this.departmentService.findAllPageable(this.page, this.size).subscribe(
-      collection => {
-        this.departments = collection;
-        this.messageEvent.emit(collection[0].deptId);
-        this.page += 1;
-      }
-    );
+    this.onSearchByCriteria('');
   }
 
   onChangeDepartment(department) {
-    console.log(department);
     this.messageEvent.emit(department.deptId);
   }
 
   onSearchByCriteria(criteria) {
     console.log(criteria);
     this.page = 1;
-    if (criteria) {
-      this.criteriaValue = criteria;
-      this.departmentService.findByCriteria(criteria, this.page, this.size).subscribe(
-        collection => {
-          this.departments = collection;
-          if (collection.length > 0) {
-            this.messageEvent.emit(collection[0].deptId);
-          }
-          this.page += 1;
+    this.criteriaValue = criteria;
+    this.departmentService.findByCriteria(criteria, this.page, this.size).subscribe(
+      collection => {
+        this.departments = collection.content;
+        this.totalElements = collection.totalElements;
+        if (collection.length > 0) {
+          this.messageEvent.emit(this.departments[0].deptId);
         }
-      );
-    } else {
-      this.criteriaValue = '';
-      this.getAllDepartment();
-    }
+        this.page += 1;
+      }
+    );
   }
 
 
-  onScrollDown() {
-    console.log('onScrollDown' + this.criteriaValue);
-    if (this.criteriaValue) {
-      this.departmentService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
-        collection => {
-          this.departments = this.departments.concat(collection);
-          this.page += 1;
-        }
-      );
-    } else {
-      this.departmentService.findAllPageable(this.page, this.size).subscribe(
-        collection => {
-          console.log(collection)
-          if (collection) {
-            this.page += 1;
-            this.departments = this.departments.concat(collection);
-          }
-        }
-      );
-    }
 
+  onScrollDown() {
+    this.departmentService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
+      collection => {
+        this.departments = this.departments.concat(collection);
+        this.page += 1;
+      }
+    );
   }
 
 }
