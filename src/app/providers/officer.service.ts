@@ -30,9 +30,9 @@ export class OfficerService {
 
   findByCriteria(key, page, size) {
     return this.request.requestMethodGET(
-      "officer-management/officers/find-by-criteria/" +
+      "officer-management/officers/find-by-criteria?term=" +
       key +
-      "?p=" +
+      "&p=" +
       page +
       "&s=" +
       size

@@ -19,76 +19,46 @@ export class PositionSearchComponent implements OnInit {
   public throttle = 1000;
   public scrollDistance = 1;
   protected criteriaValue: string;
+  public totalElements = 0;
 
   constructor(protected positionService: PositionService) {
   }
 
   ngOnInit() {
     this.positions = [];
-    this.getAllPosition();
+    this.onSearchByCriteria('');
   }
 
-  getAllPosition() {
-    console.log('getAllPosition');
-    this.page = 1;
-    this.positionService.findAllPageable(this.page, this.size).subscribe(
-      collection => {
-        this.positions = collection;
-        this.messageEvent.emit(collection[0].positionId);
 
+  onChangePosition(resp) {
+    this.messageEvent.emit(resp.positionId);
+  }
+
+  onSearchByCriteria(criteria) {
+    this.page = 1;
+    this.criteriaValue = criteria;
+    this.positionService.findByCriteria(criteria, this.page, this.size).subscribe(
+      collection => {
+        this.positions = collection.content;
+        this.totalElements = collection.totalElements;
+        if (collection.length > 0) {
+          this.messageEvent.emit(this.positions[0].positionId);
+        }
         this.page += 1;
       }
     );
   }
 
-  onChangePosition(resp) {
-    console.log(resp);
-    this.messageEvent.emit(resp.positionId);
-  }
-
-  onSearchByCriteria(criteria) {
-    console.log(criteria);
-    this.page = 1;
-    if (criteria) {
-      this.criteriaValue = criteria;
-      this.positionService.findByCriteria(criteria, this.page, this.size).subscribe(
-        collection => {
-          this.positions = collection;
-          if (collection.length > 0) {
-            this.messageEvent.emit(collection[0].positionId);
-          }
-          this.page += 1;
-        }
-      );
-    } else {
-      this.criteriaValue = '';
-      this.getAllPosition();
-    }
-  }
-
   onScrollDown() {
-    console.log('onScrollDown' + this.criteriaValue);
-    if (this.criteriaValue) {
-      this.positionService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
-        collection => {
-          this.positions = this.positions.concat(collection);
-          if (collection.length > 0) {
-            this.messageEvent.emit(collection[0].positionId);
-          }
-          this.page += 1;
+    this.positionService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
+      collection => {
+        this.positions = this.positions.concat(collection.content);
+        if (collection.length > 0) {
+          this.messageEvent.emit(this.positions[0].positionId);
         }
-      );
-    } else {
-      this.positionService.findAllPageable(this.page, this.size).subscribe(
-        collection => {
-          console.log(collection)
-          if (collection) {
-            this.page += 1;
-            this.positions = this.positions.concat(collection);
-          }
-        }
-      );
-    }
+        this.page += 1;
+      }
+    );
 
   }
 

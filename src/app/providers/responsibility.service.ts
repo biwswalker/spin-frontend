@@ -37,7 +37,7 @@ export class ResponsibilityService {
     return this.request.requestMethodGET('responsibility-management/responsibilities/?p=' + page + '&s=' + size);
   }
   findByCriteria(key, page, size) {
-    return this.request.requestMethodGET('responsibility-management/responsibilities/find-by-criteria/' + key + '?p=' + page + '&s=' + size);
+    return this.request.requestMethodGET('responsibility-management/responsibilities/find-by-criteria?term' + key + '&p=' + page + '&s=' + size);
   }
 
   onOpenModal() {
