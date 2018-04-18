@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="row admin-table-header">
+<!-- <div class="row admin-table-header">
   <div class="col-sm-8 text-left">ชื่อหน้าที่</div>
   <div class="col-sm-4 text-left">ชื่อย่อ</div>
 </div>
@@ -44,4 +44,25 @@
 
 <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
   (scrolled)="onScrollDown()">
+</div> -->
+
+<div class="row">
+  <div class="col-12">ทั้งหมด {{positions.length}} รายการ</div>
+</div>
+
+<div class="row search-results-header">
+    <div class="col-8">ชื่อหน้าที่</div>
+  <div class="col-4">ชื่อย่อ</div>
+</div>
+
+<div class="search-results-body"
+     data-infinite-scroll
+     debounce
+     [infiniteScrollDistance]="scrollDistance"
+     [infiniteScrollThrottle]="throttle"
+     (scrolled)="onScrollDown()">
+        <div class="row"  *ngFor="let position of positions" (click)="onChangePosition(position)">
+              <div class="col-8">{{position.positionName}}</div>
+              <div class="col-4">{{position.positionAbbr}}</div>
+        </div>
 </div>

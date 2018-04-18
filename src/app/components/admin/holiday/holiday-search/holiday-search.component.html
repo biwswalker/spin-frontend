@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="row admin-table-header">
+<!-- <div class="row admin-table-header">
   <div class="col-sm-8 text-left">ชื่อวันหยุด</div>
   <div class="col-sm-4 text-left">วันที่</div>
 </div>
@@ -32,7 +32,6 @@
       </div>
     </button>
   </div>
-
 </ul>
 
 
@@ -44,4 +43,26 @@
 
 <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
   (scrolled)="onScrollDown()">
+</div> -->
+
+<div class="row">
+  <div class="col-12">ทั้งหมด  {{holidays.length}} รายการ</div>
+</div>
+
+<div class="row search-results-header">
+  <div class="col-8">ชื่อวันหยุด</div>
+  <div class="col-4">วันที่</div>
+</div>
+<div class="search-results-body"
+     [infiniteScrollDistance]="scrollDistance"
+     [infiniteScrollThrottle]="throttle"
+     (scrolled)="onScrollDown()"
+     data-infinite-scroll
+     debounce>
+     <div class="row"
+          *ngFor="let holiday of holidays"
+          (click)="onChangeHoliday(holiday)">
+        <div class="col-8">{{holiday.holName}}</div>
+        <div class="col-4">{{holiday.holDate | thaiDate:'full' || '' }} ({{holiday.holDate | thaiDate:'dayfull' || '' }})</div>
+      </div>
 </div>

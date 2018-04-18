@@ -15,9 +15,9 @@
   </div>
 </div>
 
-<div class="row admin-table-header">
-  <div class="col-sm-8 text-left">ชื่อแผนก</div>
-  <div class="col-sm-4 text-left">ชื่อย่อ</div>
+<!-- <div class="row admin-table-header">
+  <div class="col-8">ชื่อแผนก</div>
+  <div class="col-4">ชื่อย่อ</div>
 </div>
 <ul class="list-group list-group-flush" *ngFor="let department of departments">
   <div>
@@ -43,4 +43,27 @@
 
 <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
   (scrolled)="onScrollDown()">
+</div> -->
+
+<div class="row">
+    <div class="col-12" >ทั้งหมด {{departments.length}} รายการ</div>
+</div>
+
+<div class="row search-results-header">
+  <div class="col-8">ชื่อแผนก</div>
+  <div class="col-4">ชื่อย่อ</div>
+</div>
+
+<div class="search-results-body"
+     [infiniteScrollDistance]="scrollDistance"
+     [infiniteScrollThrottle]="throttle"
+     (scrolled)="onScrollDown()"
+     data-infinite-scroll
+     debonce>
+  <div class="row"
+       *ngFor="let department of departments"
+       (click)="onChangeDepartment(department)">
+          <div class="col-8">{{department.deptName}}</div>
+          <div class="col-4">{{department.deptAbbr}}</div>
+  </div>
 </div>
