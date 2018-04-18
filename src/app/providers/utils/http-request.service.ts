@@ -9,7 +9,7 @@ export class HttpRequestService {
   constructor(private http: HttpClient) { }
 
   requestMethodGET(path: string): Observable<any> {
-    console.log(`GET URL => ${URL + path}`);
+    // console.log(`GET URL => ${URL + path}`);
     return this.http.get(URL + path);
   }
 
@@ -48,13 +48,5 @@ export class HttpRequestService {
     // console.log(`PUT URL => ${URL + path}`);
     // console.log(`param => ${param}`);
     return this.http.put(URL + path, param, options);
-  }
-
-  requestWithProgress(mothod: string, path: string, param: any) {
-    const body = JSON.stringify(param);
-    // console.log(`POST URL => ${URL + path}`);
-    // console.log(`BODY => ${body}`);
-    const request = new HttpRequest(mothod, URL + path, body, { responseType: 'json', reportProgress: true });
-    return this.http.request(request)
   }
 }
