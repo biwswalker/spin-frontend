@@ -22,30 +22,30 @@ export class TaskAllComponent implements OnInit {
   public scrollDistance = 1;
 
   constructor(private taskService: TaskService,
-  private eventMessageService:EventMessagesService) { }
+    private eventMessageService: EventMessagesService) { }
 
   ngOnInit() {
     this.doSearch();
   }
 
-  doSearch(){
+  doSearch() {
     this.tasks = [];
     this.page = 1;
     this.onScrollDown();
   }
 
   onScrollDown() {
-    this.taskService.findCriteriaAllTask(this.keyword,this.page,this.size).subscribe(
-      data=>{
-        if(data!){
-          this.tasks = this.tasks.concat(this.taskService.reformTasks(data));
+    this.taskService.findCriteriaAllTask(this.keyword, this.page, this.size).subscribe(
+      data => {
+        if (data.content!) {
+          this.tasks = this.tasks.concat(this.taskService.reformTasks(data.content));
 
           this.page += 1;
         }
 
-      },err=>{
+      }, err => {
         console.log(err);
-        this.eventMessageService.onCustomError('เกิดข้อผิดพลาด',err.error.message);
+        this.eventMessageService.onCustomError('เกิดข้อผิดพลาด', err.error.message);
       }
     )
 

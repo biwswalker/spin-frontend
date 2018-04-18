@@ -94,7 +94,7 @@ export class OfficerModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onInsertSuccess(res.officeId);
+            this.eventMessagesService.onInsertSuccess('');
           },
           error => {
             console.log(error);
@@ -111,7 +111,7 @@ export class OfficerModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onUpdateSuccess(res.officeId);
+            this.eventMessagesService.onUpdateSuccess('');
           },
           error => {
             console.log(error);
