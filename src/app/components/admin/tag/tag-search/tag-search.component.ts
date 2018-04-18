@@ -12,7 +12,7 @@ export class TagSearchComponent implements OnInit {
   public tags: Tag[];
 
   public page = 1;
-  public size = 15;
+  public size = 20;
 
   public throttle = 1000;
   public scrollDistance = 1;

@@ -58,7 +58,7 @@
 
 <div class="search-results-body"
      data-infinite-scroll
-     [scrollWindow]="false"
+     debounce
      [infiniteScrollDistance]="scrollDistance"
      [infiniteScrollThrottle]="throttle"
      (scrolled)="onScrollDown()">

@@ -13,7 +13,7 @@ export class OfficerSearchComponent implements OnInit {
   public officers: Officer[];
 
   public page = 1;
-  public size = 15;
+  public size = 20;
 
   public throttle = 1000;
   public scrollDistance = 1;
@@ -35,23 +35,23 @@ export class OfficerSearchComponent implements OnInit {
 
 
   getAllOfficer() {
-    console.log('getAllOfficer');
+    // console.log('getAllOfficer');
     this.page = 1;
     this.officerService.findAllPageable(this.page, this.size).subscribe(
       collection => {
-        console.log('collection ', collection);
+        // console.log('collection ', collection);
         this.officers = collection;
-        console.log('collection[0].officeId ', collection[0].officeId);
+        // console.log('collection[0].officeId ', collection[0].officeId);
         this.messageEvent.emit(collection[0].officeId);
         this.page += 1;
-        console.log('end');
+        // console.log('end');
       }
     );
   }
 
 
   onSearchByCriteria(criteria) {
-    console.log('criteria ', criteria);
+    // console.log('criteria ', criteria);
     this.page = 1;
     if (criteria) {
       this.criteriaValue = criteria;
@@ -71,12 +71,12 @@ export class OfficerSearchComponent implements OnInit {
   }
 
   onChangeOfficer(officer) {
-    console.log(officer);
+    // console.log(officer);
     this.messageEvent.emit(officer.officeId);
   }
 
   onScrollDown() {
-    console.log('onScrollDown' + this.criteriaValue);
+    // console.log('onScrollDown' + this.criteriaValue);
     if (this.criteriaValue) {
       this.officerService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
         collection => {

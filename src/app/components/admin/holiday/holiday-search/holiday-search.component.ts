@@ -14,7 +14,7 @@ export class HolidaySearchComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<number>();
 
   public page = 1;
-  public size = 13;
+  public size = 20;
 
   public throttle = 1000;
   public scrollDistance = 1;

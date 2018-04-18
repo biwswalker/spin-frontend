@@ -21,7 +21,7 @@ export class ResponsibilitySearchComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<number>();
 
   public page = 1;
-  public size = 15;
+  public size = 20;
 
   public throttle = 1000;
   public scrollDistance = 1;
