@@ -90,7 +90,7 @@ export class HolidayModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onInsertSuccess(res.holId);
+            this.eventMessagesService.onInsertSuccess('');
           },
           error => {
             console.log(error);
@@ -104,7 +104,7 @@ export class HolidayModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onUpdateSuccess(res.holId);
+            this.eventMessagesService.onUpdateSuccess('');
           },
           error => {
             console.log(error);

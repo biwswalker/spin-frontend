@@ -69,7 +69,7 @@ export class TagModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onInsertSuccess(res.tagId);
+            this.eventMessagesService.onInsertSuccess('');
           },
           error => {
             console.log(error);
@@ -84,7 +84,7 @@ export class TagModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onUpdateSuccess(res.tagId);
+            this.eventMessagesService.onUpdateSuccess('');
           },
           error => {
             console.log(error);

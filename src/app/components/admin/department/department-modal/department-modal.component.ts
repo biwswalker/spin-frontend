@@ -84,7 +84,7 @@ export class DepartmentModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onInsertSuccess(res.deptId);
+            this.eventMessagesService.onInsertSuccess('');
           },
           error => {
             console.log(error);
@@ -98,7 +98,7 @@ export class DepartmentModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onUpdateSuccess(res.deptId);
+            this.eventMessagesService.onUpdateSuccess('');
           },
           error => {
             console.log(error);
