@@ -21,12 +21,14 @@ export class Interceptor implements HttpInterceptor {
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
         let local = Locale;
         req = req.clone({ setHeaders: { "Accept-Language": local } });
-        if (token !== null || !this.authService.isRefresh()) {
-            req = req.clone({ setHeaders: { Authorization: token } });
-        }
-        const xsrfToken = this.xsrfTokenExt.getToken() as string;
-        if (xsrfToken !== null) {
-            req = req.clone({ setHeaders: { 'X-XSRF-TOKEN': xsrfToken } });
+        if (!this.authService.notAuthorization) {
+            if (token !== null || !this.authService.isRefresh()) {
+                req = req.clone({ setHeaders: { Authorization: token } });
+            }
+            // const xsrfToken = this.xsrfTokenExt.getToken() as string;
+            // if (xsrfToken !== null) {
+            //     req = req.clone({ setHeaders: { 'X-CSRF-TOKEN': xsrfToken } });
+            // }
         }
         return req;
     }

@@ -41,8 +41,7 @@ export class AuthenticationService {
           localStorage.setItem(Default.TOKNTY, btoa(token.token_type));
           localStorage.setItem(Default.RFTOKN, btoa(token.refresh_token));
           this.isAccess.next(true);
-          return this.accessUser();
-
+          return Status.SUCCESS;
         } else {
           console.log('error token')
           this.isAccess.next(false)
