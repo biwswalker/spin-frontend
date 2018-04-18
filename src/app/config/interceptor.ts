@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent, HttpErrorResponse } from "@angular/common/http";
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent, HttpErrorResponse, HttpXsrfTokenExtractor } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import 'rxjs/add/operator/catch';
@@ -16,14 +16,17 @@ export class Interceptor implements HttpInterceptor {
     isRefreshingToken: boolean = false;
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    constructor(private authService: AuthenticationService) { }
+    constructor(private authService: AuthenticationService, private xsrfTokenExt: HttpXsrfTokenExtractor) { }
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
         let local = Locale;
-        if (token) {
-            if (!this.authService.isRefresh()) {
-                req = req.clone({ setHeaders: { Authorization: token, "Accept-Language": local, 'X-Requested-With': 'XMLHttpRequest' } });
-            }
+        req = req.clone({ setHeaders: { "Accept-Language": local } });
+        if (token !== null || !this.authService.isRefresh()) {
+            req = req.clone({ setHeaders: { Authorization: token } });
+        }
+        const xsrfToken = this.xsrfTokenExt.getToken() as string;
+        if (xsrfToken !== null) {
+            req = req.clone({ setHeaders: { 'X-XSRF-TOKEN': xsrfToken } });
         }
         return req;
     }
@@ -57,8 +60,6 @@ export class Interceptor implements HttpInterceptor {
                 alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
             }
         }
-        // console.log(error)
-        // console.log('Error 400 please call 191.')
         return Observable.throw(error);
     }
 
