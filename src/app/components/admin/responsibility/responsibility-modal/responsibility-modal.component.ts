@@ -88,7 +88,7 @@ export class ResponsibilityModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onInsertSuccess(res.respId);
+            this.eventMessagesService.onInsertSuccess('');
           },
           error => {
             console.log(error);
@@ -102,7 +102,7 @@ export class ResponsibilityModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onUpdateSuccess(res.respId);
+            this.eventMessagesService.onUpdateSuccess('');
           },
           error => {
             console.log(error);

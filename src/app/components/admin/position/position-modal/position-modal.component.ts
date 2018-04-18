@@ -85,7 +85,7 @@ export class PositionModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onInsertSuccess(res.positionId);
+            this.eventMessagesService.onInsertSuccess('');
           },
           error => {
             console.log(error);
@@ -99,7 +99,7 @@ export class PositionModalComponent implements OnInit {
           res => {
             console.log(res);
             this.changeState.emit(true);
-            this.eventMessagesService.onUpdateSuccess(res.positionId);
+            this.eventMessagesService.onUpdateSuccess('');
           },
           error => {
             console.log(error);
