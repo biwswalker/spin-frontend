@@ -26,90 +26,45 @@ export class ResponsibilitySearchComponent implements OnInit {
   public throttle = 1000;
   public scrollDistance = 1;
   protected criteriaValue: string;
+  public totalElements = 0;
 
   constructor(protected responsibilityService: ResponsibilityService) {
   }
 
   ngOnInit() {
     this.responsibilities = [];
-    this.getAllResponsibility();
+    this.onSearchByCriteria('');
   }
 
+  onChangeResp(resp) {
+    this.messageEvent.emit(resp.respId);
+  }
 
-
-  getAllResponsibility() {
-    console.log('getAllResponsibility');
+  onSearchByCriteria(criteria) {
     this.page = 1;
-    this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
+    this.criteriaValue = criteria;
+    this.responsibilityService.findByCriteria(criteria, this.page, this.size).subscribe(
       collection => {
-        this.responsibilities = collection;
-        this.messageEvent.emit(collection[0].respId);
-
+        this.responsibilities = collection.content;
+        this.totalElements = collection.totalElements;
+        if (collection.length > 0) {
+          this.messageEvent.emit(this.responsibilities[0].respId);
+        }
         this.page += 1;
       }
     );
   }
 
-  onChangeResp(resp) {
-    console.log(resp);
-    this.messageEvent.emit(resp.respId);
-  }
-
-  onSearchByCriteria(criteria) {
-    console.log(criteria);
-    this.page = 1;
-    if (criteria) {
-      this.criteriaValue = criteria;
-      this.responsibilityService.findByCriteria(criteria, this.page, this.size).subscribe(
-        collection => {
-          this.responsibilities = collection;
-          if (collection.length > 0) {
-            this.messageEvent.emit(collection[0].respId);
-          }
-          this.page += 1;
-        }
-      );
-    } else {
-      this.criteriaValue = '';
-      this.getAllResponsibility();
-    }
-  }
-
-  // onScrollDown() {
-  //   console.log('onScrollDown' + this.criteriaValue);
-  //   this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
-  //     collection => {
-  //       if (collection) {
-  //         this.page += 1;
-  //         this.responsibilities = this.responsibilities.concat(collection);
-  //       }
-  //     }
-  //   );
-  // }
-
   onScrollDown() {
-    console.log('onScrollDown' + this.criteriaValue);
-    if (this.criteriaValue) {
-      this.responsibilityService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
-        collection => {
-          this.responsibilities = this.responsibilities.concat(collection);
-          if (collection.length > 0) {
-            this.messageEvent.emit(collection[0].respId);
-          }
-          this.page += 1;
+    this.responsibilityService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
+      collection => {
+        this.responsibilities = this.responsibilities.concat(collection.content);
+        if (collection.length > 0) {
+          this.messageEvent.emit(this.responsibilities[0].respId);
         }
-      );
-    } else {
-      this.responsibilityService.findAllPageable(this.page, this.size).subscribe(
-        collection => {
-          console.log(collection)
-          if (collection) {
-            this.page += 1;
-            this.responsibilities = this.responsibilities.concat(collection);
-          }
-        }
-      );
-    }
+        this.page += 1;
+      }
+    );
 
   }
 

@@ -2,11 +2,10 @@
   <div class="col-12">
     <form class="form-group">
       <div class="input-group mb-2">
-        <input #key class="form-control" type="search" (keyup)="onSearchByCriteria(key.value)" placeholder="Search" aria-label="Search">
-        <div class="input-group-prepend">
-          <div class="input-group-text">
-            <i class="fas fa-search"></i>
-          </div>
+        <input #key class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" (click)="onSearchByCriteria(key.value)">
+            <i class="fas fa-search"></i> ค้นหา</button>
         </div>
 
       </div>
@@ -15,35 +14,8 @@
   </div>
 </div>
 
-<!-- <div class="row admin-table-header">
-  <div class="col-sm-6 text-left">ชื่อป้ายกำกับ</div>
-  <div class="col-sm-6 text-left">ประเภท</div>
-</div>
-
-<div class="search-results" data-infinite-scroll [scrollWindow]="false" [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
-  (scrolled)="onScrollDown()">
-  <div class="list-group" *ngFor="let tag of tags">
-    <button type="button" (click)="onChangeTag(tag)" class="list-group-item list-group-item-action">
-      <div class="row">
-        <div class="col-sm-6 text-left media">
-          <p>{{tag.tagName}}</p>
-        </div>
-        <div class="col-sm-6 text-left">
-          <p>{{tag.tagType == 'A' ? 'ประเภทการทำงาน' : 'ไม่ระบุ'}}</p>
-        </div>
-      </div>
-    </button>
-  </div>
-
-  <div class="row" *ngIf="tags.length === 0">
-    <div class="col-sm-12 text-center">
-      <p>ไม่พบข้อมูล</p>
-    </div>
-  </div>
-</div> -->
-
 <div class="row">
-  <div class="col-12">ทั้งหมด {{tags.length}} รายการ</div>
+  <div class="col-12">ทั้งหมด {{totalElements}} รายการ</div>
 </div>
 
 <div class="row search-results-header">
@@ -52,14 +24,10 @@
 </div>
 
 
-<div class="search-results-body"
-     data-infinite-scroll
-     debounce
-     [infiniteScrollDistance]="scrollDistance"
-     [infiniteScrollThrottle]="throttle"
-     (scrolled)="onScrollDown()">
-      <div class="row" *ngFor="let tag of tags" (click)="onChangeTag(tag)">
-        <div class="col-6">{{tag.tagName}}</div>
-        <div class="col-6">{{tag.tagType == 'A' ? 'ประเภทการทำงาน' : 'ไม่ระบุ'}}</div>
-      </div>
+<div class="search-results-body" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScrollDown()">
+  <div class="row" *ngFor="let tag of tags" (click)="onChangeTag(tag)">
+    <div class="col-6">{{tag.tagName}}</div>
+    <div class="col-6">{{tag.tagType == 'A' ? 'ประเภทการทำงาน' : 'ไม่ระบุ'}}</div>
+  </div>
 </div>

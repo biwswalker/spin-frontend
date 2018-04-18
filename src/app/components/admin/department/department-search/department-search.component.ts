@@ -54,7 +54,7 @@ export class DepartmentSearchComponent implements OnInit {
   onScrollDown() {
     this.departmentService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
       collection => {
-        this.departments = this.departments.concat(collection);
+        this.departments = this.departments.concat(collection.content);
         this.page += 1;
       }
     );

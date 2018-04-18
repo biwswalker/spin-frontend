@@ -23,7 +23,7 @@ export class PositionService {
     return this.request.requestMethodGET('position-management/positions/?p=' + page + '&s=' + size);
   }
   findByCriteria(key, page, size) {
-    return this.request.requestMethodGET('position-management/positions/find-by-criteria/' + key + '?p=' + page + '&s=' + size);
+    return this.request.requestMethodGET('position-management/positions/find-by-criteria?term=' + key + '&p=' + page + '&s=' + size);
   }
 
   onOpenModal() {

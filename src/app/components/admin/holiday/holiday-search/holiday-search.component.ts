@@ -20,72 +20,42 @@ export class HolidaySearchComponent implements OnInit {
   public scrollDistance = 1;
   protected criteriaValue: string;
 
+  public totalElements = 0;
 
   constructor(protected holidayService: HolidayService) { }
 
   ngOnInit() {
     this.holidays = [];
-    this.getAllHoliday();
-  }
-
-  getAllHoliday() {
-    console.log('getAllHoliday');
-    this.page = 1;
-    this.holidayService.findAllPageable(this.page, this.size).subscribe(
-      collection => {
-        this.holidays = collection;
-        this.messageEvent.emit(collection[0].holId);
-        this.page += 1;
-      }
-    );
+    this.onSearchByCriteria('');
   }
 
   onChangeHoliday(holiday) {
-    console.log(holiday);
     this.messageEvent.emit(holiday.holId);
   }
 
   onSearchByCriteria(criteria) {
-    console.log(criteria);
     this.page = 1;
-    if (criteria) {
-      this.criteriaValue = criteria;
-      this.holidayService.findByCriteria(criteria, this.page, this.size).subscribe(
-        collection => {
-          this.holidays = collection;
-          if (collection.length > 0) {
-            this.messageEvent.emit(collection[0].holId);
-          }
-          this.page += 1;
+    this.criteriaValue = criteria;
+    this.holidayService.findByCriteria(criteria, this.page, this.size).subscribe(
+      collection => {
+        this.holidays = collection.content;
+        this.totalElements = collection.totalElements;
+        if (collection.length > 0) {
+          this.messageEvent.emit(this.holidays[0].holId);
         }
-      );
-    } else {
-      this.criteriaValue = '';
-      this.getAllHoliday();
-    }
+        this.page += 1;
+      }
+    );
+
   }
 
-
   onScrollDown() {
-    console.log('onScrollDown' + this.criteriaValue);
-    if (this.criteriaValue) {
-      this.holidayService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
-        collection => {
-          this.holidays = this.holidays.concat(collection);
-          this.page += 1;
-        }
-      );
-    } else {
-      this.holidayService.findAllPageable(this.page, this.size).subscribe(
-        collection => {
-          console.log(collection)
-          if (collection) {
-            this.page += 1;
-            this.holidays = this.holidays.concat(collection);
-          }
-        }
-      );
-    }
+    this.holidayService.findByCriteria(this.criteriaValue, this.page, this.size).subscribe(
+      collection => {
+        this.holidays = this.holidays.concat(collection.content);
+        this.page += 1;
+      }
+    );
 
   }
 
