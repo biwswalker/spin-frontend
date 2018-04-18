@@ -1,41 +1,37 @@
 <div class="row">
   <div class="col-12">
-    <form>
-        <div class="input-group">
-          <input class="form-control input-sm" id="keyword" name="keyword" type="text"
-          [(ngModel)]="keyword">
-          <div class="input-group-append">
-            <input type="submit" class="btn btn-primary" value="ค้นหา" (click)="onTermChange($event)">
-          </div>
+    <div class="input-group">
+        <input type="text"
+               id="keyword"
+               name="keyword"
+               class="form-control"
+               [(ngModel)]="keyword">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button"
+        (click)="doSearch()"><i class="fas fa-search"></i> ค้นหา</button>
       </div>
-  </form>
+    </div>
+  </div>
 </div>
+<div class="row">
+      <div class="col-12" >ทั้งหมด 6 รายการ</div>
 </div>
-<div class="row table-header mt-2">
-    <div class="col-sm-6 text-center">ชื่อผู้ใช้งาน</div>
-    <div class="col-sm-6 text-center">ระดับการใช้งาน</div>
+<div class="row search-results-header">
+    <div class="col-3">รหัสผู้ใช้</div>
+    <div class="col-5">ชื่อ - นามสกุล</div>
+    <div class="col-2">ระดับ</div>
+    <div class="col-2">สถานะ</div>
 </div>
 
-<div class="search-results" data-infinite-scroll debounce
+<div class="search-results-body" data-infinite-scroll debounce
   [infiniteScrollDistance]="scrollDistance"
   [infiniteScrollThrottle]="throttle"
   (scrolled)="onScrollDownWithKeyword()">
-<ul class="list-group list-group-flush" *ngFor="let user of userList;let i = index" >
-  <div>
-    <button class="list-group-item list-group-item-action" type="button"
-    (click)="onItemSelected(user)">
-      <div class="row">
-        <div class="col-sm-6 text-left">
-          <p>{{user.officer.firstNameTh}} {{user.officer.lastNameTh}}</p>
-        </div>
-        <div class="col-sm-6 text-center">
-          <p>{{user.userLevel=='A'?'Admin':user.userLevel=='P'?'Project Editor':'User'}}</p>
-        </div>
-
+      <div class="row" *ngFor="let user of userList;let i = index">
+          <div class="col-3"><span>{{user.userId}}</span></div>
+          <div class="col-5"><span>{{user.officer.firstNameTh}} {{user.officer.lastNameTh}}</span></div>
+          <div class="col-2"> <span>{{user.userLevel=='A'?'Admin':user.userLevel=='P'?'Project Editor':'User'}}</span></div>
+          <div class="col-2"> <span>{{user.activeFlag=='A'?'ใช้งาน':'ไม่ใช้งาน'}}</span></div>
       </div>
-    </button>
-  </div>
-
-</ul>
 </div>
 

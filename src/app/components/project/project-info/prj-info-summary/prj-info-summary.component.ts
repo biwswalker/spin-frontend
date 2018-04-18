@@ -26,8 +26,16 @@ export class PrjInfoSummaryComponent implements OnInit {
     this.spinCustomList.selectOne('.tags-filter-list');
   }
 
+  reset(){
+    this.memberSpent = new Summary;
+    this.tagsSpent = new Summary;
+    this.memberSummary=[];
+    this.tagsSummary=[];
+  }
+
 
   displayProjectSummary(projectId,seqId){
+    console.log('displayProjectSummary.......')
     this.projectId = (projectId?projectId:this.projectId);
     this.memberSpent = new Summary;
     this.tagsSpent = new Summary;
@@ -35,6 +43,7 @@ export class PrjInfoSummaryComponent implements OnInit {
     this.tagsSummary=[];
     this.projectService.findMemberSummary(this.projectId,seqId).subscribe(
       data=>{
+        console.log(data)
         if(data!){
           this.memberSpent = data.maxSpentTime;
           this.memberSpent.hour = this.utilsService.calcurateHours(data.maxSpentTime.hour,data.maxSpentTime.minute);

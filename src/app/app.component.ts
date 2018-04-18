@@ -19,9 +19,16 @@ export class AppComponent implements OnInit {
   constructor(private router: Router,private authService: AuthenticationService, private utilService: UtilsService) {
     const url = localStorage.getItem('currentUrl');
     this.authService.crrAccess.subscribe(async accesses => {
+      console.log('accesses: ',accesses)
+      console.log('url: ',url)
       if (accesses) {
         this.isAccess = true;
-        this.router.navigate([url=='/login'?'/attendance':url]);
+        if(url){
+          this.router.navigate([(url=='/login')?'/attendance':url]);
+        }else{
+          this.router.navigate(['/attendance']);
+        }
+
       } else {
         this.isAccess = false;
         this.router.navigate(['/login']);

@@ -64,6 +64,7 @@ export class ProjectComponent{
   displayProjectDetail(projectId){
     this.projectInfo.projectDetail.user = this.user;
     this.projectInfo.projectDetail.projectPhases = [];
+    this.projectInfo.projectSummary.reset();
     this.projectService.findProjectById(projectId).subscribe(
       data=>{
         if(data!)

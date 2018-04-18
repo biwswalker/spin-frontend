@@ -1,5 +1,4 @@
-<div class="row"
-     *ngIf="renderPage">
+<div class="row"   *ngIf="renderPage">
   <div class="col-12">
     <div class="page-title d-flex">
       <h4 class="d-inline-block">โครงการ</h4>
@@ -25,7 +24,7 @@
   </div>
   </div>
   <div class="row"  *ngIf="renderPage">
-  <div class="col-12 col-md-6 col-xl-6 content-left">
+  <div class="col-12 col-md-6 content-left">
     <div class="row">
       <div class="col-12">
         <app-project-search (messageEvent)="passKeyToChildrens($event)"></app-project-search>
@@ -33,7 +32,7 @@
     </div>
 
   </div>
-  <div class="col-12 col-md-6 col-xl-6 content-right">
+  <div class="col-12 col-md-6 content-right">
     <div class="row">
       <div class="col-12">
         <app-project-info></app-project-info>

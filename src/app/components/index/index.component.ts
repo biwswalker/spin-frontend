@@ -76,7 +76,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   onChangeRoute(){
-    localStorage.setItem('currentUrl',this.currentUrl)
+    if(this.currentUrl != '/login'){
+      localStorage.setItem('currentUrl',this.currentUrl)
+    }
+
     console.log('current url:',this.currentUrl)
     this.worktimeIcon = (this.currentUrl ==''||this.currentUrl =='/attendance'?this.worktimeIconWhite:this.worktimeIconBlack);
     this.projectIcon = (this.currentUrl =='/project'?this.projectIconWhite:this.projectIconBlack);

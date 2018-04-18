@@ -17,7 +17,7 @@ export class UserRegisterSearchComponent implements OnInit {
   public userSelected: User = new User();
   public userList: any = [];
   public page = 1;
-  public size = 6;
+  public size = 20;
 
   public throttle = 1000;
   public scrollDistance = 1;
@@ -39,6 +39,7 @@ export class UserRegisterSearchComponent implements OnInit {
         .findAllByCriteria(this.keyword, this.page, this.size)
         .subscribe(
           data => {
+            console.log(data)
             if (data) {
               this.userList = this.userList.concat(data);
               if (this.userList.length !== 0 && this.page === 1) {
