@@ -85,14 +85,18 @@ input,textarea{
 .search-results-body{
   >div{
     cursor: pointer;
-    background: rgb(233, 236, 239);
+
   }
 
   >div:nth-child(2n) {
-    background: rgb(255, 255, 255) !important;
+    background: rgb(233, 236, 239);
   }
 
   >div:hover{
+    color:rgb(255,255,255) !important;
+    background: rgba(191, 0, 19, 0.5) !important;
+  }
+  >div.active{
     color:rgb(255,255,255) !important;
     background: rgba(191, 0, 19, 0.5) !important;
   }
