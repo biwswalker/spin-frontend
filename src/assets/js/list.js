@@ -1,5 +1,5 @@
 //For Project infinite scroll
-$(document).on('click','.data-can-select-list li',function(event) {
+$(document).on('click','.data-can-select-list li,.search-results-body>div',function(event) {
   var target = $(event.target);
  if(!target.is('.fa-heart')){
     $(this).addClass('active').siblings().removeClass('active');

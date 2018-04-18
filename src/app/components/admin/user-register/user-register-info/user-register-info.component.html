@@ -22,7 +22,7 @@
     </div>
     <div class="col-4">
       <label>สถานะ</label>
-      <p>{{user.activeFlag=='A'?'ใช้งาน':'ไม่ใช้งาน'}}</p>
+      <p>{{(user.activeFlag=='A'?'ใช้งาน':(user.activeFlag=='I'?'ไม่ใช้งาน':''))}}</p>
     </div>
   </div>
   <div class="row">

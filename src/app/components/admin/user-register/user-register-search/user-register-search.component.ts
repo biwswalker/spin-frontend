@@ -72,7 +72,6 @@ export class UserRegisterSearchComponent implements OnInit {
   }
 
   onItemSelected(userSelected) {
-    console.log(userSelected.userId);
     this.userSelected = userSelected;
     this.messageEvent.emit(userSelected.userId);
   }

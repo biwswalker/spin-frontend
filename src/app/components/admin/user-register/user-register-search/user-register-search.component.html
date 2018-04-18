@@ -27,7 +27,7 @@
   [infiniteScrollDistance]="scrollDistance"
   [infiniteScrollThrottle]="throttle"
   (scrolled)="onScrollDownWithKeyword()">
-      <div class="row" *ngFor="let user of userList;let i = index">
+      <div class="row" *ngFor="let user of userList;let i = index" (click)="onItemSelected(user)">
           <div class="col-3"><span>{{user.userId}}</span></div>
           <div class="col-5"><span>{{user.officer.firstNameTh}} {{user.officer.lastNameTh}}</span></div>
           <div class="col-2"> <span>{{user.userLevel=='A'?'Admin':user.userLevel=='P'?'Project Editor':'User'}}</span></div>
