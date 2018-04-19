@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { URL } from '../../config/properties';
 
 @Injectable()
 export class HttpRequestService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private csrfToken: HttpXsrfTokenExtractor) { }
 
   requestMethodGET(path: string): Observable<any> {
-    // console.log(`GET URL => ${URL + path}`);
+    // let csrf = this.csrfToken.getToken() as string;
     return this.http.get(URL + path);
   }
 
-  requestMethodDelete(path: string): Observable<any>{
-    // console.log(`GET URL => ${URL + path}`);
+  requestMethodDelete(path: string): Observable<any> {
+    // let csrf = this.csrfToken.getToken() as string;
     return this.http.delete(URL + path);
   }
 
@@ -23,8 +23,7 @@ export class HttpRequestService {
       "Content-Type": `application/json`
     })
     const body = JSON.stringify(param);
-    // console.log(`POST URL => ${URL + path}`);
-    // console.log(`BODY => ${body}`);
+    // let csrf = this.csrfToken.getToken() as string;
     return this.http.post(URL + path, body, { responseType: 'json', headers: headers });
   }
 
@@ -33,20 +32,17 @@ export class HttpRequestService {
       "Content-Type": `application/json`
     })
     const body = JSON.stringify(param);
-    // console.log(`PUT URL => ${URL + path}`);
-    // console.log(`BODY => ${body}`);
+    // let csrf = this.csrfToken.getToken() as string;
     return this.http.put(URL + path, body, { responseType: 'json', headers: headers });
   }
 
   requestMethodPOSTWithHeader(path: string, param: any, options: any): Observable<any> {
-    // console.log(`POST URL => ${URL + path}`);
-    // console.log(`param => ${param}`);
+    // let csrf = this.csrfToken.getToken() as string;
     return this.http.post(URL + path, param, options);
   }
 
   requestMethodPUTWithHeader(path: string, param: any, options: any): Observable<any> {
-    // console.log(`PUT URL => ${URL + path}`);
-    // console.log(`param => ${param}`);
+    // let csrf = this.csrfToken.getToken() as string;
     return this.http.put(URL + path, param, options);
   }
 }

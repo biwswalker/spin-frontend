@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   constructor(private authService: AuthenticationService,
     private eventMessageService: EventMessagesService,
-    private router:Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.loginGroup = new FormGroup({
@@ -32,10 +32,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     $(".modal-backdrop").hide();
   }
 
-  onLogin() {
+  async onLogin() {
     if (this.loginGroup.valid) {
       spin(true);
-      setTimeout(() => {
+      await setTimeout(async () => {
         localStorage.setItem(Default.RFPWD, btoa(this.loginGroup.value.password));
         if (this.loginGroup.value.remember) {
           localStorage.setItem(Default.USR, btoa(this.loginGroup.value.username))
@@ -47,15 +47,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
           localStorage.removeItem(Default.RMB)
         }
         let result = false;
-        this.authService.authen(this.loginGroup.value.username, this.loginGroup.value.password).then((data) => {
+        let logonResult = await this.authService.authen(this.loginGroup.value.username, this.loginGroup.value.password);
+        if (logonResult === Status.SUCCESS) {
           result = true;
-          if (data == Status.SUCCESS) {
-            spin(false);
-          } else {
-            spin(false);
-            console.log(Status.ERROR)
-          }
-        });
+          spin(false);
+          await this.authService.accessUser();
+        } else {
+          result = true;
+          spin(false);
+          console.log(Status.ERROR)
+        }
+
         setTimeout(() => {
           spin(false);
           if (!result) {

@@ -57,9 +57,6 @@
            role="tabpanel"
            aria-labelledby="member-tab">
         <div class="row">
-          <!-- <label class="label-task-modal">
-            สมาชิกโครงการ
-          </label> -->
           <div class="col-12 rounded bg-white text-dark scroll-auto">
             <div id="member-list" class="mt-2"
                  *ngFor="let obj of taskMember">
@@ -79,15 +76,6 @@
            id="partner"
            role="tabpanel"
            aria-labelledby="partner-tab">
-        <!-- <div class="row"> -->
-          <!-- <label class="label-task-modal">สมาชิกโครงการ</label> -->
-          <!-- <div class="col-12 rounded bg-white text-dark scroll-auto">
-            <div id="member-list"
-                 *ngFor="let obj of taskPartner">
-              {{obj.fullName}}
-            </div>
-          </div> -->
-        <!-- </div> -->
         <div class="row"
              *ngIf="mode !== 'VIEW'">
           <div class="col-10 mt-2"

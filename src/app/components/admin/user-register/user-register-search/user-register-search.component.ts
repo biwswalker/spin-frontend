@@ -36,6 +36,7 @@ export class UserRegisterSearchComponent implements OnInit {
   }
 
   onScrollDownWithKeyword() {
+    console.log(this.page)
       this.userRegisterService
         .findAllByCriteria(this.keyword, this.page, this.size)
         .subscribe(

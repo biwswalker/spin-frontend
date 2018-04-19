@@ -21,7 +21,7 @@ export class TagService {
     return this.request.requestMethodGET('tasktag-management/tasktags/' + taskId);
   }
 
-  findByUserId(){
+  findByUserId() {
     return this.request.requestMethodGET('tag-management/tags')
   }
 
@@ -33,9 +33,9 @@ export class TagService {
 
   findByCriteria(key, page, size) {
     return this.request.requestMethodGET(
-      "tag-management/tags/find-by-criteria/" +
+      "tag-management/tags/find-by-criteria?term" +
       key +
-      "?p=" +
+      "&p=" +
       page +
       "&s=" +
       size
