@@ -128,21 +128,6 @@ export class TaskPartnerComponent {
   }
 
   async getautoCompletePartner(projectId) {
-    // this.partnerService.findAllUserByProjectId(projectId).subscribe(
-    //   partners => {
-    //     // console.log(partners)
-    //     this.autocompletePartnerList = [];
-    //     if (partners) {
-    //       this.autocompletePartnerList = partners;
-    //       for (let obj of this.autocompletePartnerList) {
-    //         if (obj.userId == this.user.userId) {
-    //           this.autocompletePartnerList.splice(obj);
-    //         }
-
-    //       }
-    //     }
-    //   }
-    // );
     this.autocompletePartnerList = [];
     await this.partnerService.findAllUserByProjectId(projectId).map(
       partners => {

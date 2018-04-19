@@ -113,6 +113,7 @@ export class PersonReportComponent implements OnInit {
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
     let byDate = await this.taskService.reportPersonByDate(startDateStr, endDateStr, this.officer)
       .map(async (result) => {
+        console.log(result)
         if (result) {
           this.byDate.initialData(result);
         }
@@ -127,6 +128,7 @@ export class PersonReportComponent implements OnInit {
     let endDateStr = this.utilsService.convertDatePickerToThDate(form.endDate);
     let orderByProjectList = await this.taskService.reportPersonByProject(startDateStr, endDateStr, this.officer)
       .map(async (callbackList) => {
+        console.log(callbackList)
         if (callbackList) {
           this.byProject.initialData(callbackList);
         }
