@@ -21,7 +21,6 @@ export class PartnerService {
     return new Observable(observer => {
       return this.request.requestMethodGET('user-management/users/project-id/' + prjId).subscribe(partner => {
         let atpPartners = []
-        console.log(partner)
         for (let obj of partner) {
           if(obj.officer){
             atpPartners.push({ userId: obj.userId, email: obj.email, fullName: obj.officer.firstNameTh + ' ' + obj.officer.lastNameTh });

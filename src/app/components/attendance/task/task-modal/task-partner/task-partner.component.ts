@@ -35,7 +35,6 @@ export class TaskPartnerComponent {
   public isHiddenDeletePartner: boolean = false;
   public isDisableDoSelfFlag: boolean = false;
   public sumMember: number;
-  public sumPartner: number = 0;
   public refTask: number = 0;
 
 
@@ -81,6 +80,7 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
+    this.sumMember = 0;
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
