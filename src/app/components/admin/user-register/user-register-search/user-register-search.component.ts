@@ -32,7 +32,7 @@ export class UserRegisterSearchComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.onScrollDownWithKeyword();
+    this.doSearch();
   }
 
   onScrollDownWithKeyword() {
@@ -65,15 +65,11 @@ export class UserRegisterSearchComponent implements OnInit {
     this.messageEvent.emit(user.userId);
   }
 
-  onTermChange(event) {
+  doSearch() {
     this.page = 1;
     this.userList = null;
     this.userList = [];
     this.onScrollDownWithKeyword();
   }
 
-  onItemSelected(userSelected) {
-    this.userSelected = userSelected;
-    this.messageEvent.emit(userSelected.userId);
-  }
 }
