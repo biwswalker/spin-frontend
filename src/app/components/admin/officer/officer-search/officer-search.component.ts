@@ -33,13 +33,15 @@ export class OfficerSearchComponent implements OnInit {
 
 
   onSearchByCriteria(criteria) {
+    console.log(criteria);
+
     this.page = 1;
     this.criteriaValue = criteria;
     this.officerService.findByCriteria(criteria, this.page, this.size).subscribe(
       collection => {
-        this.officers = collection;
+        this.officers = collection.content;
         this.totalElements = collection.totalElements;
-        if (collection.length > 0) {
+        if (this.officers.length > 0) {
           this.messageEvent.emit(this.officers[0].officeId);
         }
         this.page += 1;

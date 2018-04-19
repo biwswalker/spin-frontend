@@ -41,7 +41,7 @@ export class PositionSearchComponent implements OnInit {
       collection => {
         this.positions = collection.content;
         this.totalElements = collection.totalElements;
-        if (collection.length > 0) {
+        if (this.positions.length > 0) {
           this.messageEvent.emit(this.positions[0].positionId);
         }
         this.page += 1;

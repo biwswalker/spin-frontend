@@ -37,7 +37,7 @@ export class TagSearchComponent implements OnInit {
       collection => {
         this.tags = collection.content;
         this.totalElements = collection.totalElements;
-        if (collection.length > 0) {
+        if (this.tags.length > 0) {
           this.messageEvent.emit(this.tags[0].tagId);
         }
         this.page += 1;

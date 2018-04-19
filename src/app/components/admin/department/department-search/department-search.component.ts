@@ -41,7 +41,7 @@ export class DepartmentSearchComponent implements OnInit {
       collection => {
         this.departments = collection.content;
         this.totalElements = collection.totalElements;
-        if (collection.length > 0) {
+        if (this.departments.length > 0) {
           this.messageEvent.emit(this.departments[0].deptId);
         }
         this.page += 1;

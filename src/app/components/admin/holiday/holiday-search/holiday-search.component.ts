@@ -40,7 +40,7 @@ export class HolidaySearchComponent implements OnInit {
       collection => {
         this.holidays = collection.content;
         this.totalElements = collection.totalElements;
-        if (collection.length > 0) {
+        if (this.holidays.length > 0) {
           this.messageEvent.emit(this.holidays[0].holId);
         }
         this.page += 1;
