@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
       password: new FormControl(localStorage.getItem(Default.PWD) ? atob(localStorage.getItem(Default.PWD)) : null, Validators.required),
       remember: new FormControl(localStorage.getItem(Default.RMB) === Default.YES ? true : false)
     })
+
+
   }
 
   ngAfterViewInit() {

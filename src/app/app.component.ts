@@ -17,18 +17,12 @@ export class AppComponent implements OnInit {
   private currentUrl;
 
   constructor(private router: Router,private authService: AuthenticationService, private utilService: UtilsService) {
-    const url = localStorage.getItem('currentUrl');
-    this.authService.crrAccess.subscribe(async accesses => {
-      console.log('accesses: ',accesses)
-      console.log('url: ',url)
+    this.authService.crrAccess.subscribe(accesses => {
+    console.log(this.router.url)
       if (accesses) {
         this.isAccess = true;
-        if(url){
-          this.router.navigate([(url=='/login')?'/attendance':url]);
-        }else{
-          this.router.navigate(['/attendance']);
-        }
-
+        if(this.router.url =='/login')
+        this.router.navigate(['/attendance']);
       } else {
         this.isAccess = false;
         this.router.navigate(['/login']);
