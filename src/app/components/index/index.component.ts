@@ -63,23 +63,22 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   }
 
- async  ngOnInit() {
-  this.onChangeRoute();
-      this.router.events.subscribe((val) => {
-      if(val['url']){
-        this.currentUrl = val['url'].trim();
+ ngOnInit() {
+      this.onChangeRoute()
+      this.router.events.subscribe( (val) => {
+        console.log('val url: ',val)
+        this.currentUrl = val['url']!='/'?val['url']:val['urlAfterRedirects']
         this.onChangeRoute();
-      }
   })
 
 
   }
 
   onChangeRoute(){
-    if(this.currentUrl != '/login'){
-      localStorage.setItem('currentUrl',this.currentUrl)
-    }
-    this.worktimeIcon = (this.currentUrl ==''||this.currentUrl =='/attendance'?this.worktimeIconWhite:this.worktimeIconBlack);
+
+    console.log('current url',this.currentUrl)
+    console.log(this.router.url)
+    this.worktimeIcon = (!this.currentUrl||this.currentUrl =='/attendance'?this.worktimeIconWhite:this.worktimeIconBlack);
     this.projectIcon = (this.currentUrl =='/project'?this.projectIconWhite:this.projectIconBlack);
     this.leaveIcon = this.leaveIconRed;
     this.inoutIcon = this.inoutIconRed;
