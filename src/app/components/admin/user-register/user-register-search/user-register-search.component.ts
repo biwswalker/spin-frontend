@@ -44,7 +44,7 @@ export class UserRegisterSearchComponent implements OnInit {
             this.total = data.totalElements;
             console.log(data)
             if (data) {
-              this.userList = this.userList.concat(data);
+              this.userList = this.userList.concat(data.content);
               if (this.userList.length !== 0 && this.page === 1) {
                 this.onUserSelected(this.userList[0]);
               }
