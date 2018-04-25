@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
 import { Subject } from 'rxjs';
 import { EventMessagesService } from './utils/event-messages.service';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -132,10 +131,13 @@ export class AuthenticationService {
   }
 
   removeToken() {
-    localStorage.removeItem(Default.ACTOKN)
-    localStorage.removeItem(Default.TOKNTY)
-    localStorage.removeItem(Default.RFTOKN)
-    localStorage.removeItem(Default.RFPWD);
+    const usr = localStorage.getItem(Default.USR);
+    const pwd = localStorage.getItem(Default.PWD);
+    const rmb = localStorage.getItem(Default.RMB);
+    localStorage.clear();
+    usr !== null ? localStorage.setItem(Default.USR, usr) : null;
+    pwd !== null ? localStorage.setItem(Default.PWD, pwd) : null;
+    rmb !== null ? localStorage.setItem(Default.RMB, rmb) : null;
   }
 
   refreshToken(): Observable<string> {

@@ -212,7 +212,7 @@ import { DisableControlDirective } from './directives/DisableControlDirective';
     PdfViewerModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',
-      headerName: 'X-XSRF-TOKEN'
+      headerName: 'X-CSRF-TOKEN'
     })
   ],
   providers: [

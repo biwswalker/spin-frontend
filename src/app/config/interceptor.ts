@@ -9,7 +9,7 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/take';
 import { AuthenticationService } from "../providers/authentication.service";
-import { Locale } from "./properties";
+import { Locale, Method } from "./properties";
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
@@ -25,11 +25,16 @@ export class Interceptor implements HttpInterceptor {
             if (token !== null || !this.authService.isRefresh()) {
                 req = req.clone({ setHeaders: { Authorization: token } });
             }
-            // const xsrfToken = this.xsrfTokenExt.getToken() as string;
-            // if (xsrfToken !== null) {
-            //     req = req.clone({ setHeaders: { 'X-CSRF-TOKEN': xsrfToken } });
-            // }
+            const xsrfToken = this.xsrfTokenExt.getToken() as string;
+            if (xsrfToken !== null) {
+                const baseUrl = req.url;
+                req = req.clone({ setHeaders: { 'X-CSRF-TOKEN': xsrfToken } });
+                // if (req.method === Method.GET) {
+                req = req.clone({ url: `${baseUrl}?_csrf=${xsrfToken}` });
+                // }
+            }
         }
+        console.info(req)
         return req;
     }
 
@@ -59,7 +64,8 @@ export class Interceptor implements HttpInterceptor {
         if (error.error.error === 'invalid_request') {
             let errorDesc = error.error.description;
             if (errorDesc.toLowerCase().indexOf("Invalid refresh token".toLowerCase()) > -1) {
-                alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+                // alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
+                console.log('Invalid refresh token')
             }
         }
         return Observable.throw(error);

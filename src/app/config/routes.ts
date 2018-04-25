@@ -1,4 +1,3 @@
-import { LoginComponent } from './../components/login/login.component';
 import { HelpComponent } from './../components/help/help.component';
 import { ChangePasswordComponent } from './../components/change-password/change-password.component';
 import { TaskModalComponent } from './../components/attendance/task/task-modal/task-modal.component';
@@ -21,12 +20,15 @@ import { UnstampedReportComponent } from '../components/reports/unstamped-report
 import { ProjectTagReportComponent } from '../components/reports/project-tag-report/project-tag-report.component';
 import { TagComponent } from '../components/admin/tag/tag.component';
 import { ProjectPersonReportComponent } from '../components/reports/project-person-report/project-person-report.component';
+import { LoginComponent } from '../components/login/login.component';
+import { IsAuth } from './isAuth';
 
 const routes: Routes = [
   { path: '',
     redirectTo: '/attendance',
     pathMatch: 'full'
   },
+  { path: 'login', component: LoginComponent, canActivate: [IsAuth] },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'attendance', component: AttendanceComponent },
@@ -41,7 +43,6 @@ const routes: Routes = [
   { path: 'department', component: DepartmentComponent },
   { path: 'position', component: PositionComponent },
   { path: 'help', component: HelpComponent },
-  { path: 'login', component: LoginComponent },
   {
     path: 'report', component: ReportComponent, children: [
       { path: 'unstamped', component: UnstampedReportComponent },

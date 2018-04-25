@@ -2,7 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { AuthenticationService } from './providers/authentication.service';
 import { UtilsService } from './providers/utils/utils.service';
 import { Status } from './config/properties';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-root',
@@ -16,28 +16,30 @@ export class AppComponent implements OnInit {
   private isRequested = false;
   private currentUrl;
 
-  constructor(private router: Router,private authService: AuthenticationService, private utilService: UtilsService) {
-    const url = localStorage.getItem('currentUrl');
-    this.authService.crrAccess.subscribe(async accesses => {
-      console.log('accesses: ',accesses)
-      console.log('url: ',url)
+  constructor(private router: Router,private route: ActivatedRoute, private authService: AuthenticationService, private utilService: UtilsService) {
+    // const url = localStorage.getItem('currentUrl');
+    this.currentUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.authService.crrAccess.subscribe(accesses => {
+      // console.log('accesses: ',accesses)
+      // console.log('url: ',url)
+      
       if (accesses) {
         this.isAccess = true;
-        if(url){
-          this.router.navigate([(url=='/login')?'/attendance':url]);
-        }else{
-          this.router.navigate(['/attendance']);
-        }
+        this.router.navigateByUrl(this.currentUrl);
+        // if(url){
+        //   this.router.navigate([url]);
+        // }else{
+        //   this.router.navigate(['/attendance']);
+        // }
 
       } else {
+        this.router.dispose();
         this.isAccess = false;
-        this.router.navigate(['/login']);
       }
     })
   }
 
   ngOnInit() {
-
     this.utilService.isLoading.subscribe((isLoad: boolean) => {
       setTimeout(() => { this.loading = isLoad, 0 })
     });
