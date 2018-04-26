@@ -61,13 +61,9 @@ export class TaskDetailComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // Get User
     this.user = this.auth.getUser();
     this.taskObj = new Task();
     this.validateData();
-    // Initial Fav Project
-    // this.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
-    // Find project
     this.projectList = await this.projectService.fetchProjectAutocomplete().toPromise();
   }
 
@@ -84,7 +80,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   initTaskDetail(task: Task, mode: string) {
-    // console.log('task=> ', task)
     this.mode = mode;
     this.taskObj = new Task();
     this.taskObj = task;
@@ -117,7 +112,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   validateData() {
-    // this.taskDetailFormGroup.reset();
     this.taskDetailFormGroup = new FormGroup({
       taskDetailStatusFlag: new FormControl(this.taskObj.statusFlag == 'A' ? true : false),
       taskDetailWorkDate: new FormControl(this.workDate , Validators.required),

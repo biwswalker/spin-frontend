@@ -80,9 +80,10 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
-    this.sumMember = 0;
+
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
+        this.sumMember = 0;
         if (members) {
           this.taskMember = [];
           for (let obj of members) {

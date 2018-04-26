@@ -87,9 +87,11 @@ export class ProjectService {
 
   fetchProjectAutocomplete() {
     return this.request.requestMethodGET('project-management/projects/find-autocomplete-project/N').map(projects => {
+      console.log(projects)
       for (let obj of projects) {
         obj.projectName = obj.projectAbbr + ' : ' + obj.projectName;
       }
+
       return projects
     })
   }
