@@ -47,7 +47,7 @@ export class ResponsibilitySearchComponent implements OnInit {
       collection => {
         this.responsibilities = collection.content;
         this.totalElements = collection.totalElements;
-        if (collection.length > 0) {
+        if (this.responsibilities.length > 0) {
           this.messageEvent.emit(this.responsibilities[0].respId);
         }
         this.page += 1;

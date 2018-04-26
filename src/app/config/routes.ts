@@ -21,14 +21,13 @@ import { ProjectTagReportComponent } from '../components/reports/project-tag-rep
 import { TagComponent } from '../components/admin/tag/tag.component';
 import { ProjectPersonReportComponent } from '../components/reports/project-person-report/project-person-report.component';
 import { LoginComponent } from '../components/login/login.component';
-import { IsAuth } from './isAuth';
 
 const routes: Routes = [
   { path: '',
-    redirectTo: '/attendance',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
-  { path: 'login', component: LoginComponent, canActivate: [IsAuth] },
+  { path: 'login', component: LoginComponent },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'attendance', component: AttendanceComponent },

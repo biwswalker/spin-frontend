@@ -69,8 +69,8 @@ export class ProjectService {
   findTagsSummary(projectId, seqId) {
     return this.request.requestMethodGET('task-management/sums-each-tags/project-id/' + projectId + '/phase-id/' + seqId);
   }
-  async findProjectAbbrById(projectId) {
-    let filteredPrj = await this.holderPojectAbbr.find(prj => prj.projectId === projectId)
+  findProjectAbbrById(projectId) {
+    let filteredPrj = this.holderPojectAbbr.find(prj => prj.projectId === projectId)
     if (!filteredPrj) {
       return this.findProjectById(projectId).map(project => {
         this.holderPojectAbbr.push({ projectId: project.projectId, projectAbbr: project.projectAbbr })

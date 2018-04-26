@@ -29,12 +29,9 @@ export class Interceptor implements HttpInterceptor {
             if (xsrfToken !== null) {
                 const baseUrl = req.url;
                 req = req.clone({ setHeaders: { 'X-CSRF-TOKEN': xsrfToken } });
-                // if (req.method === Method.GET) {
-                req = req.clone({ url: `${baseUrl}?_csrf=${xsrfToken}` });
-                // }
+                // , url: `${baseUrl}?_csrf=${xsrfToken}`
             }
         }
-        console.info(req)
         return req;
     }
 
@@ -60,13 +57,6 @@ export class Interceptor implements HttpInterceptor {
         if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
             alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
             return this.logoutUser();
-        }
-        if (error.error.error === 'invalid_request') {
-            let errorDesc = error.error.description;
-            if (errorDesc.toLowerCase().indexOf("Invalid refresh token".toLowerCase()) > -1) {
-                // alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
-                console.log('Invalid refresh token')
-            }
         }
         return Observable.throw(error);
     }

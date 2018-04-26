@@ -12,8 +12,8 @@ import { User } from '../../models/user';
         <h2 class="d-inline-block">รายงาน</h2>
             <div style="padding-left:10px;">
             <select class="form-control" name="report-page" (change)="onChangeReport($event.target.value)">
-                    <option *ngIf="user.userLevel === 'A'" [selected]="crrUrl === '/report/project-tag'" value="report/project-tag">การทำงานของโครงการแยกตามป้ายกำกับ</option>
-                    <option *ngIf="user.userLevel === 'A'" [selected]="crrUrl === '/report/project-person'" value="report/project-person">รายงานการทำงานของโครงการแยกตามพนักงาน</option>
+                    <option *ngIf="user.userLevel === 'P' || user.userLevel === 'A'" [selected]="crrUrl === '/report/project-tag'" value="report/project-tag">การทำงานของโครงการแยกตามป้ายกำกับ</option>
+                    <option *ngIf="user.userLevel === 'P' || user.userLevel === 'A'" [selected]="crrUrl === '/report/project-person'" value="report/project-person">รายงานการทำงานของโครงการแยกตามพนักงาน</option>
                     <option *ngIf="user.userLevel === 'P' || user.userLevel === 'A'" [selected]="crrUrl === '/report/unstamped'" value="report/unstamped">ผู้ที่ไม่ได้ลงเวลาทำงาน</option>
                 </select>
             </div>

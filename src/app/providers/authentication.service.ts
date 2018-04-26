@@ -47,12 +47,11 @@ export class AuthenticationService {
           return Status.ERROR;
         }
       })
-      .catch(error => {
+      .catch(async error => {
         this.notAuthorization = false;
         console.log(error)
         if (error.status != 0)
           this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error.error.description);
-
         localStorage.removeItem(Default.ACTOKN);
         localStorage.removeItem(Default.TOKNTY);
         localStorage.removeItem(Default.RFTOKN);
@@ -83,7 +82,6 @@ export class AuthenticationService {
         }
       }).catch(error => {
         console.log(error)
-        // alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
         this.logout();
         return Status.ERROR;
       });
@@ -166,6 +164,7 @@ export class AuthenticationService {
           return Status.ERROR;
         }
       }, error => {
+        console.log(error);
         this.notAuthorization = false
         alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
         this.logout();

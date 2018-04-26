@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
       password: new FormControl(localStorage.getItem(Default.PWD) ? atob(localStorage.getItem(Default.PWD)) : null, Validators.required),
       remember: new FormControl(localStorage.getItem(Default.RMB) === Default.YES ? true : false)
     })
+
+
   }
 
   ngAfterViewInit() {
@@ -63,7 +65,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', 'Connention timeout');
           }
         }, 25000);
-      }, 2500)
+      }, 1500)
     }
   }
 

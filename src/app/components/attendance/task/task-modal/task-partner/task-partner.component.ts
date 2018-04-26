@@ -35,7 +35,6 @@ export class TaskPartnerComponent {
   public isHiddenDeletePartner: boolean = false;
   public isDisableDoSelfFlag: boolean = false;
   public sumMember: number;
-  public sumPartner: number = 0;
   public refTask: number = 0;
 
 
@@ -81,6 +80,7 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
+    this.sumMember = 0;
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         if (members) {
@@ -128,21 +128,6 @@ export class TaskPartnerComponent {
   }
 
   async getautoCompletePartner(projectId) {
-    // this.partnerService.findAllUserByProjectId(projectId).subscribe(
-    //   partners => {
-    //     // console.log(partners)
-    //     this.autocompletePartnerList = [];
-    //     if (partners) {
-    //       this.autocompletePartnerList = partners;
-    //       for (let obj of this.autocompletePartnerList) {
-    //         if (obj.userId == this.user.userId) {
-    //           this.autocompletePartnerList.splice(obj);
-    //         }
-
-    //       }
-    //     }
-    //   }
-    // );
     this.autocompletePartnerList = [];
     await this.partnerService.findAllUserByProjectId(projectId).map(
       partners => {

@@ -101,7 +101,6 @@ import { UserRegisterService } from './providers/userregister.service';
 import { DepartmentService } from './providers/department.service';
 import { PositionService } from './providers/position.service';
 import { ReportService } from './providers/report.service';
-import { Initializer } from './config/initializer';
 
 // Pipe
 import { ThaiDatePipe } from './pipes/thai-date.pipe';
@@ -217,8 +216,6 @@ import { DisableControlDirective } from './directives/DisableControlDirective';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
-    { provide: APP_INITIALIZER, useFactory: (initial: Initializer) => () => initial.load(), deps: [Initializer], multi: true },
-    Initializer,
     HttpRequestService,
     EventService,
     ProjectService,

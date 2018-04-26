@@ -32,19 +32,17 @@ export class UserRegisterSearchComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.onScrollDownWithKeyword();
+    this.doSearch();
   }
 
   onScrollDownWithKeyword() {
-    console.log(this.page)
       this.userRegisterService
         .findAllByCriteria(this.keyword, this.page, this.size)
         .subscribe(
           data => {
             this.total = data.totalElements;
-            console.log(data)
             if (data) {
-              this.userList = this.userList.concat(data);
+              this.userList = this.userList.concat(data.content);
               if (this.userList.length !== 0 && this.page === 1) {
                 this.onUserSelected(this.userList[0]);
               }
@@ -59,21 +57,15 @@ export class UserRegisterSearchComponent implements OnInit {
   }
 
   onUserSelected(user) {
-    console.log("selected user");
     this.userSelected = user;
-    console.log(this.userSelected);
     this.messageEvent.emit(user.userId);
   }
 
-  onTermChange(event) {
+  doSearch() {
     this.page = 1;
     this.userList = null;
     this.userList = [];
     this.onScrollDownWithKeyword();
   }
 
-  onItemSelected(userSelected) {
-    this.userSelected = userSelected;
-    this.messageEvent.emit(userSelected.userId);
-  }
 }

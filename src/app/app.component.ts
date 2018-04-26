@@ -16,27 +16,37 @@ export class AppComponent implements OnInit {
   private isRequested = false;
   private currentUrl;
 
-  constructor(private router: Router,private route: ActivatedRoute, private authService: AuthenticationService, private utilService: UtilsService) {
-    // const url = localStorage.getItem('currentUrl');
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private utilService: UtilsService) {
     this.currentUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.utilService.loader(true);
+    this.load();
+  }
+
+  async load() {
+    let stateUser = await this.authService.accessUser().catch(err => console.log('Initializer Error : ', err));
+    if (stateUser === Status.SUCCESS) {
+      this.authService.isAccess.next(true);
+    } else {
+      this.authService.isAccess.next(false);
+    }
+
     this.authService.crrAccess.subscribe(accesses => {
-      // console.log('accesses: ',accesses)
-      // console.log('url: ',url)
-      
       if (accesses) {
         this.isAccess = true;
-        this.router.navigateByUrl(this.currentUrl);
-        // if(url){
-        //   this.router.navigate([url]);
-        // }else{
-        //   this.router.navigate(['/attendance']);
-        // }
-
+        // this.currentUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        if (this.currentUrl === '/login' || this.currentUrl === '/') {
+          this.router.navigateByUrl('attendance');
+        } else {
+          console.log(this.currentUrl)
+          this.router.navigateByUrl(this.currentUrl);
+        }
       } else {
-        this.router.dispose();
         this.isAccess = false;
+        this.router.navigateByUrl('login');
       }
     })
+
+    this.utilService.loader(false);
   }
 
   ngOnInit() {
