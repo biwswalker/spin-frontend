@@ -28,13 +28,13 @@ export class ProjectService {
     return this.request.requestMethodPOST('project-management/projects', project);
   }
 
-  async removeProject(projectId){
-    let promise = await new Promise((resolve)=>{
+  async removeProject(projectId) {
+    let promise = await new Promise((resolve) => {
       this.request.requestMethodDelete(`project-management/projects/${projectId}`).subscribe(
-        data =>{
-          resolve({status:200});
+        data => {
+          resolve({ status: 200 });
         },
-        error=>{
+        error => {
           console.log(error)
           resolve(error)
         }
@@ -50,7 +50,7 @@ export class ProjectService {
 
 
   // Begin find for display action
-  findProjects(isMember,term, page, size) {
+  findProjects(isMember, term, page, size) {
     return this.request.requestMethodGET(`project-management/projects/find-allow-project?isMember=${isMember}&p=${page}&s=${size}&term=${term}`);
 
   }
@@ -76,8 +76,9 @@ export class ProjectService {
         this.holderPojectAbbr.push({ projectId: project.projectId, projectAbbr: project.projectAbbr })
         return project.projectAbbr;
       });
+    } else {
+      return Observable.of(filteredPrj.projectAbbr)
     }
-    return Observable.of(filteredPrj.projectAbbr)
   }
   // End find for display action
 
@@ -113,7 +114,7 @@ export class ProjectService {
     return this.request.requestMethodGET(`task-management/report-project-person/project-id/${projectId}/start-date/${startDate}/end-date/${endDate}`)
   }
 
-  findByTaskId(refId: number){
+  findByTaskId(refId: number) {
     return this.request.requestMethodGET(`project-member-management/project-members/task-id/${refId}`);
   }
 }

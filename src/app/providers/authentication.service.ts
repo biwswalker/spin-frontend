@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
 import { Subject } from 'rxjs';
 import { EventMessagesService } from './utils/event-messages.service';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -48,12 +47,11 @@ export class AuthenticationService {
           return Status.ERROR;
         }
       })
-      .catch(error => {
+      .catch(async error => {
         this.notAuthorization = false;
         console.log(error)
         if (error.status != 0)
           this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', error.error.description);
-
         localStorage.removeItem(Default.ACTOKN);
         localStorage.removeItem(Default.TOKNTY);
         localStorage.removeItem(Default.RFTOKN);
@@ -84,7 +82,6 @@ export class AuthenticationService {
         }
       }).catch(error => {
         console.log(error)
-        // alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
         this.logout();
         return Status.ERROR;
       });
@@ -132,10 +129,13 @@ export class AuthenticationService {
   }
 
   removeToken() {
-    localStorage.removeItem(Default.ACTOKN)
-    localStorage.removeItem(Default.TOKNTY)
-    localStorage.removeItem(Default.RFTOKN)
-    localStorage.removeItem(Default.RFPWD);
+    const usr = localStorage.getItem(Default.USR);
+    const pwd = localStorage.getItem(Default.PWD);
+    const rmb = localStorage.getItem(Default.RMB);
+    localStorage.clear();
+    usr !== null ? localStorage.setItem(Default.USR, usr) : null;
+    pwd !== null ? localStorage.setItem(Default.PWD, pwd) : null;
+    rmb !== null ? localStorage.setItem(Default.RMB, rmb) : null;
   }
 
   refreshToken(): Observable<string> {
@@ -164,6 +164,7 @@ export class AuthenticationService {
           return Status.ERROR;
         }
       }, error => {
+        console.log(error);
         this.notAuthorization = false
         alert('หมดอายุการใช้งาน กรุณาเข้าสู่ระบบใหม่')
         this.logout();

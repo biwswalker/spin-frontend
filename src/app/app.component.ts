@@ -2,7 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { AuthenticationService } from './providers/authentication.service';
 import { UtilsService } from './providers/utils/utils.service';
 import { Status } from './config/properties';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-root',
@@ -16,22 +16,40 @@ export class AppComponent implements OnInit {
   private isRequested = false;
   private currentUrl;
 
-  constructor(private router: Router,private authService: AuthenticationService, private utilService: UtilsService) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private utilService: UtilsService) {
+    this.currentUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.utilService.loader(true);
+    this.load();
+  }
+
+  async load() {
+    let stateUser = await this.authService.accessUser().catch(err => console.log('Initializer Error : ', err));
+    if (stateUser === Status.SUCCESS) {
+      this.authService.isAccess.next(true);
+    } else {
+      this.authService.isAccess.next(false);
+    }
+
     this.authService.crrAccess.subscribe(accesses => {
-    console.log(this.router.url)
       if (accesses) {
         this.isAccess = true;
-        if(this.router.url =='/login')
-        this.router.navigate(['/attendance']);
+        // this.currentUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        if (this.currentUrl === '/login' || this.currentUrl === '/') {
+          this.router.navigateByUrl('attendance');
+        } else {
+          console.log(this.currentUrl)
+          this.router.navigateByUrl(this.currentUrl);
+        }
       } else {
         this.isAccess = false;
-        this.router.navigate(['/login']);
+        this.router.navigateByUrl('login');
       }
     })
+
+    this.utilService.loader(false);
   }
 
   ngOnInit() {
-
     this.utilService.isLoading.subscribe((isLoad: boolean) => {
       setTimeout(() => { this.loading = isLoad, 0 })
     });

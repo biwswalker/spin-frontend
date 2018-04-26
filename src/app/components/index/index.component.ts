@@ -4,7 +4,7 @@ import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -17,7 +17,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   public user: User = new User();
   public fullname = '';
   public email = '';
-  public currentUrl:string = '';
+  public currentUrl: string = '';
   public worktimeIcon;
   public worktimeIconBlack = "./assets/img/ico/black/b-worktime.png";
   public worktimeIconWhite = "./assets/img/ico/white/w-worktime.png";
@@ -49,7 +49,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   public adminIconRed = "./assets/img/ico/red/r-admin.png";
 
 
-  constructor(private authService: AuthenticationService,private router: Router) {
+  constructor(private authService: AuthenticationService, private router: Router) {
     this.authService.crrUser.subscribe((user: User) => {
       this.user = user;
       if (this.user.email) {
@@ -63,45 +63,42 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   }
 
- ngOnInit() {
-      this.onChangeRoute()
-      this.router.events.subscribe( (val) => {
-        console.log('val url: ',val)
-        this.currentUrl = val['url']!='/'?val['url']:val['urlAfterRedirects']
-        this.onChangeRoute();
-  })
-
-
+  ngOnInit() {
+    this.onChangeRoute()
+    this.router.events.subscribe((val) => {
+      console.log('val url: ', val)
+      this.currentUrl = val['url'] != '/' ? val['url'] : val['urlAfterRedirects']
+      this.onChangeRoute();
+    })
   }
 
-  onChangeRoute(){
-
-    console.log('current url',this.currentUrl)
+  onChangeRoute() {
+    console.log('current url', this.currentUrl)
     console.log(this.router.url)
-    this.worktimeIcon = (!this.currentUrl||this.currentUrl =='/attendance'?this.worktimeIconWhite:this.worktimeIconBlack);
-    this.projectIcon = (this.currentUrl =='/project'?this.projectIconWhite:this.projectIconBlack);
+    this.worktimeIcon = (!this.currentUrl || this.currentUrl == '/attendance' ? this.worktimeIconWhite : this.worktimeIconBlack);
+    this.projectIcon = (this.currentUrl == '/project' ? this.projectIconWhite : this.projectIconBlack);
     this.leaveIcon = this.leaveIconRed;
     this.inoutIcon = this.inoutIconRed;
     this.newsIcon = this.newsIconRed;
     this.adminIcon = this.adminIconBlack;
   }
 
-  onMouseOver(index){
+  onMouseOver(index) {
 
-    if(index == 0)
-    this.worktimeIcon = this.worktimeIconWhite;
-    if(index == 1)
-    this.projectIcon = this.projectIconWhite;
-    if(index == 2)
-    this.leaveIcon = this.leaveIconWhite;
-    if(index == 3)
-    this.inoutIcon = this.inoutIconWhite;
-    if(index == 4)
-    this.newsIcon = this.newsIconWhite;
-    if(index == 5)
-    this.adminIcon = this.adminIconWhite;
+    if (index == 0)
+      this.worktimeIcon = this.worktimeIconWhite;
+    if (index == 1)
+      this.projectIcon = this.projectIconWhite;
+    if (index == 2)
+      this.leaveIcon = this.leaveIconWhite;
+    if (index == 3)
+      this.inoutIcon = this.inoutIconWhite;
+    if (index == 4)
+      this.newsIcon = this.newsIconWhite;
+    if (index == 5)
+      this.adminIcon = this.adminIconWhite;
   }
-  onMouseLeave(){
+  onMouseLeave() {
     this.onChangeRoute();
   }
   ngOnDestroy() {

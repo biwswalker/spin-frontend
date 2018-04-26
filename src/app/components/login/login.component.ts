@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../providers/authentication.service';
 import { Status, Default } from '../../config/properties';
 import { EventMessagesService } from '../../providers/utils/event-messages.service';
-import { Router } from '@angular/router';
 declare var spin: any;
 declare var $: any
 @Component({
@@ -16,8 +15,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   public loginGroup: FormGroup;
 
   constructor(private authService: AuthenticationService,
-    private eventMessageService: EventMessagesService,
-    private router: Router) { }
+    private eventMessageService: EventMessagesService) { }
 
   ngOnInit() {
     this.loginGroup = new FormGroup({
@@ -67,7 +65,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.eventMessageService.onCustomError('ไม่สามารถล็อกอินได้', 'Connention timeout');
           }
         }, 25000);
-      }, 2500)
+      }, 1500)
     }
   }
 
