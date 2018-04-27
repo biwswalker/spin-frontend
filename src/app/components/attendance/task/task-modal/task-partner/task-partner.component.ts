@@ -94,6 +94,7 @@ export class TaskPartnerComponent {
               }
             }
           }
+          console.log('SumMember: ', this.sumMember)
         }
       }
     );
@@ -108,6 +109,7 @@ export class TaskPartnerComponent {
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
           }
+          console.log('taskPartner.length : ' , this.taskPartner.length)
         }
       }
     );
@@ -161,6 +163,7 @@ export class TaskPartnerComponent {
               }
             }
           }
+          console.log('SumMember: ', this.sumMember)
         }
       }
     )
