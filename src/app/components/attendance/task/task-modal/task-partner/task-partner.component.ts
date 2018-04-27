@@ -43,8 +43,7 @@ export class TaskPartnerComponent {
     private partnerService: PartnerService,
     public utilsService: UtilsService,
     public projectService: ProjectService
-  ) {
-  }
+  ) {}
 
   initTaskPartner(task: Task, user: User, taskOwner: string) {
     this.sumMember = 0;
@@ -80,7 +79,6 @@ export class TaskPartnerComponent {
   }
 
   initialMember(projectId: number) {
-
     this.partnerService.findMemberByProjectId(projectId, this.taskId).subscribe(
       members => {
         this.sumMember = 0;
@@ -105,6 +103,7 @@ export class TaskPartnerComponent {
     this.partnerService.findNotMemberByProjectId(projectId, taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
+          console.log(nonMembers)
           this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
@@ -125,7 +124,8 @@ export class TaskPartnerComponent {
             }
           }
         }
-      })
+      }
+    )
   }
 
   async getautoCompletePartner(projectId) {
@@ -147,14 +147,18 @@ export class TaskPartnerComponent {
   findMemberByTaskId(refId: number) {
     this.projectService.findByTaskId(refId).subscribe(
       members => {
+        this.sumMember = 0;
         if(members){
+          console.log(members);
           this.taskMember = [];
           for (let member of members) {
-            if (member.isPartner == "Y") {
-              this.taskMember.push({ userId: member.userId, email: member.email, fullName: member.userName, status: true });
-              this.sumMember++;
-            } else {
-              this.taskMember.push({ userId: member.userId, email: member.email, fullName: member.userName, status: false });
+            if (member.id.userId !== this.user.userId) {
+              if (member.isPartner == "Y") {
+                this.taskMember.push({ userId: member.userId, email: member.email, fullName: member.userName, status: true });
+                this.sumMember++;
+              } else {
+                this.taskMember.push({ userId: member.userId, email: member.email, fullName: member.userName, status: false });
+              }
             }
           }
         }
@@ -187,10 +191,5 @@ export class TaskPartnerComponent {
       this.taskPartner.splice(this.taskPartner.indexOf(obj), 1);
       this.autocompletePartnerList.push(obj);
     }
-  }
-
-  onSelectedCheckBox(event) {
-    console.log(event);
-    // (event == true) ? this.sumMember++ : this.sumMember--;
   }
 }
