@@ -65,6 +65,7 @@ export class TaskDetailComponent implements OnInit {
     this.taskObj = new Task();
     this.validateData();
     this.projectList = await this.projectService.fetchProjectAutocomplete().toPromise();
+    console.log(this.favProjectList)
   }
 
   resetData() {
@@ -91,7 +92,7 @@ export class TaskDetailComponent implements OnInit {
     this.timeList = this.utilsService.getTimeList();
 
     this.ngZone.runOutsideAngular(() => {
-      this.ngZone.run(() => {});
+      this.ngZone.run(() => { });
       this.utilsService.loader(false);
     });
   }
@@ -108,13 +109,13 @@ export class TaskDetailComponent implements OnInit {
     this.activity = this.taskObj.activity;
     this.projectId = this.taskObj.projectId;
     this.messageEvent.emit(this.taskObj.color);
-    this.category = (this.taskObj.categoryId)? this.taskObj.categoryId: 0;
+    this.category = (this.taskObj.categoryId) ? this.taskObj.categoryId : 0;
   }
 
   validateData() {
     this.taskDetailFormGroup = new FormGroup({
       taskDetailStatusFlag: new FormControl(this.taskObj.statusFlag == 'A' ? true : false),
-      taskDetailWorkDate: new FormControl(this.workDate , Validators.required),
+      taskDetailWorkDate: new FormControl(this.workDate, Validators.required),
       taskDetailStartTime: new FormControl(this.workStartTime, Validators.required),
       taskDetailEndTime: new FormControl(this.workEndTime, Validators.required),
       taskDetailTopic: new FormControl(this.topic, Validators.required),

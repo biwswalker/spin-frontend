@@ -68,7 +68,6 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   onTaskHasSelected(task: Task, mode: string) {
-    console.log(task)
     this.task = new Task();
     const temp = Object.assign({}, task);
     this.taskForm.task = temp;
@@ -99,7 +98,8 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskTagChild.isReadonly = true;
       } else {
         //create my task
-        this.taskDetailChild.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
+        // this.taskDetailChild.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
+        this.getFavoriteProject(this.user.userId);
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDisableProject = false;
         this.taskDetailChild.showFavPrj = true;
@@ -253,11 +253,13 @@ export class TaskModalComponent implements AfterViewInit {
   createNewTask(task: Task) {
     if (this.taskForm.task.ownerUserId !== this.user.userId) {
       task.referTaskId = this.taskForm.task.taskId;
+    }else{
+      task.referTaskId = this.taskForm.task.referTaskId;
     }
-    console.log(task)
+    // console.log(task)
     this.taskService.insertTask(task).subscribe(
       res => {
-        console.log(res)
+        // console.log(res)
         this.eventMessageService.onInsertSuccess('');
       },
       error => {
@@ -278,10 +280,10 @@ export class TaskModalComponent implements AfterViewInit {
     if (this.taskForm.task.versionId) {
       task.versionId = this.taskForm.task.versionId;
     }
-    console.log(task)
+    // console.log(task)
     this.taskService.updateTask(task).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.eventMessageService.onUpdateSuccess('');
       }, error => {
         // this.eventMessageService.onUpdateError(error);
@@ -343,4 +345,13 @@ export class TaskModalComponent implements AfterViewInit {
     }
   }
 
+  getFavoriteProject(userId: string){
+    this.taskDetailChild.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
+    for(let obj of this.taskDetailChild.favProjectList){
+      if(!obj.projectThumbnail){
+        obj.projectThumbnail = './assets/img/ico/startup.png';
+      }
+    }
+    console.log(this.taskDetailChild.favProjectList)
+  }
 }
