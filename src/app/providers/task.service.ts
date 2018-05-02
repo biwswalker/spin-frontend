@@ -134,7 +134,7 @@ export class TaskService {
   // }
 
   findCriteriaAllTask(cri: string, page: number, size: number) {
-    return this.request.requestMethodGET(`task-management/all-tasks/${cri}?p=${page}&s=${size}`);
+    return this.request.requestMethodGET(`task-management/all-tasks?term=${cri}&p=${page}&s=${size}`);
   }
 
   reformTasks(tasks: Task[]): TaskAll[] {
