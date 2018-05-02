@@ -83,15 +83,7 @@ export class ProjectService {
   // End find for display action
 
   findFavoriteProjectByUserId(userId: string) {
-    return this.request.requestMethodGET('favorite-project-management/favorite-projects/find-autocomplete-project').map(favoriteProject => {
-      console.log(favoriteProject)
-      for(let fav of favoriteProject){
-        if(!fav.projectThumbnail){
-          fav.projectThumbnail = "../../assets/img/ico/startup.png";
-        }
-      }
-    })
-    // return this.request.requestMethodGET('favorite-project-management/favorite-projects/find-autocomplete-project');
+    return this.request.requestMethodGET('favorite-project-management/favorite-projects/find-autocomplete-project');
   }
 
   fetchProjectAutocomplete() {

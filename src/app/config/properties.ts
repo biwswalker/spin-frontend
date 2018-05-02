@@ -7,7 +7,7 @@ export const URL = 'http://10.1.87.224:8081/';
 // export const URL = 'https://spin.summitthai.com/spin-s/';
 
 //UAT
-// export const URL =  'http://spinuat.summitthai.com/spin-s/';
+export const URL =  'http://spinuat.summitthai.com/spin-s/';
 
 export const Method = {
     GET: 'GET',
