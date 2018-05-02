@@ -154,7 +154,7 @@ export class TaskPartnerComponent {
           console.log(members);
           this.taskMember = [];
           for (let member of members) {
-            if (member.id.userId !== this.user.userId) {
+            if (member.userId !== this.user.userId) {
               if (member.isPartner == "Y") {
                 this.taskMember.push({ userId: member.userId, email: member.email, fullName: member.userName, status: true });
                 this.sumMember++;
