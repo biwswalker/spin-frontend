@@ -4,10 +4,10 @@
 // export const URL = 'http://172.17.3.49:8080/spin-s/';
 
 // SSL service
-export const URL = 'https://spin.summitthai.com/spin-s/';
+// export const URL = 'https://spin.summitthai.com/spin-s/';
 
 //UAT
-// export const URL =  'http://spinuat.summitthai.com/spin-s/';
+export const URL =  'http://spinuat.summitthai.com/spin-s/';
 
 export const Method = {
     GET: 'GET',
