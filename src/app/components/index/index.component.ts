@@ -5,6 +5,10 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
+
+var pjson = require('../../../../package.json');
+
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -64,6 +68,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log(pjson.version);
     this.onChangeRoute()
     this.router.events.subscribe((val) => {
       console.log('val url: ', val)

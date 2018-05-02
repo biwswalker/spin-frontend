@@ -1,7 +1,7 @@
 {
   "name": "spin",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "Summit Computer",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
