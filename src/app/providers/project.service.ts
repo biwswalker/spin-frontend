@@ -84,6 +84,15 @@ export class ProjectService {
 
   findFavoriteProjectByUserId(userId: string) {
     return this.request.requestMethodGET('favorite-project-management/favorite-projects/find-autocomplete-project');
+    // return this.request.requestMethodGET('favorite-project-management/favorite-projects/find-autocomplete-project').map(list => {
+    //   for (let fv of list) {
+    //     if(!fv.projectThumbnail){
+    //       fv.projectThumbnail = './assets/img/ico/startup.png';
+    //     }
+    //   }
+    //   console.log(list)
+    //   return list;
+    // })
   }
 
   fetchProjectAutocomplete() {

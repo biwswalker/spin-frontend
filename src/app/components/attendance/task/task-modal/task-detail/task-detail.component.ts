@@ -37,7 +37,8 @@ export class TaskDetailComponent implements OnInit {
   public taskDetailFormGroup: FormGroup;
   public user: User;
   public mode: string;
-  public favProjectList = new Observable<Project[]>();
+  // public favProjectList = new Observable<Project[]>();
+  public favProjectList: Project[];
   public timeList: any[];
   public endTimeList: any[];
   public datePattern: any[] = [];
@@ -65,7 +66,17 @@ export class TaskDetailComponent implements OnInit {
     this.taskObj = new Task();
     this.validateData();
     this.projectList = await this.projectService.fetchProjectAutocomplete().toPromise();
-    console.log(this.favProjectList)
+    this.favProjectList = await this.projectService.findFavoriteProjectByUserId(this.user.userId).map(
+      favList=>{
+        for (let fv of favList) {
+          if(!fv.projectThumbnail){
+            fv.projectThumbnail = './assets/img/ico/startup.png';
+          }
+        }
+        console.log(favList)
+        return favList;
+      }
+    ).toPromise();
   }
 
   resetData() {
@@ -95,6 +106,7 @@ export class TaskDetailComponent implements OnInit {
       this.ngZone.run(() => { });
       this.utilsService.loader(false);
     });
+
   }
 
   initialTime() {

@@ -99,7 +99,7 @@ export class TaskModalComponent implements AfterViewInit {
       } else {
         //create my task
         // this.taskDetailChild.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
-        this.getFavoriteProject(this.user.userId);
+        // this.getFavoriteProject(this.user.userId);
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDisableProject = false;
         this.taskDetailChild.showFavPrj = true;
