@@ -29,7 +29,10 @@ export class ProjectSearchComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.doSearch();
+    this.projectService.projectHaveChanged.subscribe(
+      ()=>{
+        this.doSearch();
+      })
   }
 
   onScrollDown() {
@@ -59,16 +62,6 @@ export class ProjectSearchComponent implements OnInit {
   }
 
   doSearch(){
-    this.projectService.projectHaveChanged.subscribe(
-      ()=>{
-        this.projectList = [];
-        this.page = 1;
-        this.onScrollDown();
-      }
-    )
-  }
-
-  onChangeProjectFilter(){
     this.projectList = [];
     this.page = 1;
     this.onScrollDown();
