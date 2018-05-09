@@ -73,7 +73,6 @@ export class TaskDetailComponent implements OnInit {
             fv.projectThumbnail = './assets/img/ico/startup.png';
           }
         }
-        console.log(favList)
         return favList;
       }
     ).toPromise();

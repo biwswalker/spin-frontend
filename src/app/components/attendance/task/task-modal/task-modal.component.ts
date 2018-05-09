@@ -71,6 +71,7 @@ export class TaskModalComponent implements AfterViewInit {
     this.task = new Task();
     const temp = Object.assign({}, task);
     this.taskForm.task = temp;
+    console.log('copy task=> ', this.taskForm)
     this.mode = mode;
     this.owner = task.ownerUserId;
     const objTask = this.taskForm.task;
@@ -84,7 +85,6 @@ export class TaskModalComponent implements AfterViewInit {
 
     //Mode Insert
     if (this.mode == Mode.I) {
-
       //copy task
       if (this.owner && this.user.userId !== this.owner) {
         // if (this.user.userId !== this.owner) {
@@ -98,8 +98,6 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskTagChild.isReadonly = true;
       } else {
         //create my task
-        // this.taskDetailChild.favProjectList = this.projectService.findFavoriteProjectByUserId(this.user.userId);
-        // this.getFavoriteProject(this.user.userId);
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDisableProject = false;
         this.taskDetailChild.showFavPrj = true;
@@ -124,6 +122,7 @@ export class TaskModalComponent implements AfterViewInit {
         //hide edit partner
       }
     } else if (this.mode == Mode.E) {
+      console.log(this.taskPartnerChild.taskMember)
       this.taskDetailChild.isDisableProject = true;
       this.taskDetailChild.showFavPrj = false;
       //edit copy task
@@ -151,7 +150,6 @@ export class TaskModalComponent implements AfterViewInit {
       this.taskPartnerChild.isDisableAddPartner = false;
       this.taskPartnerChild.isHiddenCheckBox = true;
       this.taskDetailChild.isDissableCatagory = true;
-
     }
   }
 
@@ -190,9 +188,9 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.taskPartnerList = [];
 
       //check condition for add prjmember on Mode.I
-      if (this.mode == Mode.I) {
+      // if (this.mode == Mode.I) {
         //create new task
-        if (!this.taskForm.task.taskId) {
+        // if (!this.taskForm.task.taskId) {
           for (let obj of this.taskPartnerChild.taskMember) {
             if (obj.status == true) {
               this.task.taskPartnerList.push({ id: { userId: obj.userId } });
@@ -203,22 +201,22 @@ export class TaskModalComponent implements AfterViewInit {
               this.task.taskPartnerList.push({ id: { userId: obj.userId } });
             }
           }
-        }
+        // }
         //if taskId => copytask not add prjmember
-      }
+      // }
       //mode == Mode.E
-      else if (this.mode == Mode.E) {
-        for (let obj of this.taskPartnerChild.taskMember) {
-          if (obj.status == true) {
-            this.task.taskPartnerList.push({ id: { userId: obj.userId } });
-          }
-        }
-        if (this.taskPartnerChild.taskPartner) {
-          for (let obj of this.taskPartnerChild.taskPartner) {
-            this.task.taskPartnerList.push({ id: { userId: obj.userId } });
-          }
-        }
-      }
+      // else if (this.mode == Mode.E) {
+      //   for (let obj of this.taskPartnerChild.taskMember) {
+      //     if (obj.status == true) {
+      //       this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+      //     }
+      //   }
+      //   if (this.taskPartnerChild.taskPartner) {
+      //     for (let obj of this.taskPartnerChild.taskPartner) {
+      //       this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+      //     }
+      //   }
+      // }
 
       for (let obj of this.taskTagChild.tagList) {
         if (obj.display) {
@@ -251,12 +249,17 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   createNewTask(task: Task) {
-    if (this.taskForm.task.ownerUserId !== this.user.userId) {
-      task.referTaskId = this.taskForm.task.taskId;
-    }else{
+    // if (this.taskForm.task.ownerUserId !== this.user.userId) {
+    //   task.referTaskId = this.taskForm.task.taskId;
+    // }else{
+    //   task.referTaskId = this.taskForm.task.referTaskId;
+    // }
+
+    if(this.taskForm.task.referTaskId){
       task.referTaskId = this.taskForm.task.referTaskId;
+    }else{
+      task.referTaskId = this.taskForm.task.taskId;
     }
-    // console.log(task)
     this.taskService.insertTask(task).subscribe(
       res => {
         // console.log(res)
@@ -280,7 +283,6 @@ export class TaskModalComponent implements AfterViewInit {
     if (this.taskForm.task.versionId) {
       task.versionId = this.taskForm.task.versionId;
     }
-    // console.log(task)
     this.taskService.updateTask(task).subscribe(
       res => {
         // console.log(res);

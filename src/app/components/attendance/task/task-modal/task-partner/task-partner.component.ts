@@ -46,7 +46,7 @@ export class TaskPartnerComponent {
   ) {}
 
   initTaskPartner(task: Task, user: User, taskOwner: string) {
-    this.sumMember = 0;
+
     this.user = user;
     this.taskId = task.taskId;
     this.refTask = task.referTaskId;
@@ -57,6 +57,7 @@ export class TaskPartnerComponent {
     this.taskPartner = [];
     this.taskService.currentProjectId.subscribe((projectId: number) => {
       if (projectId) {
+        this.sumMember = 0;
         this.isHidden = true;
         this.projectId = projectId;
         if (isRepeat !== projectId) {
@@ -94,7 +95,6 @@ export class TaskPartnerComponent {
               }
             }
           }
-          console.log('SumMember: ', this.sumMember)
         }
       }
     );
@@ -104,12 +104,10 @@ export class TaskPartnerComponent {
     this.partnerService.findNotMemberByProjectId(projectId, taskId).subscribe(
       nonMembers => {
         if (nonMembers) {
-          console.log(nonMembers)
           this.taskPartner = [];
           for (let obj of nonMembers) {
             this.taskPartner.push({ userId: obj.userId, email: obj.email, fullName: obj.nameTh + ' ' + obj.lastnameTh });
           }
-          console.log('taskPartner.length : ' , this.taskPartner.length)
         }
       }
     );
@@ -151,7 +149,6 @@ export class TaskPartnerComponent {
       members => {
         this.sumMember = 0;
         if(members){
-          console.log(members);
           this.taskMember = [];
           for (let member of members) {
             if (member.userId !== this.user.userId) {
@@ -163,7 +160,7 @@ export class TaskPartnerComponent {
               }
             }
           }
-          console.log('SumMember: ', this.sumMember)
+          console.log(this.taskMember)
         }
       }
     )
