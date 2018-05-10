@@ -4,6 +4,7 @@ import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UtilsService } from '../../providers/utils/utils.service';
 declare var $: any;
 
 @Component({
@@ -49,8 +50,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   public adminIconWhite = "./assets/img/ico/white/w-admin.png";
   public adminIconRed = "./assets/img/ico/red/r-admin.png";
 
-
-  constructor(private authService: AuthenticationService, private router: Router) {
+  public appVersion:string = '';
+  constructor(private authService: AuthenticationService, private router: Router,private utilService:UtilsService) {
     this.authService.crrUser.subscribe((user: User) => {
       this.user = user;
       if (this.user.email) {
@@ -64,12 +65,13 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.onChangeRoute()
     this.router.events.subscribe((val) => {
       this.currentUrl = val['url'] != '/' ? val['url'] : val['urlAfterRedirects']
       this.onChangeRoute();
     })
+    this.appVersion = await this.utilService.getAppVersion();
   }
 
   onChangeRoute() {

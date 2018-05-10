@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       remember: new FormControl(localStorage.getItem(Default.RMB) === Default.YES ? true : false)
     })
     this.appVersion = await this.utilService.getAppVersion();
-    console.log('app version: ', this.appVersion)
 
   }
 
