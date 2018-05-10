@@ -2,7 +2,7 @@ import { User } from './../../../../../models/user';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TaskModalComponent } from './../task-modal.component';
-import { Component, OnInit, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../../../../providers/project.service';
 import { Project } from '../../../../../models/project';
 import { PartnerService } from '../../../../../providers/partner.service';
@@ -16,6 +16,7 @@ declare var $: any;
 
 @Component({
   selector: 'app-task-detail',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './task-detail.component.html',
   styleUrls: ['./task-detail.component.scss', '../task-modal.component.scss'],
 

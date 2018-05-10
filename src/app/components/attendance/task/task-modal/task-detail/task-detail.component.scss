@@ -50,3 +50,11 @@ a:hover {
 textarea {
   resize: none;
 }
+
+#taskDetailProject{
+    ng-dropdown-panel{
+    position: fixed !important;
+    width: 456px !important;
+    margin-top: -186px !important;
+    }
+}
