@@ -1,0 +1,67 @@
+
+<div class="modal fade" id="category-modal" tabindex="-1" role="dialog" aria-labelledby="resp-modal" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <button type="button" class="btn btn-link" (click)="oncloseModal()">
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+
+        <div class="text-center header-text">
+          {{headerTxt}}ประเภทงาน
+        </div>
+
+        <button type="submit" class="btn btn-success" (click)="onSubmit()">
+          <i class="fas fa-check mr-1"> บันทึก </i>
+        </button>
+
+      </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+            <form [formGroup]="formGroup">
+                <div class="row">
+                    <div class="col-8 form-group">
+                        <label for="category-name">ชื่อประเภทงาน *</label>
+                        <input type="text"
+                               class="form-control"
+                               id="category-name"
+                               name="category-name"
+                               maxlength="50"
+                               formControlName="categoryName"
+                               [(ngModel)]="category.categoryName"
+                               >
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="active-flag">สถานะ</label>
+                        <select class="form-control" id="active-flag"
+                        formControlName="activeFlag"
+                        [(ngModel)]="category.activeFlag"
+                        [attr.disabled]="!category.categoryId?'disabled':null">
+                          <option value="A">ใช้งาน</option>
+                          <option value="I">ไม่ใช้งาน</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 form-group">
+                        <label for="remark">หมายเหตุ</label>
+                        <textarea
+                               class="form-control"
+                               id="remark"
+                               name="remark"
+                               maxlength="500"
+                               style="resize: none;height:300px"
+                               formControlName="remark"
+                               [(ngModel)]="category.remark">
+                        </textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+      
+    </div>
+  </div>
+</div>

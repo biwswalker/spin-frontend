@@ -21,6 +21,7 @@ import { ProjectTagReportComponent } from '../components/reports/project-tag-rep
 import { TagComponent } from '../components/admin/tag/tag.component';
 import { ProjectPersonReportComponent } from '../components/reports/project-person-report/project-person-report.component';
 import { LoginComponent } from '../components/login/login.component';
+import { CategoryComponent } from '../components/admin/category/category.component';
 
 const routes: Routes = [
   { path: '',
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'department', component: DepartmentComponent },
   { path: 'position', component: PositionComponent },
+  { path: 'task-category', component: CategoryComponent },
   { path: 'help', component: HelpComponent },
   {
     path: 'report', component: ReportComponent, children: [

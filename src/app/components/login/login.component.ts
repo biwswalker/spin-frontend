@@ -3,8 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../providers/authentication.service';
 import { Status, Default } from '../../config/properties';
 import { EventMessagesService } from '../../providers/utils/event-messages.service';
+import { UtilsService } from '../../providers/utils/utils.service';
 declare var spin: any;
-declare var $: any
+declare var $: any;
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -12,18 +14,20 @@ declare var $: any
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
+  public appVersion:string = '';
   public loginGroup: FormGroup;
-
   constructor(private authService: AuthenticationService,
-    private eventMessageService: EventMessagesService) { }
+    private eventMessageService: EventMessagesService,
+    private utilService:UtilsService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loginGroup = new FormGroup({
       username: new FormControl(localStorage.getItem(Default.USR) ? atob(localStorage.getItem(Default.USR)) : null, Validators.required),
       password: new FormControl(localStorage.getItem(Default.PWD) ? atob(localStorage.getItem(Default.PWD)) : null, Validators.required),
       remember: new FormControl(localStorage.getItem(Default.RMB) === Default.YES ? true : false)
     })
-
+    this.appVersion = await this.utilService.getAppVersion();
+    console.log('app version: ', this.appVersion)
 
   }
 

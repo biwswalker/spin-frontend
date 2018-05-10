@@ -3,15 +3,27 @@ import { Format } from '../../config/properties';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpRequestService } from './http-request.service';
 declare var moment: any;
-
+var pjson = require('../../../../package.json');
 @Injectable()
 export class UtilsService {
 
   public isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor() {
+  constructor(private request: HttpRequestService) {
     moment.locale('th');
+  }
+
+  async getAppVersion(){
+    const backVersion = await new Promise(resolve=>{
+      this.request.requestMethodGET('versions').subscribe(
+        data=>{
+          return resolve(data);
+        }
+      )
+    })
+    return `${pjson.version}.${backVersion}`;
   }
 
   getCurrentThDate(): string {

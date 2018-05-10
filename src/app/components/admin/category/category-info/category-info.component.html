@@ -1,0 +1,40 @@
+<div class="row info-header-row">
+    <div class="col-9">
+    <h5 class="mb-0">
+      รายละเอียดประเภทงาน
+    </h5>
+    </div>
+    <div class="col-3">
+        <button class="btn btn-link p-0 mb-1 float-right"
+          (click)="editCategory()"
+          id="btn-new-user-register" type="button">
+          <i class="fas fa-edit fa-lg"></i>
+          แก้ไข
+      </button>
+  </div>
+</div>
+<div class="info-data-display" *ngIf="found==='Y'">
+    <div class="row">
+      <div class="col-9">
+        <label class="info-body-bold">ชื่อประเภทงาน</label>
+        <p class="info-body">{{category.categoryName}}</p>
+      </div>
+      <div class="col-3">
+        <label class="info-body-bold">สถานะ</label>
+        <p class="info-body">{{category.activeFlag === 'A' ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <label class="info-body-bold">หมายเหตุ</label>
+        <p class="info-body" [innerText]="category.remark?category.remark:''"></p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="found !== 'Y'">
+      <div class="row" >
+        <div class="col-12 info-body-bold">
+            <label>ไม่พบข้อมูล</label>
+        </div>
+      </div>
+    </div>
