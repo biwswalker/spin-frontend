@@ -4,7 +4,6 @@ import { UtilsService } from './providers/utils/utils.service';
 import { Status } from './config/properties';
 import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
-var pjson = require('../../package.json');
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -51,7 +50,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(pjson.version);
     this.utilService.isLoading.subscribe((isLoad: boolean) => {
       setTimeout(() => { this.loading = isLoad, 0 })
     });

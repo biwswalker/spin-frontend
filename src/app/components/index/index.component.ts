@@ -6,9 +6,6 @@ import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 
-var pjson = require('../../../../package.json');
-
-
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -68,18 +65,14 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(pjson.version);
     this.onChangeRoute()
     this.router.events.subscribe((val) => {
-      console.log('val url: ', val)
       this.currentUrl = val['url'] != '/' ? val['url'] : val['urlAfterRedirects']
       this.onChangeRoute();
     })
   }
 
   onChangeRoute() {
-    console.log('current url', this.currentUrl)
-    console.log(this.router.url)
     this.worktimeIcon = (!this.currentUrl || this.currentUrl == '/attendance' ? this.worktimeIconWhite : this.worktimeIconBlack);
     this.projectIcon = (this.currentUrl == '/project' ? this.projectIconWhite : this.projectIconBlack);
     this.leaveIcon = this.leaveIconRed;

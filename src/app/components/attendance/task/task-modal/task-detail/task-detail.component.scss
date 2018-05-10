@@ -1,12 +1,7 @@
 // @import '~assets/scss/modal.scss';
 // @import '~assets/scss/toggle.scss';
+#task-detail-form{
 
-.color-picker {
-    height: 40px;
-    width: 40px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-}
 
 .position-r {
     text-align: right;
@@ -49,4 +44,20 @@ a:hover {
 
 textarea {
   resize: none;
+}
+
+#taskDetailProject{
+    ng-dropdown-panel{
+    position: fixed !important;
+    width: 456px !important;
+    margin-top: -186px !important;
+    }
+}
+}
+
+.color-picker {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }

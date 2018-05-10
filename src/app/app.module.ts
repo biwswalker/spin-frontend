@@ -111,6 +111,11 @@ import { TimePipe } from './pipes/time.pipe';
 import { DatePickerDirective } from './directives/datepicker';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DisableControlDirective } from './directives/DisableControlDirective';
+import { CategoryComponent } from './components/admin/category/category.component';
+import { CategoryInfoComponent } from './components/admin/category/category-info/category-info.component';
+import { CategorySearchComponent } from './components/admin/category/category-search/category-search.component';
+import { CategoryModalComponent } from './components/admin/category/category-modal/category-modal.component';
+import { CategoryService } from './providers/category.service';
 
 
 
@@ -184,7 +189,11 @@ import { DisableControlDirective } from './directives/DisableControlDirective';
     TagSearchComponent,
     TagModalComponent,
     DisableControlDirective,
-    ProjectPersonReportComponent
+    ProjectPersonReportComponent,
+    CategoryComponent,
+    CategoryInfoComponent,
+    CategorySearchComponent,
+    CategoryModalComponent
   ],
   imports: [
     BrowserModule,
@@ -232,7 +241,8 @@ import { DisableControlDirective } from './directives/DisableControlDirective';
     UserRegisterService,
     DepartmentService,
     PositionService,
-    ReportService
+    ReportService,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })

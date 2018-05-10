@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-12">
+    <form class="form-group">
+      <div class="input-group mb-2">
+        <input #key class="form-control" type="search" placeholder="ระบุประเภทงาน" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" (click)="doSearch()">
+            <i class="fas fa-search"></i> ค้นหา</button>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">ทั้งหมด {{dataTotal}} รายการ</div>
+</div>
+
+<div class="row search-results-header">
+  <div class="col-8">ประเภทงาน</div>
+  <div class="col-4">สถานะ</div>
+</div>
+
+<div class="search-results-body" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScrollDown()">
+  <div class="row" *ngFor="let cat of categoryList" (click)="onCategorySelected(cat)">
+    <div class="col-8">{{cat.categoryName}}</div>
+    <div class="col-4">{{cat.activeFlag=='A'?'ใช้งาน':'ไม่ใช้งาน'}}</div>
+  </div>
+</div>
