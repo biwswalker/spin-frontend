@@ -78,17 +78,16 @@
         <div class="row"
              *ngIf="mode !== 'VIEW'">
           <div class="col-10 mt-2"
-               *ngIf="isDisableAddPartner">
+               *ngIf="isHiddenAddPartner">
             <ng-select [items]="autocompletePartnerList"
                        bindLabel="fullName"
                        bindValue="userId"
-                       hideSelected="true"
                        (add)="onSelect($event)">
             </ng-select>
           </div>
           <div class="col-2 mt-2">
             <button type="button"
-                    *ngIf="isDisableAddPartner"
+                    *ngIf="isHiddenAddPartner"
                     class="btn btn-success"
                     id="add-partner-btn"
                     (click)="addPartner()">

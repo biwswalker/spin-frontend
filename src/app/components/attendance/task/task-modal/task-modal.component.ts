@@ -71,7 +71,7 @@ export class TaskModalComponent implements AfterViewInit {
     this.task = new Task();
     const temp = Object.assign({}, task);
     this.taskForm.task = temp;
-    console.log('copy task=> ', this.taskForm)
+    console.log('copy task=> ', this.taskForm.task)
     this.mode = mode;
     this.owner = task.ownerUserId;
     const objTask = this.taskForm.task;
@@ -92,7 +92,7 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskDetailChild.isDisableProject = true;
         this.taskDetailChild.showFavPrj = false;
         this.taskPartnerChild.isHiddenCheckBox = true;
-        this.taskPartnerChild.isDisableAddPartner = false;
+        this.taskPartnerChild.isHiddenAddPartner = false;
         this.taskPartnerChild.isHiddenDeletePartner = false;
         this.taskPartnerChild.isDisableDoSelfFlag = true;
         this.taskTagChild.isReadonly = true;
@@ -103,51 +103,57 @@ export class TaskModalComponent implements AfterViewInit {
         this.taskDetailChild.showFavPrj = true;
         this.taskDetailChild.isDissableCatagory = false;
         this.taskPartnerChild.isHiddenCheckBox = false;
-        this.taskPartnerChild.isDisableAddPartner = true;
+        this.taskPartnerChild.isHiddenAddPartner = true;
         this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isDisableDoSelfFlag = false;
         this.taskTagChild.isReadonly = false;
         if(task.taskId){
           //สร้าง task จาก my task
+          this.taskPartnerChild.isHiddenCheckBox = true;
+          this.taskDetailChild.isDisableTopic = true;
           this.taskDetailChild.showFavPrj = false;
           this.taskDetailChild.isDisableProject = true;
+          this.taskDetailChild.isDissableCatagory = true;
+          this.taskPartnerChild.isHiddenAddPartner = false;
+          this.taskPartnerChild.isHiddenDeletePartner = false;
+          this.taskPartnerChild.isDisableDoSelfFlag = true;
         }
         if(task.referTaskId){
           //insert copt task สร้าง task จากcopy task
           this.taskDetailChild.isDisableTopic = true;
-          this.taskPartnerChild.isHiddenCheckBox = true;
+          this.taskPartnerChild.isHiddenCheckBox = false;
           this.taskPartnerChild.isHiddenDeletePartner = false;
-          this.taskPartnerChild.isDisableAddPartner = false;
+          this.taskPartnerChild.isHiddenAddPartner = true;
+          this.taskPartnerChild.isDisableDoSelfFlag = true;
         }
         //hide edit partner
       }
     } else if (this.mode == Mode.E) {
-      console.log(this.taskPartnerChild.taskMember)
       this.taskDetailChild.isDisableProject = true;
       this.taskDetailChild.showFavPrj = false;
+
+
       //edit copy task
       if (this.taskForm.task.referTaskId) {
         this.taskDetailChild.isDisableTopic = true;
-        // this.taskDetailChild.isDissableCatagory = true;
+        this.taskDetailChild.isDissableCatagory = true;
         this.taskPartnerChild.isHiddenDeletePartner = false;
-        this.taskPartnerChild.isHiddenCheckBox = true;
-        // this.taskPartnerChild.isDisableDoSelfFlag = true;
-        this.taskPartnerChild.isDisableAddPartner = false;
+        this.taskPartnerChild.isHiddenCheckBox = false;
+        this.taskPartnerChild.isHiddenAddPartner = true;
+        this.taskPartnerChild.isDisableDoSelfFlag = true;
       } else {
         //edit my task
         this.taskDetailChild.isDisableTopic = false;
         this.taskDetailChild.isDissableCatagory = false;
         this.taskPartnerChild.isHiddenDeletePartner = true;
         this.taskPartnerChild.isHiddenCheckBox = false;
-        this.taskPartnerChild.isDisableDoSelfFlag = false;
-        this.taskPartnerChild.isDisableAddPartner = true;
+        this.taskPartnerChild.isHiddenAddPartner = true;
       }
     }else{
       this.taskDetailChild.showFavPrj = false;
       this.taskDetailChild.isDisableTopic = true;
       this.taskDetailChild.isDisableProject = true;
-      this.taskPartnerChild.isDisableDoSelfFlag = true;
-      this.taskPartnerChild.isDisableAddPartner = false;
+      this.taskPartnerChild.isHiddenAddPartner = false;
       this.taskPartnerChild.isHiddenCheckBox = true;
       this.taskDetailChild.isDissableCatagory = true;
     }
@@ -188,9 +194,9 @@ export class TaskModalComponent implements AfterViewInit {
       this.task.taskPartnerList = [];
 
       //check condition for add prjmember on Mode.I
-      // if (this.mode == Mode.I) {
+      if (this.mode == Mode.I) {
         //create new task
-        // if (!this.taskForm.task.taskId) {
+        if (!this.taskForm.task.taskId) {
           for (let obj of this.taskPartnerChild.taskMember) {
             if (obj.status == true) {
               this.task.taskPartnerList.push({ id: { userId: obj.userId } });
@@ -201,22 +207,22 @@ export class TaskModalComponent implements AfterViewInit {
               this.task.taskPartnerList.push({ id: { userId: obj.userId } });
             }
           }
-        // }
-        //if taskId => copytask not add prjmember
-      // }
+        }
+        // if taskId => copytask not add prjmember
+      }
       //mode == Mode.E
-      // else if (this.mode == Mode.E) {
-      //   for (let obj of this.taskPartnerChild.taskMember) {
-      //     if (obj.status == true) {
-      //       this.task.taskPartnerList.push({ id: { userId: obj.userId } });
-      //     }
-      //   }
-      //   if (this.taskPartnerChild.taskPartner) {
-      //     for (let obj of this.taskPartnerChild.taskPartner) {
-      //       this.task.taskPartnerList.push({ id: { userId: obj.userId } });
-      //     }
-      //   }
-      // }
+      else if (this.mode == Mode.E) {
+        for (let obj of this.taskPartnerChild.taskMember) {
+          if (obj.status == true) {
+            this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+          }
+        }
+        if (this.taskPartnerChild.taskPartner) {
+          for (let obj of this.taskPartnerChild.taskPartner) {
+            this.task.taskPartnerList.push({ id: { userId: obj.userId } });
+          }
+        }
+      }
 
       for (let obj of this.taskTagChild.tagList) {
         if (obj.display) {
@@ -225,6 +231,11 @@ export class TaskModalComponent implements AfterViewInit {
           this.task.taskTagList.push({ tag: { tagName: obj } });
         }
       }
+
+      if(this.taskForm.task.taskId){
+        this.task.referTaskId = this.taskForm.task.taskId;
+      }
+
       this.checkRequiredData(this.task, this.mode);
     } else {
       this.utilsService.findInvalidControls(this.taskDetailChild.taskDetailFormGroup);
@@ -241,7 +252,7 @@ export class TaskModalComponent implements AfterViewInit {
       if (mode == Mode.I) {
         this.createNewTask(task);
       } else {
-        task.referTaskId = this.taskForm.task.referTaskId;
+        // task.referTaskId = this.taskForm.task.referTaskId;
         this.updateTask(task);
       }
     }
@@ -249,17 +260,19 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   createNewTask(task: Task) {
+
     // if (this.taskForm.task.ownerUserId !== this.user.userId) {
     //   task.referTaskId = this.taskForm.task.taskId;
     // }else{
     //   task.referTaskId = this.taskForm.task.referTaskId;
     // }
 
-    if(this.taskForm.task.referTaskId){
-      task.referTaskId = this.taskForm.task.referTaskId;
-    }else{
-      task.referTaskId = this.taskForm.task.taskId;
-    }
+    // if(this.taskForm.task.referTaskId){
+    //   task.referTaskId = this.taskForm.task.referTaskId;
+    // }else{
+    //   task.referTaskId = this.taskForm.task.taskId;
+    // }
+
     this.taskService.insertTask(task).subscribe(
       res => {
         // console.log(res)
@@ -277,12 +290,12 @@ export class TaskModalComponent implements AfterViewInit {
   }
 
   updateTask(task: Task) {
-    if (this.taskForm.task.taskId) {
-      task.taskId = this.taskForm.task.taskId;
-    }
-    if (this.taskForm.task.versionId) {
-      task.versionId = this.taskForm.task.versionId;
-    }
+    // if (this.taskForm.task.taskId) {
+    //   task.taskId = this.taskForm.task.taskId;
+    // }
+    // if (this.taskForm.task.versionId) {
+    //   task.versionId = this.taskForm.task.versionId;
+    // }
     this.taskService.updateTask(task).subscribe(
       res => {
         // console.log(res);
@@ -354,6 +367,5 @@ export class TaskModalComponent implements AfterViewInit {
         obj.projectThumbnail = './assets/img/ico/startup.png';
       }
     }
-    console.log(this.taskDetailChild.favProjectList)
   }
 }

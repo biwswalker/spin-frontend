@@ -26,12 +26,11 @@ export class TaskPartnerComponent {
   public doSelfFlag: boolean = true;
   public taskMember: any[];
   public autocompletePartnerList: any[];
-  public partner: any;
   public mode: string;
   public projectId: number;
   public isHidden: boolean = false;
   public isHiddenCheckBox: boolean = false;
-  public isDisableAddPartner: boolean = false;
+  public isHiddenAddPartner: boolean = false;
   public isHiddenDeletePartner: boolean = false;
   public isDisableDoSelfFlag: boolean = false;
   public sumMember: number;
@@ -160,7 +159,6 @@ export class TaskPartnerComponent {
               }
             }
           }
-          console.log(this.taskMember)
         }
       }
     )
@@ -171,19 +169,21 @@ export class TaskPartnerComponent {
   }
 
   addPartner() {
-    if (this.selectPartner != null) {
+    console.log(this.selectPartner)
+    if (this.selectPartner) {
       let sPartner = this.selectPartner;
       if (this.taskMember.indexOf(sPartner) == -1) {
         this.taskPartner.push(sPartner);
-        this.autocompletePartnerList.splice(this.autocompletePartnerList.indexOf(sPartner), 1);
+        // this.autocompletePartnerList.splice(this.autocompletePartnerList.indexOf(sPartner), 1);
       }
-      this.partner = null;
-      this.selectPartner = null;
+      this.selectPartner = '';
     }
   }
 
   onSelect(event) {
+    console.log(event)
     this.selectPartner = event;
+    this.autocompletePartnerList.splice(this.autocompletePartnerList.indexOf(event), 1);
   }
 
   deletePartner(obj) {
