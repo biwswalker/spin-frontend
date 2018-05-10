@@ -1,9 +1,7 @@
+//Local Test
 export const URL = 'http://10.1.87.224:8081/';
 
-//ip for deploy officer(BKK)
-// export const URL = 'http://172.17.3.49:8080/spin-s/';
-
-// SSL service
+//Production
 // export const URL = 'https://spin.summitthai.com/spin-s/';
 
 //UAT
